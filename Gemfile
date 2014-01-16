@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.0'
+ruby '2.0.0'
 gem 'rails', '4.0.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -15,6 +15,7 @@ gem 'rails_12factor'
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'rake', '10.1.1'
+gem 'aws-s3'
 
 # Use sqlite3 as the database for Active Record
 group :development, :test do

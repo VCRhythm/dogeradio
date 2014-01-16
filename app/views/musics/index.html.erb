@@ -1,29 +1,7 @@
-<h1>Listing music</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>User</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @musics.each do |music| %>
-      <tr>
-        <td><%= music.name %></td>
-        <td><%= music.user %></td>
-        <td><%= link_to 'Show', music %></td>
-        <td><%= link_to 'Edit', edit_music_path(music) %></td>
-        <td><%= link_to 'Destroy', music, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
+<ul>
+	<% @musics.each do |music| %>
+		<li><%= music.key %> - <%= link_to "Delete", "musics/delete/?music="+music.key, confirm: 'Are you sure you want to delete '+music.key+'?'%>
+		</li>
+	<% end %>
+</ul>
 <%= link_to 'New Music', new_music_path %>

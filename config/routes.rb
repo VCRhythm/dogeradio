@@ -1,5 +1,8 @@
 Dogeradio::Application.routes.draw do
-  resources :musics
+  resources :musics do 
+		post 'upload'
+		post 'delete'
+	end
 
   devise_for :users
   root 'musics#index'
