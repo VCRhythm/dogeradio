@@ -1,6 +1,8 @@
 Dogeradio::Application.routes.draw do
+
+	post '/musics/upload', to: 'musics#upload'
+
   resources :musics do 
-		post 'upload'
 		post 'delete'
 	end
 
