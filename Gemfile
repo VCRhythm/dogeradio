@@ -16,6 +16,7 @@ gem 'bootstrap-sass'
 gem 'devise'
 gem 'rake', '10.1.1'
 gem 'aws-s3'
+gem 'paperclip'
 
 # Use sqlite3 as the database for Active Record
 group :development, :test do
