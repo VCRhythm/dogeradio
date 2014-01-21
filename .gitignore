@@ -15,4 +15,5 @@
 /log/*.log
 /tmp
 
-
+# Ignore AWS config file
+/config/s3.yml
