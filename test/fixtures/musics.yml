@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: musics
+#
+#  id                  :integer          not null, primary key
+#  name                :string(255)
+#  user_id             :integer          not null
+#  direct_upload_url   :string(255)      not null
+#  upload_file_name    :string(255)
+#  upload_content_type :string(255)
+#  upload_file_size    :integer
+#  upload_updated_at   :datetime
+#  processed           :boolean          default(FALSE), not null
+#  created_at          :datetime
+#  updated_at          :datetime
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:

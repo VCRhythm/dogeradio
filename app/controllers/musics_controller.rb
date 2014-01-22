@@ -1,32 +1,16 @@
 class MusicsController < ApplicationController
-	include AWS::S3
   before_action :set_music, only: [:show, :edit, :update, :destroy]
 
-  # GET /musics
-  # GET /musics.json
-  def index
-    @musics = AWS::S3::Bucket.find(S3_CONFIG['bucket']).objects
-  end
+	# GET /musics
+	# GET /musics.json
+	def index
+		@musics = Music.all
+	end
 
-  # GET /musics/1
-  # GET /musics/1.json
-  def show
-  end
-
-  # GET /musics/new
-  def new
-    @music = Music.new
-  end
-
-  # GET /musics/1/edit
-  def edit
-  end
-
-  # POST /musics
+	# POST /musics
   # POST /musics.json
   def create
-    @music = Music.new(music_params)
-		AWS::S3::S3Object.store(sanitive_filename(params[:mp3file].original_filename), params[:mp3file].read, S3_CONFIG['bucket'], access: :public_read)
+    @music = current_user.musics.create(music_params)
     respond_to do |format|
       if @music.save
         format.html { redirect_to @music, notice: 'Music was successfully created.' }
@@ -52,20 +36,10 @@ class MusicsController < ApplicationController
     end
   end
 
-	def upload
-		begin
-			AWS::S3::S3Object.store(sanitize_filename(params[:mp3file].original_filename), params[:mp3file].read, S3_CONFIG['bucket'], access: :public_read)
-			redirect_to root_path
-		rescue
-			render text: "Couldn't complete the upload"
-		end
-	end
-
   # DELETE /musics/1
   # DELETE /musics/1.json
   def delete
     if(params[:song])
-			AWS::S3::S3Object.find(params[:song], S3_CONFIG['bucket']).delete
 			redirect_to root_path
 		else
 			render text: 'No song to delete!'
@@ -85,6 +59,6 @@ class MusicsController < ApplicationController
 		
     # Never trust parameters from the scary internet, only allow the white list through.
     def music_params
-      params.require(:music).permit(:name, :user_id)
+      params.require(:music).permit(:name, :user_id, :attachment, :direct_upload_url)
     end
 end

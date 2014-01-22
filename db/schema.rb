@@ -11,19 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140121213304) do
+ActiveRecord::Schema.define(version: 20140115034824) do
 
   create_table "musics", force: true do |t|
     t.string   "name"
-    t.integer  "user_id"
+    t.integer  "user_id",                             null: false
+    t.string   "direct_upload_url",                   null: false
+    t.string   "upload_file_name"
+    t.string   "upload_content_type"
+    t.integer  "upload_file_size"
+    t.datetime "upload_updated_at"
+    t.boolean  "processed",           default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "attachment_file_name"
-    t.string   "attachment_content_type"
-    t.integer  "attachment_file_size"
-    t.datetime "attachment_updated_at"
   end
 
+  add_index "musics", ["processed"], name: "index_musics_on_processed"
   add_index "musics", ["user_id"], name: "index_musics_on_user_id"
 
   create_table "users", force: true do |t|
