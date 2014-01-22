@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.turbolinks
 //= require s3_direct_upload
 //= require jquery.jplayer
 //= require turbolinks
