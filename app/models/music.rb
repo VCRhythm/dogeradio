@@ -16,7 +16,8 @@
 #
 
 class Music < ActiveRecord::Base
-	DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/myapp#{!Rails.env.production? ? "\\-#{Rails.env}" : ''}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
+	DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/dogeradio#{!Rails.env.production? ? "\\-#{Rails.env}" : ''}\.s3\.amazonaws\.com\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
+
 	belongs_to :user
 	has_attached_file :upload
 
@@ -24,7 +25,6 @@ class Music < ActiveRecord::Base
 	
 	before_create :set_upload_attributes
 	after_create :queue_processing
-
 
 	# Store an unescaped version of the escaped URL that Amazon returns from direct upload.
 	def direct_upload_url=(escaped_url)
@@ -45,7 +45,7 @@ class Music < ActiveRecord::Base
 		if music.post_process_required?
 			music.upload = URI.parse(URI.escape(music.direct_upload_url))
 		else
-			paperclip_file_path = "documents/uploads/#{id}/original/#{direct_upload_url_data[:filename]}"
+			paperclip_file_path = "musics/uploads/#{id}/original/#{direct_upload_url_data[:filename]}"
 			s3.buckets[Rails.configuration.aws[:bucket]].objects[paperclip_file_path].copy_from(direct_upload_url_data[:path])
 		end
 
