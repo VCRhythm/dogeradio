@@ -16,4 +16,4 @@
 /tmp
 
 # Ignore AWS config file
-/config/s3.yml
+/config/s3_development.yml
