@@ -27,5 +27,8 @@ Dogeradio::Application.configure do
   # number of complex assets.
   config.assets.debug = true
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
-
+	require 'aws-sdk'
+	Rails.configuration.aws = YAML.load(ERB.new(File.read("#{Rails.root}/config/s3.yml")).result)[Rails.env].symbolize_keys!
+	AWS.config(logger: Rails.logger)
+	AWS.config(Rails.configuration.aws)
 end
