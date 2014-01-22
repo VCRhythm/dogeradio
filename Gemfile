@@ -19,6 +19,7 @@ gem 'aws-sdk'
 gem 'paperclip'
 gem 's3_direct_upload'
 gem 'delayed_job_active_record'
+gem 'jplayer-rails'
 
 # Use sqlite3 as the database for Active Record
 group :development, :test do

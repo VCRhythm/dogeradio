@@ -22,6 +22,11 @@ class MusicsController < ApplicationController
     end
   end
 
+	# GET /musics/1
+	# GET /musics/1.json
+	def show
+	end
+
   # PATCH/PUT /musics/1
   # PATCH/PUT /musics/1.json
   def update
