@@ -5,7 +5,7 @@ class MusicsController < ApplicationController
   # GET /musics
   # GET /musics.json
   def index
-    @musics = AWS::S3::Bucket.find(BUCKET).objects
+    @musics = AWS::S3::Bucket.find(S3_CONFIG['bucket']).objects
   end
 
   # GET /musics/1
@@ -26,7 +26,7 @@ class MusicsController < ApplicationController
   # POST /musics.json
   def create
     @music = Music.new(music_params)
-		AWS::S3::S3Object.store(sanitive_filename(params[:mp3file].original_filename), params[:mp3file].read, BUCKET, access: :public_read)
+		AWS::S3::S3Object.store(sanitive_filename(params[:mp3file].original_filename), params[:mp3file].read, S3_CONFIG['bucket'], access: :public_read)
     respond_to do |format|
       if @music.save
         format.html { redirect_to @music, notice: 'Music was successfully created.' }
@@ -54,7 +54,7 @@ class MusicsController < ApplicationController
 
 	def upload
 		begin
-			AWS::S3::S3Object.store(sanitize_filename(params[:mp3file].original_filename), params[:mp3file].read, BUCKET, access: :public_read)
+			AWS::S3::S3Object.store(sanitize_filename(params[:mp3file].original_filename), params[:mp3file].read, S3_CONFIG['bucket'], access: :public_read)
 			redirect_to root_path
 		rescue
 			render text: "Couldn't complete the upload"
@@ -65,7 +65,7 @@ class MusicsController < ApplicationController
   # DELETE /musics/1.json
   def delete
     if(params[:song])
-			AWS::S3::S3Object.find(params[:song], BUCKET).delete
+			AWS::S3::S3Object.find(params[:song], S3_CONFIG['bucket']).delete
 			redirect_to root_path
 		else
 			render text: 'No song to delete!'

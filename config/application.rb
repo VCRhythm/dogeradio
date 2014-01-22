@@ -19,5 +19,12 @@ module Dogeradio
 		# config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
 		# config.i18n.default_locale = :de
 		config.assets.initialize_on_precompile = false
+
+		S3_CONFIG = YAML.load_file("#{::Rails.root}/config/s3.yml")[::Rails.env]
+		
+		AWS::S3::Base.establish_connection!(
+			access_key_id: S3_CONFIG['access_key_id'],
+			secret_access_key: S3_CONFIG['secret_access_key']
+		)
 	end
 end
