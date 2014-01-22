@@ -8,7 +8,7 @@
 						$("#jquery_jplayer_1").jPlayer({
 							supplied: "mp3",
 							ready: function () {
-								$(this).jPlayer("setMedia", {mp3: "<%= music.upload.url %>"} );
+								$(this).jPlayer("setMedia", {mp3: "<%= music.direct_upload_url %>"} );
 							}
 						});
 					});
