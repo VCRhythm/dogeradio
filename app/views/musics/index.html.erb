@@ -31,12 +31,12 @@
 					</span>)
 					<% if music.user.id == current_user.id %>(<%= link_to music, method: :delete, data: {confirm: "Are you sure?" } do %><span class="glyphicon glyphicon-trash"></span><% end %>)<% end %>
 					<div>
+						<%= render partial: "tags/form", locals: {music: music} %>
 						<span class="tags">
 							<% music.tags.each do |tag| %>
 								<button type="button" class="btn btn-default"><%= tag.category%>: <%=tag.description%></button>
 							<% end %>
 						</span>
-						<%= render partial: "tags/form", locals: {music: music, tag: music.tags.new} %>
 					</div>
 				</li>
 				<% player_count += 1 %>

@@ -1,13 +1,9 @@
-<%= form_for [music, tag] do |f| %>
-  <div class="field">
-    <%= f.label :category %><br>
-    <%= f.text_field :category %>
+<%= form_for [music, Tag.new], html: {class: "form-inline", role: "form"} do |f| %>
+  <div class="form-group">
+    <%= f.select :category, options_for_select([["Tag Type", ""],"Genre","City","Style","Trend"]), {}, {class: "form-control input-sm"} %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
+  <div class="form-group">
+    <%= f.text_field :description, class: "form-control input-sm", placeholder: "Description" %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.submit 'Add Tag', class: "btn btn-primary" %>
 <% end %>
