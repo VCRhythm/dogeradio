@@ -39,13 +39,13 @@ class Music < ActiveRecord::Base
 	# Final upload processing step
 	def self.transfer_and_cleanup(id)
 		music = Music.find(id)
-		direct_upload_url_date = DIRECT_UPLOAD_URL_FORMAT.match(music.direct_upload_url)
+		direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(music.direct_upload_url)
 		s3 = AWS::S3.new
 
 		if music.post_process_required?
 			music.upload = URI.parse(URI.escape(music.direct_upload_url))
 		else
-			paperclip_file_path = "musics/uploads/#{id}/original/#{direct_upload_url_data[:filename]}"
+			paperclip_file_path = "uploads/#{id}/#{direct_upload_url_data[:filename]}"
 			s3.buckets[Rails.configuration.aws[:bucket]].objects[paperclip_file_path].copy_from(direct_upload_url_data[:path])
 		end
 

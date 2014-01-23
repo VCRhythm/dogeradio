@@ -23,7 +23,7 @@ class MusicsController < ApplicationController
   def update
     respond_to do |format|
       if @music.update(music_params)
-        format.html { redirect_to @music, notice: 'Music was successfully updated.' }
+        format.html { redirect_to @music, notice: 'Song was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -34,11 +34,12 @@ class MusicsController < ApplicationController
 
   # DELETE /musics/1
   # DELETE /musics/1.json
-  def delete
-    if(params[:song])
-			redirect_to root_path
-		else
-			render text: 'No song to delete!'
+	def destroy
+    @music.destroy
+		flash[:notice] = "Song has been deleted."
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.json { head :no_content }
     end
   end
 
