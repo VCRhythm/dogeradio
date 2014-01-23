@@ -20,12 +20,15 @@
 						});
 					});
 				</script>		
-				<li><%= music.upload_file_name %></li>
-				<div id="jquery_jplayer_<%=player_count%>" class="jp-jplayer"></div>
-				<div id="jp_container_<%=player_count%>" class="jp-audio">
-					<a href="#" class="jp-play">Play</a>
-					<a href="#" class="jp-pause">Pause</a>
-				</div>
+				<li>
+					<%= music.user.username %><br />
+					<%= music.upload_file_name %>
+					<span id="jquery_jplayer_<%=player_count%>" class="jp-jplayer"></span>
+					(<span id="jp_container_<%=player_count%>" class="jp-audio">
+						<a href="#" class="jp-play">Play</a>
+						<a href="#" class="jp-pause">Pause</a>
+					</span>)
+				</li>
 				<% player_count += 1 %>
 			<% end %>
 		</ul>
