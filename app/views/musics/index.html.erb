@@ -3,25 +3,29 @@
 		<h1>Music</h1>
 		<ul>
 			<% @musics.each do |music| %>
+			<li><%= music.upload_file_name %></li>
+				<div id="jquery_jplayer_<%=music.id%>" class="jp-jplayer"></div>
+				<div id="jp_container_<%=music.id%>" class="jp-audio">
+					<a href="#" class="jp-play">Play</a>
+					<a href="#" class="jp-pause">Pause</a>
+				</div>
 				<script type="text/javascript">
 					$(document).ready(function(){
-						$("#jquery_jplayer_1").jPlayer({
+						$('#jquery_jplayer_<%=music.id%>').jPlayer({
 							supplied: "mp3",
+							play: function(){
+								$(this).jPlayer("pauseOthers");
+							},
+							smoothPlayBar: true,
+							keyEnabled: true,
 							ready: function () {
 								$(this).jPlayer("setMedia", {mp3: "<%= music.direct_upload_url %>"} );
 							}
 						});
 					});
 				</script>		
-				<li><%= music.upload_file_name %></li>
-				<div id="jquery_jplayer_1"></div>
-				<div id="jp_container_1">
-					<a href="#" class="jp-play">Play</a>
-					<a href="#" class="jp-pause">Pause</a>
-				</div>
-			<% end %>
+				<% end %>
 		</ul>
 		<%= link_to 'New Music', new_music_path %>
 	</div>
 </div>
-
