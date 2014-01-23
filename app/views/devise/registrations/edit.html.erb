@@ -4,6 +4,11 @@
   <%= devise_error_messages! %>
 
 	<div><%= f.label :username %>: <%=current_user.username %><br />
+	
+	<div class="form-group">
+		<%= f.label :avatar %><br />
+		<%= f.file_field :avatar, class: "form-control" %>
+	</div>
 
   <div class="form-group"><%= f.label :email %><br />
   <%= f.email_field :email, class: "form-control" %></div>

@@ -25,9 +25,10 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :musics, dependent: :destroy
 
-	has_attached_file :avatar, style: {
+	has_attached_file :avatar, styles: {
 		thumb: '100x100>',
 		square: '200x200#',
 		medium: '300x300>'
-	}
+	},
+		bucket: 'dogeradio-avatar'
 end

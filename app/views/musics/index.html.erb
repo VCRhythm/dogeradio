@@ -25,6 +25,9 @@
 					});
 				</script>		
 				<li>
+					<% if music.user.avatar.exists? %>
+						<%= image_tag music.user.avatar.url(:thumb) %>
+					<% end %>
 					<%= music.user.username %><br />
 					<%= music.upload_file_name %>
 					<span id="jquery_jplayer_<%=player_count%>" class="jp-jplayer"></span>
