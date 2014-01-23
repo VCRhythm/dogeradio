@@ -22,6 +22,7 @@ class Music < ActiveRecord::Base
 	UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/myapp#{!Rails.env.production? ? "\\-#{Rails.env}" : ''}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
 
 	belongs_to :user
+	has_many :tags, dependent: :destroy
 	has_attached_file :upload
 
 	validates :direct_upload_url, presence: true, format: { with: DIRECT_UPLOAD_URL_FORMAT }
@@ -85,6 +86,6 @@ class Music < ActiveRecord::Base
 			
 	# Queue file processing
   def queue_processing
-	  Music.transfer_and_cleanup(id)
+	  Music.delay.transfer_and_cleanup(id)
   end
 end
