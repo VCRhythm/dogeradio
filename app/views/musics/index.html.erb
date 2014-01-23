@@ -5,7 +5,7 @@
 			<span class="glyphicon glyphicon-plus"></span> Add Music
 		<% end %>
 		</span>
-		<ul>
+		<ul class="list-group">
 			<% player_count = 1 %>
 			<% @musics.each do |music| %>
 				<script type="text/javascript">
@@ -24,10 +24,13 @@
 						});
 					});
 				</script>		
-				<li>
+				<li class="list-group-item">
+					<div style="display:inline-block;">
 					<% if music.user.avatar.exists? %>
 						<%= image_tag music.user.avatar.url(:thumb) %>
 					<% end %>
+					</div>
+					<div style="display:inline-block;">
 					<%= music.user.username %><br />
 					<%= music.upload_file_name %>
 					<span id="jquery_jplayer_<%=player_count%>" class="jp-jplayer"></span>
@@ -36,6 +39,7 @@
 						<button type="button" class="jp-pause btn btn-link btn-lg"><span class="glyphicon glyphicon-pause"></span></button>
 					</span>
 					<% if music.user.id == current_user.id %><%= link_to music, method: :delete, data: {confirm: "Are you sure?" } do %><span class="glyphicon glyphicon-trash"></span><% end %><% end %>
+					</div>
 					<div>
 						<%= render partial: "tags/form", locals: {music: music} %>
 						<span class="tags">
