@@ -1,3 +1,4 @@
+<div class="form-group">
 <%= s3_uploader_form callback_url: musics_url,
 		id: "s3_uploader",
 		callback_param: "music[direct_upload_url]",
@@ -7,6 +8,7 @@
 <% end %>
 
 <div id="uploads_container"></div>
+</div>
 
 <script id="template-upload" type="text/x-tmpl">
 	<div id="upload_{%=o.unique_id%}" class="upload">
