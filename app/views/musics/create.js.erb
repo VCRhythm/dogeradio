@@ -1,5 +1,5 @@
 <% if @music.persisted? %>
 	$('#upload_<%=params[:unique_id]%>').hide();
 <% else %>
-	$('#upload_<%=params[:unique_id]%> div.progress').removeClass('active progress-striped').addClass('progress-danger');
+	$('#upload_<%=params[:unique_id]%> div.progress').removeClass('active progress-striped').addClass('progress-bar-danger');
 <% end %>
