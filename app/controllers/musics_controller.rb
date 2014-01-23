@@ -4,7 +4,7 @@ class MusicsController < ApplicationController
 	# GET /musics
 	# GET /musics.json
 	def index
-		@musics = Music.all
+		@musics = Music.order(created_at: :desc)
 	end
 
 	# POST /musics
