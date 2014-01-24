@@ -10,7 +10,9 @@ class MusicsController < ApplicationController
 	# POST /musics
   # POST /musics.json
   def create
-    @music = current_user.musics.create(music_params)
+    @music = current_user.musics.new(music_params)
+		@music.name = params[:filename]
+		@music.save
   end
 
 	# GET /musics/1

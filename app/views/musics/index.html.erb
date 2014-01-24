@@ -35,7 +35,7 @@
 							<h3><%= music.user.username %></h3>
 						</div>
 						<div class="song-player media-body">
-							<h2 class="media-heading"><%= music.upload_file_name %></h2>
+							<h2 class="media-heading"><%= music.name %></h2>
 							<span id="jquery_jplayer_<%=player_count%>" class="jp-jplayer"></span>
 							<div id="jp_container_<%=player_count%>" class="jp-audio">
 								<div class="jp-gui jp-interface">
@@ -49,7 +49,7 @@
 								</div>
 							</div>
 						</div>
-					<% if music.user.id == current_user.id %><%= link_to music, method: :delete, data: {confirm: "Are you sure?" } do %><span class="glyphicon glyphicon-trash"></span><% end %><% end %>
+					<% if music.user.id == current_user.id %><%= link_to music, method: :delete, data: {confirm: "Are you sure?" }, class: "pull-right" do %><span class="glyphicon glyphicon-trash"></span><% end %><% end %>
 					</div>
 					<div>
 						<%= render partial: "tags/form", locals: {music: music} %>
