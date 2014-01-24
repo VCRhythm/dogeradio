@@ -86,6 +86,6 @@ class Music < ActiveRecord::Base
 			
 	# Queue file processing
   def queue_processing
-	  Music.delay.transfer_and_cleanup(id)
+	  Music.transfer_and_cleanup(id)
   end
 end
