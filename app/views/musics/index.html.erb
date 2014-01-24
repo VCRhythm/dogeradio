@@ -21,7 +21,7 @@
 							keyEnabled: true,
 							cssSelectorAncestor: "#jp_container_<%=player_count%>",
 							ready: function () {
-								$(this).jPlayer("setMedia", {mp3: "<%= music.direct_upload_url %>"} );
+								$(this).jPlayer("setMedia", {mp3: "<%= music.upload.url %>"} );
 							}
 						});
 					});
