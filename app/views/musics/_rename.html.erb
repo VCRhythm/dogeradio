@@ -1,4 +1,4 @@
-<%= form_for @music, html: {class: "form-inline"} do |f| %>
+<%= form_for @music, remote: true, html: {class: "form-inline"} do |f| %>
 	<%= f.text_field :name, placeholder: params[:filename], html: {class: "form-control", style: "width:50%;"} %>
 	<%= f.submit "Rename", class: "btn btn-default" %>
 <% end %>
