@@ -1,10 +1,11 @@
 <div class="container">
 	<div class="col-md-12">
-		<span><h1 style="display:inline-block;">Music</h1> 
+		<div style="margin-bottom:8px;"> 
+		<h1 style="display:inline;">Music</h1>
 		<%= link_to new_music_path, class: "pull-right" do %>
 			<span class="glyphicon glyphicon-plus"></span> Add Music
 		<% end %>
-		</span>
+		</div>
 		<ul class="list-group">
 			<% player_count = 1 %>
 			<% @musics.each do |music| %>
@@ -12,12 +13,11 @@
 					$(document).ready(function(){
 						$('#jquery_jplayer_<%=player_count%>').jPlayer({
 							supplied: "mp3",
-							smoothPlayBar: true,
+							swfPath: "http://www.jplayer.org/latest/js/Jplayer.swf",
 							keyEnabled: true,
 							play: function(){
 								$(this).jPlayer("pauseOthers");
 							},
-							smoothPlayBar: true,
 							keyEnabled: true,
 							cssSelectorAncestor: "#jp_container_<%=player_count%>",
 							ready: function () {
@@ -33,7 +33,7 @@
 						<% end %>
 						<h2><%= music.user.username %></h2>
 					</div>
-					<div style="display:inline-block; width:80%;">
+					<div style="display:inline-block;">
 					<%= music.upload_file_name %>
 					<span id="jquery_jplayer_<%=player_count%>" class="jp-jplayer"></span>
 					<div id="jp_container_<%=player_count%>" class="jp-audio">
@@ -42,10 +42,8 @@
 								<button type="button" class="jp-play btn btn-link btn-lg"><span class="glyphicon glyphicon-play"</span></button>
 								<button type="button" class="jp-pause btn btn-link btn-lg"><span class="glyphicon glyphicon-pause"></span></button>
 							</span>
-							<div class="jp-progress" style="width:50%;">
-								<div class="jp-seek-bar progress" style="width:100%;">
-									<div class="jp-play-bar progress-bar" style="width:0%;"></div>
-								</div>
+							<div class="jp-seek-bar progress" style="width:100%;">
+								<div class="jp-play-bar progress-bar" style="width:0%;"></div>
 							</div>
 						</div>
 					</div>
