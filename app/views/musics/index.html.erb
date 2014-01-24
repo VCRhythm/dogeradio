@@ -12,7 +12,9 @@
 					$(document).ready(function(){
 						$('#jquery_jplayer_<%=player_count%>').jPlayer({
 							supplied: "mp3",
+							smoothPlayBar: true,
 							preload: "metadata",
+							keyEnabled: true,
 							play: function(){
 								$(this).jPlayer("pauseOthers");
 							},
@@ -36,8 +38,17 @@
 					<%= music.upload_file_name %>
 					<span id="jquery_jplayer_<%=player_count%>" class="jp-jplayer"></span>
 					<span id="jp_container_<%=player_count%>" class="jp-audio">
-						<button type="button" class="jp-play btn btn-link btn-lg"><span class="glyphicon glyphicon-play"</span></button>
-						<button type="button" class="jp-pause btn btn-link btn-lg"><span class="glyphicon glyphicon-pause"></span></button>
+						<div class="jp-gui jp-interface">
+						<div class="jp-controls">
+							<button type="button" class="jp-play btn btn-link btn-lg"><span class="glyphicon glyphicon-play"</span></button>
+							<button type="button" class="jp-pause btn btn-link btn-lg"><span class="glyphicon glyphicon-pause"></span></button>
+						</div>
+						<div class="jp-progress">
+							<div class="jp-seek-bar progress" style="width:100%;">
+								<div class="jp-play-bar progress-bar" style="width:0%;"></div>
+							</div>
+						</div>
+					</div>
 					</span>
 					<% if music.user.id == current_user.id %><%= link_to music, method: :delete, data: {confirm: "Are you sure?" } do %><span class="glyphicon glyphicon-trash"></span><% end %><% end %>
 					</div>
