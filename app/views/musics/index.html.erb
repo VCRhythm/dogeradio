@@ -9,6 +9,11 @@
 		<ul class="list-group">
 			<% player_count = 1 %>
 			<% @musics.each do |music| %>
+				<% if player_count < @musics.count %>
+					<% next_player = player_count + 1 %>
+				<% else %>
+					<% next_player = 1 %>
+				<% end %>
 				<script type="text/javascript">
 					$(document).ready(function(){
 						$('#jquery_jplayer_<%=player_count%>').jPlayer({
@@ -22,6 +27,19 @@
 							cssSelectorAncestor: "#jp_container_<%=player_count%>",
 							ready: function () {
 								$(this).jPlayer("setMedia", {mp3: "<%= music.upload.url %>"} );
+							},
+							repeat: function(event){
+								if(event.jPlayer.options.loop) {
+									$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
+									$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerRepeat", function() {
+										$(this).jPlayer("play");
+									});
+								} else {
+									$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
+									$(this).bind($.jPlayer.event.ended + ".jPLayer.jPlayerNext", function(){
+										$("#jquery_jplayer_<%=next_player%>").jPlayer("play",0);
+									});
+								}
 							}
 						});
 					});
