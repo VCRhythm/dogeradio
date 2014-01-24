@@ -19,7 +19,6 @@ gem 'rake', '10.1.1'
 gem 'aws-sdk'
 gem 'paperclip'
 gem 's3_direct_upload'
-gem 'delayed_job_active_record'
 gem 'jplayer-rails'
 gem 'rmagick'
 
