@@ -27,29 +27,30 @@
 					});
 				</script>		
 				<li class="list-group-item">
-					<div style="display:inline-block;">
-						<% if music.user.avatar.exists? %>
-							<%= image_tag music.user.avatar.url(:thumb) %>
-						<% end %>
-						<h2><%= music.user.username %></h2>
-					</div>
-					<div style="display:inline-block;">
-					<%= music.upload_file_name %>
-					<span id="jquery_jplayer_<%=player_count%>" class="jp-jplayer"></span>
-					<div id="jp_container_<%=player_count%>" class="jp-audio">
-						<div class="jp-gui jp-interface">
-							<span class="jp-controls pull-right">
-								<button type="button" class="jp-play btn btn-link btn-lg"><span class="glyphicon glyphicon-play"</span></button>
-								<button type="button" class="jp-pause btn btn-link btn-lg"><span class="glyphicon glyphicon-pause"></span></button>
-							</span>
-							<div class="jp-seek-bar progress" style="width:100%;">
-								<div class="jp-play-bar progress-bar" style="width:0%;"></div>
+					<div class="media">
+						<div class="pull-left media-object">
+							<% if music.user.avatar.exists? %>
+								<%= image_tag music.user.avatar.url(:thumb) %>
+							<% end %>
+							<h3><%= music.user.username %></h3>
+						</div>
+						<div class="song-player media-body">
+							<h2 class="media-heading"><%= music.upload_file_name %></h2>
+							<span id="jquery_jplayer_<%=player_count%>" class="jp-jplayer"></span>
+							<div id="jp_container_<%=player_count%>" class="jp-audio">
+								<div class="jp-gui jp-interface">
+									<span class="jp-controls">
+										<button type="button" class="jp-play btn btn-link btn-lg"><span class="glyphicon glyphicon-play"</span></button>
+										<button type="button" class="jp-pause btn btn-link btn-lg"><span class="glyphicon glyphicon-pause"></span></button>
+									</span>
+									<div class="jp-seek-bar progress" style="width:100%;">
+										<div class="jp-play-bar progress-bar" style="width:0%;"></div>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-					</span>
 					<% if music.user.id == current_user.id %><%= link_to music, method: :delete, data: {confirm: "Are you sure?" } do %><span class="glyphicon glyphicon-trash"></span><% end %><% end %>
-				</div>
+					</div>
 					<div>
 						<%= render partial: "tags/form", locals: {music: music} %>
 						<span class="tags">
