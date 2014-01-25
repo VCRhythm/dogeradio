@@ -51,6 +51,7 @@
 								<%= image_tag music.user.avatar.url(:thumb) %>
 							<% end %>
 							<h3><%= music.user.username %></h3>
+							<%= link_to user_pay_path(music.user), method: :post, remote: true do %><%= image_tag 'dogecoin-icon.png' %><% end %>
 						</div>
 						<div class="song-player media-body">
 							<h2 class="media-heading"><%= music.name %></h2>

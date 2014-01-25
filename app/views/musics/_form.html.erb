@@ -1,13 +1,13 @@
 <div class="form-group">
-<%= s3_uploader_form callback_url: musics_url,
+	<%= s3_uploader_form callback_url: musics_url,
 		id: "s3_uploader",
 		callback_param: "music[direct_upload_url]",
 		expiration: 24.hours.from_now.utc.iso8601,
 		max_file_size: 10.megabytes do %>
-		<%= file_field_tag :file, multiple: true %>
-<% end %>
+		<%= file_field_tag :file, multiple: true, class: "form-control" %>
+	<% end %>
 
-<div id="uploads_container"></div>
+	<div id="uploads_container"></div>
 </div>
 
 <script id="template-upload" type="text/x-tmpl">

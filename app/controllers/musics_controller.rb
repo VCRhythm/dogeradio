@@ -51,11 +51,6 @@ class MusicsController < ApplicationController
       @music = Music.find(params[:id])
     end
 
-		def sanitize_filename(file_name)
-			just_filename = File.basename(file_name)
-			just_filename.sub(/[^\w\.\-]/,'_')
-		end
-		
     # Never trust parameters from the scary internet, only allow the white list through.
     def music_params
       params.require(:music).permit(:name, :user_id, :attachment, :direct_upload_url)

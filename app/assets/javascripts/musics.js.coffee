@@ -5,5 +5,3 @@ $ ->
 
 	$('#s3_uploader').bind 's3_upload_failed', (e, content) ->
 		alert content.filename + " failed to upload."
-
-

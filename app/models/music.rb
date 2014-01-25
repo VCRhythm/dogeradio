@@ -27,6 +27,7 @@ class Music < ActiveRecord::Base
 
 	validates :direct_upload_url, presence: true, format: { with: DIRECT_UPLOAD_URL_FORMAT }
 						    
+	before_post_process :transliterate_file_name
   before_create :set_upload_attributes
   after_create :queue_processing
 										  
@@ -45,15 +46,17 @@ class Music < ActiveRecord::Base
   def self.transfer_and_cleanup(id)
 	  music = Music.find(id)
 		direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(music.direct_upload_url)
+		clean_direct_upload_url_data = direct_upload_url_data[:filename].gsub!(/'/, '')
 	  s3 = AWS::S3.new
 																					    
 	  if music.post_process_required?
 		  music.upload = URI.parse(URI.escape(music.direct_upload_url))
 	  else
-	    paperclip_file_path = "musics/uploads/#{id}/original/#{direct_upload_url_data[:filename]}"
+	    paperclip_file_path = "musics/uploads/#{id}/original/#{clean_direct_upload_url_data}"
 	    s3.buckets[Rails.configuration.aws[:bucket]].objects[paperclip_file_path].copy_from(direct_upload_url_data[:path])
 	  end
-
+		
+		music.direct_upload_url = DIRECT_UPLOAD_URL_FORMAT.match(clean_direct_upload_url_data)
 	  music.processed = true
     music.save
 	  
@@ -71,10 +74,10 @@ class Music < ActiveRecord::Base
     direct_upload_head = s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].head
 
     self.upload_file_name     = direct_upload_url_data[:filename]
-    self.upload_file_size     = direct_upload_head.content_length
+		self.upload_file_size     = direct_upload_head.content_length
     self.upload_content_type  = direct_upload_head.content_type
     self.upload_updated_at    = direct_upload_head.last_modified
-																																										  rescue AWS::S3::Errors::NoSuchKey => e
+  rescue AWS::S3::Errors::NoSuchKey => e
 		tries -= 1
     if tries > 0
 	    sleep(3)
@@ -88,4 +91,20 @@ class Music < ActiveRecord::Base
   def queue_processing
 	  Music.transfer_and_cleanup(id)
   end
+
+	def transliterate(str)
+		s = Iconv.iconv('ascii//ignore//translit', 'utf-8', str).to_s
+		s.downcase!
+		s.gsub!(/[^A-Za-z0-9]+/, ' ')
+		s.gsub!(/'/, '')
+		s.strip!
+		s.gsub!(/\ +/, '-')
+		return s
+	end
+
+	def transliterate_file_name
+		extension = File.extname(local_file_name).gsub(/^\.+/, '')
+		filename = local_file_name.gsub(/\.#{extension}$/, '')
+		self.local.instance_write(:file_name, "#{transliterate(filename)}.#{transliterate(extension)}")
+	end
 end
