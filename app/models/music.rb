@@ -46,7 +46,7 @@ class Music < ActiveRecord::Base
   def self.transfer_and_cleanup(id)
 	  music = Music.find(id)
 		direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(music.direct_upload_url)
-		clean_direct_upload_url = direct_upload_url_data[:filename].gsub!(/'/, '')
+		clean_direct_upload_url = direct_upload_url_data[:filename].gsub(/'/, '')
 	  s3 = AWS::S3.new
 																					    
 	  if music.post_process_required?
