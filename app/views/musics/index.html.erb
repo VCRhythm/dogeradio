@@ -50,7 +50,6 @@
 							<% if music.user.avatar.exists? %>
 								<%= image_tag music.user.avatar.url(:thumb) %>
 							<% end %>
-							<h3><%= music.user.username %></h3>
 						</div>
 						<div class="song-player media-body">
 							<h2 class="media-heading" id= "heading_<%=music.id.to_s%>" ><%= music.name %></h2>
@@ -68,7 +67,10 @@
 								</div>
 							</div>
 						</div>
-					<% if music.user.id == current_user.id %><%= link_to music, method: :delete, data: {confirm: "Are you sure?" }, class: "pull-right" do %><span class="glyphicon glyphicon-trash"></span><% end %><% end %>
+					</div>
+					<div height:30px>
+						<h3 style="margin:0;" class="pull-left"><%= music.user.username %></h3>
+						<% if music.user.id == current_user.id %><%= link_to music, method: :delete, data: {confirm: "Are you sure?" }, class: "pull-right" do %><span class="glyphicon glyphicon-trash"></span><% end %><% end %>
 					</div>
 					<div>
 						<%= render partial: "tags/form", locals: {music: music} %>
