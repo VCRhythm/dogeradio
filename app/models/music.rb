@@ -56,6 +56,7 @@ class Music < ActiveRecord::Base
 	    s3.buckets[Rails.configuration.aws[:bucket]].objects[paperclip_file_path].copy_from(direct_upload_url_data[:path])
 	  end
 		
+		music.upload_file_name.gsub!(/'/,'')
 		music.direct_upload_url = clean_direct_upload_url
 	  music.processed = true
     music.save
