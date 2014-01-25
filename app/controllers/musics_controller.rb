@@ -53,6 +53,6 @@ class MusicsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def music_params
-      params.require(:music).permit(:name, :user_id, :attachment, :direct_upload_url)
+      params.require(:music).permit(:name, :user_id, :attachment, :direct_upload_url, :upload_file_name)
     end
 end
