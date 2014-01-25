@@ -48,7 +48,7 @@
 					<div class="media">
 						<div class="pull-left media-object">
 							<% if music.user.avatar.exists? %>
-								<%= image_tag music.user.avatar.url(:thumb), id: "avatar_"+music.id %>
+								<%= image_tag music.user.avatar.url(:thumb), id: "avatar_"+music.id.to_s %>
 							<% end %>
 							<h3><%= music.user.username %></h3>
 						</div>
