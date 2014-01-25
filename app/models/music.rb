@@ -27,7 +27,6 @@ class Music < ActiveRecord::Base
 
 	validates :direct_upload_url, presence: true, format: { with: DIRECT_UPLOAD_URL_FORMAT }
 						    
-	before_post_process :transliterate_file_name
   before_create :set_upload_attributes
   after_create :queue_processing
 										  
@@ -47,6 +46,7 @@ class Music < ActiveRecord::Base
 	  music = Music.find(id)
 		direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(music.direct_upload_url)
 		clean_direct_upload_url = direct_upload_url_data[:filename].gsub(/'/, '')
+		clean_upload_file_name = music.upload_file_name.gsub(/'/,'')
 	  s3 = AWS::S3.new
 																					    
 	  if music.post_process_required?
@@ -57,7 +57,7 @@ class Music < ActiveRecord::Base
 	  end
 		
 		music.direct_upload_url = clean_direct_upload_url
-		music.upload_file_name = music.upload_file_name.gsub(/'/,'')
+		music.upload_file_name = clean_upload_file_name
 	  music.processed = true
     music.save
 	  
