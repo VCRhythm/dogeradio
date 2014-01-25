@@ -51,11 +51,11 @@
 								<%= image_tag music.user.avatar.url(:thumb) %>
 							<% end %>
 							<h3><%= music.user.username %></h3>
-							<%= link_to user_pay_path(music.user), method: :post, remote: true do %><%= image_tag 'dogecoin-icon.png' %><% end %>
 						</div>
 						<div class="song-player media-body">
 							<h2 class="media-heading"><%= music.name %></h2>
-							<span id="jquery_jplayer_<%=player_count%>" class="jp-jplayer"></span>
+							<%= link_to user_pay_path(music.user), method: :post, remote: true, class: "pull-right" do %><%= image_tag 'dogecoin-icon.png' %><% end %>
+<span id="jquery_jplayer_<%=player_count%>" class="jp-jplayer"></span>
 							<div id="jp_container_<%=player_count%>" class="jp-audio">
 								<div class="jp-gui jp-interface">
 									<span class="jp-controls">
