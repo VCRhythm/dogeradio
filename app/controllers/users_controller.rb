@@ -7,5 +7,6 @@ class UsersController < ApplicationController
 			current_user.balance -= @amount
 			@user_to_pay.balance += @amount
 		end
+		@user_to_pay.save
 	end
 end

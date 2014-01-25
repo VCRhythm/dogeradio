@@ -1,1 +1,2 @@
-$('#avatar_'+<%=@music.id%>).append("Thank you!");
+$('#avatar_'+<%= j @music.id.to_s%>).append("Thank you!");
+$('#balance').html("<%= j current_user.balance.to_s %>");
