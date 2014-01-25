@@ -52,7 +52,7 @@ class Music < ActiveRecord::Base
 	  if music.post_process_required?
 		  music.upload = URI.parse(URI.escape(music.direct_upload_url))
 	  else
-	    paperclip_file_path = "musics/uploads/#{id}/original/#{clean_direct_upload_url_data}"
+	    paperclip_file_path = "musics/uploads/#{id}/original/#{clean_direct_upload_url_data[:filename]}"
 	    s3.buckets[Rails.configuration.aws[:bucket]].objects[paperclip_file_path].copy_from(direct_upload_url_data[:path])
 	  end
 		
