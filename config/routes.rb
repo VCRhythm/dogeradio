@@ -4,15 +4,17 @@ Dogeradio::Application.routes.draw do
 
   resources :musics do 
   	resources :tags
-		resources :favorites
+		get :fond_users
 	end
 
   devise_for :users
 	resources :users, only: [:show] do
 		post :pay
 		get :following, :followers	
+		get :favorite_tracks
 	end
 
+	resources :favorites, only: [:create, :destroy]
 	resources :relationships, only: [:create, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.

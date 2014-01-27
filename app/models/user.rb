@@ -30,6 +30,9 @@ class User < ActiveRecord::Base
 																	 class_name: "Relationship",
 																	 dependent: :destroy
 	has_many :followers, through: :reverse_relationships, source: :follower															
+	has_many :favorites, dependent: :destroy
+	has_many :favorite_tracks, through: :favorites, source: :music
+
 	has_attached_file :avatar, styles: {
 		thumb: '100x100>',
 		square: '200x200#',
@@ -47,5 +50,17 @@ class User < ActiveRecord::Base
 
 	def unfollow!(other_user)
 		relationships.find_by(followed_id: other_user.id).destroy
+	end
+	
+	def favorite?(music)
+		favorites.find_by(music_id: music.id)
+	end
+
+	def favorite!(music)
+		favorites.create!(music_id: music.id)
+	end
+
+	def unfavorite!(music)
+		favorites.find_by(music_id: music.id).destroy
 	end
 end

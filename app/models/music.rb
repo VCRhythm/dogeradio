@@ -25,6 +25,11 @@ class Music < ActiveRecord::Base
 	has_many :tags, dependent: :destroy
 	has_attached_file :upload
 
+	has_many :favoriteds, foreign_key: "music_id",
+											 	class_name: "Favorite",
+												dependent: :destroy
+	has_many :fond_users, through: :favoriteds, source: :user
+
 	validates :direct_upload_url, presence: true, format: { with: DIRECT_UPLOAD_URL_FORMAT }
 						    
   before_create :set_upload_attributes
@@ -95,19 +100,14 @@ class Music < ActiveRecord::Base
 	  Music.transfer_and_cleanup(id)
   end
 
-	def transliterate(str)
-		s = Iconv.iconv('ascii//ignore//translit', 'utf-8', str).to_s
-		s.downcase!
-		s.gsub!(/[^A-Za-z0-9]+/, ' ')
-		s.gsub!(/'/, '')
-		s.strip!
-		s.gsub!(/\ +/, '-')
-		return s
-	end
+#	def transliterate(str)
+#		s = Iconv.iconv('ascii//ignore//translit', 'utf-8', str).to_s
+#		s.downcase!
+#		s.gsub!(/[^A-Za-z0-9]+/, ' ')
+#		s.gsub!(/'/, '')
+#		s.strip!
+#		s.gsub!(/\ +/, '-')
+#		return s
+#	end
 
-	def transliterate_file_name
-		extension = File.extname(local_file_name).gsub(/^\.+/, '')
-		filename = local_file_name.gsub(/\.#{extension}$/, '')
-		self.local.instance_write(:file_name, "#{transliterate(filename)}.#{transliterate(extension)}")
-	end
 end

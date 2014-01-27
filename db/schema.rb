@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20140127155206) do
     t.datetime "updated_at"
   end
 
+  add_index "favorites", ["music_id", "user_id"], name: "index_favorites_on_music_id_and_user_id", unique: true
   add_index "favorites", ["music_id"], name: "index_favorites_on_music_id"
   add_index "favorites", ["user_id"], name: "index_favorites_on_user_id"
 
