@@ -4,12 +4,16 @@ Dogeradio::Application.routes.draw do
 
   resources :musics do 
   	resources :tags
+		resources :favorites
 	end
 
   devise_for :users
 	resources :users, only: [:show] do
-		post 'pay'
+		post :pay
+		get :following, :followers	
 	end
+
+	resources :relationships, only: [:create, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

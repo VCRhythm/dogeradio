@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140125025815) do
+ActiveRecord::Schema.define(version: 20140127155206) do
+
+  create_table "favorites", force: true do |t|
+    t.integer  "music_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "favorites", ["music_id"], name: "index_favorites_on_music_id"
+  add_index "favorites", ["user_id"], name: "index_favorites_on_user_id"
 
   create_table "musics", force: true do |t|
     t.string   "name"
@@ -28,6 +38,17 @@ ActiveRecord::Schema.define(version: 20140125025815) do
 
   add_index "musics", ["processed"], name: "index_musics_on_processed"
   add_index "musics", ["user_id"], name: "index_musics_on_user_id"
+
+  create_table "relationships", force: true do |t|
+    t.integer  "follower_id"
+    t.integer  "followed_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id"
+  add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+  add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
 
   create_table "tags", force: true do |t|
     t.integer  "music_id"
