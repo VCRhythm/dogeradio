@@ -1,2 +1,2 @@
-$('#heading_'+<%= j @music.id.to_s%>).append("<p class='alert alert-success pull-right'>Thank you!</p>").delay(3000).fadeOut();
+$('#thanks_'+<%= j @music.id.to_s%>).append("<p class='alert alert-success pull-right'>Thank you!</p>").delay(3000).fadeOut();
 $('#balance').html("<%= j current_user.balance.to_s %>");

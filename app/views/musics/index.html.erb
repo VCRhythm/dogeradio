@@ -53,7 +53,7 @@
 							<% end %>
 						</div>
 						<div class="song-player media-body">
-							<h2 class="media-heading" id= "heading_<%=music.id.to_s%>" ><%= music.name %></h2><%= render partial: 'shared/favorite_form', locals: {music:music} if signed_in? %>
+							<h2 class="media-heading" id= "heading_<%=music.id.to_s%>" ><%= music.name %> <%= render partial: 'shared/favorite_form', locals: {music:music} if signed_in? %></h2><span id="thanks_<%=music.id.to_s%>"></span>
 							<% if music.user.id != current_user.id %><%= link_to user_pay_path(music.user, music_id: music.id), method: :post, remote: true, class: "pull-right" do %><%= image_tag 'dogecoin-icon.png' %><% end %><% end %>
 <span id="jquery_jplayer_<%=player_count%>" class="jp-jplayer"></span>
 							<div id="jp_container_<%=player_count%>" class="jp-audio">
