@@ -57,6 +57,7 @@ GEM
       railties (>= 3.2.6, < 5)
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    doge_api (0.0.5)
     erubis (2.7.0)
     execjs (2.0.2)
     geocoder (1.1.9)
@@ -172,6 +173,7 @@ DEPENDENCIES
   bootstrap-sass
   coffee-rails (~> 4.0.0)
   devise
+  doge_api
   geocoder
   gmaps4rails
   jbuilder (~> 1.2)

@@ -23,6 +23,12 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+	validates_format_of :username, with: /\A[A-Za-z0-9.&]*\Z/, message: "can only be alphanumeric."
+	validates_uniqueness_of :username
+	validates_presence_of :username
+	validates_presence_of :email
+
 	has_many :relationships, foreign_key: "follower_id", dependent: :destroy
 	has_many :followed_users, through: :relationships, source: :followed
 

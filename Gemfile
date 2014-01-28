@@ -21,6 +21,7 @@ gem 'paperclip'
 gem 's3_direct_upload'
 gem 'jplayer-rails'
 gem 'rmagick'
+gem 'doge_api'
 
 # Use sqlite3 as the database for Active Record
 group :development, :test do

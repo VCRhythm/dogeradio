@@ -7,7 +7,7 @@ Dogeradio::Application.routes.draw do
 		get :fond_users
 	end
 
-  devise_for :users
+  devise_for :users, controllers: {registrations: "registrations"}
 	resources :users, only: [:show] do
 		post :pay
 		get :following, :followers	
