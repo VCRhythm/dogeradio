@@ -19,6 +19,7 @@
 #
 
 class User < ActiveRecord::Base
+	include ActiveModel::Validations
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -28,6 +29,13 @@ class User < ActiveRecord::Base
 	validates_uniqueness_of :username
 	validates_presence_of :username
 	validates_presence_of :email
+	
+	class CodeValidator < ActiveModel::EachValidator
+		def validate_each(record, attribute, value)
+			record.errors.add attribute, "is not valid." unless BetaCode.where(value: value).exists?
+		end
+	end
+	validates :code, code: true 
 
 	has_many :relationships, foreign_key: "follower_id", dependent: :destroy
 	has_many :followed_users, through: :relationships, source: :followed
