@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 20140129154020) do
     t.string   "account"
     t.float    "balance",                default: 0.0
     t.integer  "code"
-    t.float    "prev_received"
+    t.float    "prev_received",          default: 0.0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

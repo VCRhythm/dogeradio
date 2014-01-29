@@ -1,1 +1,2 @@
-$('#balance').html("<%= j current_user.balance.to_s %>");
+$('#update_balance').html("<p class='alert alert-success'>Updated balance</p>").delay(3000).slideUp("slow");
+$('#balance').html("<%= j current_user.balance.to_i.to_s %>");

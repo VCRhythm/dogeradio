@@ -17,9 +17,15 @@ class UsersController < ApplicationController
 
 	def update_balance
 		@user = current_user
+		current_balance = @user.balance
 		require 'doge_api'
 		$my_api_key = Rails.configuration.aws[:doge_api_key]
 		doge_api = DogeApi::DogeApi.new($my_api_key)
-		@user.balance += (doge_api.get_address_received payment_address: @user.account) - @user.prev_received
+		current_received = doge_api.get_address_received(payment_address: @user.account).to_f
+		@user.balance += current_received - @user.prev_received
+		if @user.balance != current_balance
+			@user.prev_received = current_received
+			@user.save
+		end
 	end
 end
