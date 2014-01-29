@@ -10,6 +10,7 @@ Dogeradio::Application.routes.draw do
   devise_for :users, controllers: {registrations: "registrations"}
 	resources :users, only: [:show] do
 		post :pay
+		post :update_balance
 		get :following, :followers	
 		get :favorite_tracks
 	end

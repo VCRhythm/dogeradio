@@ -14,4 +14,12 @@ class UsersController < ApplicationController
 			render layout: false
 		end
 	end
+
+	def update_balance
+		@user = current_user
+		require 'doge_api'
+		$my_api_key = Rails.configuration.aws[:doge_api_key]
+		doge_api = DogeApi::DogeApi.new($my_api_key)
+		@user.balance += (doge_api.get_address_received payment_address: @user.account) - @user.prev_received
+	end
 end
