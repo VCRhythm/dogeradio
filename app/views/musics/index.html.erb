@@ -60,6 +60,26 @@
 			updatePlayer(music_id);
 		});
 
+		$('.sortable').sortable({
+			dropOnEmpty: false,
+			cursor: 'crosshair',
+			items: 'li',
+			opacity: 1,
+			scroll: true,
+			revert: true,
+			update: function(event, ui){
+				var music_id = ui.item.attr('data-music_id');
+				$.ajax({
+					$(this).sortable('serialize'),
+					type: 'post',
+					url: '/musics/'+music_id+'/sort',
+					dataType: 'script',
+					complete: function(request){
+						$('.sortable').effect('highlight');
+					}
+				});
+			}
+		});
 	});
 </script>		
 <div class="row row-offcanvas row-offcanvas-left">
@@ -70,10 +90,10 @@
 		<div id="player">
 			<%= render partial: "player", locals: {track:@track}%>
 		</div>
-		<ul class="list-group">
+		<ul class="list-group sortable">
 			<% playlist_counter = 1 %>
 			<% @musics.each do |music| %>
-				<li class="list-group-item playlist_<%=playlist_counter%>" id="music_<%=music.id%>" data-music_id="<%=music.id%>" data-playlist_number="<%=playlist_counter%>">
+				<li class="list-group-item playlist_<%=playlist_counter%> ui-state-default" id="music_<%=music.id%>" data-music_id="<%=music.id%>" data-playlist_number="<%=playlist_counter%>">
 					<%= music.name %>	
 				</li>
 				<% playlist_counter += 1 %>

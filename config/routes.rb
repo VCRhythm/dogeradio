@@ -6,6 +6,7 @@ Dogeradio::Application.routes.draw do
   	resources :tags
 		get :fond_users
 		post :update_player
+		post :sort
 	end
 
   devise_for :users, controllers: {registrations: "registrations"}

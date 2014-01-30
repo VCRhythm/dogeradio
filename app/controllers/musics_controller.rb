@@ -1,6 +1,10 @@
 class MusicsController < ApplicationController
   before_action :set_music, only: [:show, :edit, :update, :destroy]
 
+	def sort
+		@music = Music.find(params[:music_id])
+	end
+
 	def update_player
 		@track = Music.find(params[:music_id])
 	end
