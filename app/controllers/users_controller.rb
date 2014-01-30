@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+	def show
+ 		@user = User.find(params[:id])
+		@musics = @user.musics.order(created_at: :desc).where(processed: true)
+	end
+
 	def pay
 		@user = current_user
     @user_to_pay = User.find(params[:user_id])
