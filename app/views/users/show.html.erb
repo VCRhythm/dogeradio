@@ -1,10 +1,11 @@
 <h2><%= @user.username %></h2>
-
-<% if @user.avatar.exists? %>
-	<%= image_tag @user.avatar.url(:square) %><br/>
-<% end %>
 <%= render partial: 'shared/follow_form', locals: {user: @user} if signed_in? %>
-
+<div class="media">
+	<% if @user.avatar.exists? %>
+		<%= image_tag @user.avatar.url(:square), class: "pull-left media-object" %><br/>
+	<% end %>
+	<p class="media-body"><%= @user.bio %></p>
+</div>
 <% @musics.each do |music| %>
 	<li class="list-group-item">
 		<div class="media">
@@ -31,7 +32,3 @@
 		</div>
 	</li>
 <% end %>
-	
-<%= link_to "Back", :back %>
-
-

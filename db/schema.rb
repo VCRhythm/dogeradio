@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140129154020) do
+ActiveRecord::Schema.define(version: 20140130133249) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 20140129154020) do
     t.float    "balance",                default: 0.0
     t.integer  "code"
     t.float    "prev_received",          default: 0.0
+    t.text     "bio"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
