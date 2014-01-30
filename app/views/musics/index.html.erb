@@ -25,21 +25,25 @@
 				go = false;
 			},
 			repeat: function(event){
-				if(event.jPlayer.options.loop){
-					$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
-					$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerRepeat", function(){
-						$(this).jPlayer("play");
-					});
-				} else {
-					$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
-					$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerNext", function(){
-						next_player = $("#music_"+music_id).data("playlist_number")+1;
-						updatePlayer($(".playlist_"+next_player).data("music_id"));
-					});
-				}
+				setNextSong(event);
 			}
 		});
 	}	
+
+	function setNextSong(event){
+		if(event.jPlayer.options.loop){
+			$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
+			$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerRepeat", function(){
+				$(this).jPlayer("play");
+			});
+		} else {
+			$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
+			$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerNext", function(){
+				next_player = $("#music_"+music_id).data("playlist_number")+1;
+				updatePlayer($(".playlist_"+next_player).data("music_id"));
+			});
+		}
+	}
 
 	function updatePlayer(music_id){
 		$.ajax({
@@ -73,6 +77,9 @@
 					dataType: 'script',
 					complete: function(request){
 						$('.sortable').effect('highlight');
+						$("#jquery_jplayer_1").jPlayer('repeat', function(event){
+							setNextSong(event);
+						});
 					}
 				});
 			}
