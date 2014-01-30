@@ -1,7 +1,7 @@
 <script type="text/javascript">
 	var go = false;
 
-	function loadPlayer(){
+	function loadPlayer(music_id){
 		$('#jquery_jplayer_1').jPlayer({
 			preload: "none",
 			supplied: "mp3",
@@ -24,25 +24,42 @@
 				if (go) $(this).jPlayer("play"); 
 				go = false;
 			},
+			repeat: function(event){
+				if(event.jPlayer.options.loop){
+					$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
+					$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerRepeat", function(){
+						$(this).jPlayer("play");
+					});
+				} else {
+					$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
+					$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerNext", function(){
+						next_player = $("#music_"+music_id).data("playlist_number")+1;
+						updatePlayer($("#playlist_"+next_player).data("music_id"));
+					});
+				}
+			}
 		});
 	}	
-	
+
+	function updatePlayer(music_id){
+		$.ajax({
+			type:"POST",
+			url: "musics/"+music_id+"/update_player/",
+			success: function() {
+				go = true;
+				loadPlayer(music_id);
+			}
+		});
+	}
+
 	$(document).ready(function(){
-		loadPlayer();			
+		loadPlayer(<%=@track.id%>);			
 
 		$('.list-group-item').click(function(){
 			music_id = $(this).data("music_id");
-			music_url = $(this).data("music_url");
-			player = $("#jquery_jplayer_1");
-			$.ajax({
-				type:"POST",
-				url: "musics/"+music_id+"/update_player/",
-				success: function() {
-					go = true;
-					loadPlayer();
-				}
-			});
+			updatePlayer(music_id);
 		});
+
 	});
 </script>		
 <div class="row row-offcanvas row-offcanvas-left">
@@ -54,17 +71,12 @@
 			<%= render partial: "player", locals: {track:@track}%>
 		</div>
 		<ul class="list-group">
-			<% player_count = 1 %>
-			<% @musics[1..-1].each do |music| %>
-				<% if player_count < @musics.count %>
-					<% next_player = player_count + 1 %>
-				<% else %>
-					<% next_player = 1 %>
-				<% end %>
-				<li class="list-group-item" data-music_id="<%=music.id%>" data-music_url="<%=music.upload.url %>" data-music_name="<%=music.name%>" data-artist_name="<%=music.user.username%>" data-image_url="<%=music.user.avatar.url(:thumb)%>">
+			<% playlist_counter = 1 %>
+			<% @musics.each do |music| %>
+				<li class="list-group-item" id="music_<%=music.id%> playlist_<%=playlist_counter%>" data-music_id="<%=music.id%>" data-playlist_number="<%=playlist_counter%>">
 					<%= music.name %>	
 				</li>
-				<% player_count += 1 %>
+				<% playlist_counter += 1 %>
 			<% end %>
 		</ul>
 	</div>
