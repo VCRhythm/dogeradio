@@ -34,7 +34,7 @@
 					$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
 					$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerNext", function(){
 						next_player = $("#music_"+music_id).data("playlist_number")+1;
-						updatePlayer($("#playlist_"+next_player).data("music_id"));
+						updatePlayer($(".playlist_"+next_player).data("music_id"));
 					});
 				}
 			}
@@ -53,7 +53,7 @@
 	}
 
 	$(document).ready(function(){
-		loadPlayer(<%=@track.id%>);			
+		loadPlayer(<%= @track.id %>);			
 
 		$('.list-group-item').click(function(){
 			music_id = $(this).data("music_id");
@@ -73,7 +73,7 @@
 		<ul class="list-group">
 			<% playlist_counter = 1 %>
 			<% @musics.each do |music| %>
-				<li class="list-group-item" id="music_<%=music.id%> playlist_<%=playlist_counter%>" data-music_id="<%=music.id%>" data-playlist_number="<%=playlist_counter%>">
+				<li class="list-group-item playlist_<%=playlist_counter%>" id="music_<%=music.id%>" data-music_id="<%=music.id%>" data-playlist_number="<%=playlist_counter%>">
 					<%= music.name %>	
 				</li>
 				<% playlist_counter += 1 %>
