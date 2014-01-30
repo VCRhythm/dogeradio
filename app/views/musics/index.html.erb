@@ -36,7 +36,7 @@
 					<span id="thanks_<%=@track.id.to_s%>"></span>
 				</div>
 				<div class="media-body" style="height:50px;">
-					<h6 class="media-heading"><%= @track.user.username %> - <%= @track.name %> <%= render partial: 'shared/favorite_form', locals: {music:@track} if signed_in? %></h6>
+					<h6 class="media-heading"><%= @track.user.username %> - <%= @track.name %></h6>
 					<span id="jquery_jplayer_1" class="jp-jplayer"></span>
 					<div class="jp-seek-bar progress">
 						<div class="jp-play-bar progress-bar"></div>
@@ -47,6 +47,7 @@
 						<button type="button" class="jp-play btn btn-link btn-lg" style="padding:0"><span class="glyphicon glyphicon-play"></span></button>
 						<button type="button" class="jp-pause btn btn-link btn-lg" style="padding:0"><span class="glyphicon glyphicon-pause"></span></button>
 					</span>
+					<%= render partial: 'shared/favorite_form', locals: {music:@track} if signed_in? %>	
 					<% if @track.user.id != current_user.id %><%= link_to user_pay_path(@track.user, music_id: @track.id), method: :post, remote: true, class: "pull-right" do %><%= image_tag 'dogecoin-icon.png' %><% end %><% end %>
 				</div>
 			</div>
