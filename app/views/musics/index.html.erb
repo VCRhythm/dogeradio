@@ -24,7 +24,14 @@
 		$('.list-group-item').click(function(){
 			music_id = $(this).data("music_id");
 			music_url = $(this).data("music_url");
-			$("#jquery_jplayer_1").jPlayer("setMedia", {mp3: music_url } ); 
+			music_name = $(this).data("music_name");
+			artist_name = $(this).data("artist_name");
+			image_url = $(this).data("image_url");
+			player = $("#jquery_jplayer_1");
+			player.jPlayer("setMedia", {mp3: music_url }); 
+			player.jPlayer("play");
+			$("#player-image").attr("src", image_url);
+			$("#player-heading").html(artist_name + " - " + music_name);
 		});
 	});
 </script>		
@@ -33,38 +40,7 @@
 		<span class="glyphicon glyphicon-plus"></span> Add Music
 	<% end %>
 	<div class="col-xs-12 col-sm-4 sidebar-offcanvas" id="sidebar">
-		<div id="player">
-			<div class="media">
-				<div class="pull-left">
-					<% if @track.user.avatar.exists? %>
-						<%= image_tag @track.user.avatar.url(:thumb), class: "media-object" %>
-					<% end %>
-					<span id="thanks" style="position:relative; margin-bottom:0; margin-top:-50px;"></span>
-				</div>
-				<div class="media-body" style="height:50px;">
-					<h6 class="media-heading"><%= @track.user.username %> - <%= @track.name %></h6>
-					<span id="jquery_jplayer_1" class="jp-jplayer"></span>
-					<div class="jp-seek-bar progress">
-						<div class="jp-play-bar progress-bar"></div>
-					</div>
-				</div>
-				<div id="player-buttons" style="height:30px;">
-					<span id="jp-controls" >
-						<button type="button" class="jp-play btn btn-link btn-lg" style="padding:0"><span class="glyphicon glyphicon-play"></span></button>
-						<button type="button" class="jp-pause btn btn-link btn-lg" style="padding:0"><span class="glyphicon glyphicon-pause"></span></button>
-					</span>
-					<%= render partial: 'shared/favorite_form', locals: {music:@track} if signed_in? %>	
-					<% if @track.user.id != current_user.id %><%= link_to user_pay_path(@track.user, music_id: @track.id), method: :post, remote: true, class: "pull-right" do %><%= image_tag 'dogecoin-icon.png' %><% end %><% end %>
-				</div>
-			</div>
-			<div id="tags" style="margin-bottom:5px;">
-				<span class="btn-group">
-					<% @track.tags.each do |tag| %>
-						<button type="button" class="btn btn-default btn-xs"><%=tag.description%></button>
-					<% end %>
-				</span>
-			</div>
-		</div>
+		<%= render partial: "player", locals: {track:@track}%>
 		<ul class="list-group">
 			<% player_count = 1 %>
 			<% @musics[1..-1].each do |music| %>
@@ -73,7 +49,7 @@
 				<% else %>
 					<% next_player = 1 %>
 				<% end %>
-				<li class="list-group-item" data-music_id="<%=music.id%>" data-music_url="<%=music.upload.url %>">
+				<li class="list-group-item" data-music_id="<%=music.id%>" data-music_url="<%=music.upload.url %>" data-music_name="<%=music.name%>" data-artist_name="<%=music.user.username%>" data-image_url="<%=music.user.avatar.url(:thumb)%>">
 					<%= music.name %>	
 				</li>
 				<% player_count += 1 %>
