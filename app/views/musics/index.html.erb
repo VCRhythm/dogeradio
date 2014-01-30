@@ -65,6 +65,7 @@
 						</div>
 					</div>
 					<div style="height:30px;">
+						<h3 style="margin:0;" class="pull-left"><%= link_to music.user.username, music.user %></h3>
 						<% if music.user.id != current_user.id %><%= link_to user_pay_path(music.user, music_id: music.id), method: :post, remote: true, class: "pull-right" do %><%= image_tag 'dogecoin-icon.png' %><% end %><% end %>
 					</div>
 				</li>
