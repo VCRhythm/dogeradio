@@ -1,4 +1,6 @@
 <script type="text/javascript">
+	var go = false;
+
 	function loadPlayer(){
 		$('#jquery_jplayer_1').jPlayer({
 			preload: "none",
@@ -18,6 +20,8 @@
 			},
 			ready: function () {
 				$(this).jPlayer("setMedia", {mp3: "<%= @track.upload.url %>"} );
+				if (go) $(this).jPlayer("play"); 
+				go = false;
 			},
 		});
 	}	
@@ -33,8 +37,8 @@
 				type:"POST",
 				url: "musics/"+music_id+"/update_player/",
 				success: function() {
+					go = true;
 					loadPlayer();
-					$("#jquery_jplayer_1").jPlayer("play");
 				}
 			});
 		});
