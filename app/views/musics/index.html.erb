@@ -24,7 +24,7 @@
 		$('.list-group-item').click(function(){
 			music_id = $(this).data("music_id");
 			music_url = $(this).data("music_url");
-			$("#jquery_jplayer_1").jPLayer("setMedia", {mp3: music_url } ); 
+			$("#jquery_jplayer_1").jPlayer({"setMedia", {mp3: music_url } }); 
 		});
 
 	});
