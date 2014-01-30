@@ -1,11 +1,8 @@
-<div class="container">
-	<div class="col-md-12">
-		<div style="margin-bottom:8px;"> 
-		<h1 style="display:inline;">Music</h1>
+<div class="row row-offcanvas row-offcanvas-left">
 		<%= link_to new_music_path, class: "pull-right" do %>
 			<span class="glyphicon glyphicon-plus"></span> Add Music
 		<% end %>
-		</div>
+	<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
 		<ul class="list-group">
 			<% player_count = 1 %>
 			<% @musics.each do |music| %>
@@ -46,44 +43,37 @@
 					});
 				</script>		
 				<li class="list-group-item">
-					<div class="media">
-						<div class="pull-left media-object">
-							<% if music.user.avatar.exists? %>
-								<%= image_tag music.user.avatar.url(:thumb) %>
-							<% end %>
-						</div>
-						<div class="song-player media-body">
-							<h2 class="media-heading" id= "heading_<%=music.id.to_s%>" ><%= music.name %> <%= render partial: 'shared/favorite_form', locals: {music:music} if signed_in? %></h2><span id="thanks_<%=music.id.to_s%>"></span>
-							<% if music.user.id != current_user.id %><%= link_to user_pay_path(music.user, music_id: music.id), method: :post, remote: true, class: "pull-right" do %><%= image_tag 'dogecoin-icon.png' %><% end %><% end %>
-<span id="jquery_jplayer_<%=player_count%>" class="jp-jplayer"></span>
-							<div id="jp_container_<%=player_count%>" class="jp-audio">
-								<div class="jp-gui jp-interface">
-									<span class="jp-controls">
-										<button type="button" class="jp-play btn btn-link btn-lg"><span class="glyphicon glyphicon-play"></span></button>
-										<button type="button" class="jp-pause btn btn-link btn-lg"><span class="glyphicon glyphicon-pause"></span></button>
-									</span>
-									<div class="jp-seek-bar progress" style="width:100%;">
-										<div class="jp-play-bar progress-bar" style="width:0%;"></div>
-									</div>
+					<div class="pull-left">
+						<% if music.user.avatar.exists? %>
+							<%= image_tag music.user.avatar.url(:thumb), style: 'margin-right:5px' %>
+						<% end %>
+						<span id="thanks_<%=music.id.to_s%>"></span>
+					</div>
+					<h4 id= "heading_<%=music.id.to_s%>" ><%= music.name %> <%= render partial: 'shared/favorite_form', locals: {music:music} if signed_in? %></h4>						
+					<div class="song-player">
+						<span id="jquery_jplayer_<%=player_count%>" class="jp-jplayer"></span>
+						<div id="jp_container_<%=player_count%>" class="jp-audio">
+							<div class="jp-gui jp-interface">
+								<span class="jp-controls">
+									<button type="button" class="jp-play btn btn-link btn-lg"><span class="glyphicon glyphicon-play"></span></button>
+									<button type="button" class="jp-pause btn btn-link btn-lg"><span class="glyphicon glyphicon-pause"></span></button>
+								</span>
+								<div class="jp-seek-bar progress" style="width:100%;">
+									<div class="jp-play-bar progress-bar" style="width:0%;"></div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div style="height:30px;">
 						<h3 style="margin:0;" class="pull-left"><%= link_to music.user.username, music.user %> <%= render partial: 'shared/follow_form', locals: {user: music.user} if signed_in? %></h3>
-						<% if music.user.id == current_user.id %><%= link_to music, method: :delete, data: {confirm: "Are you sure?" }, class: "pull-right" do %><span class="glyphicon glyphicon-trash"></span><% end %><% end %>
-					</div>
-					<div>
-						<%= render partial: "tags/form", locals: {music: music} %>
-						<span class="tags">
-							<% music.tags.each do |tag| %>
-								<button type="button" class="btn btn-default"><%= tag.category%>: <%=tag.description%></button>
-							<% end %>
-						</span>
+						<% if music.user.id != current_user.id %><%= link_to user_pay_path(music.user, music_id: music.id), method: :post, remote: true, class: "pull-right" do %><%= image_tag 'dogecoin-icon.png' %><% end %><% end %>
 					</div>
 				</li>
 				<% player_count += 1 %>
 			<% end %>
 		</ul>
+	</div>
+	<div class="col-xs-12 col-sm-9">
+		<p>Welcome! Welcome!</p>
 	</div>
 </div>

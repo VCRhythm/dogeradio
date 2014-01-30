@@ -1,0 +1,9 @@
+					<div>
+						<%= render partial: "tags/form", locals: {music: music} %>
+						<span class="tags">
+							<% music.tags.each do |tag| %>
+								<button type="button" class="btn btn-default"><%= tag.category%>: <%=tag.description%></button>
+							<% end %>
+						</span>
+					</div>
+
