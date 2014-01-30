@@ -1,5 +1,5 @@
 <script type="text/javascript">
-	$(document).ready(function(){
+	function loadPlayer(){
 		$('#jquery_jplayer_1').jPlayer({
 			preload: "none",
 			supplied: "mp3",
@@ -20,18 +20,23 @@
 				$(this).jPlayer("setMedia", {mp3: "<%= @track.upload.url %>"} );
 			},
 		});
-		
+	}	
+	
+	$(document).ready(function(){
+		loadPlayer();			
+
 		$('.list-group-item').click(function(){
 			music_id = $(this).data("music_id");
 			music_url = $(this).data("music_url");
-			music_name = $(this).data("music_name");
-			artist_name = $(this).data("artist_name");
-			image_url = $(this).data("image_url");
 			player = $("#jquery_jplayer_1");
-			player.jPlayer("setMedia", {mp3: music_url }); 
-			player.jPlayer("play");
-			$("#player-image").attr("src", image_url);
-			$("#player-heading").html(artist_name + " - " + music_name);
+			$.ajax({
+				type:"POST",
+				url: "musics/"+music_id+"/update_player/",
+				success: function() {
+					loadPlayer();
+					$("#jquery_jplayer_1").jPlayer("play");
+				}
+			});
 		});
 	});
 </script>		
@@ -40,7 +45,9 @@
 		<span class="glyphicon glyphicon-plus"></span> Add Music
 	<% end %>
 	<div class="col-xs-12 col-sm-4 sidebar-offcanvas" id="sidebar">
-		<%= render partial: "player", locals: {track:@track}%>
+		<div id="player">
+			<%= render partial: "player", locals: {track:@track}%>
+		</div>
 		<ul class="list-group">
 			<% player_count = 1 %>
 			<% @musics[1..-1].each do |music| %>
