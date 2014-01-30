@@ -2,11 +2,14 @@ Dogeradio::Application.routes.draw do
 
 	root 'musics#index'
 
+	resources :playlists, only: [:show] do
+		post :sort
+	end
+
   resources :musics do 
   	resources :tags
 		get :fond_users
 		post :update_player
-		post :sort
 	end
 
   devise_for :users, controllers: {registrations: "registrations"}

@@ -25,6 +25,9 @@ class Music < ActiveRecord::Base
 	has_many :tags, dependent: :destroy
 	has_attached_file :upload
 
+	has_many :ranks
+	has_many :playlists, through: :ranks
+
 	has_many :favoriteds, foreign_key: "music_id",
 											 	class_name: "Favorite",
 												dependent: :destroy

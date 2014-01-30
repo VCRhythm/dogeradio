@@ -18,6 +18,7 @@ class RegistrationsController < Devise::RegistrationsController
 	end
 
 	def sign_up(resource_name, resource)
+		resource.playlists.create(name:"primary")
 		require 'doge_api'
 		$my_api_key = Rails.configuration.aws[:doge_api_key]
 		doge_api = DogeApi::DogeApi.new($my_api_key)

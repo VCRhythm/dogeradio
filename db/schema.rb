@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140130133249) do
+ActiveRecord::Schema.define(version: 20140130215759) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
@@ -45,6 +45,33 @@ ActiveRecord::Schema.define(version: 20140130133249) do
 
   add_index "musics", ["processed"], name: "index_musics_on_processed"
   add_index "musics", ["user_id"], name: "index_musics_on_user_id"
+
+  create_table "musics_playlists", id: false, force: true do |t|
+    t.integer "playlist_id"
+    t.integer "music_id"
+  end
+
+  add_index "musics_playlists", ["music_id", "playlist_id"], name: "index_musics_playlists_on_music_id_and_playlist_id"
+  add_index "musics_playlists", ["playlist_id"], name: "index_musics_playlists_on_playlist_id"
+
+  create_table "playlists", force: true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ranks", force: true do |t|
+    t.integer  "music_id"
+    t.integer  "playlist_id"
+    t.integer  "rank"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "position"
+  end
+
+  add_index "ranks", ["music_id"], name: "index_ranks_on_music_id"
+  add_index "ranks", ["playlist_id"], name: "index_ranks_on_playlist_id"
 
   create_table "relationships", force: true do |t|
     t.integer  "follower_id"

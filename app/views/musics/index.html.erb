@@ -55,30 +55,32 @@
 	$(document).ready(function(){
 		loadPlayer(<%= @track.id %>);			
 
-		$('.list-group-item').click(function(){
-			music_id = $(this).data("music_id");
-			updatePlayer(music_id);
-		});
-
 		$('.sortable').sortable({
 			dropOnEmpty: false,
 			cursor: 'crosshair',
 			items: 'li',
+			helper: 'clone',
 			opacity: 1,
 			scroll: true,
 			revert: true,
 			update: function(event, ui){
-				var music_id = ui.item.attr('data-music_id');
+				var playlist_id = $(this).data('playlist_id');
+				var music_id = ui.item.data('music_id');
 				$.ajax({
-					$(this).sortable('serialize'),
+					data: $(this).sortable('serialize'),
 					type: 'post',
-					url: '/musics/'+music_id+'/sort',
+					url: '/playlists/'+playlist_id+'/sort',
 					dataType: 'script',
 					complete: function(request){
 						$('.sortable').effect('highlight');
 					}
 				});
 			}
+		});
+
+		$('.list-group-item').click(function(){
+			music_id = $(this).data("music_id");
+			updatePlayer(music_id);
 		});
 	});
 </script>		
@@ -90,9 +92,9 @@
 		<div id="player">
 			<%= render partial: "player", locals: {track:@track}%>
 		</div>
-		<ul class="list-group sortable">
+		<ul class="list-group sortable" data-playlist_id="<%=@playlist.id %>">
 			<% playlist_counter = 1 %>
-			<% @musics.each do |music| %>
+			<% @playlist.musics.each do |music| %>
 				<li class="list-group-item playlist_<%=playlist_counter%> ui-state-default" id="music_<%=music.id%>" data-music_id="<%=music.id%>" data-playlist_number="<%=playlist_counter%>">
 					<%= music.name %>	
 				</li>

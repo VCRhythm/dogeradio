@@ -1,10 +1,6 @@
 class MusicsController < ApplicationController
   before_action :set_music, only: [:show, :edit, :update, :destroy]
 
-	def sort
-		@music = Music.find(params[:music_id])
-	end
-
 	def update_player
 		@track = Music.find(params[:music_id])
 	end
@@ -12,8 +8,13 @@ class MusicsController < ApplicationController
 	# GET /musics
 	# GET /musics.json
 	def index
-		@musics = Music.order(created_at: :desc).where(processed: true)
-		@track = @musics[0]
+		if user_signed_in? 
+			@playlist = current_user.playlists.first 
+		else
+			@playlist = Playlist.new
+			@playlist.musics << Music.order(created_at: :desc).where(processed: true)
+		end
+		@track = @playlist.musics[0]
 	end
 
 	# POST /musics
