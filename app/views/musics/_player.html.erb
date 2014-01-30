@@ -6,7 +6,7 @@
 		<span id="thanks" style="position:relative; margin-bottom:0; margin-top:-50px;"></span>
 	</div>
 	<div class="media-body" style="height:50px;">
-		<h6 id="player-heading" class="media-heading"><%= track.user.username %> - <%= track.name %></h6>
+		<h6 id="player-heading" class="media-heading" data-music_url="<%=track.upload.url%>"><%= track.user.username %> - <%= track.name %></h6>
 		<span id="jquery_jplayer_1" class="jp-jplayer"></span>
 		<div class="jp-seek-bar progress">
 			<div class="jp-play-bar progress-bar"></div>

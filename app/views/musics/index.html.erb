@@ -19,7 +19,8 @@
 				playBar:".jp-play-bar"
 			},
 			ready: function () {
-				$(this).jPlayer("setMedia", {mp3: "<%= @track.upload.url %>"} );
+				music_url=$("#player-heading").data("music_url");
+				$(this).jPlayer("setMedia", {mp3: music_url} );
 				if (go) $(this).jPlayer("play"); 
 				go = false;
 			},
