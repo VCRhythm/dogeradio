@@ -5,6 +5,7 @@ class MusicsController < ApplicationController
 	# GET /musics.json
 	def index
 		@musics = Music.order(created_at: :desc).where(processed: true)
+		@track = @musics[0]
 	end
 
 	# POST /musics
