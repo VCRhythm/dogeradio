@@ -2,7 +2,7 @@ class PlaylistsController < ApplicationController
 	def sort
 		@music_id = params[:music_id]
 		@playlist = Playlist.find(params[:playlist_id])
-		@sort_group = params['playlist']
+		@sort_group = params['music']
 		@musics = @playlist.musics
 		@ranks = @playlist.ranks
 		@ranks.each do |rank|
