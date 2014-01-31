@@ -41,7 +41,7 @@
 			$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
 			$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerNext", function(){
 				playlist_id = $(".music_"+music_id).data("playlist_number")+1;
-				updatePlayer($("#playlist_"+playlist_id).data("music_id"));
+				updatePlayer($("#playlist_"+playlist_id).data("music_id").split("_")[1]);
 			});
 		}
 	}
@@ -84,7 +84,7 @@
 		});
 
 		$('.clickable').click(function(){
-			music_id = $(this).parent().data("music_id");
+			music_id = $(this).parent().data("music_id").split("_")[1];
 			updatePlayer(music_id);
 		});
 	});
