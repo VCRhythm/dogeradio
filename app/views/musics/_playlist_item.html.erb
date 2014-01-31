@@ -2,3 +2,9 @@
 	<div class="clickable" style="display:inline-block"><%= music.name %></div>
 	<div class="delete-div" style="display:inline-block; position: absolute; right:10px;top:30%;"><%= link_to playlist_ranks_path(playlist_id:@playlist.id, music_id:music.id, position: playlist_counter), method: "delete", remote: true, class: "delete-link", style: "color:red;" do %><span class="glyphicon glyphicon-remove"></span><% end %></div>
 </li>
+
+<script>
+	$('.clickable').click(function(){
+		updatePlayer(<%=music.id%>);
+	});
+</script>
