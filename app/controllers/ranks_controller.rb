@@ -1,7 +1,7 @@
 class RanksController < ApplicationController
 
 	def create
-		@music = Music.find(params[:music_id])
+		@music = Music.find(params['music_id'])
 		@playlist = current_user.playlists.find(params['playlist_id'])
 		@rank = Rank.new(music_id: @music.id, playlist_id: @playlist.id)
 		@rank.save
@@ -21,7 +21,7 @@ class RanksController < ApplicationController
 
 	private
 		# Never trust parameters from the scary internet, only allow the white list through.
-		def ranking_params
-		  params.require(:ranking).permit(:rank, :trip_id, :market_id)
+		def rank_params
+		  params.require(:rank).permit(:position, :playlist_id, :music_id)
 	  end
 end
