@@ -40,7 +40,6 @@ class User < ActiveRecord::Base
 	has_many :musics, dependent: :destroy
 
 	has_many :playlists
-	has_many :musics, through: :playlists
 
 	has_many :relationships, foreign_key: "follower_id", dependent: :destroy
 	has_many :followed_users, through: :relationships, source: :followed
