@@ -5,8 +5,3 @@ $('.list-group-item').each(function(i, value){
 	}).addClass('playlist_' + playlist_counter);
 	playlist_counter++;
 });
-
-$("jquery_jplayer_1").jPlayer("repeat").bind($.jPlayer.event.ended + ".jPlayer.jPlayerNext", function(){
-	next_player = $("#music_"+music_id).data("playlist_number")+1;
-	updatePlayer($(".playlist_"+next_player).data("music_id"));
-});
