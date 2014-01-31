@@ -1,8 +1,10 @@
 class RanksController < ApplicationController
 
 	def create
+		@music = Music.find(params[:music_id])
 		@playlist = current_user.playlists.find(params['playlist_id'])
-		@rank = Rank.new(music_id: params['music_id'], playlist_id: params['playlist_id'])
+		@rank = Rank.new(music_id: @music.id, playlist_id: @playlist.id)
+		@rank.save
 	end
 
 	def destroy

@@ -14,6 +14,7 @@ class MusicsController < ApplicationController
 			@playlist = Playlist.new
 			@playlist.musics << Music.order(created_at: :desc).where(processed: true)
 		end
+		@new_tracks = Music.order(created_at: :desc).limit(5)
 		@track = @playlist.musics[0]
 	end
 

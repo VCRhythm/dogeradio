@@ -40,8 +40,8 @@
 		} else {
 			$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
 			$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerNext", function(){
-				playlist_id = $("#music_"+music_id).data("playlist_number")+1;
-				updatePlayer($(".playlist_"+playlist_id).data("music_id"));
+				playlist_id = $(".music_"+music_id).data("playlist_number")+1;
+				updatePlayer($("#playlist_"+playlist_id).data("music_id"));
 			});
 		}
 	}
@@ -77,7 +77,6 @@
 					url: '/playlists/'+playlist_id+'/sort',
 					dataType: 'script',
 					complete: function(request){
-						$('.sortable').effect('highlight');
 						setNextSong(music_id);	
 					}
 				});
@@ -101,15 +100,18 @@
 		<ul class="list-group sortable" data-playlist_id="<%=@playlist.id %>">
 			<% playlist_counter = 1 %>
 			<% @playlist.musics.each do |music| %>
-				<li class="list-group-item playlist_<%=playlist_counter%> ui-state-default" id="music_<%=music.id%>" data-music_id="<%=music.id%>" data-playlist_number="<%=playlist_counter%>">
-					<div class="clickable" style="display:inline-block"><%= music.name %></div>
-					<div class="delete-div" style="display:inline-block; position: absolute; right:10px;top:30%;"><%= link_to playlist_ranks_path(playlist_id:@playlist.id, music_id:music.id, position: playlist_counter), method: "delete", remote: true, class: "delete-link", style: "color:red;" do %><span class="glyphicon glyphicon-remove"></span><% end %></div>
-				</li>
+				<%= render partial: 'playlist_item', locals: {music: music, playlist_counter: playlist_counter} %>
 				<% playlist_counter += 1 %>
 			<% end %>
 		</ul>
 	</div>
 	<div class="col-xs-12 col-sm-8">
 		<p>Welcome! Welcome!</p>
+		<div class="content-block">
+		<h3>Recent Tracks</h3>
+		<% @new_tracks.each do |track| %>
+			<%= link_to track.name, playlist_ranks_path(@playlist, music_id:track.id),method: "post", remote: true %><br />
+		<% end %>
+		</div>
 	</div>
 </div>
