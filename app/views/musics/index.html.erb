@@ -72,7 +72,7 @@
 				var playlist_id = $(this).data('playlist_id');
 				var music_id = $('#player-heading').data('music_id');
 				$.ajax({
-					data: $(this).sortable('serialize', {attribute: "data-music_id"}),
+					data: $(this).sortable('serialize'),
 					type: 'post',
 					url: '/playlists/'+playlist_id+'/sort',
 					dataType: 'script',

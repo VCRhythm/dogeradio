@@ -5,18 +5,14 @@ class RanksController < ApplicationController
 		@playlist = current_user.playlists.find(params['playlist_id'])
 		@rank = Rank.new(music_id: @music.id, playlist_id: @playlist.id)
 		@rank.save
+		@rank.move_to_bottom
 	end
 
 	def destroy
 		@playlist = current_user.playlists.find(params[:playlist_id])
-	  @playlist.ranks.where("position = ? AND music_id = ?", params[:position], params[:music_id]).first.delete
-		@ranks = @playlist.ranks.order(position: :asc)
-		i = 1
-		@ranks.each do |rank|
-			rank.position = i
-			rank.save
-			i+=1
-		end
+	  @rank = @playlist.ranks.where("position = ? AND music_id = ?", params[:position], params[:music_id]).first
+		@rank.remove_from_list
+		@rank.delete
 	end
 
 	private
