@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
 	def show
  		@user = User.find(params[:id])
-		@playlist = @user.playlists.first
+		@playlist = current_user.playlists.first
 		@musics = @user.musics.order(created_at: :desc).where(processed: true)
 	end
 
