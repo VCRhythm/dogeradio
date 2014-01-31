@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/thomas-mcdonald/bootstrap-sass.git
+  revision: 02a611e88a037370cb4b310117a8a5e6b03176a9
+  specs:
+    bootstrap-sass (3.1.0.0)
+      sass (~> 3.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -37,8 +44,6 @@ GEM
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
     bcrypt-ruby (3.0.1)
-    bootstrap-sass (3.1.0.0)
-      sass (~> 3.2)
     builder (3.1.4)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -170,7 +175,7 @@ DEPENDENCIES
   annotate
   aws-sdk
   bcrypt-ruby (~> 3.0.0)
-  bootstrap-sass
+  bootstrap-sass!
   coffee-rails (~> 4.0.0)
   devise
   doge_api
