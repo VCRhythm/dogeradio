@@ -3,5 +3,7 @@ $('.list-group-item').each(function(i, value){
 	$(this).removeClass(function(index, css){
 		return (css.match (/\playlist_\S+/g) || []).join(' ');
 	}).addClass('playlist_' + playlist_counter).attr("data-playlist_number", playlist_counter);
+	music_id = $(this).data("music_id");
+	$(this).children('.delete-div').children('.delete-link').attr('href', "/playlists/<%=@playlist.id%>/ranks?music_id="+music_id+"&position="+playlist_counter);
 	playlist_counter++;
 });
