@@ -1,4 +1,8 @@
 class RegistrationsController < Devise::RegistrationsController
+	def edit
+		render :edit
+	end
+
 	def update
 		@user = User.find(current_user.id)
 		successfully_updated = if needs_password?(@user, params)
