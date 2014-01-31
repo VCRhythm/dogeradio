@@ -70,7 +70,7 @@
 			revert: true,
 			update: function(event, ui){
 				var playlist_id = $(this).data('playlist_id');
-				var music_id = ui.item.data('music_id');
+				var music_id = $('#player-heading').data('music_id');
 				$.ajax({
 					data: $(this).sortable('serialize'),
 					type: 'post',
