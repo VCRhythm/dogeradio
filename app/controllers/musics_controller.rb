@@ -18,7 +18,7 @@ class MusicsController < ApplicationController
 		@active_users = Array.new
 		User.all.each do |user|
 			if user.musics.exists?
-				if ((1.week.ago)..(Date.today)).cover?(user.musics.last.created_at)
+				if ((1.week.ago)..(DateTime.now)).cover?(user.musics.last.created_at)
 					@active_users << user
 				end
 			end
