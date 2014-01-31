@@ -69,6 +69,7 @@
 			scroll: true,
 			revert: true,
 			update: function(event, ui){
+				$(".list-group").removeClass("sortable");
 				var playlist_id = $(this).data('playlist_id');
 				var music_id = $('#player-heading').data('music_id');
 				$.ajax({
@@ -78,6 +79,7 @@
 					dataType: 'script',
 					complete: function(request){
 						setNextSong(music_id);	
+						$(".list-group").addClass("sortable");
 					}
 				});
 			}
