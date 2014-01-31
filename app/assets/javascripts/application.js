@@ -12,9 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap
 //= require jquery.ui.all
 //= require jquery.turbolinks
-//= require bootstrap
 //= require s3_direct_upload
 //= require jquery.jplayer
 //= require turbolinks
