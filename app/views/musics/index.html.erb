@@ -41,8 +41,6 @@
 			$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
 			$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerNext", function(){
 				playlist_id = $("#music_"+music_id).data("playlist_number")+1;
-				console.log("music: "+music_id);
-				console.log("playlist: "+playlist_id);
 				updatePlayer($(".playlist_"+playlist_id).data("music_id"));
 			});
 		}
@@ -104,7 +102,7 @@
 			<% playlist_counter = 1 %>
 			<% @playlist.musics.each do |music| %>
 				<li class="list-group-item playlist_<%=playlist_counter%> ui-state-default" id="music_<%=music.id%>" data-music_id="<%=music.id%>" data-playlist_number="<%=playlist_counter%>">
-					<%= music.name %>	
+					<%= music.name %>
 				</li>
 				<% playlist_counter += 1 %>
 			<% end %>
