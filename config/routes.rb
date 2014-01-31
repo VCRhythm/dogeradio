@@ -4,6 +4,7 @@ Dogeradio::Application.routes.draw do
 
 	resources :playlists, only: [:show] do
 		post :sort
+		resource :ranks
 	end
 
   resources :musics do 

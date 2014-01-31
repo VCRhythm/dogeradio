@@ -2,6 +2,6 @@ playlist_counter = 1
 $('.list-group-item').each(function(i, value){
 	$(this).removeClass(function(index, css){
 		return (css.match (/\playlist_\S+/g) || []).join(' ');
-	}).addClass('playlist_' + playlist_counter).data("playlist_number", playlist_counter);
+	}).addClass('playlist_' + playlist_counter).attr("data-playlist_number", playlist_counter);
 	playlist_counter++;
 });
