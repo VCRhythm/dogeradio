@@ -112,7 +112,7 @@
 		<div class="content-block">
 			<h3>Active Users</h3>
 			<% @active_users.each do |user| %>
-				<%= link_to user.username, user, remote: true %>
+				<%= link_to user.username, user, remote: true %><br />
 			<% end %>
 		</div>
 	</div>
