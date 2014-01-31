@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
 	end
 	validates :code, code: true 
 
-	has_many :musics, dependent: :destroy
+	has_many :musics, -> { order "created_at DESC"}, dependent: :destroy 
 
 	has_many :playlists
 
