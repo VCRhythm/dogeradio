@@ -58,7 +58,7 @@
 	}
 
 	$(document).ready(function(){
-		loadPlayer(<%= @track.id %>);			
+		loadPlayer(<%= @track.id if @track %>);			
 
 		$('.sortable').sortable({
 			dropOnEmpty: false,
@@ -96,7 +96,7 @@
 	<% end %>
 	<div class="col-xs-12 col-sm-4 sidebar-offcanvas" id="sidebar">
 		<div id="player" style="height:120px;">
-			<%= render partial: "player", locals: {track:@track}%>
+			<%= render partial: "player", locals: {track:@track} if @track %>
 		</div>
 		<ul class="list-group sortable" data-playlist_id="<%=@playlist.id %>">
 			<% playlist_counter = 1 %>
