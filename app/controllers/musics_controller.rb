@@ -15,6 +15,14 @@ class MusicsController < ApplicationController
 			@playlist.musics << Music.order(created_at: :desc).where(processed: true)
 		end
 		@new_tracks = Music.order(created_at: :desc).limit(5)
+		@active_users = Array.new
+		User.all.each do |user|
+			if user.musics.exists?
+				if ((1.week.ago)..(Date.today)).cover?(user.musics.last.created_at)
+					@active_users << user
+				end
+			end
+		end
 		@track = @playlist.musics[0]
 	end
 
