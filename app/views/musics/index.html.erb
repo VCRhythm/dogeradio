@@ -25,13 +25,14 @@
 				go = false;
 			},
 			repeat: function(event){
-				setNextSong(event);
+				setNextSong();
 			}
 		});
 	}	
 
-	function setNextSong(event){
-		if(event.jPlayer.options.loop){
+	function setNextSong(){
+		player = $("#jquery_jplayer_1");
+		if(player.data("jPlayer").options.loop){
 			$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
 			$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerRepeat", function(){
 				$(this).jPlayer("play");
@@ -77,9 +78,7 @@
 					dataType: 'script',
 					complete: function(request){
 						$('.sortable').effect('highlight');
-						$("#jquery_jplayer_1").jPlayer('repeat', function(event){
-							setNextSong(event);
-						});
+						setNextSong();	
 					}
 				});
 			}
@@ -96,7 +95,7 @@
 		<span class="glyphicon glyphicon-plus"></span> Add Music
 	<% end %>
 	<div class="col-xs-12 col-sm-4 sidebar-offcanvas" id="sidebar">
-		<div id="player">
+		<div id="player" style="height:120px;">
 			<%= render partial: "player", locals: {track:@track}%>
 		</div>
 		<ul class="list-group sortable" data-playlist_id="<%=@playlist.id %>">
