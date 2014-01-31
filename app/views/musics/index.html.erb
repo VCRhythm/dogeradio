@@ -25,12 +25,12 @@
 				go = false;
 			},
 			repeat: function(event){
-				setNextSong();
+				setNextSong(music_id);
 			}
 		});
 	}	
 
-	function setNextSong(){
+	function setNextSong(music_id){
 		player = $("#jquery_jplayer_1");
 		if(player.data("jPlayer").options.loop){
 			$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
@@ -78,7 +78,7 @@
 					dataType: 'script',
 					complete: function(request){
 						$('.sortable').effect('highlight');
-						setNextSong();	
+						setNextSong(music_id);	
 					}
 				});
 			}
