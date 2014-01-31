@@ -12,7 +12,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body style="zoom: 1;">
-	<div class="navbar navbar-default navbar-left navbar-fixed-top" role="navigation">
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -22,17 +22,17 @@
 				</button>
 				<%= link_to "DogeRadio", root_url, class: "navbar-brand" %>
 			</div>
-			<div class="collapse navbar-collapse">
-				<p class="navbar-text navbar-right">
+			<div class="navbar-collapse collapse" style="height:auto;">
+				<ul class="nav navbar-nav">
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right" style="margin-left:0;">
 					<% if user_signed_in? %>
 						Logged in as <strong><%= current_user.username %></strong>. <span id="balance"><%= current_user.balance.to_i %></span> <%= image_tag 'dogecoin-icon.png', style: "height: 20px;" %> <%= link_to 'Edit profile', edit_user_registration_path %> |	<%= link_to 'Logout', destroy_user_session_path, method: :delete %>
 					<% else %>
 						<%= link_to "Sign up", new_user_registration_path %> |	<%= link_to "Login", new_user_session_path %>
 					<% end %>
-				</p>
-				<ul class="nav navbar-nav">
-					<li><a href="#about">About</a></li>
-					<li><a href="#contact">Contact</a></li>
 				</ul>
 			</div>
 		</div>
