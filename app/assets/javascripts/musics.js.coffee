@@ -1,4 +1,4 @@
-$ ->
+$(document).ready ->
 	$('#s3_uploader').S3Uploader
 		remove_completed_progress_bar: false,
 		progress_bar_target: $('#uploads_container')
