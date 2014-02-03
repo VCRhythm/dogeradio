@@ -20,6 +20,7 @@
 			</div>
 		</div>
 		<div style="height:30px;">
+			<%= music.plays.sum(:count) %>
 			<% if @user == current_user %><%= link_to music, method: :delete, data: {confirm: "Are you sure?" }, class: "pull-right" do %><span class="glyphicon glyphicon-trash"></span><% end %><% end %>
 		</div>
 		<div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140130215759) do
+ActiveRecord::Schema.define(version: 20140203173932) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
@@ -60,6 +60,17 @@ ActiveRecord::Schema.define(version: 20140130215759) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "plays", force: true do |t|
+    t.integer  "count",      default: 1
+    t.integer  "music_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "plays", ["music_id"], name: "index_plays_on_music_id"
+  add_index "plays", ["user_id"], name: "index_plays_on_user_id"
 
   create_table "ranks", force: true do |t|
     t.integer  "music_id"

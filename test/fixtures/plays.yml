@@ -1,9 +1,11 @@
 # == Schema Information
 #
-# Table name: beta_codes
+# Table name: plays
 #
 #  id         :integer          not null, primary key
-#  value      :integer
+#  count      :integer
+#  music_id   :integer
+#  user_id    :integer
 #  created_at :datetime
 #  updated_at :datetime
 #
@@ -11,7 +13,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  value: 1
+  count: 1
+  music_id: 
+  user_id: 
 
 two:
-  value: 1
+  count: 1
+  music_id: 
+  user_id: 

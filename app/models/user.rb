@@ -16,6 +16,15 @@
 #  created_at             :datetime
 #  updated_at             :datetime
 #  username               :string(255)
+#  avatar_file_name       :string(255)
+#  avatar_content_type    :string(255)
+#  avatar_file_size       :integer
+#  avatar_updated_at      :datetime
+#  account                :string(255)
+#  balance                :float            default(0.0)
+#  code                   :integer
+#  prev_received          :float            default(0.0)
+#  bio                    :text
 #
 
 class User < ActiveRecord::Base
@@ -40,6 +49,7 @@ class User < ActiveRecord::Base
 	has_many :musics, -> { order "created_at ASC"}, dependent: :destroy 
 
 	has_many :playlists
+	has_many :plays
 
 	has_many :relationships, foreign_key: "follower_id", dependent: :destroy
 	has_many :followed_users, through: :relationships, source: :followed

@@ -8,12 +8,14 @@ Dogeradio::Application.routes.draw do
 	end
 
   resources :musics do 
+		resources :plays
   	resources :tags
 		get :fond_users
 		post :update_player
 	end
 
   devise_for :users, controllers: {registrations: "registrations"}
+
 	resources :users, only: [:show] do
 		post :pay
 		post :update_balance

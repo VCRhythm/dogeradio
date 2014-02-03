@@ -1,0 +1,36 @@
+class PlaysController < ApplicationController
+  before_action :set_play, only: [:update, :destroy]
+
+  def update
+		@play.count += 1	
+    respond_to do |format|
+      if @play.update(play_params)
+        format.html { redirect_to @play, notice: 'Play was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @play.errors, status: :unprocessable_entity }
+      end
+		end
+	end
+
+  def destroy
+    @play.destroy
+    respond_to do |format|
+      format.html { redirect_to plays_url }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_play
+			attributes = {user_id: current_user.id, music_id: params[:music_id]}
+			@play = Play.where(attributes).first_or_initialize
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def play_params
+      params.require(:play).permit(:music_id, :user_id, :count)
+    end
+end
