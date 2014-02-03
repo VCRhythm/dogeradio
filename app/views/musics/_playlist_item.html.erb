@@ -6,8 +6,6 @@
 <script type="text/javascript">
 	$('#playlist_<%= playlist_counter %>').children('.clickable').click(function(){
 		updatePlayer(<%=music.id%>);
-		$('html, body').animate({
-			scrollTop: $("#player").offset().top-70
-		}, 500);
+		$('body').animate({scrollTop: $("#player").offset().top-70}, 500);
 	});
 </script>

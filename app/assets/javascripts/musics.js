@@ -57,9 +57,7 @@ function updatePlayer(music_id){
 
 $(document).ready(function(){
 	$('.remote-link').click(function(){
-		$('html, body').animate({
-			scrollTop: $("#main").offset().top-90
-		}, 500);
+		$('body').animate({scrollTop: $("#main").offset().top-90}, 500);
 	});
 
 	$('.sortable').sortable({
