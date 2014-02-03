@@ -4,24 +4,20 @@ ruby '2.0.0'
 gem 'rails', '4.0.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'sass-rails', '~> 4.0.0'
-gem 'bootstrap-sass', git: 'git://github.com/thomas-mcdonald/bootstrap-sass.git'
-gem 'gmaps4rails'
 gem 'acts_as_list'
-gem 'geocoder'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bcrypt-ruby', '~> 3.0.0'
-gem 'rails_12factor'
 gem 'devise'
 gem 'rake', '10.1.1'
 gem 'aws-sdk'
 gem 'paperclip'
-gem 's3_direct_upload'
+gem 's3_direct_upload', git: "git://github.com/waynehoover/s3_direct_upload.git"
 gem 'jplayer-rails'
 gem 'rmagick'
 gem 'doge_api'
+gem 'bootstrap-sass', git: 'git://github.com/thomas-mcdonald/bootstrap-sass.git'
 
 # Use sqlite3 as the database for Active Record
 group :development, :test do
@@ -29,16 +25,18 @@ group :development, :test do
 end
 
 group :assets do
-        gem 'annotate'
-        gem 'coffee-rails', '~> 4.0.0'
-        gem 'uglifier', '>= 1.3.0'
+	gem 'sass-rails', '~> 4.0.0'
+  gem 'annotate'
+  gem 'coffee-rails', '~> 4.0.0'
+  gem 'uglifier', '>= 1.3.0'
 end
 
 group :test do
 end
 
 group :production do
-        gem 'pg'
+  gem 'pg'
+	gem 'rails_12factor'
 end
 
 group :doc do

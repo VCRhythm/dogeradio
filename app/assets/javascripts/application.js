@@ -11,11 +11,11 @@
 // about supported directives.
 //
 //= require jquery
+//= require s3_direct_upload
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require bootstrap
 //= require jquery.turbolinks
-//= require s3_direct_upload
 //= require jquery.jplayer
 //= require turbolinks
 //= require_tree .
