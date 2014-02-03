@@ -1,6 +1,20 @@
 class PlaysController < ApplicationController
   before_action :set_play, only: [:update, :destroy]
 
+	def create
+		@play = Play.new(play_params)
+
+    respond_to do |format|
+			if @play.save
+				format.html { redirect_to root_url, notice: 'Play was successfully created.' }
+			  format.json { render action: 'show', status: :created, location: @play }
+			else
+			  format.html { render action: 'new' }
+			  format.json { render json: @play.errors, status: :unprocessable_entity }
+			end
+		end
+	end
+
   def update
 		@play.count += 1	
     respond_to do |format|
