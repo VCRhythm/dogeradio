@@ -1,9 +1,7 @@
 class PlaysController < ApplicationController
-  before_action :set_play, only: [:update, :destroy]
+  before_action :set_play, only: [:create, :update, :destroy]
 
 	def create
-		@play = Play.new(play_params)
-
     respond_to do |format|
 			if @play.save
 				format.html { redirect_to root_url, notice: 'Play was successfully created.' }
