@@ -11,6 +11,14 @@
 </div>
 
 <script id="template-upload" type="text/x-tmpl">
+$('#s3_uploader').S3Uploader({
+	remove_completed_progress_bar: false,
+	progress_bar_target: $('#uploads_container')
+});
+
+$('#s3_uploader').bind('s3_upload_failed', function(e, content) {
+	return alert(content.filename + " failed to upload.");
+});
 	<div id="upload_{%=o.unique_id%}" class="upload">
 		<div class='form-holder'><h5>{%=o.name%}</h5></div>
 		<div class="progress progress-striped active"><div class="bar progress-bar" role="progressbar" style="width: 0%"></div></div>
