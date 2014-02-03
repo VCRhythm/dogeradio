@@ -26,7 +26,7 @@ function setNextSong(music_id){
 </script>
 
 <div class="row row-offcanvas row-offcanvas-left">
-	<%= link_to new_music_path, class: "pull-right" do %>
+	<%= link_to new_music_path, class: "pull-right", remote: true do %>
 		<span class="glyphicon glyphicon-plus"></span> Add Music
 	<% end %>
 	<div class="col-xs-12 col-sm-4 sidebar-offcanvas" id="sidebar">
