@@ -3,7 +3,7 @@
 		id: "s3_uploader",
 		callback_param: "music[direct_upload_url]",
 		expiration: 24.hours.from_now.utc.iso8601,
-		max_file_size: 20.megabytes do %>
+		max_file_size: 25.megabytes do %>
 		<%= file_field_tag :file, multiple: true, class: "form-control" %>
 	<% end %>
 
