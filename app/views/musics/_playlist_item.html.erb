@@ -8,7 +8,12 @@
 		updatePlayer(<%=music.id%>);
 		$('body').animate({scrollTop: $("#player").offset().top-70}, 500);
 	});
-	$('.delete-link').click(function(e){
+
+	$('.delete-link').click(function(){
+		$('.delete-link').addClass('stop-delete');	
+	});
+
+	$('.shutdown').click(function(e){
 		e.preventDefault();
 	});
 </script>
