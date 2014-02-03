@@ -10,12 +10,7 @@
 	<div id="uploads_container"></div>
 </div>
 
-<script id="template-upload" type="text/x-tmpl">
-
-	<div id="upload_{%=o.unique_id%}" class="upload">
-		<div class='form-holder'><h5>{%=o.name%}</h5></div>
-		<div class="progress progress-striped active"><div class="bar progress-bar" role="progressbar" style="width: 0%"></div></div>
-	</div>
+<script type="text/javascript">
 	$(document).ready(function(){
 		$('#s3_uploader').S3Uploader({
 			remove_completed_progress_bar: false,
@@ -26,4 +21,11 @@
 			return alert(content.filename + " failed to upload.");
 		});
 	});
+</script>
+
+<script id="template-upload" type="text/x-tmpl">
+	<div id="upload_{%=o.unique_id%}" class="upload">
+		<div class='form-holder'><h5>{%=o.name%}</h5></div>
+		<div class="progress progress-striped active"><div class="bar progress-bar" role="progressbar" style="width: 0%"></div></div>
+	</div>
 </script>
