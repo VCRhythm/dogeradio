@@ -32,6 +32,7 @@ class Music < ActiveRecord::Base
 	has_many :favoriteds, foreign_key: "music_id",
 											 	class_name: "Favorite",
 												dependent: :destroy
+
 	has_many :fond_users, through: :favoriteds, source: :user
 
 	validates :direct_upload_url, presence: true, format: { with: DIRECT_UPLOAD_URL_FORMAT }
@@ -56,7 +57,7 @@ class Music < ActiveRecord::Base
 		direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(music.direct_upload_url)
 		
 		clean_direct_upload_url = direct_upload_url_data[:filename].gsub(/'/, '')
-		clean_upload_file_name = music.upload_file_name.gsub(/'/,'')
+		clean_upload_file_name = music.upload_file_name.gsub(/'/, '')
 
 	  s3 = AWS::S3.new
 																					    
@@ -67,12 +68,11 @@ class Music < ActiveRecord::Base
 	    s3.buckets[Rails.configuration.aws[:bucket]].objects[paperclip_file_path].copy_from(direct_upload_url_data[:path])
 	  end
 		
-		#music.direct_upload_url = clean_direct_upload_url
-		#music.upload_file_name = clean_upload_file_name
+		s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].delete
+
 	  music.processed = true
     music.save
-	  
-		s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].delete
+
 	end
   
 	protected
