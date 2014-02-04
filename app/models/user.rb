@@ -68,6 +68,8 @@ class User < ActiveRecord::Base
 	},
 		bucket: 'dogeradio-avatar'
 
+	validates_attachment_content_type :avatar, content_type: ["image/jpg", "image/gif", "image/png", "image/jpeg"] 
+
 	def following?(other_user)
 		relationships.find_by(followed_id: other_user.id)
 	end
