@@ -24,17 +24,15 @@ class Music < ActiveRecord::Base
 	belongs_to :user
 	has_many :tags, dependent: :destroy
 	has_attached_file :upload
-	validates_attachment :upload, content_type: {content_type: "audio/mp3"}
-
 	has_many :ranks
 	has_many :playlists, through: :ranks
 	has_many :plays
-
 	has_many :favoriteds, foreign_key: "music_id",
 											 	class_name: "Favorite",
 												dependent: :destroy
-
 	has_many :fond_users, through: :favoriteds, source: :user
+
+#	validates_attachment :upload, content_type: {content_type: "audio/mp3"}
 
 	validates :direct_upload_url, presence: true, format: { with: DIRECT_UPLOAD_URL_FORMAT }
 						    
@@ -47,32 +45,22 @@ class Music < ActiveRecord::Base
 		write_attribute(:direct_upload_url, (CGI.unescape(escaped_url) rescue nil))
   end
 																		  
-  # Determines if file requires post-processing (image resizing, etc)
-  def post_process_required?
-    %r{^(image|(x-)?application)/(bmp|gif|jpeg|jpg|pjpeg|png|x-png)$}.match(upload_content_type).present?
-  end
-																								  
   # Final upload processing step
   def self.transfer_and_cleanup(id)
 	  music = Music.find(id)
 		direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(music.direct_upload_url)
-		
 		clean_direct_upload_url = direct_upload_url_data[:filename].gsub(/[^0-9A-Za-z.\-]/, '_')
 		#clean_upload_file_name = music.upload_file_name.gsub(/'/, '')
 
 	  s3 = AWS::S3.new
 																					    
-	  if music.post_process_required?
-		  music.upload = URI.parse(URI.escape(music.direct_upload_url))
-	  else
-	    paperclip_file_path = "musics/uploads/#{id}/original/#{clean_direct_upload_url}"
-	    s3.buckets[Rails.configuration.aws[:bucket]].objects[paperclip_file_path].copy_from(direct_upload_url_data[:path])
-	  end
+    paperclip_file_path = "musics/uploads/#{id}/original/#{clean_direct_upload_url}"
+    s3.buckets[Rails.configuration.aws[:bucket]].objects[paperclip_file_path].copy_from(direct_upload_url_data[:path])
 		
-		s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].delete
-
 	  music.processed = true
     music.save
+
+		s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].delete
 
 	end
   
@@ -102,7 +90,7 @@ class Music < ActiveRecord::Base
 			
 	# Queue file processing
   def queue_processing
-	  Music.delay.transfer_and_cleanup(id)
+	  Music.transfer_and_cleanup(id)
   end
 
 #	def transliterate(str)
