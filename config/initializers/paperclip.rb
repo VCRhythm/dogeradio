@@ -8,6 +8,6 @@ Paperclip::Attachment.default_options.merge!(
 )
 Paperclip.interpolates('escaped_filename') do |attachment, style|
 	s = basename(attachment, style)
-	s.gsub!(/'/,'')
+	s.gsub!(/[^0-9A-Za-z.\-]/, '_')
 	return s+ "." + extension(attachment, style)
 end

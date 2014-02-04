@@ -56,8 +56,8 @@ class Music < ActiveRecord::Base
 	  music = Music.find(id)
 		direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(music.direct_upload_url)
 		
-		clean_direct_upload_url = direct_upload_url_data[:filename].gsub(/'/, '')
-		clean_upload_file_name = music.upload_file_name.gsub(/'/, '')
+		clean_direct_upload_url = direct_upload_url_data[:filename].gsub(/[^0-9A-Za-z.\-]/, '_')
+		#clean_upload_file_name = music.upload_file_name.gsub(/'/, '')
 
 	  s3 = AWS::S3.new
 																					    
