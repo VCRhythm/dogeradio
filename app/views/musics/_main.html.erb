@@ -8,7 +8,7 @@
 <div class="content-block">
 	<h3>Most Played Tracks</h3>
 	<% @top_most_played_tracks.each do |track| %>
-		<%= link_to track.name, playlist_ranks_path(@playlist, music_id:track.id), method: "post", remote: true do %><span class="glyphicon glyphicon-plus" style="color:green"></span><% end %>
+		<%= link_to playlist_ranks_path(@playlist, music_id:track.id), method: "post", remote: true do %><%= track.name %> <span class="glyphicon glyphicon-plus" style="color:green"></span><% end %>
 		<br />
 	<% end %>
 </div>
