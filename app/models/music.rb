@@ -24,6 +24,8 @@ class Music < ActiveRecord::Base
 	belongs_to :user
 	has_many :tags, dependent: :destroy
 	has_attached_file :upload
+	validates_attachment_content_type :upload, content_type: "audio/mp3"
+
 	has_many :ranks
 	has_many :playlists, through: :ranks
 	has_many :plays
@@ -32,15 +34,12 @@ class Music < ActiveRecord::Base
 												dependent: :destroy
 	has_many :fond_users, through: :favoriteds, source: :user
 
-#	validates_attachment :upload, content_type: {content_type: "audio/mp3"}
-
 	validates :direct_upload_url, presence: true, format: { with: DIRECT_UPLOAD_URL_FORMAT }
 						    
   before_create :set_upload_attributes
   after_create :queue_processing
 										  
   # Store an unescaped version of the escaped URL that Amazon returns from direct upload.
-
 	def direct_upload_url=(escaped_url)
 		write_attribute(:direct_upload_url, (CGI.unescape(escaped_url) rescue nil))
   end
@@ -50,7 +49,6 @@ class Music < ActiveRecord::Base
 	  music = Music.find(id)
 		direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(music.direct_upload_url)
 		clean_direct_upload_url = direct_upload_url_data[:filename].gsub(/[^0-9A-Za-z.\-]/, '_')
-		#clean_upload_file_name = music.upload_file_name.gsub(/'/, '')
 
 	  s3 = AWS::S3.new
 																					    
@@ -61,7 +59,6 @@ class Music < ActiveRecord::Base
     music.save
 
 		s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].delete
-
 	end
   
 	protected
