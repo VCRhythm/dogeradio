@@ -14,11 +14,12 @@ class MusicsController < ApplicationController
 			@playlist = Playlist.new
 			@playlist.musics << Music.order(created_at: :desc).where(processed: true)
 		end
-		@tracks = Array.new
-		Music.all do |music|
-			@tracks << music.plays.sum(:count)
+		tracks_played_sums = Hash.new
+		Music.all.each do |music|
+			tracks_played_sums[music.id] = music.plays.sum(:count)
 		end
-		@most_played_tracks = @tracks.sort
+		@most_played_tracks = tracks_played_sums.sort_by {|k,v| v}.reverse
+		@top_most_played_tracks = @most_played_tracks[0..5]
 		@new_tracks = Music.order(created_at: :desc).where(processed: true).limit(5)
 		@active_users = Array.new
 		User.all.each do |user|
