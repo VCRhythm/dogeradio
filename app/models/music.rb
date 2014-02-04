@@ -24,6 +24,7 @@ class Music < ActiveRecord::Base
 	belongs_to :user
 	has_many :tags, dependent: :destroy
 	has_attached_file :upload
+	validates_attachment :upload, content_type: {content_type: "audio/mp3"}
 
 	has_many :ranks
 	has_many :playlists, through: :ranks
@@ -101,7 +102,7 @@ class Music < ActiveRecord::Base
 			
 	# Queue file processing
   def queue_processing
-	  Music.transfer_and_cleanup(id)
+	  Music.delay.transfer_and_cleanup(id)
   end
 
 #	def transliterate(str)
