@@ -34,7 +34,7 @@ class Music < ActiveRecord::Base
 												dependent: :destroy
 	has_many :fond_users, through: :favoriteds, source: :user
 
-	#validates :direct_upload_url, presence: true, format: { with: DIRECT_UPLOAD_URL_FORMAT }
+	validates :direct_upload_url, presence: true, format: { with: DIRECT_UPLOAD_URL_FORMAT }
 						    
   before_create :set_upload_attributes
   after_create :queue_processing
