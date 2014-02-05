@@ -7,7 +7,7 @@
 					<%= image_tag @featured_user.avatar.url(:thumb), class: "media-object" %>
 				<% end %>
 			<% end %>
-			<div class="media-body">
+			<div class="media-body" style="min-height:100px;">
 				<h4 class="media-heading"><strong><%= link_to @featured_user.username, @featured_user, remote: true, class: "remote-link" %></strong></h4>
 				<p><%= html_escape(@featured_user.bio).gsub(/\n/, '<br />').html_safe %></p>
 			</div>
