@@ -25,6 +25,8 @@ class Music < ActiveRecord::Base
 	has_many :tags, dependent: :destroy
 	has_attached_file :upload
 	validates_attachment_content_type :upload, content_type: ['audio/mpeg', 'audio/x-mpeg', 'audio/mp3', 'audio/x-mp3', 'audio/mpeg3', 'audio/x-mpeg3', 'audio/mpg', 'audio/x-mpg', 'audio/x-mpegaudio']
+	#validates_attachment_file_name :upload, matches: [/mp3\Z/, /mpeg\Z/, /ogg\Z/]
+	#do_not_validate_attachment_file_type :upload
 
 	has_many :ranks
 	has_many :playlists, through: :ranks
