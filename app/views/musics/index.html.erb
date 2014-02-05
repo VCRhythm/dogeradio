@@ -1,8 +1,4 @@
 <script type="text/javascript">
-	$(document).ready(function(){
-		loadPlayer(<%= @track.id if @track %>);			
-	});
-
 function setNextSong(music_id){
 	player = $("#jquery_jplayer_1");
 	if(player.data("jPlayer").options.loop){
@@ -31,7 +27,11 @@ function setNextSong(music_id){
 	<% end %>
 	<div class="col-xs-12 col-sm-4 sidebar-offcanvas" id="sidebar">
 		<div id="player" style="height:120px;">
-			<%= render partial: "player", locals: {track:@track} if @track %>
+			<% if @track %>
+				<%= render partial: "player", locals: {track:@track} %>
+			<% else %>
+				<%= render partial: "empty_player" %>
+			<% end %>
 		</div>
 		<ul id="playlist" class="list-group sortable" data-playlist_id="<%=@playlist.id %>">
 			<% playlist_counter = 1 %>

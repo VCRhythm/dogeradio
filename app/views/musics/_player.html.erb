@@ -1,3 +1,8 @@
+<script>
+$(document).ready(function(){
+	loadPlayer(<%= track.id %>);			
+});
+</script>
 <div class="media">
 	<div class="pull-left">
 		<% if track.user.avatar.exists? %>
