@@ -4,7 +4,7 @@
 	<% if @user.avatar.exists? %>
 		<%= image_tag @user.avatar.url(:square), class: "pull-left media-object" %><br/>
 	<% end %>
-	<p class="media-body"><%= @user.bio %></p>
+	<p class="media-body"><%= html_escape(@user.bio).gsub(/\n/, '<br />').html_safe %></p>
 </div>
 <% @musics.each do |music| %>
 	<li class="list-group-item">
