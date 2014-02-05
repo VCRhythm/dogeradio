@@ -1,8 +1,8 @@
 $("#playlist").append("<%= j render partial: 'musics/playlist_item', locals: {music: @music, playlist_counter: 0}%>");
 playlist_counter = 0;
-$('.playlist_item').each(function(i, value){
+$('.playlist-item').each(function(i, value){
 	playlist_counter+=1;
 	$(this).removeAttr('id').attr('id', 'playlist_'+playlist_counter).attr("data-playlist_number", playlist_counter);
 	music_id = $(this).data("music_id").split("_")[1];
-	$(this).children('.delete-div').children('.delete-link').attr('href', "/playlists/<%=@playlist.id%>/ranks?music_id="+music_id+"&position="+playlist_counter).click(function(){$('.delete-link').addClass('stop-delete');});
+	$(this).children('.delete-div').children('.delete-link').attr('href', "/playlists/<%=@playlist.id%>/ranks?music_id="+music_id+"&position="+playlist_counter);
 });

@@ -28,7 +28,6 @@ function loadPlayer(music_id){
 	});
 }	
 
-
 function updatePlayer(music_id){
 	$.ajax({
 		type:"POST",
@@ -41,7 +40,6 @@ function updatePlayer(music_id){
 }
 
 $(document).ready(function(){
-	
 
 	$('.remote-link').click(function(){
 		$('body').animate({scrollTop: $("#main").offset().top-90}, 500);
@@ -56,6 +54,7 @@ $(document).ready(function(){
 		scroll: true,
 		revert: true,
 		update: function(event, ui){
+			$(".delete-link").addClass("stop-delete");
 			$(".list-group").removeClass("sortable");
 			var playlist_id = $(this).data('playlist_id');
 			var music_id = $('#player-heading').data('music_id');
