@@ -1,6 +1,6 @@
 <%= form_for [music, Tag.new], html: {class: "form-inline", role: "form"} do |f| %>
   <div class="form-group">
-    <%= f.select :category, options_for_select([["Tag Type", ""],"Genre","City","Style","Trend"]), {}, {class: "form-control input-sm"} %>
+    <%= f.select :category, options_for_select(["Genre","City","Style","Trend"]), {}, {class: "form-control input-sm"} %>
   </div>
   <div class="form-group">
     <%= f.text_field :description, class: "form-control input-sm", placeholder: "Description" %>

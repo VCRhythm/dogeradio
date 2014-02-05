@@ -12,4 +12,6 @@
 
 class Tag < ActiveRecord::Base
   belongs_to :music
+	validates :music_id, presence: true
+	validates :category, :description, presence: true
 end
