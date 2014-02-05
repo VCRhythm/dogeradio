@@ -27,6 +27,8 @@ class MusicsController < ApplicationController
 		
 		@new_tracks = Music.order(created_at: :desc).where(processed: true).limit(5)
 		@active_users = Array.new
+
+		#Determine "active users"
 		User.all.each do |user|
 			if user.musics.exists?
 				if ((1.week.ago)..(DateTime.now)).cover?(user.musics.last.created_at)
@@ -34,6 +36,13 @@ class MusicsController < ApplicationController
 				end
 			end
 		end
+		
+		#Random Featured Artist
+		begin
+			offset = rand(User.count)
+			@featured_user = User.first(offset:offset) 
+		end while !@featured_user.musics.exists?
+
 		@track = @playlist.musics[0]
 	end
 
