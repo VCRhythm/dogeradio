@@ -24,7 +24,7 @@ class Music < ActiveRecord::Base
 	belongs_to :user
 	has_many :tags, dependent: :destroy
 	has_attached_file :upload
-	validates_attachment_content_type :upload, content_type: "audio/mp3"
+	#validates_attachment_content_type :upload, content_type: ["audio/mp3", "audio/ogg"]
 
 	has_many :ranks
 	has_many :playlists, through: :ranks
@@ -34,7 +34,7 @@ class Music < ActiveRecord::Base
 												dependent: :destroy
 	has_many :fond_users, through: :favoriteds, source: :user
 
-	validates :direct_upload_url, presence: true, format: { with: DIRECT_UPLOAD_URL_FORMAT }
+	#validates :direct_upload_url, presence: true, format: { with: DIRECT_UPLOAD_URL_FORMAT }
 						    
   before_create :set_upload_attributes
   after_create :queue_processing
