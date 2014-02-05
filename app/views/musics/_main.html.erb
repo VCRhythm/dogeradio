@@ -23,11 +23,15 @@
 		</div>
 	</div>
 	<div class="content-block col-md-6">
-		<h3>Most Played Tracks</h3>
-		<% @top_most_played_tracks.each do |track| %>
-			<%= link_to playlist_ranks_path(@playlist, music_id:track.id), method: "post", remote: true do %><%= track.user.username+" - "+track.name %> <span class="glyphicon glyphicon-plus" style="color:green"></span><% end %>
-			<br />
-		<% end %>
+		<h3>Top Tracks</h3>
+		<div class="list-group">
+			<% @top_most_played_tracks.each do |track| %>
+				<%=link_to playlist_ranks_path(@playlist, music_id: track.id), method: :post, remote: true, class: "list-group-item" do %>
+					<span class="badge" style="background-color:white"><span class="glyphicon glyphicon-plus" style="color:green"></span></span>
+					<%= track.name %>
+				<% end %>
+			<% end %>
+		</div>
 	</div>
 </div>
 <div class="row">
