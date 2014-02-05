@@ -12,7 +12,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'devise'
 gem 'rake', '10.1.1'
 gem 'aws-sdk'
-gem 'paperclip', '~> 3.0'
+gem 'paperclip'
 gem 's3_direct_upload', git: "git://github.com/waynehoover/s3_direct_upload.git"
 gem 'jplayer-rails'
 gem 'rmagick'
