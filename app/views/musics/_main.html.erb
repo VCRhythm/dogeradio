@@ -9,7 +9,7 @@
 				<% end %>
 			<% end %>
 			<div class="media-body">
-				<h4 class="media-heading"><strong><%=@featured_user.username%></strong></h4>
+				<h4 class="media-heading"><strong><%= link_to @featured_user.username, @featured_user, remote: true, class: "remote-link" %></strong></h4>
 				<p><%=@featured_user.bio%></p>
 			</div>
 			<div class="list-group">
@@ -26,14 +26,15 @@
 		<h3>Top Tracks</h3>
 		<div class="list-group">
 			<% @top_most_played_tracks.each do |track| %>
-				<%=link_to playlist_ranks_path(@playlist, music_id: track.id), method: :post, remote: true, class: "list-group-item" do %>
+				<%= link_to playlist_ranks_path(@playlist, music_id: track.id), method: :post, remote: true, class: "list-group-item" do %>
 					<span class="badge" style="background-color:white"><span class="glyphicon glyphicon-plus" style="color:green"></span></span>
-					<%= track.name %>
+					<%= track.user.username + " - " + track.name %>
 				<% end %>
 			<% end %>
 		</div>
 	</div>
 </div>
+
 <div class="row">
 <div class="content-block">
 	<h3>Recent Tracks</h3>
