@@ -20,26 +20,24 @@ function setNextSong(music_id){
 	}
 }
 </script>
-<%= link_to new_music_path, class: "pull-right", remote: true do %>
-	<span class="glyphicon glyphicon-plus"></span> Add Music
-<% end %>
-
 <div class="row row-offcanvas row-offcanvas-left">
 	<div class="col-xs-12 col-sm-4 sidebar-offcanvas" id="sidebar">
-		<div id="player" class="content-block" style="height:120px;">
-			<% if @track %>
-				<%= render partial: "player", locals: {track:@track} %>
-			<% else %>
-				<%= render partial: "empty_player" %>
-			<% end %>
+		<div class="content-block">
+			<div id="player" style="height:120px;">
+				<% if @track %>
+					<%= render partial: "player", locals: {track:@track} %>
+				<% else %>
+					<%= render partial: "empty_player" %>
+				<% end %>
+			</div>
+			<ul id="playlist" class="list-group sortable" data-playlist_id="<%=@playlist.id %>">
+				<% playlist_counter = 1 %>
+				<% @playlist.musics.each do |music| %>
+					<%= render partial: 'playlist_item', locals: {music: music, playlist_counter: playlist_counter} %>
+					<% playlist_counter += 1 %>
+				<% end %>
+			</ul>
 		</div>
-		<ul id="playlist" class="list-group sortable" data-playlist_id="<%=@playlist.id %>">
-			<% playlist_counter = 1 %>
-			<% @playlist.musics.each do |music| %>
-				<%= render partial: 'playlist_item', locals: {music: music, playlist_counter: playlist_counter} %>
-				<% playlist_counter += 1 %>
-			<% end %>
-		</ul>
 	</div>
 	<div id="main" class="col-xs-12 col-sm-8">
 		<%= render partial: "main" %>

@@ -1,4 +1,5 @@
-<div class="container content-block"><%= image_tag 'dogeIcon.png', class: "img-responsive" %></div>
+<div class="container"><%= image_tag 'dogeRadioIcon.jpg', class: "img-responsive", style: "margin: 0 auto; max-height:300px;"%></div>
+<div class="content-block">
 <h2>Sign in</h2>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
@@ -12,7 +13,14 @@
     <div class="checkbox"><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
   <% end -%>
 
-  <div><%= f.submit "Sign in", class: "btn btn-default" %></div>
+  <div style="text-align:center;"><%= f.submit "Sign in", class: "btn btn-primary btn-lg" %></div>
 <% end %>
 <br />
+<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+  <%= link_to "Forgot your password?", new_password_path(resource_name), method: :get %>
+<% end -%>
+
+</div>
+<div class="content-block">
 <%= render "devise/shared/links" %>
+</div>

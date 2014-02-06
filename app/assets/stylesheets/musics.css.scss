@@ -1,25 +1,74 @@
 // Place all the styles related to the musics controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@mixin box_sizing {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	}
+
+html{
+	height:100%;
+	}
+
 body {
-	background: image_url('moonSurface.jpg') no-repeat center fixed;
+	height:100%;
+	background: image_url('moonSurfaceColorized.jpg') no-repeat center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-color:#333;
 	color:white;
+}
 
+#wrap{
+	padding-bottom:50px;
+}
+#footer{
+	position:fixed;
+	bottom:0px;
+	width:100%;
+	font-size:25px;
+	height:40px;
+	background-color:#005d74;
+	}
+
+a {
+	color: #D47A6F;
+	&:hover{
+		color: #D4AE57;
+		text-decoration:none;
+	}
 }
 .navbar-brand{
 	color: #fbc213;
 }
+h2{
+	margin-top:0;
+	padding-top:10px;
+	}
+
 h3{
+	margin-top:0;
 	padding-top:10px;
 }
 .content-block{
-	padding-bottom:1px;
-	background-color: rgba(0,0,0,0.7);
+	margin-top:20px;
+	padding:10px 20px;
+	background-color: rgba(0,84,104,0.7);
+	@include box_sizing;
 }
-.clickable{
-	color:black;
+
+.navbar-default {
+	.navbar-brand{
+	font-size:35px;
+	color:#BA9133;
 }
+	li{
+		font-size:30px;
+	}
+}
+.logged-text{
+	color:#777777;
+}	
