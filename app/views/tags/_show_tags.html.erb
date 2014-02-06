@@ -1,0 +1,22 @@
+<script>
+	$(document).ready(function(){
+		$('#add-tag').on('click', function(){
+			music_id = $('#player-heading').data("music_id");
+			$('#action-panel').html("<%= j render partial: 'tags/form', locals: {track:track}  %>").slideDown();
+		});
+	});
+</script>
+
+<% track.tags.each do |tag| %>
+	<% case tag.category %>
+		<% when "City" %>
+			<button type="button" class="btn tag tag-city btn-xs"><%= tag.description %></button>
+		<% when "Genre" %>
+			<button type="button" class="btn tag tag-genre btn-xs"><%= tag.description %></button>
+		<% when "Style" %>
+			<button type="button" class="btn tag tag-style btn-xs"><%= tag.description %></button>
+		<% when "Trend" %>
+			<button type="button" class="btn tag tag-trend btn-xs"><%= tag.description %></button>
+	<% end %>
+<% end %>
+<button type="button" id="add-tag" class="btn btn-xs tag btn-default"><span class="glyphicon glyphicon-chevron-right"></span></button>

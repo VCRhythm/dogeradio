@@ -90,3 +90,25 @@ h3{
 .progress-bar-success{
 	background-color:	#268b41;
 }
+
+.tag-genre{
+	background-color:#BA4333;
+}
+
+.tag-trend{
+	background-color:#2D3F7E;
+}
+
+.tag-style{
+	background-color:#268B41;
+}
+
+.tag-city{
+	background-color:#BA7633;
+}
+.tag{
+	&:hover{
+		color:#D47A6F;
+		border-color:none;
+	}
+}

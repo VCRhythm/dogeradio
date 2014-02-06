@@ -25,16 +25,7 @@ class TagsController < ApplicationController
   # POST /tags.json
   def create
 		@music = Music.find(params[:music_id])
-    @tag = @music.tags.new(tag_params)
-		respond_to do |format|
-			if @tag.save
-				format.html { redirect_to root_url, notice: 'Tag was successfully created.'}
-				format.json { render action: 'show', status: :created, location: @tag }
-			else
-				format.html { render action: 'new' }
-				format.json { render json: @tag.errors, status: :unprocessable_entity }
-			end
-	 end
+    @tag = @music.tags.create(tag_params)
   end
 
   # PATCH/PUT /tags/1

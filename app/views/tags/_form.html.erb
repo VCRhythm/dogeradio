@@ -1,6 +1,8 @@
-<%= form_for [music, Tag.new], html: {class: "form-inline", role: "form"} do |f| %>
+<h3><strong><%= track.name %></strong></h3>
+<h4><%= track.user.username %></h4>
+<%= form_for [track, Tag.new], html: {class: "form-inline", role: "form"}, remote: true do |f| %>
   <div class="form-group">
-    <%= f.select :category, options_for_select(["Genre","City","Style","Trend"]), {}, {class: "form-control input-sm"} %>
+    <%= f.select :category, options_for_select(["Genre","City","Style","Trend"]), {}, class: "form-control input-sm" %>
   </div>
   <div class="form-group">
     <%= f.text_field :description, class: "form-control input-sm", placeholder: "Description" %>

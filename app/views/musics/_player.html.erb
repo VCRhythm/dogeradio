@@ -1,6 +1,12 @@
 <script>
 $(document).ready(function(){
 	loadPlayer(<%= track.id %>);			
+
+	$('.jp-next').click(function(){
+		position = $("#player-heading").data('position');
+		next_position = position + 1;
+		updatePlayer(next_position);
+	});
 });
 </script>
 
@@ -31,17 +37,7 @@ $(document).ready(function(){
 	</div>
 </div>
 <div id="tags" style="margin-bottom:5px;">
-	<span class="btn-group">
-		<% track.tags.each do |tag| %>
-			<button type="button" class="btn btn-default btn-xs"><%= tag.description %></button>
-		<% end %>
+	<span id="player-tags" class="btn-group">
+		<%= render partial: 'tags/show_tags', locals: {track: track} %>
 	</span>
 </div>
-
-<script>
-	$('.jp-next').click(function(){
-		position = $("#player-heading").data('position');
-		next_position = position + 1;
-		updatePlayer(next_position);
-	});
-</script>

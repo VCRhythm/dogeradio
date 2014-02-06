@@ -1,0 +1,5 @@
+$('#action-panel').slideUp('slow');
+var player_track = $("#player-heading").data('music_id');
+if (player_track == <%=@music.id%>) {
+	$("#player-tags").html("<%= j render partial: 'show_tags', locals: {track: @music} %>");
+}
