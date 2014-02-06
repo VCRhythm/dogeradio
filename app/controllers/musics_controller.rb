@@ -44,6 +44,9 @@ class MusicsController < ApplicationController
 			@featured_user = User.first(offset:offset) 
 		end while !@featured_user.musics.exists?
 		@featured_user_music = @featured_user.musics.where(processed: true)
+
+		#Tell the player to play track 1
+		@player_position = 1 #needed for next functionality
 		@track = @playlist.musics[0]
 	end
 

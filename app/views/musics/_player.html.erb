@@ -24,7 +24,7 @@ $(document).ready(function(){
 			<button type="button" class="jp-next btn btn-link btn-lg" style="padding:0"><span class="glyphicon glyphicon-step-forward"></span></button>
 		</span>
 		<%= render partial: 'shared/favorite_form', locals: {music:track} if signed_in? %>	
-		<% if track.user.id != current_user.id %><%= link_to user_pay_path(track.user, music_id: track.id), method: :post, remote: true, class: "pull-right" do %><%= image_tag 'dogecoin-icon.png' %><% end %><% end %>
+		<% if track.user.id != current_user.id %><%= link_to user_pay_path(track.user, music_id: track.id), method: :post, remote: true, class: "pull-right" do %><%= image_tag 'dogecoin-icon.png', style:"height:35px;" %><% end %><% end %>
 	</div>
 </div>
 <div id="tags" style="margin-bottom:5px;">
