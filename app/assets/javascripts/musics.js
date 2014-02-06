@@ -1,5 +1,25 @@
 var go = false;
 
+function setNextSong(music_id){
+	player = $("#jquery_jplayer_1");
+	if(player.data("jPlayer").options.loop){
+		$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
+		$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerRepeat", function(){
+			$(this).jPlayer("play");
+		});
+	} else {
+		$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
+		$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerNext", function(){
+			$.ajax({
+				type: "post",
+				url: "musics/"+music_id+"/plays/"
+			});
+			playlist_id = $(".music_"+music_id).data("playlist_number")+1;
+			updatePlayer(playlist_id);
+		});
+	}
+}
+
 function loadPlayer(music_id){
 	$('#jquery_jplayer_1').jPlayer({
 		preload: "none",
