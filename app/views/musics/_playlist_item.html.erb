@@ -6,7 +6,8 @@
 		$('#playlist_<%= playlist_counter %>').children('.clickable').click(function(){
 			$('.playlist-item').removeClass('active');
 			$(this).parent().addClass('active');
-			updatePlayer(<%=music.id%>);
+			position = $(this).parent().data('playlist_number');
+			updatePlayer(<%=music.id%>, position);
 			$('body').animate({scrollTop: $("#player").offset().top-70}, 500);
 		});
 	</script>

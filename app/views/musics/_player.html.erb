@@ -11,7 +11,7 @@ $(document).ready(function(){
 		<span id="thanks" style="position:relative; margin-bottom:0; margin-top:-50px;"></span>
 	</div>
 	<div class="media-body" >
-		<h6 id="player-heading" class="media-heading" data-music_url="<%=track.upload.url%>" data-music_id="<%=track.id%>"><strong><%= track.name %><br/></strong><%= link_to track.user.username, track.user, remote: true, class: "remote-link" %></h6>
+		<h6 id="player-heading" class="media-heading" data-music_url="<%=track.upload.url%>" data-music_id="<%=track.id%>" data-position="<%=@player_position%>"><strong><%= track.name %><br/></strong><%= link_to track.user.username, track.user, remote: true, class: "remote-link" %></h6>
 		<span id="jquery_jplayer_1" class="jp-jplayer"></span>
 		<div class="jp-seek-bar progress" style="margin-bottom:0">
 			<div class="jp-play-bar progress-bar"></div>
@@ -36,6 +36,11 @@ $(document).ready(function(){
 </div>
 <script>
 	$('.jp-next').click(function(){
-		$('#jquery_jplayer_1').next();		
+		position = $("#player-heading").data('position');
+		next_position = position + 1;
+		music_id = $("#playlist_"+next_position).data("music_id").split("_")[1];
+		$('#playlist_' + position).removeClass('active');
+		$('#playlist_' + next_position).addClass('active');
+		updatePlayer(music_id, next_position);
 	});
 </script>

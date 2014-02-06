@@ -28,9 +28,10 @@ function loadPlayer(music_id){
 	});
 }	
 
-function updatePlayer(music_id){
+function updatePlayer(music_id, position){
 	$.ajax({
 		type:"POST",
+		data: {position: position},
 		url: "musics/"+music_id+"/update_player/",
 		success: function() {
 			go = true;

@@ -1,1 +1,1 @@
-$("#player").html('<%= escape_javascript("#{render partial:'player', locals: {track:@track}}").html_safe %>');
+$("#player").html('<%= escape_javascript("#{render partial:'player', locals: {track:@track, position:@position}}").html_safe %>');
