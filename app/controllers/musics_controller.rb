@@ -42,7 +42,7 @@ class MusicsController < ApplicationController
 			offset = rand(User.count)
 			@featured_user = User.first(offset:offset) 
 		end while !@featured_user.musics.exists?
-
+		@featured_user_music = @featured_user.musics.where(processed: true)
 		@track = @playlist.musics[0]
 	end
 

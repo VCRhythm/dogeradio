@@ -12,7 +12,7 @@
 				<p><%= html_escape(@featured_user.bio).gsub(/\n/, '<br />').html_safe %></p>
 			</div>
 			<div class="list-group">
-				<% @featured_user.musics[0..5].each do |track| %>
+				<% @featured_user_music[0..5].each do |track| %>
 					<%=link_to playlist_ranks_path(@playlist, music_id: track.id), method: :post, remote: true, class: "list-group-item" do %>
 						<span class="badge" style="background-color:white"><span class="glyphicon glyphicon-plus" style="color:green"></span></span>
 						<%= track.name %>

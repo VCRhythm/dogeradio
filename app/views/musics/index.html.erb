@@ -20,13 +20,13 @@ function setNextSong(music_id){
 	}
 }
 </script>
+<%= link_to new_music_path, class: "pull-right", remote: true do %>
+	<span class="glyphicon glyphicon-plus"></span> Add Music
+<% end %>
 
 <div class="row row-offcanvas row-offcanvas-left">
-	<%= link_to new_music_path, class: "pull-right", remote: true do %>
-		<span class="glyphicon glyphicon-plus"></span> Add Music
-	<% end %>
 	<div class="col-xs-12 col-sm-4 sidebar-offcanvas" id="sidebar">
-		<div id="player" style="height:120px;">
+		<div id="player" class="content-block" style="height:120px;">
 			<% if @track %>
 				<%= render partial: "player", locals: {track:@track} %>
 			<% else %>
