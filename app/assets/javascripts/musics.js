@@ -28,7 +28,11 @@ function loadPlayer(music_id){
 	});
 }	
 
-function updatePlayer(music_id, position){
+function updatePlayer(position){
+	previous_position = $("#player-heading").data('position');
+	music_id = $("#playlist_"+position).data("music_id").split("_")[1];
+	$('#playlist_' + previous_position).removeClass('active');
+	$('#playlist_' + position).addClass('active');
 	$.ajax({
 		type:"POST",
 		data: {position: position},

@@ -1,5 +1,5 @@
 if(!$("#player-heading").length){
-	$("#player").html("<%= j render partial: 'musics/player', locals: {track:@music} %>");
+	$("#player").html("<%= j render partial: 'musics/player', locals: {track:@music, position: 1} %>");
 }
 $("#playlist").append("<%= j render partial: 'musics/playlist_item', locals: {music: @music, playlist_counter: 0}%>");
 playlist_counter = 0;

@@ -4,10 +4,8 @@
 
 	<script type="text/javascript">
 		$('#playlist_<%= playlist_counter %>').children('.clickable').click(function(){
-			$('.playlist-item').removeClass('active');
-			$(this).parent().addClass('active');
 			position = $(this).parent().data('playlist_number');
-			updatePlayer(<%=music.id%>, position);
+			updatePlayer(position);
 			$('body').animate({scrollTop: $("#player").offset().top-70}, 500);
 		});
 	</script>
