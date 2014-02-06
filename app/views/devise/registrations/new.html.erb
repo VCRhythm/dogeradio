@@ -1,3 +1,4 @@
+<div class="content-block">
 <h2>Sign up</h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
@@ -18,7 +19,8 @@
 	<div class="form-group"><%= label_tag "Beta Code" %><br/>
 	<%= f.text_field :code, class: "form-control" %></div>
 
-  <div><%= f.submit "Sign up", class: "btn btn-default" %></div>
+  <div><%= f.submit "Sign up", class: "btn btn-primary btn-lg btn-block" %></div>
+	<br />
+	<%= mail_to "beta-code@dogeradio.com", "Want a beta key?", style: 'font-size:20px;' %>
 <% end %>
-
-<%= render "devise/shared/links" %>
+</div>

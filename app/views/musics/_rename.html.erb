@@ -1,5 +1,5 @@
 <%= form_for @music, remote: true, html: {id: "rename_"+@music.id.to_s, class: "form-inline"} do |f| %>
-	<%= f.text_field :name, placeholder: params[:filename], html: {class: "form-control", style: "min-width:50%;"} %>
+	<%= f.text_field :name, placeholder: params[:filename], class: "form-control", style: "min-width:50%;" %>
 	<%= f.submit "Rename", class: "btn btn-default" %>
 <% end %>
 

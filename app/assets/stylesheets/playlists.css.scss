@@ -4,18 +4,18 @@
 .playlist-item{
 		color: #777777;
 		&:hover {
-		color:#333333;
-		text-decoration:none;
-		background-color:whitesmoke;
-	}
+			color:#333333;
+			text-decoration:none;
+			background-color:whitesmoke;
+		}
 }
 
 .active{
-		background-color: #428bca;
-		color:white;
+		background-color: #ba9133;
+		color:#f8f8f8;
 		&:hover {
 			color:white;
-			background-color:#3B7DB6;
+			background-color:#a7822e;
 		}
 	}
 

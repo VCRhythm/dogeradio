@@ -19,14 +19,14 @@
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
+					<% if user_signed_in? %><span class="icon-bar"></span><% end %>
 				</button>
-				<%= link_to "DogeRadio", root_url, remote: true, class: "navbar-brand" %>
+				<% if user_signed_in? %><%= link_to "DogeRadio", root_url, remote: true, class: "navbar-brand" %><% else %><%= link_to "DogeRadio", root_url, class: "navbar-brand" %><% end %>
 			</div>
 			<div class="navbar-collapse collapse" style="height:auto;">
 				<ul class="nav navbar-nav">
 					<li><a href="#about">About</a></li>
-					<li><%= link_to new_music_path, remote: true, style:"padding-top:5px;" do %>Upload <span class="glyphicon glyphicon-music" style="position:relative; top:3px;"></span><% end %></li>
+					<% if user_signed_in? %><li><%= link_to new_music_path, remote: true, style:"padding-top:5px;" do %>Upload <span class="glyphicon glyphicon-music" style="position:relative; top:3px;"></span><% end %></li><% end %>
 				</ul>
 				<ul class="nav navbar-nav navbar-right logged-text" style="margin-left:0; margin-top:13px;">
 					<% if user_signed_in? %>
@@ -57,3 +57,11 @@
 </div>
 </body>
 </html>
+
+<% if alert or notice %> 
+<script>
+	$(document).ready(function(){
+		$(".alert").delay(3000).slideUp();
+	});
+</script>
+<% end %>
