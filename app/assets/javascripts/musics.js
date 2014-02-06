@@ -58,6 +58,9 @@ $(document).ready(function(){
 		opacity: 1,
 		scroll: true,
 		revert: true,
+		start: function(e, ui){
+			ui.placeholder.height("20px");
+		},
 		update: function(event, ui){
 			$(".delete-link").addClass("stop-delete");
 			$(".list-group").removeClass("sortable");
