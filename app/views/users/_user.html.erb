@@ -20,7 +20,7 @@
 				<% if @user != current_user %><%= link_to user_pay_path(@user, music_id: music.id), method: :post, remote: true, class: "pull-right" do %><%= image_tag 'dogecoin-icon.png' %><% end %><% end %>
 			</div>
 		</div>
-		<div style="height:30px;">
+		<div style="height:30px; color: #777777">
 			<small><%= pluralize(music.plays.sum(:count) || 0, 'play') %>. <%= pluralize(music.favoriteds.count, 'wow')%>.</small>
 			<% if @user == current_user %><%= link_to music, method: :delete, data: {confirm: "Are you sure?" }, class: "pull-right" do %><span class="glyphicon glyphicon-trash"></span><% end %><% end %>
 		</div>
