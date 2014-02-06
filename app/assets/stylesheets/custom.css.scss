@@ -20,6 +20,13 @@ body { padding-top: 70px;}
 	}
 }
 
+.glyphicon-remove{
+	color:#BA4333;
+	&:hover {
+		color: #D4AE57;
+		text-decoration:none;
+	}
+}
 .alert-success{
 	background-color:#268b41;
 	color:white;
