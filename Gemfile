@@ -19,6 +19,7 @@ gem 'rmagick'
 gem 'doge_api'
 gem 'bootstrap-sass', git: 'git://github.com/thomas-mcdonald/bootstrap-sass.git'
 gem 'delayed_job_active_record'
+gem 'soundcloud'
 
 # Use sqlite3 as the database for Active Record
 group :development, :test do
