@@ -15,8 +15,7 @@ class Tag < ActiveRecord::Base
 	validates :music_id, presence: true
 	validates :category, :description, presence: true
 
-	scope :ci_find_first, lambda { |attribute, value| where("lower(#{attribute}) = ?", value.downcase).first }
-	
-	scope :ci_find, lambda { |attribute, value| where("lower(#{attribute}) = ?", value.downcase) }
+	include CI_Find
+	include CI_Find_First
 
 end

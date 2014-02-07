@@ -1,24 +1,6 @@
 @import 'bootstrap';
 
-body { padding-top: 70px;}
-.stats {
-	overflow: auto;
-	a {
-		float: left;
-		padding: 0 10px;
-		border-left: 1px solid #eee;
-		color: gray;
-		&:first-child {
-		}
-		&:hover {
-			text-decoration: none;
-			color: #049cdb;
-		}
-	}
-	strong {
-		display: block;
-	}
-}
+
 
 .glyphicon-remove{
 	color:#BA4333;

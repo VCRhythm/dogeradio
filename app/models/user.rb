@@ -78,6 +78,8 @@ class User < ActiveRecord::Base
 
 	validates_attachment_content_type :avatar, content_type: ["image/jpg", "image/gif", "image/png", "image/jpeg"] 
 
+	include CI_Find
+	include CI_Find_First
 	def queue
 		playlists.first
 	end

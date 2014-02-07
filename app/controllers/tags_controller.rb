@@ -1,14 +1,6 @@
 class TagsController < ApplicationController
   before_action :set_tag, only: [:search, :show, :edit, :update, :destroy]
 
-	def search
-		matching_tags =	Tag.ci_find('description', @tag.description)		
-		@tracks = Array.new() 
-		matching_tags.each do |tag|
-			@tracks << tag.music
-		end
-	end
-
   # GET /tags
   # GET /tags.json
   def index

@@ -1,5 +1,7 @@
 Dogeradio::Application.routes.draw do
 
+	post 'search', to: 'search#search'
+
 	root 'musics#index'
 
 	post 'payout', to: 'users#payout'
@@ -9,7 +11,7 @@ Dogeradio::Application.routes.draw do
 		resource :ranks
 	end
 	
-	post '/tags/:id/search', to: 'tags#search'
+#	post '/tags/:id/search', to: 'tags#search'
 
   resources :musics do 
 		resources :plays

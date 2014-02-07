@@ -8,11 +8,10 @@
 	box-sizing: border-box;
 	}
 
-html{
-	height:100%;
-	}
+html{	height:100%; }
 
 body {
+	padding-top: 70px;
 	height:100%;
 	background: image_url('moonSurfaceColorized.jpg') no-repeat center fixed;
 	-webkit-background-size: cover;
@@ -20,6 +19,24 @@ body {
 	-o-background-size: cover;
 	background-color:#333;
 	color:white;
+	.stats {
+		overflow: auto;
+		a {
+			float: left;
+			padding: 0 10px;
+			border-left: 1px solid #eee;
+			color: gray;
+			&:first-child {
+			}
+			&:hover {
+				text-decoration: none;
+				color: #049cdb;
+			}
+		}
+		strong {
+			display: block;
+		}
+	}
 }
 
 .btn-primary{
@@ -63,13 +80,14 @@ h3{
 	padding-top:10px;
 }
 .content-block{
-	margin-top:20px;
+	margin-bottom:20px;
 	padding:10px 20px;
 	background-color: rgba(0,84,104,0.8);
 	@include box_sizing;
 }
 
 .navbar-default {
+	margin-bottom:0;
 	.navbar-brand{
 	font-size:35px;
 	color:#BA9133;

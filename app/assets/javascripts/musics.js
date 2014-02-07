@@ -73,9 +73,11 @@ $(document).ready(function(){
 		next_position = position + 1;
 		updatePlayer(next_position);
 	}).on('click', '.tag', function(){
+		query = $(this).html();
 		$.ajax({
 			type: 'post',
-			url: '/tags/'+$(this).data('id')+'/search',
+			data: {search:{query: query, type: 'tag'}},
+			url: '/search/'
 		});
 	}).on('click', '#update_balance_link', function(){
 		$('#update_balance').html("<p class='alert alert-info'>Updating balance...</p>");
