@@ -70,6 +70,10 @@ class User < ActiveRecord::Base
 
 	validates_attachment_content_type :avatar, content_type: ["image/jpg", "image/gif", "image/png", "image/jpeg"] 
 
+	def queue
+		playlists.first
+	end
+
 	def following?(other_user)
 		relationships.find_by(followed_id: other_user.id)
 	end

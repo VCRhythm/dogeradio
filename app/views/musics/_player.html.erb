@@ -1,15 +1,8 @@
 <script>
-$(document).ready(function(){
-	loadPlayer(<%= track.id %>);			
-
-	$('.jp-next').click(function(){
-		position = $("#player-heading").data('position');
-		next_position = position + 1;
-		updatePlayer(next_position);
+	$(document).ready(function(){
+		loadPlayer(<%= track.id %>);			
 	});
-});
 </script>
-
 <div class="media">
 	<div class="pull-left">
 		<% if track.user.avatar.exists? %>

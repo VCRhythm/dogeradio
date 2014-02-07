@@ -24,19 +24,19 @@ class MusicsController < ApplicationController
 		tracks_played_sums.each do |track|
 			@most_played_tracks << Music.find(track[0])
 		end	
-		@top_most_played_tracks = @most_played_tracks[0..5]
+		@top_most_played_tracks = @most_played_tracks[0..10]
 		
-		@new_tracks = Music.order(created_at: :desc).where(processed: true).limit(5)
-		@active_users = Array.new
+#		@new_tracks = Music.order(created_at: :desc).where(processed: true).limit(5)
+#		@active_users = Array.new
 
 		#Determine "active users"
-		User.all.each do |user|
-			if user.musics.exists?
-				if ((1.week.ago)..(DateTime.now)).cover?(user.musics.last.created_at)
-					@active_users << user
-				end
-			end
-		end
+#		User.all.each do |user|
+#			if user.musics.exists?
+#				if ((1.week.ago)..(DateTime.now)).cover?(user.musics.last.created_at)
+#					@active_users << user
+#				end
+#			end
+#		end
 		
 		#Random Featured Artist
 		begin

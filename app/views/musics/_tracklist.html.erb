@@ -1,0 +1,6 @@
+<% tracks.each do |track| %>
+	<%=link_to playlist_ranks_path(current_user.queue, music_id: track.id), method: :post, remote: true, class: "list-group-item" do %>
+		<span class="badge" style="background-color:white"><span class="glyphicon glyphicon-plus" style="color:green"></span></span>
+		<%= track.name %>
+	<% end %>
+<% end %>

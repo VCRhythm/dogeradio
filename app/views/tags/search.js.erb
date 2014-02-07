@@ -1,0 +1,1 @@
+$("#action-panel").html("<h3>Tracks related to '<%= j @tag.description%>'</h3><%= j render partial: 'musics/tracklist', locals: {tracks:@tracks}%>").slideDown('slow');

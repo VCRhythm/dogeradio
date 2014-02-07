@@ -66,8 +66,18 @@ function updatePlayer(position){
 
 $(document).ready(function(){
 
-	$('.remote-link').click(function(){
+	
+	$(document).on('click', '.remote-link', function(){
 		$('body').animate({scrollTop: $("#main").offset().top-90}, 500);
+	}).on('click', '.jp-next', function(){
+		position = $("#player-heading").data('position');
+		next_position = position + 1;
+		updatePlayer(next_position);
+	}).on('click', '.tag', function(){
+		$.ajax({
+			type: 'post',
+			url: '/tags/'+$(this).data('id')+'/search',
+		});
 	});
 
 	$('.sortable').sortable({

@@ -6,6 +6,8 @@ Dogeradio::Application.routes.draw do
 		post :sort
 		resource :ranks
 	end
+	
+	post '/tags/:id/search', to: 'tags#search'
 
   resources :musics do 
 		resources :plays
