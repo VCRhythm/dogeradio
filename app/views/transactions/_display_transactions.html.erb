@@ -10,22 +10,26 @@
 			</div>
 		<% end %>
 	</div>
-	<% if @transactions.exists? %>
-		<table class="table">
-			<tr>
-				<th>From</th>
-				<th>To</th>
-				<th>Amount</th>
-			</tr>
-		<% @transactions.each do |transaction| %>
-			<tr>
-				<td><%=transaction.payer%></td>
-				<td><%=transaction.payee%></td>
-				<td><%=transaction.amount%></td>
-			</tr>
-		<% end %>
-		</table>
-	<% else %>
-		<p>No transactions recorded. Get to tipping!</p>
-	<% end %>
+	<table class="table">
+		<tr>
+			<th>Category</th>
+			<th>Amount</th>
+		</tr>
+		<tr>
+			<td>Account Deposits</td>
+			<td><%=@deposits_sum%></td>
+		</tr>
+		<tr>
+			<td>Tips Received</td>
+			<td><%=@tips_received_sum%></td>
+		</tr>
+		<tr>
+			<td>Tips Given</td>
+			<td>-<%=@tips_given_sum%></td>
+		</tr>
+		<tr>
+			<td>Payouts</td>
+			<td>-<%=@payout_sum%></td>
+		</tr>
+	</table>
 </div>

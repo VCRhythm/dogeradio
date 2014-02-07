@@ -1,0 +1,14 @@
+<table class="table">
+	<tr>
+		<th>From</th>
+		<th>To</th>
+		<th>Amount</th>
+	</tr>
+<% @transactions.each do |transaction| %>
+	<tr>
+		<td><%=transaction.payer%></td>
+		<td><%=transaction.payee%></td>
+		<td><%=transaction.amount%></td>
+	</tr>
+<% end %>
+</table>

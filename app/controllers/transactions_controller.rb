@@ -4,9 +4,10 @@ class TransactionsController < ApplicationController
 	def index
 		@user = current_user
 		@balance = @user.balance
-		@transactions = @user.tips_received
-		@transactions << @user.tips_given
-		@deposits = @user.prev_received
+		@payout_sum = @user.payouts.sum(:value)
+		@tips_received_sum = @user.tips_received.sum(:value)
+		@tips_given_sum = @user.tips_given.sum(:value)
+		@deposits_sum = @user.prev_received
 	end
 
   private
