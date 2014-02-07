@@ -61,6 +61,11 @@ class User < ActiveRecord::Base
 	has_many :favorites, dependent: :destroy
 	has_many :favorite_tracks, through: :favorites, source: :music
 
+	has_many :tips_given, foreign_key: "payer_id",
+												class_name: "Transaction"
+	has_many :tips_received, foreign_key: "payee_id",
+													 class_name: "Transaction"
+
 	has_attached_file :avatar, styles: {
 		thumb: '100x100>',
 		square: '200x200#',

@@ -1,29 +1,38 @@
-<div class="content-block">
-	<h2><%= @user.username %></h2>
-	<%= render partial: 'shared/follow_form', locals: {user: @user} if signed_in? %>
-	<div class="media">
-		<% if @user.avatar.exists? %>
-			<%= image_tag @user.avatar.url(:square), class: "pull-left media-object" %><br/>
+<div class="col-md-8">
+	<div class="content-block">
+		<h2><%= @user.username %></h2>
+		<%= render partial: 'shared/follow_form', locals: {user: @user} if signed_in? %>
+		<div class="media">
+			<% if @user.avatar.exists? %>
+				<%= image_tag @user.avatar.url(:square), class: "pull-left media-object" %><br/>
+			<% end %>
+			<p class="media-body"><%= html_escape(@user.bio).gsub(/\n/, '<br />').html_safe %></p>
+		</div>
+		<% @musics.each do |music| %>
+			<li class="list-group-item">
+				<div class="media">
+					<div class="pull-left media-object">
+						<% if @user.avatar.exists? %>
+							<%= image_tag @user.avatar.url(:thumb) %>
+						<% end %>
+					</div>
+					<div class="song-player media-body">
+						<h2 class="media-heading" id= "heading_<%=music.id.to_s%>" ><%= link_to music.name, playlist_ranks_path(@playlist, music_id:music.id), method: "post", remote: true %> <%= render partial: 'shared/favorite_form', locals: {music:music} if signed_in? %></h2><span id="thanks_<%=music.id.to_s%>"></span>
+						<% if @user != current_user %><%= link_to user_pay_path(@user, music_id: music.id), method: :post, remote: true, class: "pull-right" do %><%= image_tag 'dogecoin-icon.png' %><% end %><% end %>
+						<span id="player-tags" class="btn-group">
+							<%= render partial: 'tags/show_tags', locals: {track: music} %>
+						</span>
+					</div>
+				</div>
+				<div style="height:30px; color: #777777">
+					<small><%= pluralize(music.plays.sum(:count) || 0, 'play') %>. <%= pluralize(music.favoriteds.count, 'wow')%>.</small>
+					<% if @user == current_user %><%= link_to music, method: :delete, data: {confirm: "Are you sure?" }, class: "pull-right" do %><span class="glyphicon glyphicon-trash"></span><% end %><% end %>
+				</div>
+			</li>
 		<% end %>
-		<p class="media-body"><%= html_escape(@user.bio).gsub(/\n/, '<br />').html_safe %></p>
 	</div>
-	<% @musics.each do |music| %>
-		<li class="list-group-item">
-			<div class="media">
-				<div class="pull-left media-object">
-					<% if @user.avatar.exists? %>
-						<%= image_tag @user.avatar.url(:thumb) %>
-					<% end %>
-				</div>
-				<div class="song-player media-body">
-					<h2 class="media-heading" id= "heading_<%=music.id.to_s%>" ><%= link_to music.name, playlist_ranks_path(@playlist, music_id:music.id), method: "post", remote: true %> <%= render partial: 'shared/favorite_form', locals: {music:music} if signed_in? %></h2><span id="thanks_<%=music.id.to_s%>"></span>
-					<% if @user != current_user %><%= link_to user_pay_path(@user, music_id: music.id), method: :post, remote: true, class: "pull-right" do %><%= image_tag 'dogecoin-icon.png' %><% end %><% end %>
-				</div>
-			</div>
-			<div style="height:30px; color: #777777">
-				<small><%= pluralize(music.plays.sum(:count) || 0, 'play') %>. <%= pluralize(music.favoriteds.count, 'wow')%>.</small>
-				<% if @user == current_user %><%= link_to music, method: :delete, data: {confirm: "Are you sure?" }, class: "pull-right" do %><span class="glyphicon glyphicon-trash"></span><% end %><% end %>
-			</div>
-		</li>
-	<% end %>
+</div>
+<div class="col-md-4">
+	<div class="content-block" id="action-panel" style="display:none;">
+	</div>
 </div>

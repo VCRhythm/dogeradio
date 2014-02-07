@@ -1,6 +1,10 @@
 <script>
 	$(document).ready(function(){
-		loadPlayer(<%= track.id %>);			
+		loadPlayer(<%= track.id %>);
+
+		$('#add-tag').on('click', function(){
+			$('#action-panel').html("<%= j render partial: 'tags/form', locals:{track:track} %>").slideDown('slow');
+		});
 	});
 </script>
 <div class="media">
@@ -32,5 +36,6 @@
 <div id="tags" style="margin-bottom:5px;">
 	<span id="player-tags" class="btn-group">
 		<%= render partial: 'tags/show_tags', locals: {track: track} %>
+		<button type="button" id="add-tag" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-chevron-right"></span></button>
 	</span>
 </div>

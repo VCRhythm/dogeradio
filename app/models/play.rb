@@ -3,7 +3,7 @@
 # Table name: plays
 #
 #  id         :integer          not null, primary key
-#  count      :integer
+#  count      :integer          default(1)
 #  music_id   :integer
 #  user_id    :integer
 #  created_at :datetime

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140204012323) do
+ActiveRecord::Schema.define(version: 20140207020749) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
@@ -120,6 +120,15 @@ ActiveRecord::Schema.define(version: 20140204012323) do
   end
 
   add_index "tags", ["music_id"], name: "index_tags_on_music_id"
+
+  create_table "transactions", force: true do |t|
+    t.integer  "payee_id"
+    t.integer  "payer_id"
+    t.float    "value"
+    t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",  null: false

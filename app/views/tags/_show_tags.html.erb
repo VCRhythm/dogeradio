@@ -1,12 +1,3 @@
-<script>
-	$(document).ready(function(){
-		$('#add-tag').on('click', function(){
-			music_id = $('#player-heading').data("music_id");
-			$('#action-panel').html("<%= j render partial: 'tags/form', locals: {track:track}  %>").slideDown();
-		});
-	});
-</script>
-
 <% track.tags.each do |tag| %>
 	<% case tag.category %>
 		<% when "City" %>
@@ -19,4 +10,3 @@
 			<button type="button" class="btn tag tag-trend btn-xs" data-id="<%=tag.id%>"><%= tag.description %></button>
 	<% end %>
 <% end %>
-<button type="button" id="add-tag" class="btn btn-xs tag btn-default"><span class="glyphicon glyphicon-chevron-right"></span></button>
