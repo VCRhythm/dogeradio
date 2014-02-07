@@ -5,7 +5,7 @@
 	<div class='payout'>
 		<%= form_tag payout_path, method: :post, class: "form-inline", remote: true do %>
 			<div class="form-group">
-				<%= number_field_tag :amount, class: "form-control" %>
+				<%= number_field_tag :amount, 0, class: "form-control" %>
 				<%= submit_tag "Cash out", id: "payout_link", class: "btn btn-primary" %>
 			</div>
 		<% end %>
