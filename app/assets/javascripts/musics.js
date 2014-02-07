@@ -78,6 +78,8 @@ $(document).ready(function(){
 			type: 'post',
 			url: '/tags/'+$(this).data('id')+'/search',
 		});
+	}).on('click', '#update_balance_link', function(){
+		$('#update_balance').html("<p class='alert alert-info'>Updating balance...</p>");
 	});
 
 	$('.sortable').sortable({

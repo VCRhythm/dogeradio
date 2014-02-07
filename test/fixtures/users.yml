@@ -25,6 +25,7 @@
 #  code                   :integer
 #  prev_received          :float            default(0.0)
 #  bio                    :text
+#  payout_account         :string(255)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

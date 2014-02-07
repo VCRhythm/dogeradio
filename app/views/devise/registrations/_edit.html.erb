@@ -1,51 +1,53 @@
-<div class="content-block">
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="col-md-12">
+	<div class="content-block" id="action-panel" style="display:none;">
+	</div>
+	<div class="content-block">
+	<h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-	<%= devise_error_messages! %>
+	<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+		<%= devise_error_messages! %>
 
-	<div><%= f.label :username %>: <%= current_user.username %></div>
-	<div id="doge_account"><%= label_tag "Doge Account" %>: <%= current_user.account %></div><div id="update_balance"><%= link_to "Update Balance Based on Your Doge Deposits", user_update_balance_path(current_user), method: :post, remote: true, id: "update_balance_link", class: "btn btn-primary btn-block" %></div>
+		<div><%= f.label :username %>: <%= current_user.username %></div>
+		<div id="doge_account"><%= label_tag "Doge Deposit Account" %>: <%= current_user.account %></div><div id="update_balance"><%= link_to "Update Balance Based on Your Doge Deposits", user_update_balance_path(current_user), method: :post, remote: true, id: "update_balance_link", class: "btn btn-primary btn-block" %></div>
 
-	<div class="form-group">
-		<%= f.label :avatar %><br/>
-		<% if current_user.avatar.exists? %>
-			<%= image_tag current_user.avatar.url(:square) %><br/>
+		<div class="form-group">
+			<%= f.label :avatar %><br/>
+			<% if current_user.avatar.exists? %>
+				<%= image_tag current_user.avatar.url(:square) %><br/>
+			<% end %>
+			<%= f.file_field :avatar %>
+		</div>
+
+		<div class="form-group"><%= f.label :bio %><br />
+		<%= f.text_area :bio, class: "form-control" %></div>
+		
+		<div class="form-group"><%= f.label :email %><br />
+		<%= f.email_field :email, class: "form-control" %></div>
+
+		<div class="form-group"><%= f.label :dogecoin_payout_address %><br />
+		<%= f.text_field :payout_account, class: "form-control" %></div>
+
+		<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+			<div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
 		<% end %>
-		<%= f.file_field :avatar %>
+
+		<div class="form-group"><%= f.label :new_password %> <i>(leave blank if you don't want to change it)</i><br />
+		<%= f.password_field :password, :autocomplete => "off", class: "form-control"  %></div>
+
+		<div class="form-group"><%= f.label :new_password_confirmation %><br />
+		<%= f.password_field :password_confirmation, class: "form-control"  %></div>
+
+		<div class="form-group">
+			<%= f.label :current_password %> <i>(enter to confirm your changes)</i><br />
+			<%= f.password_field :current_password, class: "form-control"  %>
+		</div>
+		<div class="form-actions"><%= f.submit "Update", class: "btn btn-primary btn-lg btn-block" %></div>
+	<% end %>
 	</div>
 
-	<div class="form-group"><%= f.label :bio %><br />
-	<%= f.text_area :bio, class: "form-control" %></div>
-	
-  <div class="form-group"><%= f.label :email %><br />
-  <%= f.email_field :email, class: "form-control" %></div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="form-group"><%= f.label :new_password %> <i>(leave blank if you don't want to change it)</i><br />
-	<%= f.password_field :password, :autocomplete => "off", class: "form-control"  %></div>
-
-  <div class="form-group"><%= f.label :new_password_confirmation %><br />
-  <%= f.password_field :password_confirmation, class: "form-control"  %></div>
-
-  <div class="form-group">
-		<%= f.label :current_password %> <i>(enter your current password to confirm your changes)</i><br />
-  	<%= f.password_field :current_password, class: "form-control"  %>
+	<div class="content-block">
+		<h3>Cancel my account</h3>
+		<p><%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, class: "btn btn-danger" %></p>
 	</div>
-	<div class="form-actions"><%= f.submit "Update", class: "btn btn-primary btn-lg btn-block" %></div>
-<% end %>
 </div>
 
-<div class="content-block">
-	<h3>Cancel my account</h3>
-	<p><%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, class: "btn btn-danger" %></p>
-</div>
-
-<script>
-	$("#update_balance_link").click(function(){
-		$('#update_balance').html("<p class='alert alert-info'>Updating balance...</p>");
-	});
-</script>

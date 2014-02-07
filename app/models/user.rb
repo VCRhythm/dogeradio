@@ -25,6 +25,7 @@
 #  code                   :integer
 #  prev_received          :float            default(0.0)
 #  bio                    :text
+#  payout_account         :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -47,6 +48,8 @@ class User < ActiveRecord::Base
 	validates :code, code: true 
 
 	has_many :musics, -> { order "created_at ASC"}, dependent: :destroy 
+
+	has_many :payouts
 
 	has_many :playlists
 	has_many :plays

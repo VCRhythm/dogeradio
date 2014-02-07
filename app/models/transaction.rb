@@ -17,4 +17,13 @@ class Transaction < ActiveRecord::Base
 	validates :payer_id, presence: true
 	validates :payee_id, presence: true
 	validates :value, presence: true
+
+	def payee
+		User.where(user_id: payee_id).first
+	end
+
+	def payer
+		User.where(user_id: payer_id).first
+	end
+
 end

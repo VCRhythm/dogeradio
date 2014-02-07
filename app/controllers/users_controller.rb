@@ -1,18 +1,27 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show ]
+	before_action :this_user, only: [:payout, :pay, :update_balance]
 
 	def show
- 		@user = User.find(params[:id])
 		@playlist = current_user.playlists.first
 		@musics = @user.musics.order(created_at: :desc).where(processed: true)
 	end
 
+	def payout
+		@amount = params[:amount].to_f
+		if @user.balance >= @amount
+			@user.payouts.create(value:@amount)
+			@user.balance -= @amount
+			@user.save
+		end
+	end
+
 	def pay
-		@user = current_user
     @user_to_pay = User.find(params[:user_id])
 		@music = Music.find(params[:music_id])
 		@amount = 5
 
-		if @user.balance > @amount
+		if @user.balance >= @amount
 			@user.balance -= @amount
 			@user_to_pay.balance += @amount
 			@user.save
@@ -24,7 +33,6 @@ class UsersController < ApplicationController
 	end
 
 	def update_balance
-		@user = current_user
 		current_balance = @user.balance
 		require 'doge_api'
 		$my_api_key = Rails.configuration.aws[:doge_api_key]
@@ -36,4 +44,14 @@ class UsersController < ApplicationController
 			@user.save
 		end
 	end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_user
+      @user = User.find(params[:id])
+    end
+
+		def this_user
+			@user = current_user
+		end
 end

@@ -2,6 +2,8 @@ Dogeradio::Application.routes.draw do
 
 	root 'musics#index'
 
+	post 'payout', to: 'users#payout'
+
 	resources :playlists, only: [:show] do
 		post :sort
 		resource :ranks
@@ -17,6 +19,8 @@ Dogeradio::Application.routes.draw do
 	end
 
   devise_for :users, controllers: {registrations: "registrations"}
+	
+	resources :transactions
 
 	resources :users, only: [:show] do
 		post :pay

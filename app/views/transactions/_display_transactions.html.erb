@@ -1,0 +1,31 @@
+<%= render 'shared/action_panel' %>
+<div class="content-block">
+	<h3>Doge Transactions</h3>
+	<h4>Current Balance: <span class="balance"><%= @balance %></span></h4>
+	<div class='payout'>
+		<%= form_tag payout_path, method: :post, class: "form-inline", remote: true do %>
+			<div class="form-group">
+				<%= number_field_tag :amount, class: "form-control" %>
+				<%= submit_tag "Cash out", id: "payout_link", class: "btn btn-primary" %>
+			</div>
+		<% end %>
+	</div>
+	<% if @transactions.exists? %>
+		<table class="table">
+			<tr>
+				<th>From</th>
+				<th>To</th>
+				<th>Amount</th>
+			</tr>
+		<% @transactions.each do |transaction| %>
+			<tr>
+				<td><%=transaction.payer%></td>
+				<td><%=transaction.payee%></td>
+				<td><%=transaction.amount%></td>
+			</tr>
+		<% end %>
+		</table>
+	<% else %>
+		<p>No transactions recorded. Get to tipping!</p>
+	<% end %>
+</div>

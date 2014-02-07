@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: payouts
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  value      :float
+#  done       :boolean          default(FALSE)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id_id: 
+  value: 1.5
+  done: false
+
+two:
+  user_id_id: 
+  value: 1.5
+  done: false

@@ -30,7 +30,7 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right logged-text" style="margin-left:0; margin-top:13px;">
 					<% if user_signed_in? %>
-						Logged in as <strong><%= current_user.username %></strong>. <span id="balance"><%= current_user.balance.to_i %></span> <%= image_tag 'dogecoin-icon.png', style: "height: 20px;" %> <%= link_to 'Edit profile', edit_user_registration_path, remote: true, class: "remote-link" %> |	<%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+						Logged in as <strong><%= current_user.username %></strong>. <span id="balance"><%= current_user.balance.to_i %></span> <%=link_to transactions_path, remote: true do %><%= image_tag 'dogecoin-icon.png', style: "height: 20px;" %><% end %> <%= link_to 'Edit profile', edit_user_registration_path, remote: true, class: "remote-link" %> |	<%= link_to 'Logout', destroy_user_session_path, method: :delete %>
 					<% else %>
 						<%= link_to "Sign up", new_user_registration_path %> |	<%= link_to "Login", new_user_session_path %>
 					<% end %>

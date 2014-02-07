@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140207020749) do
+ActiveRecord::Schema.define(version: 20140207170340) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
@@ -69,6 +69,16 @@ ActiveRecord::Schema.define(version: 20140207020749) do
 
   add_index "musics_playlists", ["music_id", "playlist_id"], name: "index_musics_playlists_on_music_id_and_playlist_id"
   add_index "musics_playlists", ["playlist_id"], name: "index_musics_playlists_on_playlist_id"
+
+  create_table "payouts", force: true do |t|
+    t.integer  "user_id"
+    t.float    "value"
+    t.boolean  "done",       default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "payouts", ["user_id"], name: "index_payouts_on_user_id"
 
   create_table "playlists", force: true do |t|
     t.string   "name"
@@ -153,6 +163,7 @@ ActiveRecord::Schema.define(version: 20140207020749) do
     t.integer  "code"
     t.float    "prev_received",          default: 0.0
     t.text     "bio"
+    t.string   "payout_account"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

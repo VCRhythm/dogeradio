@@ -106,9 +106,18 @@ h3{
 .tag-city{
 	background-color:#BA7633;
 }
+
 .tag{
 	&:hover{
 		color:#D47A6F;
 		border-color:none;
 	}
+}
+
+#action-panel{
+	display:none;
+}
+
+.form-group{
+	color: black;
 }
