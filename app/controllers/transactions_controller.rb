@@ -7,7 +7,7 @@ class TransactionsController < ApplicationController
 		@payout_sum = @user.payouts.sum(:value)
 		@tips_received_sum = @user.tips_received.sum(:value)
 		@tips_given_sum = @user.tips_given.sum(:value)
-		@deposits_sum = @user.prev_received
+		@deposits_sum = @user.prev_received || 0
 	end
 
   private
