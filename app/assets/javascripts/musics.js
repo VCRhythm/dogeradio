@@ -66,7 +66,6 @@ function updatePlayer(position){
 
 $(document).ready(function(){
 
-	
 	$(document).on('click', '.remote-link', function(){
 		$('body').animate({scrollTop: $("#main").offset().top-90}, 500);
 	}).on('click', '.jp-next', function(){
@@ -80,6 +79,12 @@ $(document).ready(function(){
 		});
 	}).on('click', '#update_balance_link', function(){
 		$('#update_balance').html("<p class='alert alert-info'>Updating balance...</p>");
+	}).on('click', '#add-tag', function(){
+		music_id = $('#player-heading').data('music_id');
+		$.ajax({
+			type: 'get',
+			url: 'musics/'+music_id+'/tags/new'
+		});
 	});
 
 	$('.sortable').sortable({

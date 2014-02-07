@@ -22,7 +22,9 @@ class TagsController < ApplicationController
 
   # GET /tags/new
   def new
-    @tag = Tag.new
+		@tag = Tag.new
+		@track = Music.find(params[:music_id])
+		render 'new.js.erb'
   end
 
   # GET /tags/1/edit

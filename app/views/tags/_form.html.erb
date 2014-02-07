@@ -1,6 +1,6 @@
 <h3><strong><%= track.name %></strong></h3>
 <h4><%= track.user.username %></h4>
-<%= form_for [track, Tag.new], html: {class: "form-inline", role: "form"}, remote: true do |f| %>
+<%= form_for [track, @tag], html: {class: "form-inline", role: "form"}, remote: true do |f| %>
   <div class="form-group">
     <%= f.select :category, options_for_select([["Genre", {class:"tag-genre"}],["City", {class: "tag-city"}],["Style", {class:"tag-style"}],["Trend", {class: "tag-trend"}]]), {}, class: "form-control input-sm tag-form" %>
   </div>

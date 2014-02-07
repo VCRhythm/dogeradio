@@ -13,7 +13,7 @@ Dogeradio::Application.routes.draw do
 
   resources :musics do 
 		resources :plays
-  	resources :tags
+		resources :tags
 		get :fond_users
 		post :update_player
 	end

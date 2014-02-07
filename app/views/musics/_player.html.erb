@@ -2,10 +2,7 @@
 	$(document).ready(function(){
 		loadPlayer(<%= track.id %>);
 
-		$('#add-tag').on('click', function(){
-			$('#action-panel').html("<%= j render partial: 'tags/form', locals:{track:track} %>").slideDown('slow');
 		});
-	});
 </script>
 <div class="media">
 	<div class="pull-left">
