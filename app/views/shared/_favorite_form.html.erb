@@ -1,9 +1,9 @@
-<% unless my_song?(music) %>
-	<div id="favorite_form_<%=music.id%>" style="display:inline-block;">
-		<% if current_user.favorite?(music) %>
-			<%= render partial: 'shared/unfavorite', locals: {music: music} %>
+<% unless my_song?(track) %>
+	<div id="favorite_form_<%=track.id%>" style="display:inline-block;">
+		<% if current_user.favorite?(track) %>
+			<%= render partial: 'shared/unfavorite', locals: {track: track} %>
 		<% else %>
-			<%= render partial: 'shared/favorite', locals: {music: music} %>
+			<%= render partial: 'shared/favorite', locals: {track: track} %>
 		<% end %>
 	</div>
 <% end %>

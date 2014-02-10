@@ -1,11 +1,18 @@
+$(document).off('click', '.clickable');
 if(!$("#player-heading").length){
-	$("#player").html("<%= j render partial: 'musics/player', locals: {track:@music, position: 1} %>");
+	$("#player").html("<%= j render partial: 'tracks/player', locals: {track:@track, position: 1} %>");
 }
-$("#playlist").append("<%= j render partial: 'musics/playlist_item', locals: {music: @music, playlist_counter: 0}%>");
+$("#playlist").append("<%= j render partial: 'tracks/playlist_item', locals: {track: @track, playlist_counter: 0}%>");
 playlist_counter = 0;
 $('.playlist-item').each(function(i, value){
 	playlist_counter+=1;
 	$(this).removeAttr('id').attr('id', 'playlist_'+playlist_counter).attr("data-playlist_number", playlist_counter);
-	music_id = $(this).data("music_id").split("_")[1];
-	$(this).children('.delete-div').children('.delete-link').attr('href', "/playlists/<%=@playlist.id%>/ranks?music_id="+music_id+"&position="+playlist_counter);
+	track_id = $(this).data("track_id");
+	$(this).children('.delete-div').children('.delete-link').attr('href', "/playlists/<%=@playlist.id%>/ranks?track_id="+track_id+"&position="+playlist_counter);
+});
+
+$(document).on('click', '.clickable', function(){
+	position = $(this).parent().attr('data-playlist_number');
+	updatePlayer(position);
+	$('body').animate({scrollTop: $("#player").offset().top-70}, 500);
 });

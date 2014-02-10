@@ -1,5 +1,5 @@
 $('#action-panel').slideUp('slow');
-var player_track = $("#player-heading").data('music_id');
-if (player_track == <%=@music.id%>) {
-	$("#player-tags").html("<%= j render partial: 'show_tags', locals: {track: @music} %><button type='button' id='add-tag' class='btn btn-xs btn-default'><span class='glyphicon glyphicon-plus'></span><span class='glyphicon glyphicon-tag'></span></button>");
+var player_track = $("#player-heading").data('track_id');
+if (player_track == <%=@track.id%>) {
+	$("#player-tags").html("<%= j render partial: 'show_tags', locals: {track: @track} %><button type='button' id='add-tag' class='btn btn-xs btn-default'><span class='glyphicon glyphicon-plus'></span><span class='glyphicon glyphicon-tag'></span></button>");
 }

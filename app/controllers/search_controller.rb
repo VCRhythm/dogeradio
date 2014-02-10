@@ -22,7 +22,7 @@ class SearchController < ApplicationController
 			matching_tags = search_tags
 			@tag_track_results = Array.new() 
 			matching_tags.each do |tag|
-				@tag_track_results << tag.music
+				@tag_track_results << tag.track
 			end
 		end
 

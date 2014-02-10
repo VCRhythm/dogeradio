@@ -4,7 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  count      :integer          default(1)
-#  music_id   :integer
+#  track_id   :integer
 #  user_id    :integer
 #  created_at :datetime
 #  updated_at :datetime

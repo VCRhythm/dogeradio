@@ -2,9 +2,41 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show ]
 	before_action :this_user, only: [:payout, :pay, :update_balance]
 
+	def soundcloud_auth
+		$soundcloud_id = Rails.configuration.apis[:soundcloud_id]
+		$soundcloud_secret = Rails.configuration.apis[:soundcloud_secret]
+		client = SoundCloud.new({
+			client_id: $soundcloud_id,
+			client_secret: $soundcloud_secret,
+			redirect_uri: 'http://localhost:3000/soundcloud_callback',
+			scope: 'non-expiring',
+			display: 'popup'
+		})	
+		redirect_to client.authorize_url()
+	end
+
+	def soundcloud_callback
+		client = SoundCloud.new({
+			client_id: $soundcloud_id,
+			client_secret: $soundcloud_secret,
+			redirect_uri: 'http://localhost:3000/soundcloud_callback'
+		})	
+		code = params[:code]
+		access_token = client.exchange_token(code: code)
+		current_user.soundcloud_access_token = access_token.access_token
+		current_user.save
+		client = SoundCloud.new(access_token: current_user.soundcloud_access_token)
+		soundcloud_tracks = client.get('/me/tracks')
+		soundcloud_tracks.each do |track|
+			current_user.tracks.create(name:track.title, url: track.stream_url+'?client_id='+Rails.configuration.apis[:soundcloud_id], source: "soundcloud")
+		end
+		redirect_to root_url
+	end
+
 	def show
+#		client = Soundcloud.new(access_token: @user.soundcloud_access_token)
 		@playlist = current_user.playlists.first
-		@musics = @user.musics.order(created_at: :desc).where(processed: true)
+		@tracks = @user.tracks.order(created_at: :desc)
 	end
 
 	def payout
@@ -18,7 +50,7 @@ class UsersController < ApplicationController
 
 	def pay
     @user_to_pay = User.find(params[:user_id])
-		@music = Music.find(params[:music_id])
+		@track = Track.find(params[:track_id])
 		@amount = 5
 
 		if @user.balance >= @amount
@@ -35,7 +67,7 @@ class UsersController < ApplicationController
 	def update_balance
 		current_balance = @user.balance
 		require 'doge_api'
-		$my_api_key = Rails.configuration.aws[:doge_api_key]
+		$my_api_key = Rails.configuration.apis[:doge_api_key]
 		doge_api = DogeApi::DogeApi.new($my_api_key)
 		current_received = doge_api.get_address_received(payment_address: @user.account).to_f
 		@user.balance += current_received - @user.prev_received

@@ -3,7 +3,7 @@
 # Table name: ranks
 #
 #  id          :integer          not null, primary key
-#  music_id    :integer
+#  track_id    :integer
 #  playlist_id :integer
 #  rank        :integer
 #  created_at  :datetime
@@ -12,7 +12,7 @@
 #
 
 class Rank < ActiveRecord::Base
-  belongs_to :music
+  belongs_to :track
   belongs_to :playlist
 	acts_as_list scope: :playlist
 end

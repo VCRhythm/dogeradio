@@ -1,8 +1,11 @@
 Dogeradio::Application.routes.draw do
 
-	post 'search', to: 'search#search'
+	root 'tracks#index'
 
-	root 'musics#index'
+	get 'soundcloud', to: 'users#soundcloud_auth'
+	get 'soundcloud_callback', to: 'users#soundcloud_callback'
+
+	post 'search', to: 'search#search'
 
 	post 'payout', to: 'users#payout'
 
@@ -13,12 +16,14 @@ Dogeradio::Application.routes.draw do
 	
 #	post '/tags/:id/search', to: 'tags#search'
 
-  resources :musics do 
+	resources :tracks do
 		resources :plays
 		resources :tags
 		get :fond_users
 		post :update_player
 	end
+
+  resources :musics, only: [:create, :new]
 
   devise_for :users, controllers: {registrations: "registrations"}
 	

@@ -1,0 +1,4 @@
+<li href="#" class="hover playlist-item list-group-item ui-state-default track_<%=track.id%> <% if playlist_counter==1 %>active<% end %>" style="padding-left:0; padding-top:0; padding-bottom:0;" id="playlist_<%=playlist_counter%>" data-track_id="<%=track.id%>" data-playlist_number="<%=playlist_counter%>">
+	<div class="clickable" style="display:inline-block; width: 95%; padding-left:15px; padding-top:10px; padding-bottom:10px;"><%= track.name %></div>
+	<div class="delete-div" style="display:inline-block; position: absolute; right:10px; top:30%;"><%= link_to playlist_ranks_path(playlist_id:@playlist.id, track_id:track.id, position: playlist_counter), method: "delete", remote: true, class: "delete-link" do %><span class="glyphicon glyphicon-remove"></span><% end %></div>
+</li>

@@ -7,11 +7,11 @@ class CreatePlaylists < ActiveRecord::Migration
       t.timestamps
     end
 
-		create_table :musics_playlists, id: false do |t|
+		create_table :playlists_tracks, id: false do |t|
 			t.references :playlist
-			t.references :music
+			t.references :track
 		end
-		add_index :musics_playlists, [:music_id, :playlist_id]
-		add_index :musics_playlists, :playlist_id
+		add_index :playlists_tracks, [:track_id, :playlist_id]
+		add_index :playlists_tracks, :playlist_id
   end
 end

@@ -25,20 +25,11 @@ class Music < ActiveRecord::Base
 	include CI_Find_First
 
 	belongs_to :user
-	has_many :tags, dependent: :destroy
 	has_attached_file :upload
 	validates_attachment_content_type :upload, content_type: ['audio/mpeg', 'audio/x-mpeg', 'audio/mp3', 'audio/x-mp3', 'audio/mpeg3', 'audio/x-mpeg3', 'audio/mpg', 'audio/x-mpg', 'audio/x-mpegaudio']
 	#validates_attachment_file_name :upload, matches: [/mp3\Z/, /mpeg\Z/, /ogg\Z/]
 	#do_not_validate_attachment_file_type :upload
-
-	has_many :ranks
-	has_many :playlists, through: :ranks
-	has_many :plays
-	has_many :favoriteds, foreign_key: "music_id",
-											 	class_name: "Favorite",
-												dependent: :destroy
-	has_many :fond_users, through: :favoriteds, source: :user
-
+	
 	validates :direct_upload_url, presence: true, format: { with: DIRECT_UPLOAD_URL_FORMAT }
 						    
   before_create :set_upload_attributes
@@ -62,6 +53,10 @@ class Music < ActiveRecord::Base
 		
 	  music.processed = true
     music.save
+
+		user = music.user
+
+		user.tracks.create(name:music.name, url: music.upload.url, source: "upload")
 
 		s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].delete
 	end

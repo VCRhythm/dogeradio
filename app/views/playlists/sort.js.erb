@@ -1,7 +1,20 @@
+$(document).off('click', '.clickable');
+
 playlist_counter = 0;
+prevPlayPosition = $('#player-heading').attr('data-position');
 $('.playlist-item').each(function(i, value){
 	playlist_counter += 1;
+	oldPosition = $(this).attr('data-playlist_number');
+	if (oldPosition == prevPlayPosition){
+		$('#player-heading').attr('data-position', playlist_counter);
+	}
 	$(this).removeAttr("id").attr('id', 'playlist_'+playlist_counter).attr("data-playlist_number", playlist_counter);
-	music_id = $(this).data("music_id").split('_')[1];
-	$(this).children('.delete-div').children('.delete-link').attr('href', "/playlists/<%= @playlist.id %>/ranks?music_id="+music_id+"&position="+playlist_counter);
+	track_id = $(this).attr("data-track_id");
+	$(this).children('.delete-div').children('.delete-link').attr('href', "/playlists/<%= @playlist.id %>/ranks?track_id="+track_id+"&position="+playlist_counter);
+});
+
+$(document).on('click', '.clickable', function(){
+	position = $(this).parent().attr('data-playlist_number');
+	updatePlayer(position);
+	$('body').animate({scrollTop: $("#player").offset().top-70}, 500);
 });

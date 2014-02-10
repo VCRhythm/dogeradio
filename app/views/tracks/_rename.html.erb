@@ -1,0 +1,6 @@
+<%= form_for @track, remote: true, html: {id: "rename_"+@track.id.to_s, class: "form-inline rename-form"} do |f| %>
+	<%= f.text_field :name, placeholder: params[:filename], class: "form-control", style: "min-width:50%;" %>
+	<%= f.submit "Rename", class: "btn btn-default" %>
+<% end %>
+
+

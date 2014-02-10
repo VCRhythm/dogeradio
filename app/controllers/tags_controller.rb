@@ -15,7 +15,7 @@ class TagsController < ApplicationController
   # GET /tags/new
   def new
 		@tag = Tag.new
-		@track = Music.find(params[:music_id])
+		@track = Track.find(params[:track_id])
 		render 'new.js.erb'
   end
 
@@ -26,8 +26,8 @@ class TagsController < ApplicationController
   # POST /tags
   # POST /tags.json
   def create
-		@music = Music.find(params[:music_id])
-    @tag = @music.tags.create(tag_params)
+		@track = Track.find(params[:track_id])
+    @tag = @track.tags.create(tag_params)
   end
 
   # PATCH/PUT /tags/1
@@ -62,6 +62,6 @@ class TagsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tag_params
-      params.require(:tag).permit(:music_id, :category, :description)
+      params.require(:tag).permit(:track_id, :category, :description)
     end
 end

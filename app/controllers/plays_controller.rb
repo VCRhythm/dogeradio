@@ -37,12 +37,12 @@ class PlaysController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_play
-			attributes = {user_id: current_user.id, music_id: params[:music_id]}
+			attributes = {user_id: current_user.id, track_id: params[:track_id]}
 			@play = Play.where(attributes).first_or_initialize
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def play_params
-      params.require(:play).permit(:music_id, :user_id, :count)
+      params.require(:play).permit(:track_id, :user_id, :count)
     end
 end

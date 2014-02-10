@@ -1,0 +1,26 @@
+# == Schema Information
+#
+# Table name: tracks
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  url        :string(255)
+#  user_id    :integer
+#  source     :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  url: MyString
+  user_id: 
+  source: MyString
+
+two:
+  name: MyString
+  url: MyString
+  user_id: 
+  source: MyString

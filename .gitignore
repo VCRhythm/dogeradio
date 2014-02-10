@@ -15,5 +15,6 @@
 /log/*.log
 /tmp
 
-# Ignore AWS config file
+# Ignore AWS and API config files
 /config/s3_development.yml
+/config/api_development.yml

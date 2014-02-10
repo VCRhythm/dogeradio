@@ -1,55 +1,6 @@
 class MusicsController < ApplicationController
   before_action :set_music, only: [:show, :edit, :update, :destroy]
 
-	def update_player
-		@player_position = params[:position]
-		@track = Music.find(params[:music_id])
-	end
-
-	# GET /musics
-	# GET /musics.json
-	def index
-		if user_signed_in? 
-			@playlist = current_user.playlists.first 
-		else
-			@playlist = Playlist.new
-			@playlist.musics << Music.order(created_at: :desc).where(processed: true)
-		end
-		tracks_played_sums = Hash.new
-		@most_played_tracks = Array.new
-		Music.all.each do |music|
-			tracks_played_sums[music.id] = music.plays.sum(:count)
-		end
-		tracks_played_sums = tracks_played_sums.sort_by {|k,v| v}.reverse
-		tracks_played_sums.each do |track|
-			@most_played_tracks << Music.find(track[0])
-		end	
-		@top_most_played_tracks = @most_played_tracks[0..10]
-		
-#		@new_tracks = Music.order(created_at: :desc).where(processed: true).limit(5)
-#		@active_users = Array.new
-
-		#Determine "active users"
-#		User.all.each do |user|
-#			if user.musics.exists?
-#				if ((1.week.ago)..(DateTime.now)).cover?(user.musics.last.created_at)
-#					@active_users << user
-#				end
-#			end
-#		end
-		
-		#Random Featured Artist
-		begin
-			offset = rand(User.count)
-			@featured_user = User.first(offset:offset) 
-		end while !@featured_user.musics.exists?
-		@featured_user_music = @featured_user.musics.where(processed: true)
-
-		#Tell the player to play track 1
-		@player_position = 1 #needed for next functionality
-		@track = @playlist.musics[0]
-	end
-
 	# POST /musics
   # POST /musics.json
   def create

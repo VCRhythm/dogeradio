@@ -1,0 +1,4 @@
+production:
+  doge_api_key: <%= ENV["DOGE_API_KEY"] %>
+  soundcloud_id: <%= ENV["SOUNDCLOUD_ID"] %>
+  soundcloud_secret: <%= ENV["SOUNDCLOUD_SECRET"] %>
