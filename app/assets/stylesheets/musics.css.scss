@@ -67,6 +67,15 @@ a {
 		text-decoration:none;
 	}
 }
+
+.navbar-nav.navbar-right:last-child{
+	margin-right:0;
+}
+
+.navbar-form.navbar-right:las-child{
+	margin-right:-10px;
+}
+
 .navbar-brand{
 	color: #fbc213;
 }
