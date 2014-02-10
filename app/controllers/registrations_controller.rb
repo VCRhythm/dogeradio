@@ -27,6 +27,7 @@ class RegistrationsController < Devise::RegistrationsController
 		$my_api_key = Rails.configuration.aws[:doge_api_key]
 		doge_api = DogeApi::DogeApi.new($my_api_key)
 		resource.account = doge_api.get_new_address address_label: resource.username
+		resource.account = resource.account.gsub(/\"/,"")
 		resource.save
 		sign_in(resource_name, resource)
 	end

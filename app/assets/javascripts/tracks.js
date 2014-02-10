@@ -67,6 +67,7 @@ function updatePlayer(position){
 $(document).ready(function(){
 
 	$(document).on('click', '.remote-link', function(){
+		$('.navbar').addClass('collapse');
 		$('body').animate({scrollTop: $("#main").offset().top-90}, 500);
 	}).on('click', '.jp-next', function(){
 		position = $("#player-heading").attr('data-position');
