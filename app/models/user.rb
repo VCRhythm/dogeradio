@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
 																	 dependent: :destroy
 	has_many :followers, through: :reverse_relationships, source: :follower															
 	has_many :favorites, dependent: :destroy
-	has_many :favorite_tracks, through: :favorites, source: :music
+	has_many :favorite_tracks, through: :favorites, source: :track
 
 	has_many :tips_given, foreign_key: "payer_id",
 												class_name: "Transaction"
@@ -99,15 +99,15 @@ class User < ActiveRecord::Base
 		relationships.find_by(followed_id: other_user.id).destroy
 	end
 	
-	def favorite?(music)
-		favorites.find_by(music_id: music.id)
+	def favorite?(track)
+		favorites.find_by(track_id: track.id)
 	end
 
-	def favorite!(music)
-		favorites.create!(music_id: music.id)
+	def favorite!(track)
+		favorites.create!(track_id: track.id)
 	end
 
-	def unfavorite!(music)
-		favorites.find_by(music_id: music.id).destroy
+	def unfavorite!(track)
+		favorites.find_by(track_id: track.id).destroy
 	end
 end

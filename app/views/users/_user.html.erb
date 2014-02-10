@@ -1,16 +1,21 @@
 <div class="col-md-12">
 	<%= render 'shared/action_panel' %>
 	<div class="content-block">
-			<h2><%= @user.username %></h2>
-			<%= render partial: 'shared/follow_form', locals: {user: @user} if signed_in? %>
-			<div class="media">
+		<h2><%= @user.username %></h2>
+		<%= render partial: 'shared/follow_form', locals: {user: @user} if signed_in? %>
+		<div class="media">
+			<div class="pull-left">
 				<% if @user.avatar.exists? %>
-					<%= image_tag @user.avatar.url(:square), class: "pull-left media-object" %>
+					<%= image_tag @user.avatar.url(:square), class: "media-object" %>
 				<% end %>
-				<% if @user.soundcloud_access_token.exists? %><%= image_tag 'soundcloud-small.png', style: "position:absolute; top:240px; left:40px;" %><% end %>
-				<p class="media-body"><%= html_escape(@user.bio).gsub(/\n/, '<br />').html_safe %></p>
-			<%= render @tracks %>
+				<% if @user.soundcloud_access_token %><%= image_tag 'soundcloud-small.png', style: "position:absolute; top:240px; left:40px;" %><% end %>
 			</div>
-					</div>
+			<div class="media-body"><p>
+				<%= html_escape(@user.bio).gsub(/\n/, '<br />').html_safe %></p>
+			</div>
+		</div>
+		<div>
+			<%= render @tracks %>
+		</div>
 	</div>
 </div>

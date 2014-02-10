@@ -3,7 +3,7 @@
 # Table name: tags
 #
 #  id          :integer          not null, primary key
-#  music_id    :integer
+#  track_id    :integer
 #  category    :string(255)
 #  description :string(255)
 #  created_at  :datetime
