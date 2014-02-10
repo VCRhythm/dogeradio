@@ -20,8 +20,7 @@ module Dogeradio
 		# config.i18n.default_locale = :de
 
 		config.i18n.enforce_available_locales = true
-#		config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
-#		config.assets.precompile += %w(*.eot *.ttf *.woff *.svg)
+		config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 #		config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 	end
 end
