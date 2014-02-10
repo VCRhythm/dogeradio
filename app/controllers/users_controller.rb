@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 		client = SoundCloud.new({
 			client_id: $soundcloud_id,
 			client_secret: $soundcloud_secret,
-			redirect_uri: 'http://localhost:3000/soundcloud_callback',
+			redirect_uri: 'http://www.dogeradio.com/soundcloud_callback',
 			scope: 'non-expiring',
 			display: 'popup'
 		})	
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
 		client = SoundCloud.new({
 			client_id: $soundcloud_id,
 			client_secret: $soundcloud_secret,
-			redirect_uri: 'http://localhost:3000/soundcloud_callback'
+			redirect_uri: 'http://www.dogeradio.com/soundcloud_callback'
 		})	
 		code = params[:code]
 		access_token = client.exchange_token(code: code)
