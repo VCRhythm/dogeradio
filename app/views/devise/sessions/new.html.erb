@@ -19,6 +19,6 @@
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
   <%= link_to "Forgot your password?", new_password_path(resource_name), method: :get, style:'font-size:20px;' %>
 <% end -%>
-	<%= mail_to "beta-code@dogeradio.com", "Want a beta key?", class: "pull-right", style: 'font-size:20px;' %>
+	<%= mail_to "beta-code@dogeradio.com", "Want a beta key?", style: 'font-size:20px;' %>
 
 </div>
