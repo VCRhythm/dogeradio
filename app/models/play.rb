@@ -11,10 +11,10 @@
 #
 
 class Play < ActiveRecord::Base
-  belongs_to :music
+  belongs_to :track
   belongs_to :user
 
-	validates :music_id, uniqueness: { scope: :user_id }, presence: true
+	validates :track_id, uniqueness: { scope: :user_id }, presence: true
 	
 	validate :not_already_counted_today?, on: :update
 
