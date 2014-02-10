@@ -35,7 +35,7 @@
 						<%= link_to "Sign up", new_user_registration_path %> |	<%= link_to "Login", new_user_session_path %>
 					<% end %>
 				</ul>
-				<%= render 'shared/search' %>
+				<% if user_signed_in? %><%= render 'shared/search' %><% end %>
 			</div>
 		</div>
 	</div>
