@@ -11,8 +11,8 @@
 #
 
 class Tag < ActiveRecord::Base
-  belongs_to :music
-	validates :music_id, presence: true
+  belongs_to :track
+	validates :track_id, presence: true
 	validates :category, :description, presence: true
 
 	include CI_Find
