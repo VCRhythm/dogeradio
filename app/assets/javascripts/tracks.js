@@ -14,7 +14,7 @@ function setNextSong(track_id){
 				type: "post",
 				url: "tracks/"+track_id+"/plays/"
 			});
-			playlist_id = $(".track_"+track_id).attr("data-playlist_number")+1;
+			playlist_id = parseInt($(".track_"+track_id).attr("data-playlist_number"))+1;
 			updatePlayer(playlist_id);
 		});
 	}
@@ -70,7 +70,7 @@ $(document).ready(function(){
 		$('body').animate({scrollTop: $("#main").offset().top-90}, 500);
 	}).on('click', '.jp-next', function(){
 		position = $("#player-heading").attr('data-position');
-		next_position = position + 1;
+		next_position = parseInt(position) + 1;
 		updatePlayer(next_position);
 	}).on('click', '.tag', function(){
 		query = $(this).html();
