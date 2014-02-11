@@ -64,6 +64,10 @@ class UsersController < ApplicationController
 		end
 	end
 
+	def index
+		@users = User.all
+	end
+
 	def update_balance
 		current_balance = @user.balance
 		require 'doge_api'

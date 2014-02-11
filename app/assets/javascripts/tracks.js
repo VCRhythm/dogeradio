@@ -68,7 +68,7 @@ $(document).ready(function(){
 
 	$(document).on('click', '.remote-link', function(){
 		$('.navbar-collapse').removeClass('in');
-		$('body').animate({scrollTop: $("#main").offset().top-90}, 500);
+		$('body').animate({scrollTop: $("#main").offset().top-70}, 500);
 	}).on('click', '.jp-next', function(){
 		position = $("#player-heading").attr('data-position');
 		next_position = parseInt(position) + 1;

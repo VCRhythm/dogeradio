@@ -6,11 +6,11 @@
 
 <div class="media">
 	<div class="pull-left" id="player-image">
-		<%= render partial: 'player_image', locals: {track:track} %>
+		<%= render partial: 'tracks/player_image', locals: {track:track} %>
 	</div>
 	<div class="media-body">
 		<div id="player-body">
-			<%= render partial: 'player_heading', locals: {track:track, position:position} %>
+			<%= render partial: 'tracks/player_heading', locals: {track:track, position:position} %>
 		</div>
 		<span id="jquery_jplayer_1" class="jp-jplayer"></span>
 		<div class="jp-seek-bar progress" style="margin-bottom:0">
@@ -25,9 +25,9 @@
 		</div>
 	</div>
 	<div style="margin:0;" class="pull-right" id="player-custom-controls">
-		<%= render partial: 'player_custom_controls', locals: {track:track} %>
+		<%= render partial: 'tracks/player_custom_controls', locals: {track:track} %>
 	</div>
 </div>
 <div id="tags" style="margin-bottom:5px;">
-	<%= render partial: 'player_tags', locals: {track: track} %>
+	<%= render partial: 'tracks/player_tags', locals: {track: track} %>
 </div>

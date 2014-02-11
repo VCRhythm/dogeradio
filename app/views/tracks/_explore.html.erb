@@ -1,0 +1,22 @@
+<div class="row">
+	<div class="col-md-9">
+		<%= render 'shared/action_panel' %>
+		<div class="content-block">
+			<h3>Top Tracks</h3>
+			<div class="list-group">
+				<% @top_most_played_tracks.each do |track| %>
+					<%= link_to playlist_ranks_path(@playlist, track_id: track.id), method: :post, remote: true, class: "list-group-item" do %>
+						<span class="badge" style="background-color:white"><span class="glyphicon glyphicon-plus" style="color:green"></span></span>
+						<%= track.user.username + " - " + track.name %>
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="content-block">
+			<h3>Tags</h3>
+			<%= render @tags %>
+		</div>
+	</div>
+</div>

@@ -83,6 +83,7 @@ class User < ActiveRecord::Base
 
 	include CI_Find
 	include CI_Find_First
+
 	def queue
 		playlists.first
 	end
@@ -110,4 +111,18 @@ class User < ActiveRecord::Base
 	def unfavorite!(track)
 		favorites.find_by(track_id: track.id).destroy
 	end
+
+	def is_artist?
+		tracks.exists?	
+	end
+
+	def self.random_artist
+		count = User.count
+		begin  		
+			offset = rand(count)
+			user = self.offset(offset).first
+		end while !user.is_artist?
+		return user
+	end
+
 end

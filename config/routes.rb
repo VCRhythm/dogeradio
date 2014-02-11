@@ -4,6 +4,7 @@ Dogeradio::Application.routes.draw do
 
 	get 'soundcloud', to: 'users#soundcloud_auth'
 	get 'soundcloud_callback', to: 'users#soundcloud_callback'
+	get 'explore', to: 'tracks#explore'
 
 	post 'search', to: 'search#search'
 
@@ -29,7 +30,7 @@ Dogeradio::Application.routes.draw do
 	
 	resources :transactions
 
-	resources :users, only: [:show] do
+	resources :users, only: [:index, :show] do
 		post :pay
 		post :update_balance
 		get :following, :followers	

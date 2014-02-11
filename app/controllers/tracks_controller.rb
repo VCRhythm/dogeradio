@@ -1,5 +1,11 @@
 class TracksController < ApplicationController
   before_action :set_track, only: [:show, :edit, :update, :destroy]
+	before_action :set_queue, only: [:explore, :index]
+
+	def explore
+		@top_most_played_tracks = Track.most_played
+		@tags = Tag.unique_tags
+	end
 
 	def update_player
 		@player_position = params[:position]
@@ -7,13 +13,6 @@ class TracksController < ApplicationController
 	end
 
 	def index
-		if user_signed_in? 
-			@playlist = current_user.playlists.first 
-		else
-			@playlist = Playlist.new
-			@playlist.tracks << Track.order(created_at: :desc)
-		end
-
 		tracks_played_sums = Hash.new
 		@most_played_tracks = Array.new
 		Track.all.each do |track|
@@ -38,10 +37,7 @@ class TracksController < ApplicationController
 #		end
 		
 		#Random Featured Artist
-		begin
-			count = User.count
-			@featured_user = User.offset("RANDOM() * #{count}").first
-		end while !@featured_user.tracks.exists?
+		@featured_user = User.random_artist
 		@featured_user_tracks = @featured_user.tracks
 
 		#Tell the player to play track 1
@@ -79,6 +75,10 @@ class TracksController < ApplicationController
   end
 
   private
+		def set_queue
+			@playlist = user_signed_in? ? current_user.queue : Playlist.new.tracks << Track.order(created_at: :desc)
+		end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_track
       @track = Track.find(params[:id])

@@ -17,5 +17,6 @@ class Tag < ActiveRecord::Base
 
 	include CI_Find
 	include CI_Find_First
-
+	
+	scope :unique_tags, -> { group("description").order('description asc')	}
 end
