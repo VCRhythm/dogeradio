@@ -1,7 +1,7 @@
 <% if @music.persisted? %>
 	$('#upload_<%=params[:unique_id]%> div.progress').removeClass('active progress-striped');
 	$('#upload_<%=params[:unique_id]%> div.progress div.progress-bar').addClass('progress-bar-success');
-	$('#upload_<%=params[:unique_id]%> div.form-holder').html("<%= j render 'rename', locals: {music: @music, placeholder: params[:filename]} %>");
+	$('#upload_<%=params[:unique_id]%> div.form-holder').html("<%= j render partial: 'tracks/rename', locals: {track: @track, placeholder: params[:filename]} %>");
 <% else %>
 	$('#upload_<%=params[:unique_id]%> div.progress').removeClass('active progress-striped');
 	$('#upload_<%=params[:unique_id]%> div.progress div.progress-bar').addClass('progress-bar-danger');

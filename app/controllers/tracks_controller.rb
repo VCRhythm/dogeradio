@@ -1,5 +1,5 @@
 class TracksController < ApplicationController
-  before_action :set_track, only: [:show, :edit, :update, :destroy]
+  before_action :set_track, only: [:update_player, :show, :edit, :update, :destroy]
 	before_action :set_queue, only: [:explore, :index]
 
 	def explore
@@ -9,7 +9,6 @@ class TracksController < ApplicationController
 
 	def update_player
 		@player_position = params[:position]
-		@track = Track.find(params[:track_id])
 	end
 
 	def index
@@ -54,15 +53,15 @@ class TracksController < ApplicationController
 	end
 
   def update
-    respond_to do |format|
-      if @track.update(track_params)
-        format.html { redirect_to @track, notice: 'Track was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @track.errors, status: :unprocessable_entity }
-      end
-    end
+		respond_to do |format|
+			if @track.update(track_params)
+				format.html { redirect_to @track, notice: 'Track was successfully updated.' }
+				format.json { head :no_content }
+			else
+				format.html { render action: 'edit' }
+				format.json { render json: @track.errors, status: :unprocessable_entity }
+			end
+		end
   end
 
 	def destroy

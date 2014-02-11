@@ -21,6 +21,7 @@ class Music < ActiveRecord::Base
 	DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/dogeradio#{!Rails.env.production? ? "\\-#{Rails.env}" : ''}\.s3\.amazonaws\.com\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
 	UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/myapp#{!Rails.env.production? ? "\\-#{Rails.env}" : ''}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
 	
+
 	include CI_Find
 	include CI_Find_First
 
@@ -60,7 +61,11 @@ class Music < ActiveRecord::Base
 
 		s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].delete
 	end
-  
+
+	def associated_track
+		Track.where(url:self.upload.url).first
+	end
+
 	protected
   
 	# Set attachment attributes from the direct upload
