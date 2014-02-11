@@ -97,7 +97,7 @@ $(document).ready(function(){
 	}).on('click', '.clickable', function(){
 		position = $(this).parent().attr('data-playlist_number');
 		updatePlayer(position);
-		$('body').animate({scrollTop: $("#player").offset().top-80}, 500);
+		$('body').animate({scrollTop: $("#player").offset().top-100}, 500);
 	});
 	
 	$('.sortable').sortable({

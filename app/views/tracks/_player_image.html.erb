@@ -1,0 +1,4 @@
+<% if track.user.avatar.exists? %>
+	<%= image_tag track.user.avatar.url(:thumb), id: "player-image", class: "media-object" %>
+<% end %>
+<span id="thanks" style="position:relative; margin-bottom:0; margin-top:-50px;"></span>

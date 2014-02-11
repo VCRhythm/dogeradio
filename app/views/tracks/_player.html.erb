@@ -5,14 +5,13 @@
 </script>
 
 <div class="media">
-	<div class="pull-left">
-		<% if track.user.avatar.exists? %>
-			<%= image_tag track.user.avatar.url(:thumb), id: "player-image", class: "media-object" %>
-		<% end %>
-		<span id="thanks" style="position:relative; margin-bottom:0; margin-top:-50px;"></span>
+	<div class="pull-left" id="player-image">
+		<%= render partial: 'player_image', locals: {track:track} %>
 	</div>
 	<div class="media-body">
-		<h6 id="player-heading" class="media-heading" data-track_url="<%=track.url%>" data-track_id="<%=track.id%>" data-position="<%=position%>"><strong><%= track.name %><br/></strong><%= link_to track.user.username, track.user, remote: true, class: "remote-link" %></h6>
+		<div id="player-body">
+			<%= render partial: 'player_heading', locals: {track:track, position:position} %>
+		</div>
 		<span id="jquery_jplayer_1" class="jp-jplayer"></span>
 		<div class="jp-seek-bar progress" style="margin-bottom:0">
 			<div class="jp-play-bar progress-bar"></div>
@@ -25,14 +24,10 @@
 			</span>
 		</div>
 	</div>
-	<div style="margin:0;" class="pull-right">
-		<%= render partial: 'shared/favorite_form', locals: {track:track} if signed_in? %>	
-		<% if track.user.id != current_user.id %><%= link_to user_pay_path(track.user, track_id: track.id), method: :post, remote: true do %><%= image_tag 'dogecoin-icon.png', alt: 'Tip', style:"height:23px;" %><% end %><% end %>
+	<div style="margin:0;" class="pull-right" id="player-custom-controls">
+		<%= render partial: 'player_custom_controls', locals: {track:track} %>
 	</div>
 </div>
 <div id="tags" style="margin-bottom:5px;">
-	<span id="player-tags" class="btn-group">
-		<%= render partial: 'tags/show_tags', locals: {track: track} %>
-		<button type="button" id="add-tag" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-tag"></span></button>
-	</span>
+	<%= render partial: 'player_tags', locals: {track: track} %>
 </div>
