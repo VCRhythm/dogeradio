@@ -1,5 +1,7 @@
 $("#jquery_jplayer_1").jPlayer('setMedia', {mp3: '<%= @track.url %>'}).jPlayer('play');
+setNextSong(<%=@track.id%>);
 $("#player-image").html("<%= j render partial: 'player_image', locals: {track:@track} %>");
 $("#player-body").html("<%= j render partial: 'player_heading', locals: {track:@track, position:@player_position} %>");
 $("#player-custom-controls").html("<%= j render partial: 'player_custom_controls', locals: {track:@track} %>");
 $("#tags").html("<%= j render partial: 'player_tags', locals: {track:@track} %>");
+

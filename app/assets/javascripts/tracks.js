@@ -112,7 +112,6 @@ $(document).ready(function(){
 			ui.placeholder.height("20px");
 		},
 		update: function(event, ui){
-			$(".delete-link").addClass("stop-delete");
 			$(".list-group").removeClass("sortable");
 			var playlist_id = $(this).attr('data-playlist_id');
 			var track_id = $('#player-heading').attr('data-track_id');
