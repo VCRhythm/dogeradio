@@ -1,10 +1,10 @@
 <% case tag.category %>
 	<% when "City" %>
-		<button type="button" class="btn tag tag-city btn-xs" data-id="<%=tag.id%>"><%= tag.description %></button>
+		<button type="button" class="btn tag tag-city btn-xs"><%= tag.description %></button>
 	<% when "Genre" %>
-		<button type="button" class="btn tag tag-genre btn-xs" data-id="<%=tag.id%>"><%= tag.description %></button>
+		<button type="button" class="btn tag tag-genre btn-xs"><%= tag.description %></button>
 	<% when "Style" %>
-		<button type="button" class="btn tag tag-style btn-xs" data-id="<%=tag.id%>"><%= tag.description %></button>
+		<button type="button" class="btn tag tag-style btn-xs"><%= tag.description %></button>
 	<% when "Trend" %>
-		<button type="button" class="btn tag tag-trend btn-xs" data-id="<%=tag.id%>"><%= tag.description %></button>
+		<button type="button" class="btn tag tag-trend btn-xs"><%= tag.description %></button>
 <% end %>

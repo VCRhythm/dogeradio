@@ -15,7 +15,7 @@ class SearchController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
 		def search_tags
-			Tag.unique_tags.ci_find('description', @query)		
+			Tag.ci_find('description', @query)		
 		end
 
 		def search_tracks_by_tag
