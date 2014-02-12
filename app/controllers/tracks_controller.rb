@@ -1,5 +1,5 @@
 class TracksController < ApplicationController
-  before_action :set_track, only: [:update_player, :show, :edit, :update, :destroy]
+  before_action :set_track, only: [:show, :edit, :update, :destroy]
 	before_action :set_queue, only: [:explore, :index]
 
 	def explore
@@ -8,6 +8,7 @@ class TracksController < ApplicationController
 	end
 
 	def update_player
+    @track = Track.find(params[:track_id])
 		@player_position = params[:position]
 	end
 
@@ -80,7 +81,7 @@ class TracksController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_track
-      @track = Track.find(params[:track_id])
+      @track = Track.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
