@@ -147,7 +147,7 @@ ActiveRecord::Schema.define(version: 20140210154221) do
     t.integer  "payee_id"
     t.integer  "payer_id"
     t.float    "value"
-    t.string   "type"
+    t.string   "method"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

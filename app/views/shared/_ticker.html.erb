@@ -1,1 +1,5 @@
-<div id="scrollingText"></div>
+<div id="scrollingText">
+	<% @transactions.each do |transaction| %>
+		<p><%= transaction.payer.username %>(<%=transaction.value%>D)<span class="glyphicon glyphicon-arrow-right"></span><%= transaction.payee.username %></p>
+	<% end %>
+</div>

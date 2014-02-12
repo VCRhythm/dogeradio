@@ -13,6 +13,7 @@ class TracksController < ApplicationController
 	end
 
 	def index
+		@transactions = Transaction.ten_recent
 		tracks_played_sums = Hash.new
 		@most_played_tracks = Array.new
 		Track.all.each do |track|

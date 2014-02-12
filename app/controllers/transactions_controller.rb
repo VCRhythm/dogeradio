@@ -1,10 +1,6 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show]
 
-	def recent
-		@transactions = Transaction.ten_recent
-	end
-
 	def index
 		@user = current_user
 		@balance = @user.balance

@@ -1,6 +1,7 @@
 <div class="row row-offcanvas row-offcanvas-left">
 	<div class="col-xs-12 col-sm-4 sidebar-offcanvas" id="sidebar">
 		<div class="content-block">
+			<%= render partial: 'shared/ticker' %>
 			<div id="player">
 				<% if @track %>
 					<%= render partial: "player", locals: {track:@track, position:@player_position} %>
@@ -21,4 +22,3 @@
 		<%= render partial: "main" %>
 	</div>
 </div>
-

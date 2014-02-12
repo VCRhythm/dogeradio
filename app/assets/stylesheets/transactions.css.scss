@@ -1,0 +1,16 @@
+#scrollingText{
+	height:14px;
+	.scrollWrapper .scrollableArea{
+		p{
+			display: block;
+			float:left;
+			margin: 0;
+			padding: 1px 7px 0 0;
+			font-size: 12px;
+			line-height: 12px;
+			font-weight: normal;
+			color: white;
+			white-space: nowrap;
+		}
+	}
+}

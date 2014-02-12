@@ -4,7 +4,7 @@ class CreateTransactions < ActiveRecord::Migration
       t.integer :payee_id
       t.integer :payer_id
       t.float :value
-      t.string :type
+			t.string :method
 
       t.timestamps
     end
