@@ -2,6 +2,7 @@ Dogeradio::Application.routes.draw do
 
 	root 'tracks#index'
 
+	get 'recent_tips', to: 'transactions#recent'
 	get 'soundcloud', to: 'users#soundcloud_auth'
 	get 'soundcloud_callback', to: 'users#soundcloud_callback'
 	get 'explore', to: 'tracks#explore'
@@ -28,7 +29,7 @@ Dogeradio::Application.routes.draw do
 
   devise_for :users, controllers: {registrations: "registrations"}
 	
-	resources :transactions
+	resources :transactions 
 
 	resources :users, only: [:index, :show] do
 		post :pay

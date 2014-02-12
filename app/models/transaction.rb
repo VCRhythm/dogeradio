@@ -18,6 +18,10 @@ class Transaction < ActiveRecord::Base
 	validates :payee_id, presence: true
 	validates :value, presence: true
 
+	default_scope order: "created_at DESC"
+
+	scope :ten_recent, -> { limit(10)}
+
 	def payee
 		User.where(user_id: payee_id).first
 	end

@@ -1,0 +1,3 @@
+<% @transactions.each do |transaction| %>
+	<p><%=transaction.payer%>-<%=transaction.amount%>D-<%=transaction.payee%></p>
+<% end %>
