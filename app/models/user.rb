@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
 	include CI_Find_First
 
 	def queue
-		playlists.first
+		playlists.where(category:"queue").first
 	end
 
 	def following?(other_user)

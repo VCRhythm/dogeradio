@@ -23,14 +23,18 @@ class Track < ActiveRecord::Base
 												dependent: :destroy
 	has_many :fond_users, through: :favoriteds, source: :user
 
-	scope :most_played, -> { joins(:plays) }
+	scope :most_played, -> { joins(:plays).group(:track_id).sum(:count).sort.reverse.limit(10) }
+
+	def album
+		playlists.where(category:"album")
+	end
 
 	def count_plays
 		Play.where(track_id: :track_id).sum("count")	
 	end
 
-	def most_played
-		Track.joins(:plays).group(:track_id).sum(:count).sort.reverse.limit(10)
-	end
+#	def most_played
+#		Track.joins(:plays).group(:track_id).sum(:count).sort.reverse.limit(10)
+#	end
 	
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140213014752) do
+ActiveRecord::Schema.define(version: 20140213031150) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20140213014752) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "category",   default: "playlist"
   end
 
   create_table "playlists_tracks", id: false, force: true do |t|
