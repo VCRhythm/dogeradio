@@ -13,7 +13,8 @@ function setNextSong(track_id){
 			$.ajax({
 				type: "post",
 				url: "tracks/"+track_id+"/plays/"
-			}).$.ajax({
+			});
+			$.ajax({
 				type: "post",
 				data: {track_id: track_id},
 				url: "users/"+$("#player-heading").attr("data-user_id")+"/pay"
