@@ -34,7 +34,7 @@ class UsersController < ApplicationController
 
 	def show
 		@playlist = current_user.playlists.first
-		@tracks = @this_user.tracks.order(created_at: :desc)
+		@tracks = @user.tracks.order(created_at: :desc)
 	end
 
 	def payout
@@ -56,10 +56,10 @@ class UsersController < ApplicationController
 
 		if @this_user.balance >= @amount
 			@this_user.balance -= (@amount + @fee)
-			@selected_user.balance += @amount
+			@user.balance += @amount
 			@this_user.save
-			@selected_user.save
-			Transaction.create(payer_id:@this_user.id, payee_id:@selected_user.id, value:@amount, method: "tip", track_id:@track.id)
+			@user.save
+			Transaction.create(payer_id:@this_user.id, payee_id:@user.id, value:@amount, method: "tip", track_id:@track.id)
 			Transaction.create(payer_id:@this_user.id, payee_id:0, value:@fee, method: "fee")
 		else
 			render layout: false
@@ -86,7 +86,7 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @selected_user = User.find(params[:id])
+      @user = User.find(params[:id])
 			@this_user = current_user
     end
 
