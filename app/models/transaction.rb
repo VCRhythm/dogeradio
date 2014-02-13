@@ -20,7 +20,7 @@ class Transaction < ActiveRecord::Base
 
 	default_scope {order("created_at DESC")}
 
-	scope :ten_recent, -> { limit(10)}
+	scope :ten_recent, -> { where.not(payee_id: 0).limit(10)}
 
 	def payee
 		User.find(payee_id)

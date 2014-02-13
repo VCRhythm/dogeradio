@@ -52,7 +52,7 @@ class UsersController < ApplicationController
     @user_to_pay = User.find(params[:user_id])
 		@track = Track.find(params[:track_id])
 		@amount = @user.default_tip_amount
-		@fee = @user.transaction_fee
+		@fee = @user.transaction_fee * @amount
 
 		if @user.balance >= @amount
 			@user.balance -= (@amount + @fee)

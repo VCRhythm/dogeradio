@@ -50,6 +50,7 @@ class User < ActiveRecord::Base
 			record.errors.add attribute, "is not valid." unless BetaCode.where(value: value).exists?
 		end
 	end
+
 	validates :code, code: true 
 
 	has_many :uploaded_tracks, class_name: "Music", dependent: :destroy
