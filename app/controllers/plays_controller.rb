@@ -8,10 +8,8 @@ class PlaysController < ApplicationController
 	def create
     respond_to do |format|
 			if @play.save
-				format.html { redirect_to root_url, notice: 'Play was successfully created.' }
 			  format.json { head :no_content }
 			else
-			  format.html { render action: 'new' }
 			  format.json { render json: @play.errors, status: :unprocessable_entity }
 			end
 		end
@@ -21,10 +19,8 @@ class PlaysController < ApplicationController
 		@play.count += 1	
     respond_to do |format|
       if @play.update(play_params)
-        format.html { redirect_to @play, notice: 'Play was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
         format.json { render json: @play.errors, status: :unprocessable_entity }
       end
 		end

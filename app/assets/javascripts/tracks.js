@@ -12,7 +12,7 @@ function setNextSong(track_id){
 		$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerNext", function(){
 			$.ajax({
 				type: "post",
-				url: "tracks/"+track_id+"/plays/"
+				url: "tracks/"+track_id+"/plays"
 			});
 			$.ajax({
 				type: "post",
