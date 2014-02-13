@@ -15,7 +15,9 @@ function setNextSong(track_id){
 				url: "tracks/"+track_id+"/plays/"
 			});
 			playlist_id = parseInt($(".track_"+track_id).attr("data-playlist_number"))+1;
-			updatePlayer(playlist_id);
+			if ($("#playlist_" + playlist_id)){
+				updatePlayer(playlist_id);
+			}
 		});
 	}
 }

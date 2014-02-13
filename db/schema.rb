@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140213031150) do
+ActiveRecord::Schema.define(version: 20140213040818) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
@@ -182,6 +182,7 @@ ActiveRecord::Schema.define(version: 20140213031150) do
     t.float    "wow_tip_amount",          default: 5.0
     t.float    "donation_percent",        default: 0.0
     t.float    "transaction_fee",         default: 0.04
+    t.string   "website"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
