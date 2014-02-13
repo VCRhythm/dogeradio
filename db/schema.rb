@@ -153,12 +153,12 @@ ActiveRecord::Schema.define(version: 20140213002016) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "email",                   default: "",  null: false
-    t.string   "encrypted_password",      default: "",  null: false
+    t.string   "email",                   default: "",   null: false
+    t.string   "encrypted_password",      default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",           default: 0,   null: false
+    t.integer  "sign_in_count",           default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -177,10 +177,10 @@ ActiveRecord::Schema.define(version: 20140213002016) do
     t.text     "bio"
     t.string   "payout_account"
     t.string   "soundcloud_access_token"
-    t.float    "default_tip_amount"
-    t.float    "wow_tip_amount"
-    t.float    "donation_percent"
-    t.float    "transaction_fee"
+    t.float    "default_tip_amount",      default: 5.0
+    t.float    "wow_tip_amount",          default: 5.0
+    t.float    "donation_percent",        default: 0.0
+    t.float    "transaction_fee",         default: 0.04
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

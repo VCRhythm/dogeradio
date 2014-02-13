@@ -78,6 +78,7 @@ class TracksController < ApplicationController
   private
 		def set_queue
 			@playlist = user_signed_in? ? current_user.queue : Playlist.new.tracks << Track.order(created_at: :desc)
+			@playlist ||= current_user.playlists.create(name:"primary")
 		end
 
     # Use callbacks to share common setup or constraints between actions.

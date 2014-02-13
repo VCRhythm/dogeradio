@@ -27,6 +27,10 @@
 #  bio                     :text
 #  payout_account          :string(255)
 #  soundcloud_access_token :string(255)
+#  default_tip_amount      :float
+#  wow_tip_amount          :float
+#  donation_percent        :float
+#  transaction_fee         :float
 #
 
 class User < ActiveRecord::Base
