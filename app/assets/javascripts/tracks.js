@@ -1,8 +1,8 @@
 var go = false;
+var jPlayer;
 
 function setNextSong(track_id){
-	player = $("#jquery_jplayer_1");
-	if(player.data("jPlayer").options.loop){
+	if(jPlayer.data("jPlayer").options.loop){
 		$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
 		$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerRepeat", function(){
 			$(this).jPlayer("play");
@@ -21,7 +21,7 @@ function setNextSong(track_id){
 }
 
 function loadPlayer(track_id){
-	$('#jquery_jplayer_1').jPlayer({
+	jPlayer.jPlayer({
 		preload: "none",
 		supplied: "mp3",
 		swfPath: "http://www.jplayer.org/latest/js/Jplayer.swf",
@@ -67,6 +67,8 @@ function updatePlayer(position){
 }
 
 $(document).ready(function(){
+	jPlayer = $("#jquery_jplayer_1");
+	loadPlayer($("#player-heading").attr("data-track_id"));
 
 	$(document).on('click', '.remote-link', function(){
 		$('.navbar-collapse').removeClass('in');

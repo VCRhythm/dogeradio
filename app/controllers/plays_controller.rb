@@ -1,6 +1,10 @@
 class PlaysController < ApplicationController
   before_action :set_play, only: [:create, :update, :destroy]
 
+	def index
+		@plays = Play.all
+	end
+
 	def create
     respond_to do |format|
 			if @play.save
@@ -38,7 +42,7 @@ class PlaysController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_play
 			attributes = {user_id: current_user.id, track_id: params[:track_id]}
-			@play = Play.where(attributes).first_or_initialize
+			@play = Play.first_or_initialize(attributes)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

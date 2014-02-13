@@ -59,7 +59,7 @@ class UsersController < ApplicationController
 			@user_to_pay.balance += @amount
 			@user.save
 			@user_to_pay.save
-			Transaction.create(payer_id:@user.id, payee_id:@user_to_pay.id, value:@amount, method: "tip")
+			Transaction.create(payer_id:@user.id, payee_id:@user_to_pay.id, value:@amount, method: "tip", track_id:@track.id)
 			Transaction.create(payer_id:@user.id, payee_id:0, value:@fee, method: "fee")
 		else
 			render layout: false
