@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show ]
-	before_action :this_user, only: [:payout, :pay, :update_balance]
+  before_action :set_user, only: [:show, :autopay, :payout, :pay, :update_balance]
 
 	def soundcloud_auth
 		$soundcloud_id = Rails.configuration.apis[:soundcloud_id]
@@ -34,33 +33,34 @@ class UsersController < ApplicationController
 	end
 
 	def show
-#		client = Soundcloud.new(access_token: @user.soundcloud_access_token)
 		@playlist = current_user.playlists.first
-		@tracks = @user.tracks.order(created_at: :desc)
+		@tracks = @this_user.tracks.order(created_at: :desc)
 	end
 
 	def payout
 		@amount = params[:amount].to_f
-		if @user.balance >= @amount
-			@user.payouts.create(value:@amount)
-			@user.balance -= @amount
-			@user.save
+		if @this_user.balance >= @amount
+			@this_user.payouts.create(value:@amount)
+			@this_user.balance -= @amount
+			@this_user.save
 		end
 	end
 
-	def pay
-    @user_to_pay = User.find(params[:user_id])
-		@track = Track.find(params[:track_id])
-		@amount = @user.default_tip_amount
-		@fee = @user.transaction_fee * @amount
+	def autopay
+	end
 
-		if @user.balance >= @amount
-			@user.balance -= (@amount + @fee)
-			@user_to_pay.balance += @amount
-			@user.save
-			@user_to_pay.save
-			Transaction.create(payer_id:@user.id, payee_id:@user_to_pay.id, value:@amount, method: "tip", track_id:@track.id)
-			Transaction.create(payer_id:@user.id, payee_id:0, value:@fee, method: "fee")
+	def pay
+		@track = Track.find(params[:track_id])
+		@amount = @this_user.default_tip_amount
+		@fee = @this_user.transaction_fee * @amount
+
+		if @this_user.balance >= @amount
+			@this_user.balance -= (@amount + @fee)
+			@selected_user.balance += @amount
+			@this_user.save
+			@selected_user.save
+			Transaction.create(payer_id:@this_user.id, payee_id:@selected_user.id, value:@amount, method: "tip", track_id:@track.id)
+			Transaction.create(payer_id:@this_user.id, payee_id:0, value:@fee, method: "fee")
 		else
 			render layout: false
 		end
@@ -71,25 +71,23 @@ class UsersController < ApplicationController
 	end
 
 	def update_balance
-		current_balance = @user.balance
+		current_balance = @this_user.balance
 		require 'doge_api'
 		$my_api_key = Rails.configuration.apis[:doge_api_key]
 		doge_api = DogeApi::DogeApi.new($my_api_key)
-		current_received = doge_api.get_address_received(payment_address: @user.account).to_f
-		@user.balance += current_received - @user.prev_received
-		if @user.balance != current_balance
-			@user.prev_received = current_received
-			@user.save
+		current_received = doge_api.get_address_received(payment_address: @this_user.account).to_f
+		@this_user.balance += current_received - @this_user.prev_received
+		if @this_user.balance != current_balance
+			@this_user.prev_received = current_received
+			@this_user.save
 		end
 	end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      @selected_user = User.find(params[:id])
+			@this_user = current_user
     end
 
-		def this_user
-			@user = current_user
-		end
 end

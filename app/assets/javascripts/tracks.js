@@ -13,6 +13,10 @@ function setNextSong(track_id){
 			$.ajax({
 				type: "post",
 				url: "tracks/"+track_id+"/plays/"
+			}).$.ajax({
+				type: "post",
+				data: {track_id: track_id},
+				url: "users/"+$("#player-heading").attr("data-user_id")+"/pay"
 			});
 			playlist_id = parseInt($(".track_"+track_id).attr("data-playlist_number"))+1;
 			updatePlayer(playlist_id);

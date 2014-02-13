@@ -1,5 +1,5 @@
 <% unless current_user?(user) %>
-	<div class="follow_form_<%=user.id%>">
+	<div class="follow_form_<%=user.id%>" style="display:inline; float:right">
 		<% if current_user.following?(user) %>
 			<%= render partial: 'shared/unfollow', locals: {user: user} %>
 		<% else %>

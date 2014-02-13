@@ -1,7 +1,10 @@
 <div class="col-md-12">
 	<%= render 'shared/action_panel' %>
 	<div class="content-block">
-		<h2><%= @user.username %></h2>
+		<h2 style="display:inline-block"><%= @user.username %></h2>
+		<% if @user.website %>
+			<h5><%=link_to @user.website %></h5>
+		<% end %>
 		<%= render partial: 'shared/follow_form', locals: {user: @user} if signed_in? %>
 		<div class="media">
 			<div class="pull-left">
@@ -14,7 +17,7 @@
 				<%= html_escape(@user.bio).gsub(/\n/, '<br />').html_safe %></p>
 			</div>
 		</div>
-		<ul>
+		<ul style="padding-left:0">
 			<%= render @tracks %>
 		</ul>
 	</div>
