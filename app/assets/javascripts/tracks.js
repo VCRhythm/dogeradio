@@ -15,9 +15,7 @@ function setNextSong(track_id){
 				url: "tracks/"+track_id+"/plays/"
 			});
 			playlist_id = parseInt($(".track_"+track_id).attr("data-playlist_number"))+1;
-			if ($("#playlist_" + playlist_id)){
-				updatePlayer(playlist_id);
-			}
+			updatePlayer(playlist_id);
 		});
 	}
 }
@@ -52,18 +50,20 @@ function loadPlayer(track_id){
 
 function updatePlayer(position){
 	previous_position = $("#player-heading").attr('data-position');
-	track_id = $("#playlist_"+position).attr("data-track_id");
 	$('#playlist_' + previous_position).removeClass('active');
-	$('#playlist_' + position).addClass('active');
-	$.ajax({
-		type:"POST",
-		data: {position: position},
-		url: "tracks/"+track_id+"/update_player/",
-		success: function() {
-			go = true;
-			loadPlayer(track_id);
-		}
-	});
+	if($("#playlist_"+position).length){
+		track_id = $("#playlist_"+position).attr("data-track_id");
+		$('#playlist_' + position).addClass('active');
+		$.ajax({
+			type:"POST",
+			data: {position: position},
+			url: "tracks/"+track_id+"/update_player/",
+			success: function() {
+				go = true;
+				loadPlayer(track_id);
+			}
+		});
+	}
 }
 
 $(document).ready(function(){
