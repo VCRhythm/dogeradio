@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
 	class WebsiteValidator < ActiveModel::EachValidator
 		def validate_each(record, attribute, value)
 			valid = begin
-					URI.parse(value).kind_of?(URI::HTTP)
+					URI.parse(value)
 			rescue URI::InvalidURIError
 				false
 			end

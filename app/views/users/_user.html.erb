@@ -3,7 +3,7 @@
 	<div class="content-block">
 		<h2 style="display:inline-block"><%= @user.username %></h2>
 		<% if @user.website %>
-			<h5><%=link_to @user.website %></h5>
+			<h5><%=link_to @user.website, @user.website %></h5>
 		<% end %>
 		<%= render partial: 'shared/follow_form', locals: {user: @user} if signed_in? %>
 		<div class="media">

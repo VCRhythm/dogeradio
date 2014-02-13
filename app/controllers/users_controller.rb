@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :autopay, :payout, :pay, :update_balance]
+  before_action :set_user, only: [:show, :payout, :update_balance]
+	before_action :pay_user, only: [:autopay, :pay]
 
 	def soundcloud_auth
 		$soundcloud_id = Rails.configuration.apis[:soundcloud_id]
@@ -71,15 +72,15 @@ class UsersController < ApplicationController
 	end
 
 	def update_balance
-		current_balance = @this_user.balance
+		current_balance = @user.balance
 		require 'doge_api'
 		$my_api_key = Rails.configuration.apis[:doge_api_key]
 		doge_api = DogeApi::DogeApi.new($my_api_key)
-		current_received = doge_api.get_address_received(payment_address: @this_user.account).to_f
-		@this_user.balance += current_received - @this_user.prev_received
-		if @this_user.balance != current_balance
-			@this_user.prev_received = current_received
-			@this_user.save
+		current_received = doge_api.get_address_received(payment_address: @user.account).to_f
+		@user.balance += current_received - @user.prev_received
+		if @user.balance != current_balance
+			@user.prev_received = current_received
+			@user.save
 		end
 	end
 
@@ -87,7 +88,10 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
-			@this_user = current_user
     end
+		def pay_user
+			@this_user = current_user
+			@user = User.find(params[:user_id])
+		end
 
 end
