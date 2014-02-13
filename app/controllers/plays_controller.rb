@@ -5,7 +5,7 @@ class PlaysController < ApplicationController
     respond_to do |format|
 			if @play.save
 				format.html { redirect_to root_url, notice: 'Play was successfully created.' }
-			  format.json { render action: 'show', status: :created, location: @play }
+			  format.json { head :no_content }
 			else
 			  format.html { render action: 'new' }
 			  format.json { render json: @play.errors, status: :unprocessable_entity }
