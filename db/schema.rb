@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140210154221) do
+ActiveRecord::Schema.define(version: 20140213002016) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
@@ -177,6 +177,10 @@ ActiveRecord::Schema.define(version: 20140210154221) do
     t.text     "bio"
     t.string   "payout_account"
     t.string   "soundcloud_access_token"
+    t.float    "default_tip_amount"
+    t.float    "wow_tip_amount"
+    t.float    "donation_percent"
+    t.float    "transaction_fee"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

@@ -6,7 +6,7 @@
 #  payee_id   :integer
 #  payer_id   :integer
 #  value      :float
-#  type       :string(255)
+#  method     :string(255)
 #  created_at :datetime
 #  updated_at :datetime
 #

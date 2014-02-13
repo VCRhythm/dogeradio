@@ -51,14 +51,16 @@ class UsersController < ApplicationController
 	def pay
     @user_to_pay = User.find(params[:user_id])
 		@track = Track.find(params[:track_id])
-		@amount = 5
+		@amount = @user.default_tip_amount
+		@fee = @user.transaction_fee
 
 		if @user.balance >= @amount
-			@user.balance -= @amount
+			@user.balance -= (@amount + @fee)
 			@user_to_pay.balance += @amount
 			@user.save
 			@user_to_pay.save
-			Transaction.create(payer_id:@user.id, payee_id:@user_to_pay.id, value:@amount, type:"tip")
+			Transaction.create(payer_id:@user.id, payee_id:@user_to_pay.id, value:@amount, method: "tip")
+			Transaction.create(payer_id:@user.id, payee_id:0, value:@fee, method: "fee")
 		else
 			render layout: false
 		end
