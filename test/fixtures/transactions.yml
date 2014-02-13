@@ -6,9 +6,10 @@
 #  payee_id   :integer
 #  payer_id   :integer
 #  value      :float
-#  method     :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  method     :string(255)
+#  track_id   :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

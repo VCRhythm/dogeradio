@@ -27,10 +27,11 @@
 #  bio                     :text
 #  payout_account          :string(255)
 #  soundcloud_access_token :string(255)
-#  default_tip_amount      :float
-#  wow_tip_amount          :float
-#  donation_percent        :float
-#  transaction_fee         :float
+#  default_tip_amount      :float            default(5.0)
+#  wow_tip_amount          :float            default(5.0)
+#  donation_percent        :float            default(0.0)
+#  transaction_fee         :float            default(0.04)
+#  website                 :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -51,6 +52,20 @@ class User < ActiveRecord::Base
 		end
 	end
 
+	class WebsiteValidator < ActiveModel::EachValidator
+		def validate_each(record, attribute, value)
+				valid = begin
+					URI.parse(value)
+			rescue URI::InvalidURIError
+				false
+			end
+			unless valid
+				record.errors[attribute] << (options[:message] || "is an invalid URL")
+			end
+		end
+	end
+
+	validates :website, website: true
 	validates :code, code: true 
 
 	has_many :uploaded_tracks, class_name: "Music", dependent: :destroy

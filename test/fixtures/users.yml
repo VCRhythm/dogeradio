@@ -27,10 +27,11 @@
 #  bio                     :text
 #  payout_account          :string(255)
 #  soundcloud_access_token :string(255)
-#  default_tip_amount      :float
-#  wow_tip_amount          :float
-#  donation_percent        :float
-#  transaction_fee         :float
+#  default_tip_amount      :float            default(5.0)
+#  wow_tip_amount          :float            default(5.0)
+#  donation_percent        :float            default(0.0)
+#  transaction_fee         :float            default(0.04)
+#  website                 :string(255)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
