@@ -5,6 +5,7 @@ class TracksController < ApplicationController
 	def explore
 		@top_most_played_tracks = Track.most_played
 		@tags = Tag.unique_tags
+		@favorite_users = current_user.followed_users
 	end
 
 	def update_player

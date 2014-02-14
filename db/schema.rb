@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140213143641) do
+ActiveRecord::Schema.define(version: 20140214003052) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
@@ -157,12 +157,12 @@ ActiveRecord::Schema.define(version: 20140213143641) do
   add_index "transactions", ["track_id"], name: "index_transactions_on_track_id"
 
   create_table "users", force: true do |t|
-    t.string   "email",                   default: "",   null: false
-    t.string   "encrypted_password",      default: "",   null: false
+    t.string   "email",                   default: "",    null: false
+    t.string   "encrypted_password",      default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",           default: 0,    null: false
+    t.integer  "sign_in_count",           default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -186,6 +186,7 @@ ActiveRecord::Schema.define(version: 20140213143641) do
     t.float    "donation_percent",        default: 0.0
     t.float    "transaction_fee",         default: 0.04
     t.string   "website"
+    t.boolean  "autotip",                 default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

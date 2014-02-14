@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
 		end
 	end
 
-	validates :website, website: true
+	validates :website, website: true, allow_blank: true
 	validates :code, code: true 
 
 	has_many :uploaded_tracks, class_name: "Music", dependent: :destroy

@@ -16,7 +16,7 @@ function setNextSong(track_id){
 			});
 			$.ajax({
 				type: "post",
-				data: {track_id: track_id},
+				data: {track_id: track_id, category:"auto"},
 				url: "users/"+$("#player-heading").attr("data-user_id")+"/pay"
 			});
 			playlist_id = parseInt($(".track_"+track_id).attr("data-playlist_number"))+1;

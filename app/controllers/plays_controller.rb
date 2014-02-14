@@ -6,24 +6,14 @@ class PlaysController < ApplicationController
 	end
 
 	def create
-    respond_to do |format|
-			if @play.save
-			  format.json { head :no_content }
-			else
-			  format.json { render json: @play.errors, status: :unprocessable_entity }
-			end
-		end
+		@play.save
+	  format.json { head :no_content }
 	end
 
   def update
 		@play.count += 1	
-    respond_to do |format|
-      if @play.update(play_params)
-        format.json { head :no_content }
-      else
-        format.json { render json: @play.errors, status: :unprocessable_entity }
-      end
-		end
+  	@play.update(play_params)
+    format.json { head :no_content }
 	end
 
   def destroy

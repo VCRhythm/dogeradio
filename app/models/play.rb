@@ -23,7 +23,10 @@ class Play < ActiveRecord::Base
 	
 	def not_already_counted_today?
 		if updated_at > 1.day.ago
-			errors.add(:user, "already played this song today")
+#			errors.add(:user, "already played this song today")
+			false
+		else
+			true
 		end
 	end
 end

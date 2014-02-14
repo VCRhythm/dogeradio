@@ -15,8 +15,22 @@
 	</div>
 	<div class="col-md-3">
 		<div class="content-block">
+			<ul class="list-group" style="color:black">
+				<li class="list-group-item wow-tracks-link">Wow Tracks</li>
+				<li class="list-group-item favorite-users-link">Favorite Users</li>
+			</ul>
+		</div>
+		<div class="content-block">
 			<h3>Tags</h3>
 			<%= render @tags %>
 		</div>
 	</div>
 </div>
+
+<script>
+$(document).ready(function(){
+	$(document).on('click', '.favorite-users-link', function(){
+		$("#action-panel").html("<h2>List of Favorite Users</h2><% if @favorite_users.exists? %><%= render partial: 'users/user_list', locals:{users: @favorite_users}%><% else %><p>You have no favorites!</p><% end %>").slideDown();
+	});
+});
+</script>
