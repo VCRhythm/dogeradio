@@ -10,14 +10,14 @@ div.scrollingHotSpotLeft
 	height: 100%;
 	/* There is a big background image and it's used to solve some problems I experienced
     in Internet Explorer 6. */
-	background-image: image-url("big_transparent.gif");
+	background-image: image_url("big_transparent.gif");
 	background-repeat: repeat;
 	background-position: center center;
 	position: absolute;
 	z-index: 200;
 	left: 0;
 	/*  The first url is for Firefox and other browsers, the second is for Internet Explorer */
-	cursor: image-url("cursor_arrow_left.png"), image-url("cursor_arrow_left.cur"),w-resize;
+	cursor: image_url("cursor_arrow_left.png"), image_url("cursor_arrow_left.cur"),w-resize;
 }
 
 /* Visible left hotspot */
@@ -38,13 +38,13 @@ div.scrollingHotSpotRight
 	min-width: 75px;
 	width: 10%;
 	height: 100%;
-	background-image: image-url("big_transparent.gif");
+	background-image: image_url("big_transparent.gif");
 	background-repeat: repeat;
 	background-position: center center;
 	position: absolute;
 	z-index: 200;
 	right: 0;
-	cursor: image-url("cursor_arrow_right.png"), image-url("cursor_arrow_right.cur"),e-resize;
+	cursor: image_url("cursor_arrow_right.png"), image_url("cursor_arrow_right.cur"),e-resize;
 }
 
 /* Visible right hotspot */
