@@ -4,8 +4,7 @@ class SearchController < ApplicationController
 	def search
 		if @type == 'tag'
 			search_tracks_by_tag
-		end
-		if @type == 'all'
+		elsif @type == 'all'
 			@tag_results = search_tags
 			@track_results = search_tracks
 			@user_results = search_users
@@ -13,7 +12,6 @@ class SearchController < ApplicationController
 	end
 
   private
-    # Never trust parameters from the scary internet, only allow the white list through.
 		def search_tags
 			Tag.ci_find('description', @query)		
 		end

@@ -20,7 +20,6 @@ class Music < ActiveRecord::Base
 	# Environment-specific direct upload url verifier screens for malicious posted upload locations.
 	DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/dogeradio#{!Rails.env.production? ? "\\-#{Rails.env}" : ''}\.s3\.amazonaws\.com\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
 	UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/myapp#{!Rails.env.production? ? "\\-#{Rails.env}" : ''}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
-	
 
 	include CI_Find
 	include CI_Find_First

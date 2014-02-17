@@ -3,9 +3,11 @@ class TracksController < ApplicationController
 	before_action :set_queue, only: [:explore, :index]
 
 	def explore
+		@user = current_user
 		@top_most_played_tracks = Track.most_played
 		@tags = Tag.unique_tags
-		@favorite_users = current_user.followed_users
+		@favorite_users = @user.followed_users
+		@favorite_tracks = @user.favorites
 	end
 
 	def update_player
@@ -78,8 +80,9 @@ class TracksController < ApplicationController
 
   private
 		def set_queue
-			@playlist = user_signed_in? ? current_user.queue : Playlist.new.tracks << Track.order(created_at: :desc)
-			@playlist ||= current_user.playlists.create(name:"queue", category:"queue")
+			@user = current_user
+			@playlist = user_signed_in? ? @user.queue : Playlist.new.tracks << Track.order(created_at: :desc)
+			@playlist ||= @user.playlists.create(name:"queue", category:"queue")
 		end
 
     # Use callbacks to share common setup or constraints between actions.
