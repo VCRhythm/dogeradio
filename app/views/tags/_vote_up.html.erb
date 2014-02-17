@@ -1,0 +1,3 @@
+<%= button_to votes_path(tag_id: tag.id), remote: true, class: "btn btn-xs vote tag-"+tag.category do %>
+	<span class="glyphicon glyphicon-chevron-up"></span>
+<% end %>

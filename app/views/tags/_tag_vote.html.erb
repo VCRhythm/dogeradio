@@ -1,0 +1,6 @@
+<span class="btn-group">
+	<button type="button" data-category="<%= tag.category %>" data-description="<%= tag.description %>" class="btn tag btn-xs tag-<%= tag.category %>">
+		<%= tag.description %>
+	</button>
+	<%= render partial: 'tags/vote_form', locals: {tag: tag} if signed_in? %>	
+</span>

@@ -83,7 +83,7 @@ $(document).ready(function(){
 		next_position = parseInt(position) + 1;
 		updatePlayer(next_position);
 	}).on('click', '.tag', function(){
-		query = $(this).html();
+		query = $(this).attr("data-description");
 		$.ajax({
 			type: 'post',
 			data: {search:{query: query, type: 'tag'}},

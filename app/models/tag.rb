@@ -15,6 +15,8 @@ class Tag < ActiveRecord::Base
 	validates :track_id, presence: true
 	validates :category, :description, presence: true
 
+	has_many :votes
+
 	include CI_Find
 	include CI_Find_First
 	

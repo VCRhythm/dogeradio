@@ -118,19 +118,19 @@ h3{
 	background-color:	#268b41;
 }
 
-.tag-genre{
+.tag-Genre{
 	background-color:#BA4333;
 }
 
-.tag-trend{
+.tag-Trend{
 	background-color:#2D3F7E;
 }
 
-.tag-style{
+.tag-Style{
 	background-color:#268B41;
 }
 
-.tag-city{
+.tag-City{
 	background-color:#BA7633;
 }
 
@@ -143,4 +143,9 @@ h3{
 
 #action-panel{
 	display:none;
+}
+
+.vote {
+	position:relative;
+	left:-3px;
 }

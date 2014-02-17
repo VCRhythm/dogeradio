@@ -73,6 +73,8 @@ class User < ActiveRecord::Base
 
 	has_many :payouts
 
+	has_many :votes
+
 	has_many :playlists
 	has_many :plays
 
@@ -118,6 +120,18 @@ class User < ActiveRecord::Base
 
 	def unfollow!(other_user)
 		relationships.find_by(followed_id: other_user.id).destroy
+	end
+
+	def vote?(tag)
+		votes.find_by(tag_id: tag.id)
+	end
+
+	def vote_up!(tag)
+		votes.create!(tag_id: tag.id)
+	end
+
+	def vote_down!(tag)
+		votes.find_by(tag_id: tag.id).destroy
 	end
 	
 	def favorite?(track)

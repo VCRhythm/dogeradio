@@ -37,7 +37,8 @@ Dogeradio::Application.routes.draw do
 		get :following, :followers	
 		get :favorite_tracks
 	end
-
+		
+	resources :votes, only: [:create, :destroy]
 	resources :favorites, only: [:create, :destroy]
 	resources :relationships, only: [:create, :destroy]
 

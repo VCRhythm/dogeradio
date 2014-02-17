@@ -8,8 +8,8 @@
 		<div class="song-player media-body">
 			<h2 class="media-heading" id= "heading_<%=track.id.to_s%>" ><%= link_to track.name, playlist_ranks_path(@playlist, track_id:track.id), method: "post", remote: true %> <%= render partial: 'shared/favorite_form', locals: {track:track} if signed_in? %></h2><span id="thanks_<%=track.id.to_s%>"></span>
 			<% if track.user != current_user %><%= link_to user_pay_path(track.user, track_id: track.id), method: :post, remote: true, class: "pull-right" do %><%= image_tag 'dogecoin-icon.png' %><% end %><% end %>
-			<span id="player-tags" class="btn-group">
-				<%= render partial: 'tags/show_tags', locals: {track: track} %>
+			<span id="player-tags">
+				<%= render partial: 'tags/show_tags', locals: {track: track, vote:true} %>
 			</span>
 		</div>
 	</div>

@@ -1,0 +1,7 @@
+<div id="vote_form_<%=tag.id%>" style="display:inline-block;">
+	<% if current_user.vote?(tag) %>
+		<%= render partial: 'tags/vote_down', locals: {tag: tag} %>
+	<% else %>
+		<%= render partial: 'tags/vote_up', locals: {tag: tag} %>
+	<% end %>
+</div>
