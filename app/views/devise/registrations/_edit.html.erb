@@ -24,6 +24,14 @@
 		<div class="form-group"><%= f.label :email %><br />
 		<%= f.email_field :email, class: "form-control" %></div>
 
+		<div class="form-group"><%= f.label :default_tip_amount %><br />
+		<%= f.text_field :default_tip_amount, class: "form-control" %></div>
+
+		<div class="form-group"><%= f.label :donation_percent %><br />
+		<%= f.text_field :donation_percent, class: "form-control" %></div>
+
+		<div class="form-group"><%= label_tag "Automatically tip after playing a song: " %> <%= f.check_box :autotip %></div>
+
 		<div class="form-group"><%= f.label :website %><br />
 		<%= f.text_field :website, class: "form-control" %></div>
 

@@ -32,6 +32,7 @@
 #  donation_percent        :float            default(0.0)
 #  transaction_fee         :float            default(0.04)
 #  website                 :string(255)
+#  autotip                 :boolean          default(FALSE)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
