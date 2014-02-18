@@ -1,6 +1,10 @@
 class SearchController < ApplicationController
 	before_action :set_query
 
+	def autocomplete
+		render json: Track.search(@query, autocomplete: true, limit: 10).map(&:name)
+	end
+
 	def search
 		if @type == 'tag'
 			search_tracks_by_tag
@@ -9,11 +13,12 @@ class SearchController < ApplicationController
 			@track_results = search_tracks
 			@user_results = search_users
 		end
+		render 'search.js.erb'
 	end
 
   private
 		def search_tags
-			Tag.ci_find('description', @query)		
+			Tag.search(@query)
 		end
 
 		def search_tracks_by_tag
@@ -25,11 +30,11 @@ class SearchController < ApplicationController
 		end
 
 		def search_users
-			User.ci_find('username', @query)
+			User.search(@query)		
 		end
 
 		def search_tracks
-			Music.ci_find('name', @query)
+			Track.search(@query)
 		end
 
 		def search_params

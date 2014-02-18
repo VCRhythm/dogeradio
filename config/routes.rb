@@ -8,6 +8,7 @@ Dogeradio::Application.routes.draw do
 	get 'explore', to: 'tracks#explore'
 
 	post 'search', to: 'search#search'
+	get '/search/autocomplete', to: 'search#autocomplete'
 
 	post 'payout', to: 'users#payout'
 

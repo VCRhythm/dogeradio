@@ -1,15 +1,15 @@
 <% noDisplay = true %>
 <% if @type == "all" %>
 	$("#action-panel").html("<h3>Results for '<%= j @query %>'</h3>");
-	<% if @tag_results.exists? %>		
+	<% if @tag_results.length > 0 %>		
 		$("#action-panel").append("<h4>Tags</h4><%= j render @tag_results %>").slideDown('slow');
 		<% noDisplay = false %>
 	<% end %>
-	<% if @track_results.exists? %>
+	<% if @track_results.length > 0 %>
 		$("#action-panel").append("<h4>Tracks</h4><%= j render partial:'tracks/track_list', locals: {tracks: @track_results} %>").slideDown('slow');
 		<% noDisplay = false %>
 	<% end %>
-	<% if @user_results.exists? %>
+	<% if @user_results.length > 0 %>
 		$("#action-panel").append("<h4>Users</h4><%= j render partial: 'users/user_list', locals: {users: @user_results} %>").slideDown('slow');
 		<% noDisplay = false %>
 	<% end %>
