@@ -73,8 +73,7 @@ class UsersController < ApplicationController
 		require 'doge_api'
 		$my_api_key = Rails.configuration.apis[:doge_api_key]
 		doge_api = DogeApi::DogeApi.new($my_api_key)
-#		current_received = doge_api.get_address_received(payment_address: @this_user.account).to_f
-		current_received = 5000
+		current_received = doge_api.get_address_received(payment_address: @this_user.account).to_f
 		if @this_user.prev_received < current_received
 			@this_user.balance += current_received - @this_user.prev_received
 			@this_user.prev_received = current_received
