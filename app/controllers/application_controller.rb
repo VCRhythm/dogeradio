@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
 			@playlist ||= @user.playlists.create(name:"queue", category:"queue")
 		else
 			@playlist = Playlist.create
-			@playlist.tracks = Track.order(created_at: :desc)
+			@playlist.tracks = Track.order(created_at: :desc).limit(20)
 		end
 
 		#Tell the player to play track 1

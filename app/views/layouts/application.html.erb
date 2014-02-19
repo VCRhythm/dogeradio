@@ -21,7 +21,7 @@
 						<span class="icon-bar"></span>
 						<% if user_signed_in? %><span class="icon-bar"></span><% end %>
 					</button>
-					<% if user_signed_in? %><%= link_to "DogeRadio", root_url, remote: true, class: "remote-link navbar-brand" %><% else %><%= link_to "DogeRadio", root_url, class: "navbar-brand" %><% end %>
+					<%= link_to "DogeRadio", root_url, remote: true, class: "remote-link navbar-brand" %>
 				</div>
 				<div class="navbar-collapse collapse" style="height:auto;">
 					<ul class="nav navbar-nav navbar-left">
@@ -32,10 +32,10 @@
 						<% if user_signed_in? %>
 							<span id="balance"><%= current_user.balance.to_i %></span> <%=link_to transactions_path, remote: true, class: "remote-link" do %><%= image_tag 'dogecoin-icon.png', style: "height: 20px;" %><% end %> <%= link_to 'Edit profile', edit_user_registration_path, remote: true, class: "remote-link" %> |	<%= link_to 'Logout', destroy_user_session_path, method: :delete %>
 						<% else %>
-							<%= link_to "Sign up", new_user_registration_path %> |	<%= link_to "Login", new_user_session_path %>
+							<%= link_to "Sign up", new_user_registration_path, class: "remote-link" %> |	<%= link_to "Login", new_user_session_path, class: "remote-link" %>
 						<% end %>
 					</ul>
-					<% if user_signed_in? %><%= render 'shared/search' %><% end %>
+					<%= render 'shared/search' %>
 				</div>
 			</div>
 		</div>
