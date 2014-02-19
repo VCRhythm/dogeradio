@@ -161,6 +161,14 @@ class User < ActiveRecord::Base
 		return user
 	end
 
+	def pending_tips
+		tips_given.where(pending:true)
+	end
+
+	def pending_receipts
+		tips_received.where(pending:true)
+	end
+
 	def to_param
 		username
 	end

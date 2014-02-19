@@ -12,7 +12,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" data-dismiss="modal">No, thank you.</button>
-					<%= link_to hold_charge_path(track_id: track_id, user_id: user_to_pay_id), remote: true, method: :post, data:{dismiss: "modal"}, class: "btn btn-success confirm-user-tip" do %>Yes, please!<% end %>
+					<%= link_to hold_charge_path(track_id: track_id, user_id: user_to_pay_id, method: method), remote: true, method: :post, data:{dismiss: "modal"}, class: "btn btn-success confirm-user-tip" do %>Yes, please!<% end %>
 				</div>
 			<% end %>
 		</div>

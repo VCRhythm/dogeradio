@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :payout, :update_balance, :pay]
-	before_action :this_user, only: [:pay, :payout, :autopay]
+  before_action :set_user, only: [:show, :payout, :pay]
+	before_action :this_user, only: [:update_balance, :pay, :payout, :autopay]
 
 	def soundcloud_auth
 		$soundcloud_id = Rails.configuration.apis[:soundcloud_id]
@@ -51,29 +51,18 @@ class UsersController < ApplicationController
 	end
 
 	def pay
+		@method = params[:category]
 		if params[:track_id]
 			@track_id = params[:track_id]
 		else
 			@track_id = 0
 		end
 
-		if signed_in?
-			@amount = @this_user.default_tip_amount
-			@fee = @this_user.transaction_fee
-			@donation = @amount * @this_user.donation_percent
-
-			if @this_user.balance >= @amount
-				@this_user.balance -= (@amount + @fee + @donation)
-				@user.balance += @amount
-				@this_user.save
-				@user.save
-				Transaction.create(payer_id:@this_user.id, payee_id:@user.id, value:@amount, method: params[:category], track_id:@track_id, pending: false)
-				Transaction.create(payer_id:@this_user.id, payee_id:0, value:@fee, method: "fee", pending:false)
-				Transaction.create(payer_id:@this_user.id, payee_id:0, value:@donation, method: "donation", pending:false)
-				render 'pay'
-			end
+		if signed_in? && pay_user(@user, @this_user.default_tip_amount, @method, @track_id)
+			render 'pay'
+		else
+			render 'nopay'
 		end
-		render 'nopay'
 	end
 
 	def index
@@ -81,15 +70,21 @@ class UsersController < ApplicationController
 	end
 
 	def update_balance
-		current_balance = @user.balance
 		require 'doge_api'
 		$my_api_key = Rails.configuration.apis[:doge_api_key]
 		doge_api = DogeApi::DogeApi.new($my_api_key)
-		current_received = doge_api.get_address_received(payment_address: @user.account).to_f
-		@user.balance += current_received - @user.prev_received
-		if @user.balance != current_balance
-			@user.prev_received = current_received
-			@user.save
+#		current_received = doge_api.get_address_received(payment_address: @this_user.account).to_f
+		current_received = 5000
+		if @this_user.prev_received < current_received
+			@this_user.balance += current_received - @this_user.prev_received
+			@this_user.prev_received = current_received
+			@this_user.pending_tips.each do |tip|
+				if pay_user(User.find(tip.payee_id), tip.value, tip.id, tip.track_id )
+					tip.pending = false
+					tip.save
+				end
+			end
+			@this_user.save
 		end
 	end
 
@@ -98,6 +93,23 @@ class UsersController < ApplicationController
     def user_params
       params.permit(:username, :track_id, :code, :amount, :category)
     end
+
+		def pay_user(user, amount, method, track_id)
+			fee = @this_user.transaction_fee
+			donation = @this_user.donation_percent * amount
+			if @this_user.balance > amount + fee + donation
+				@this_user.balance -= (amount + fee + donation)
+				user.balance += amount
+				@this_user.save
+				user.save
+				Transaction.create(payer_id: @this_user.id, payee_id: user.id, value: amount, method: method, track_id: track_id, pending: false)
+				Transaction.create(payer_id: @this_user.id, payee_id: 0, value: fee, method: "fee", pending:false)
+				Transaction.create(payer_id: @this_user.id, payee_id:0, value: donation, method: "donation", pending: false)
+				true
+			else
+				false
+			end
+		end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_user

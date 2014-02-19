@@ -12,11 +12,7 @@ class TransactionsController < ApplicationController
 		if signed_in?
 			@this_user = current_user
 			@amount = @this_user.default_tip_amount
-			@donation = @amount * @this_user.donation_percent
-			@fee = @this_user.transaction_fee
-			Transaction.create(payer_id:@this_user.id, payee_id:@user_id, value:@amount, method: params[:category], track_id:@track_id, pending: true)
-			Transaction.create(payer_id:@this_user.id, payee_id:0, value:@donation, method: "donation", pending: true)
-			Transaction.create(payer_id:@this_user.id, payee_id:0, value:@fee, method: "fee", pending: true)
+			Transaction.create(payer_id:@this_user.id, payee_id:@user_id, value:@amount, method: params[:method], track_id:@track_id, pending: true)
 			render 'users/pay'
 		end
 	end
