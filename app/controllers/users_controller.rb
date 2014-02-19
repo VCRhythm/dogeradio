@@ -34,7 +34,6 @@ class UsersController < ApplicationController
 	end
 
 	def show
-		@playlist = current_user.playlists.first
 		@tracks = @user.tracks.order(created_at: :desc)
 	end
 
