@@ -12,12 +12,12 @@ function setNextSong(track_id){
 		$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerNext", function(){
 			$.ajax({
 				type: "post",
-				url: "tracks/"+track_id+"/plays"
+				url: "/tracks/"+track_id+"/plays"
 			});
 			$.ajax({
 				type: "post",
 				data: {track_id: track_id, category:"auto"},
-				url: "users/"+$("#player-heading").attr("data-user_id")+"/pay"
+				url: "/users/"+$("#player-heading").attr("data-user_id")+"/pay"
 			});
 			playlist_id = parseInt($(".track_"+track_id).attr("data-playlist_number"))+1;
 			updatePlayer(playlist_id);
@@ -62,7 +62,7 @@ function updatePlayer(position){
 		$.ajax({
 			type:"POST",
 			data: {position: position},
-			url: "tracks/"+track_id+"/update_player/",
+			url: "/tracks/"+track_id+"/update_player/",
 			success: function() {
 				go = true;
 				loadPlayer(track_id);
