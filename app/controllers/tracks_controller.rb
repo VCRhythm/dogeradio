@@ -2,11 +2,13 @@ class TracksController < ApplicationController
   before_action :set_track, only: [:show, :edit, :update, :destroy]
 
 	def explore
-		@user = current_user
 		@top_most_played_tracks = Track.most_played
 		@tags = Tag.unique_tags
-		@favorite_users = @user.followed_users
-		@favorite_tracks = @user.favorites
+		if signed_in?
+			@user = current_user
+			@favorite_users = @user.followed_users
+			@favorite_tracks = @user.favorites
+		end
 	end
 
 	def update_player
