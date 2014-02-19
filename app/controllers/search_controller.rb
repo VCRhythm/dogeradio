@@ -2,7 +2,19 @@ class SearchController < ApplicationController
 	before_action :set_query
 
 	def autocomplete
-		render json: Track.search(@query, autocomplete: true, limit:10).map(&:name)
+		results = Track.search(@query, index_name: ['tracks_index', 'tags_index', 'users_index'], limit:10)
+		result_names = Array.new()
+		results.each do |result|
+			case result.class.name
+				when "Tag"
+					result_names << result.description
+				when "Track"
+					result_names << result.name
+				when "User"
+					result_names << result.username
+			end
+		end
+		render json: result_names
 	end
 
 	def search
