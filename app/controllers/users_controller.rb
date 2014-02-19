@@ -52,19 +52,24 @@ class UsersController < ApplicationController
 
 	def pay
 		if params[:track_id]
-			@track = Track.find(params[:track_id])
+			@track_id = params[:track_id]
+		else
+			@track_id = 0
 		end
+
 		if signed_in?
 			@amount = @this_user.default_tip_amount
-			@fee = @this_user.transaction_fee * @amount
+			@fee = @this_user.transaction_fee
+			@donation = @amount * @this_user.donation_percent
 
 			if @this_user.balance >= @amount
-				@this_user.balance -= (@amount + @fee)
+				@this_user.balance -= (@amount + @fee + @donation)
 				@user.balance += @amount
 				@this_user.save
 				@user.save
-				Transaction.create(payer_id:@this_user.id, payee_id:@user.id, value:@amount, method: params[:category], track_id:@track.id)
-				Transaction.create(payer_id:@this_user.id, payee_id:0, value:@fee, method: "fee")
+				Transaction.create(payer_id:@this_user.id, payee_id:@user.id, value:@amount, method: params[:category], track_id:@track_id, pending: false)
+				Transaction.create(payer_id:@this_user.id, payee_id:0, value:@fee, method: "fee", pending:false)
+				Transaction.create(payer_id:@this_user.id, payee_id:0, value:@donation, method: "donation", pending:false)
 				render 'pay'
 			end
 		end

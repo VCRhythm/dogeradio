@@ -5,16 +5,16 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h3 class="modal-title">How generous!</h3>
 			</div>
-			<% #if signed_in? %>
+			<% if signed_in? %>
 				<div class="modal-body">
-					<p>..but it looks like you're low on Dogecoin. We can record this transaction and pass your tip along to the artist as soon as you send more coin to:</p>
-					<h1><%# current_user.account %></h1>
+					<p>..but it looks like you're low on Dogecoin. We can record this transaction and pass your tip of <%= current_user.default_tip_amount %> Doge along to the artist as soon as you send more coin to:</p>
+					<h1><% current_user.account %></h1>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">No, thank you.</button>
-					<button type="button" class="btn btn-success confirm-user-tip">Yes, please!</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">No, thank you.</button>
+					<%= link_to hold_charge_path(track_id: track_id, user_id: user_to_pay_id), remote: true, method: :post, data:{dismiss: "modal"}, class: "btn btn-success confirm-user-tip" do %>Yes, please!<% end %>
 				</div>
-			<% #end %>
+			<% end %>
 		</div>
 	</div>
 </div>
