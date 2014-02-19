@@ -2,7 +2,7 @@ class SearchController < ApplicationController
 	before_action :set_query
 
 	def autocomplete
-		render json: Track.search(@query, autocomplete: true, limit: 10).map(&:name)
+		render json: Track.search(@query, autocomplete: true, limit:10).map(&:name)
 	end
 
 	def search

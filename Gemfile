@@ -21,6 +21,7 @@ gem 'bootstrap-sass', git: 'git://github.com/thomas-mcdonald/bootstrap-sass.git'
 gem 'delayed_job_active_record'
 gem 'soundcloud'
 gem 'searchkick'
+gem 'twitter-typeahead-rails'
 
 # Use sqlite3 as the database for Active Record
 group :development, :test do

@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require bootstrap
+//= require twitter/typeahead
 //= require jquery.turbolinks
 //= require jquery.jplayer
 //= require turbolinks

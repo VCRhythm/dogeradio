@@ -15,7 +15,7 @@ class Tag < ActiveRecord::Base
 	validates :track_id, presence: true
 	validates :category, :description, presence: true
 
-	searchkick autocomplete: ['description']
+	searchkick
 	has_many :votes, dependent: :destroy
 
 	include CI_Find
