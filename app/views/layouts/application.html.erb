@@ -46,8 +46,13 @@
 			<% if alert %>
 				<p class="alert alert-danger"><%= alert %></p>
 			<% end %>
-			<%= yield %>
-		</div>
+			<div class="row row-offcanvas row-offcanvas-left">
+				<%= render partial: "shared/sidebar" %>
+				<div id="main" class="col-xs-12 col-sm-8">
+					<%= yield %>
+				</div>
+			</div>
+			</div>
 		<div id="push"></div>
 	</div>
 	<div id="footer" style="background-color:#005d74;">

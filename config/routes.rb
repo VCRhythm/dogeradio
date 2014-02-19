@@ -31,6 +31,8 @@ Dogeradio::Application.routes.draw do
   devise_for :users, controllers: {registrations: "registrations"}
 	
 	resources :transactions 
+	
+	get ':username', to:'users#show', as: :user
 
 	resources :users, only: [:index, :show] do
 		post :pay

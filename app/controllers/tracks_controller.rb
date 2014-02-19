@@ -1,6 +1,5 @@
 class TracksController < ApplicationController
   before_action :set_track, only: [:show, :edit, :update, :destroy]
-	before_action :set_queue, only: [:explore, :index]
 
 	def explore
 		@user = current_user
@@ -16,7 +15,6 @@ class TracksController < ApplicationController
 	end
 
 	def index
-		@transactions = Transaction.ten_recent
 		tracks_played_sums = Hash.new
 		@most_played_tracks = Array.new
 		Track.all.each do |track|
@@ -44,10 +42,7 @@ class TracksController < ApplicationController
 		@featured_user = User.random_artist
 		@featured_user_tracks = @featured_user.tracks
 
-		#Tell the player to play track 1
-		@player_position = 1 #needed for next functionality
-		@track = @playlist.tracks[0]
-	end
+			end
 
   def create
     @track = current_user.tracks.new(track_params)
@@ -74,12 +69,6 @@ class TracksController < ApplicationController
   end
 
   private
-		def set_queue
-			@user = current_user
-			@playlist = user_signed_in? ? @user.queue : Playlist.new.tracks << Track.order(created_at: :desc)
-			@playlist ||= @user.playlists.create(name:"queue", category:"queue")
-		end
-
     # Use callbacks to share common setup or constraints between actions.
     def set_track
       @track = Track.find(params[:id])

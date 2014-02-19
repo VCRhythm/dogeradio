@@ -1,0 +1,19 @@
+<div class="col-xs-12 col-sm-4 sidebar-offcanvas" id="sidebar">
+	<div class="content-block">
+		<%= render partial: 'shared/ticker' %>
+		<div id="player">
+			<% if @track %>
+				<%= render partial: "tracks/player", locals: {track:@track, position:@player_position} %>
+			<% else %>
+				<%= render partial: "tracks/empty_player" %>
+			<% end %>
+		</div>
+		<ul id="playlist" class="list-group sortable" data-playlist_id="<%=@playlist.id %>">
+			<% playlist_counter = 1 %>
+			<% @playlist.tracks.each do |track| %>
+				<%= render partial: 'tracks/playlist_item', locals: {track: track, playlist_counter: playlist_counter} %>
+				<% playlist_counter += 1 %>
+			<% end %>
+		</ul>
+	</div>
+</div>
