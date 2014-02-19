@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-	searchkick index_name: "users_index", autocomplete: ['username']
+	searchkick autocomplete: ['username'], index_name: 'users_index'
 	validates_format_of :username, with: /\A[A-Za-z0-9.&]*\Z/, message: "can only be alphanumeric."
 	validates_uniqueness_of :username
 	validates_presence_of :username

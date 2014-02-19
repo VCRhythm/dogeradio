@@ -2,12 +2,10 @@ class SearchController < ApplicationController
 	before_action :set_query
 
 	def autocomplete
-		results = Track.search(@query, index_name: ['tracks_index', 'tags_index', 'users_index'], limit:10)
+		results = Track.search(@query, index_name: ['tracks_index', 'users_index'], limit:10)
 		result_names = Array.new()
 		results.each do |result|
 			case result.class.name
-				when "Tag"
-					result_names << result.description
 				when "Track"
 					result_names << result.name
 				when "User"
