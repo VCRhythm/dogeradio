@@ -2,6 +2,9 @@
 	<%= render 'shared/action_panel' %>
 	<div class="content-block">
 		<h2 style="display:inline-block"><%= @user.username %></h2>
+		<%= link_to pay_path(user, category:"event-tip"), method: :post, remote: true do %>
+			<%= image_tag 'dogecoin-icon.png', alt: 'Tip', style:"height:23px;" %>
+		<% end %>
 		<% if @user.website %>
 			<h5><%=link_to @user.website, @user.website %></h5>
 		<% end %>

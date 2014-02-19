@@ -33,12 +33,12 @@ Dogeradio::Application.routes.draw do
 	resources :transactions 
 	
 	get ':username', to:'users#show', as: :user
-
-	resources :users, only: [:index, :show] do
-		post :pay
-		post :update_balance
-		get :following, :followers	
-		get :favorite_tracks
+	scope ':username' do
+		post 'pay' => 'users#pay'
+		post 'update_balance' => 'users#update_balance'
+		get 'following' => 'users#following'
+		get 'followers' => 'users#followers'
+		get 'favorite_tracks'=> 'users#favorite_tracks'
 	end
 		
 	resources :votes, only: [:create, :destroy]

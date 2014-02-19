@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :payout, :update_balance]
-	before_action :pay_user, only: [:autopay, :pay]
+  before_action :set_user, only: [:show, :payout, :update_balance, :pay]
+	before_action :this_user, only: [:pay, :payout, :autopay]
 
 	def soundcloud_auth
 		$soundcloud_id = Rails.configuration.apis[:soundcloud_id]
@@ -51,7 +51,9 @@ class UsersController < ApplicationController
 	end
 
 	def pay
-		@track = Track.find(params[:track_id])
+		if params[:track_id]
+			@track = Track.find(params[:track_id])
+		end
 		@amount = @this_user.default_tip_amount
 		@fee = @this_user.transaction_fee * @amount
 
@@ -87,7 +89,7 @@ class UsersController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.permit(:username, :user_id, :track_id, :code, :amount, :category)
+      params.permit(:username, :track_id, :code, :amount, :category)
     end
 
     # Use callbacks to share common setup or constraints between actions.
@@ -95,9 +97,8 @@ class UsersController < ApplicationController
       @user = User.find_by_username(params[:username])
     end
 
-		def pay_user
+		def this_user
 			@this_user = current_user
-			@user = User.find(params[:user_id])
 		end
 
 end

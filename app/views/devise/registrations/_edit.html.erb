@@ -8,7 +8,7 @@
 		<%= devise_error_messages! %>
 
 		<div><%= f.label :username %>: <%= current_user.username %></div>
-		<div id="doge_account"><%= label_tag "Doge Deposit Account" %>: <%= current_user.account %></div><div id="update_balance"><%= link_to "Update Balance Based on Your Doge Deposits", user_update_balance_path(current_user), method: :post, remote: true, id: "update_balance_link", class: "btn btn-primary btn-block" %></div>
+		<div id="doge_account"><%= label_tag "Doge Deposit Account" %>: <%= current_user.account %></div><div id="update_balance"><%= link_to "Update Balance Based on Your Doge Deposits", update_balance_path(current_user), method: :post, remote: true, id: "update_balance_link", class: "btn btn-primary btn-block" %></div>
 
 		<div class="form-group">
 			<%= f.label :avatar %><br/>
