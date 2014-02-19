@@ -1,0 +1,20 @@
+<div id="invoiceModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Tip Invoice" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h3 class="modal-title">How generous!</h3>
+			</div>
+			<% #if signed_in? %>
+				<div class="modal-body">
+					<p>..but it looks like you're low on Dogecoin. We can record this transaction and pass your tip along to the artist as soon as you send more coin to:</p>
+					<h1><%# current_user.account %></h1>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">No, thank you.</button>
+					<button type="button" class="btn btn-success confirm-user-tip">Yes, please!</button>
+				</div>
+			<% #end %>
+		</div>
+	</div>
+</div>

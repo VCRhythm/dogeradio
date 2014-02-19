@@ -1,6 +1,5 @@
 class PlaylistsController < ApplicationController
 	def sort
-		@playlist = current_user.playlists.find(params[:playlist_id])
 		@sort_group = params[:playlist]
 
 		ranks = @playlist.ranks
