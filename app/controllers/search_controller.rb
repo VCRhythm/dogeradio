@@ -28,8 +28,6 @@ class SearchController < ApplicationController
 					end
 			end
 		end
-		#Search Tags
-		#Search Users
 		render json: result_names
 	end
 
@@ -45,24 +43,30 @@ class SearchController < ApplicationController
 	end
 
   private
-		def search_tags
-			Tag.search(@query)
-		end
-
 		def search_tracks_by_tag
-			matching_tags = search_tags
+			matching_tags = Tag.search @query
 			@tag_track_results = Array.new() 
 			matching_tags.each do |tag|
 				@tag_track_results << tag.track
 			end
 		end
 
+		def search_tags
+			results = Tag.search @query, facets: [:description, :category]
+			tag_results = Array.new()
+			description = results.facets["description"]["terms"][0]["term"]
+			results.facets["category"]["terms"].each do |term|
+				tag_results << Tag.new(category: term["term"], description: description)
+			end
+			return tag_results
+		end
+
 		def search_users
-			User.search(@query)		
+			User.search @query, fields: [:username, :display_name], boost: 'followers_count'
 		end
 
 		def search_tracks
-			Track.search(@query)
+			Track.search @query, fields: [:name], boost: 'count_plays'
 		end
 
 		def search_params

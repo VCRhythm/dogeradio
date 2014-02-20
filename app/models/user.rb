@@ -132,6 +132,10 @@ class User < ActiveRecord::Base
 	include CI_Find
 	include CI_Find_First
 
+	def followers_count
+		followers.count
+	end
+
 	def queue
 		playlists.where(category:"queue").first
 	end

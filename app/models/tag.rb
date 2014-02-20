@@ -22,4 +22,5 @@ class Tag < ActiveRecord::Base
 	include CI_Find_First
 	
 	scope :unique_tags, -> {select(:category, :description).uniq}
+
 end

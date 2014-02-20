@@ -24,6 +24,7 @@ gem 'searchkick'
 gem 'twitter-typeahead-rails'
 gem 'gmaps4rails'
 gem 'geocoder'
+gem 'route_downcaser'
 
 # Use sqlite3 as the database for Active Record
 group :development, :test do

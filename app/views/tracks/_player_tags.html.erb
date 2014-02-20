@@ -1,6 +1,4 @@
-<% if track.tags.length > 0 %>
-	<div id="player-tags" class="btn-group">
-		<%= render partial: 'tags/show_tags', locals: {track: track} %>
-		<% if signed_in? %><button type="button" id="add-tag" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-tag"></span></button><% end %>
-	</div>
-<% end %>
+<div id="player-tags" class="btn-group" style="margin-bottom:5px;">
+	<%= render partial: 'tags/show_tags', locals: {track: track} %>
+	<% if signed_in? %><button type="button" id="add-tag" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-tag"></span></button><% end %>
+</div>
