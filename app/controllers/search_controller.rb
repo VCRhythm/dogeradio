@@ -54,9 +54,11 @@ class SearchController < ApplicationController
 		def search_tags
 			results = Tag.search @query, facets: [:description, :category]
 			tag_results = Array.new()
-			description = results.facets["description"]["terms"][0]["term"]
-			results.facets["category"]["terms"].each do |term|
-				tag_results << Tag.new(category: term["term"], description: description)
+			if results.facets["description"]["total"] > 0
+				description = results.facets["description"]["terms"][0]["term"]
+				results.facets["category"]["terms"].each do |term|
+					tag_results << Tag.new(category: term["term"], description: description)
+				end
 			end
 			return tag_results
 		end

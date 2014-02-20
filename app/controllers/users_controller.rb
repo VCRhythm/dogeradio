@@ -111,7 +111,7 @@ class UsersController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find_by_username(params[:username])
+      @user = User.where('lower(username) = ?', params[:username].downcase).first
     end
 
 		def this_user
