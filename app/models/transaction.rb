@@ -10,6 +10,7 @@
 #  updated_at :datetime
 #  method     :string(255)
 #  track_id   :integer
+#  pending    :boolean          default(TRUE)
 #
 
 class Transaction < ActiveRecord::Base

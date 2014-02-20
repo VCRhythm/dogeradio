@@ -3,7 +3,7 @@
 		<%= hidden_field :search, :type, value: 'all' %>
 		<%= search_field :search, :query, placeholder: 'Search', id: "search_form", class:"form-control input-sm" %>
 	</div>
-	<%= button_tag type: "submit", class: "btn btn-primary btn-sm remote-link", style: "margin-left:-5px;" do %>
+	<%= button_tag id: "search_button", type: "submit", class: "btn btn-primary btn-sm remote-link", style: "margin-left:-5px;" do %>
 		<span class="glyphicon glyphicon-search"></span>
 	<% end %>
 <% end %>

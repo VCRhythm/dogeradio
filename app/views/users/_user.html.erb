@@ -7,6 +7,9 @@
 				<%= image_tag 'dogecoin-icon.png', alt: 'Tip', style:"height:75px; float:right;" %>
 			<% end %>
 		<% end %>
+		<% if @user.address && @user.publish_address %>
+			<h5><%=@user.full_address %></h5>
+		<% end %>
 		<% if @user.website %>
 			<h5><%=link_to @user.website, @user.website %></h5>
 		<% end %>

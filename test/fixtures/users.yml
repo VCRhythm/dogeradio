@@ -33,6 +33,14 @@
 #  transaction_fee         :float            default(0.04)
 #  website                 :string(255)
 #  autotip                 :boolean          default(FALSE)
+#  display_name            :string(255)
+#  address                 :string(255)
+#  street                  :string(255)
+#  city                    :string(255)
+#  zipcode                 :string(255)
+#  country                 :string(255)
+#  latitude                :float
+#  longitude               :float
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

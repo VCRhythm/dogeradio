@@ -33,6 +33,14 @@
 #  transaction_fee         :float            default(0.04)
 #  website                 :string(255)
 #  autotip                 :boolean          default(FALSE)
+#  display_name            :string(255)
+#  address                 :string(255)
+#  street                  :string(255)
+#  city                    :string(255)
+#  zipcode                 :string(255)
+#  country                 :string(255)
+#  latitude                :float
+#  longitude               :float
 #
 
 class User < ActiveRecord::Base
@@ -42,7 +50,20 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-	searchkick autocomplete: ['username'], index_name: 'users_index'
+	geocoded_by :address
+	reverse_geocoded_by :latitude, :longitude do |obj,results|
+		if geo = results.first
+			obj.street = geo.street_address
+			obj.city = geo.city
+			obj.state = geo.state
+			obj.zipcode = geo.postal_code
+			obj.country = geo.country_code
+		end
+	end
+	after_validation :geocode, :reverse_geocode,
+		if: lambda{ |obj| obj.address_changed? }
+
+	searchkick text_start: [:username, :address, :city, :state, :zipcode, :country], index_name: 'users_index'
 	validates_format_of :username, with: /\A[A-Za-z0-9.&]*\Z/, message: "can only be alphanumeric."
 	validates_uniqueness_of :username
 	validates_presence_of :username
@@ -101,11 +122,10 @@ class User < ActiveRecord::Base
 	has_attached_file :avatar, styles: {
 		thumb: '100x100>',
 		square: '200x200#',
-		medium: '300x300>'
-	},
-		bucket: 'dogeradio-avatar'
+		medium: '300x300'
+	}, bucket: 'dogeradio-avatar'
 
-	validates_attachment_content_type :avatar, content_type: ["image/jpg", "image/gif", "image/png", "image/jpeg"] 
+	validates_attachment_content_type :avatar, content_type: /\Aimage/
 
 	include CI_Find
 	include CI_Find_First
@@ -173,6 +193,10 @@ class User < ActiveRecord::Base
 
 	def to_param
 		username
+	end
+
+	def full_address
+		"#{street}, #{city}, #{state} #{zipcode}, #{country}"
 	end
 
 end

@@ -95,7 +95,7 @@ class UsersController < ApplicationController
 		def pay_user(user, amount, method, track_id)
 			fee = @this_user.transaction_fee
 			donation = @this_user.donation_percent * amount
-			if @this_user.balance > amount + fee + donation
+			if (@this_user.balance > amount + fee + donation) && (@this_user != user)
 				@this_user.balance -= (amount + fee + donation)
 				user.balance += amount
 				@this_user.save

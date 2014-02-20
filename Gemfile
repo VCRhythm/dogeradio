@@ -12,7 +12,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'devise'
 gem 'rake', '10.1.1'
 gem 'aws-sdk'
-gem 'paperclip'
+gem 'paperclip', git: "git://github.com/thoughtbot/paperclip.git"
 gem 's3_direct_upload', git: "git://github.com/waynehoover/s3_direct_upload.git"
 gem 'jplayer-rails'
 gem 'rmagick'
@@ -22,6 +22,8 @@ gem 'delayed_job_active_record'
 gem 'soundcloud'
 gem 'searchkick'
 gem 'twitter-typeahead-rails'
+gem 'gmaps4rails'
+gem 'geocoder'
 
 # Use sqlite3 as the database for Active Record
 group :development, :test do

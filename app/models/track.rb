@@ -15,7 +15,7 @@ class Track < ActiveRecord::Base
   belongs_to :user
 	has_many :tags, dependent: :destroy
 	
-	searchkick index_name: 'tracks_index', autocomplete: ['name']
+	searchkick index_name: 'tracks_index', text_start: ['name']
 
 	has_many :transactions
 	has_many :ranks

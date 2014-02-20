@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140219193957) do
+ActiveRecord::Schema.define(version: 20140220135326) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
@@ -188,6 +188,16 @@ ActiveRecord::Schema.define(version: 20140219193957) do
     t.float    "transaction_fee",         default: 0.04
     t.string   "website"
     t.boolean  "autotip",                 default: false
+    t.string   "display_name"
+    t.string   "address"
+    t.string   "street"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zipcode"
+    t.string   "country"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.boolean  "publish_address",         default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
