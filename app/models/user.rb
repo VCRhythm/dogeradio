@@ -50,6 +50,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+	after_create :init
+
 	geocoded_by :address
 	reverse_geocoded_by :latitude, :longitude do |obj,results|
 		if geo = results.first
@@ -199,4 +201,8 @@ class User < ActiveRecord::Base
 		"#{street}, #{city}, #{state} #{zipcode}, #{country}"
 	end
 
+	def init
+		self.display_name = self.username
+	end
+	
 end

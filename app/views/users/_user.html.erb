@@ -1,7 +1,7 @@
 <div class="col-md-12">
 	<%= render 'shared/action_panel' %>
 	<div class="content-block">
-		<h2 style="display:inline-block"><%= @user.username %></h2>
+		<h2 style="display:inline-block"><%= @user.display_name %></h2>
 		<% if current_user != user %>
 			<%= link_to pay_path(user, category:"event-tip"), method: :post, remote: true do %>
 				<%= image_tag 'dogecoin-icon.png', alt: 'Tip', style:"height:75px; float:right;" %>

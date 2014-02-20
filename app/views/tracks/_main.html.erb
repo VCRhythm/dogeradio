@@ -10,7 +10,7 @@
 					<% end %>
 				<% end %>
 				<div class="media-body" style="min-height:100px;">
-					<h4 class="media-heading"><strong><%= link_to @featured_user.username, @featured_user, remote: true, class: "remote-link" %></strong></h4>
+					<h4 class="media-heading"><strong><%= link_to @featured_user.display_name, @featured_user, remote: true, class: "remote-link" %></strong></h4>
 					<p><%= html_escape(@featured_user.bio).gsub(/\n/, '<br />').html_safe %></p>
 				</div>
 				<div class="list-group">
@@ -31,7 +31,7 @@
 				<% @top_most_played_tracks.each do |track| %>
 					<%= link_to playlist_ranks_path(@playlist, track_id: track.id), method: :post, remote: true, class: "list-group-item" do %>
 						<span class="badge" style="background-color:white"><span class="glyphicon glyphicon-plus" style="color:green"></span></span>
-						<%= track.user.username + " - " + track.name %>
+						<%= track.user.display_name + " - " + track.name %>
 					<% end %>
 				<% end %>
 			</div>
