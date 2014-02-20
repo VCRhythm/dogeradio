@@ -7,7 +7,7 @@ class TracksController < ApplicationController
 		if signed_in?
 			@user = current_user
 			@favorite_users = @user.followed_users
-			@favorite_tracks = @user.favorites
+			@favorite_tracks = @user.favorite_tracks
 		end
 	end
 

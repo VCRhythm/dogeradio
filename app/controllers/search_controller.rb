@@ -2,7 +2,6 @@ class SearchController < ApplicationController
 	before_action :set_query
 
 	def autocomplete
-		#Search Tracks
 		results = Track.search @query, index_name: ['tags_index', 'tracks_index', 'users_index'], fields: [:name, :username, :description, :state, :city, :country, :zipcode, :display_name], facets: [:state, :city, :country, :zipcode], highlight: true, limit:10
 		result_names = Array.new()
 		results.with_details.each do |result, details|
