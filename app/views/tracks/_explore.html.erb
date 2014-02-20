@@ -33,9 +33,9 @@
 	<script>
 	$(document).ready(function(){
 		$(document).on('click', '.favorite-users-link', function(){
-			$("#action-panel").html("<h2>List of Favorite Users</h2><% if @favorite_users.exists? %><%= render partial: 'users/user_list', locals:{users: @favorite_users}%><% else %><p>You have no favorites!</p><% end %>").slideDown();
+			$("#action-panel").html("<h2>List of Favorite Users</h2><% if @favorite_users.exists? %><%= render partial: 'users/user_list', locals:{users: @favorite_users[0..10]}%><% else %><p>You have no favorites!</p><% end %>").slideDown();
 		}).on('click', '.wow-tracks-link', function(){
-			$("#action-panel").html("<h2>List of Wow Tracks</h2><% if @favorite_tracks.exists? %><%= render partial: 'tracks/track_list', locals:{tracks: @favorite_tracks}%><% else %><p>You have no wowed tracks!</p><% end %>").slideDown();
+			$("#action-panel").html("<h2>List of Wow Tracks</h2><% if @favorite_tracks.exists? %><%= render partial: 'tracks/track_list', locals:{tracks: @favorite_tracks[0..10]}%><% else %><p>You have no wowed tracks!</p><% end %>").slideDown();
 		});
 	});
 	</script>
