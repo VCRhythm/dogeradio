@@ -3,7 +3,7 @@ class SearchController < ApplicationController
 
 	def autocomplete
 		#Search Tracks
-		results = Track.search @query, index_name: ['tags_index', 'tracks_index', 'users_index'], fields: [:name, :username, :description, :state, :city, :country, :zipcode, :display_name], highlight: true, limit:10
+		results = Track.search @query, index_name: ['tags_index', 'tracks_index', 'users_index'], fields: [:name, :username, :description, :state, :city, :country, :zipcode, :display_name], facets: [:state, :city, :country, :zipcode], highlight: true, limit:10
 		result_names = Array.new()
 		results.with_details.each do |result, details|
 			case result.class.name
@@ -12,19 +12,21 @@ class SearchController < ApplicationController
 				when "Track"
 					result_names << result.name
 				when "User"
-					case details[:highlight].first[0]
-						when :state
-							result_names << result.state	
-						when :city
-							result_names << result.city
-						when :country
-							result_names << result.country
-						when :zipcode
-							result_names << result.zipcode
-						when :display_name
-							result_names << result.display_name
-						when :username
-							result_names << result.username
+					if result.publish_address
+						case details[:highlight].first[0]
+							when :state
+								result_names << result.state	
+							when :city
+								result_names << result.city
+							when :country
+								result_names << result.country
+							when :zipcode
+								result_names << result.zipcode
+							when :display_name
+								result_names << result.display_name
+							when :username
+								result_names << result.username
+						end
 					end
 			end
 		end
@@ -64,7 +66,7 @@ class SearchController < ApplicationController
 		end
 
 		def search_users
-			User.search @query, fields: [:username, :display_name], boost: 'followers_count'
+			User.search(@query, fields: [:username, :display_name], boost: 'followers_count').results + User.search(@query, fields: [:city, :state, :zipcode, :country], boost: 'followers_count', where: {publish_address: true}).results
 		end
 
 		def search_tracks
