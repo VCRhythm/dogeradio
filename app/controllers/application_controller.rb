@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 	before_filter :configure_permitted_parameters, if: :devise_controller?
 	before_action :set_transactions
-	before_action :set_queue
+	before_action :set_queue, unless: :has_queue?
 
 	protected
 
@@ -14,17 +14,22 @@ class ApplicationController < ActionController::Base
 		devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :avatar, :bio, :payout_account, :email, :password, :password_confirmation, :current_password, :website, :autotip, :default_tip_amount, :donation_percent, :address, :publish_address, :display_name) }
 	end
 
+
 	def set_transactions	
 		@transactions = Transaction.ten_recent
 	end
 
+	def has_queue?
+		@playlist
+	end
+
 	def set_queue
-		@user = current_user
-		if user_signed_in?
+		if signed_in?
+			@user = current_user
 			@playlist = @user.queue
 			@playlist ||= @user.playlists.create(name:"queue", category:"queue")
 		else
-			@playlist = Playlist.create
+			@playlist = Playlist.guest_playlist
 			@playlist.tracks = Track.order(created_at: :desc).limit(20)
 		end
 

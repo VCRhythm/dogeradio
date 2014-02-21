@@ -1,6 +1,7 @@
 class TracksController < ApplicationController
   before_action :set_track, only: [:show, :edit, :update, :destroy]
 
+
 	def explore
 		@top_most_played_tracks = Track.most_played
 		@tags = Tag.unique_tags

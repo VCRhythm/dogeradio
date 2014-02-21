@@ -16,6 +16,6 @@ class RanksController < ApplicationController
 	private
 		# Never trust parameters from the scary internet, only allow the white list through.
 		def rank_params
-		  params.require(:rank).permit(:position, :playlist_id, :track_id)
+		  params.require(:rank).permit(:position, :track_id)
 	  end
 end
