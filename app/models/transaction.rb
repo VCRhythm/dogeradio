@@ -11,6 +11,8 @@
 #  method     :string(255)
 #  track_id   :integer
 #  pending    :boolean          default(TRUE)
+#  email      :string(255)
+#  account    :string(255)
 #
 
 class Transaction < ActiveRecord::Base

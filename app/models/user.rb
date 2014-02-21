@@ -37,10 +37,12 @@
 #  address                 :string(255)
 #  street                  :string(255)
 #  city                    :string(255)
+#  state                   :string(255)
 #  zipcode                 :string(255)
 #  country                 :string(255)
 #  latitude                :float
 #  longitude               :float
+#  publish_address         :boolean          default(FALSE)
 #
 
 class User < ActiveRecord::Base
