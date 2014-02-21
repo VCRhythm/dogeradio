@@ -124,11 +124,18 @@ class User < ActiveRecord::Base
 													 class_name: "Transaction"
 
 
-	has_attached_file :avatar, styles: {
-		thumb: '100x100>',
-		square: '200x200#',
-		medium: '300x300'
-	}, bucket: 'dogeradio-avatar'
+	has_attached_file :avatar, 
+		styles: {
+			tinythumb: '50x50#',
+			thumb: '100x100#',
+			square: '200x200>',
+			medium: '300x300'
+		}, 
+		convert_options: {
+			tinythumb: '-quality 75 -strip',
+			thumb: '-quality 75 -strip'
+		},
+		bucket: 'dogeradio-avatar'
 
 	validates_attachment_content_type :avatar, content_type: /\Aimage/
 

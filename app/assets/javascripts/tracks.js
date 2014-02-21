@@ -111,16 +111,14 @@ $(document).ready(function(){
 
 	$('.sortable').sortable({
 		dropOnEmpty: false,
-		cursor: 'crosshair',
 		items: 'li',
-		helper: 'clone',
-		opacity: 1,
+		handle: '.media-object',
+		placeholder: 'li',
+		opacity: .7,
+		cursor: 'move',
 		scroll: true,
-		revert: true,
-		start: function(e, ui){
-			ui.placeholder.height("20px");
-		},
-		update: function(event, ui){
+		revert: false,
+				update: function(event, ui){
 			$(".list-group").removeClass("sortable");
 			var playlist_id = $(this).attr('data-playlist_id');
 			var track_id = $('#player-heading').attr('data-track_id');

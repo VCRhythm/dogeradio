@@ -6,7 +6,7 @@
 		<% noDisplay = false %>
 	<% end %>
 	<% if @track_results.length > 0 %>
-		$("#action-panel").append("<h4>Tracks</h4><%= j render partial:'tracks/track_list', locals: {tracks: @track_results} %>").slideDown('slow');
+		$("#action-panel").append("<h4>Tracks</h4><%= j render partial:'tracks/track_list_with_avatar', locals: {tracks: @track_results} %>").slideDown('slow');
 		<% noDisplay = false %>
 	<% end %>
 	<% if @user_results.length > 0 %>
@@ -17,5 +17,5 @@
 		$("#action-panel").append("<h4>There are no results to display.").slideDown('slow');
 	<% end %>
 <% elsif @type == "tag" %>
-	$("#action-panel").html("<h3>Tracks related to '<%= j @query %>'</h3><%= j render partial: 'tracks/track_list', locals: {tracks: @tag_track_results} %>").slideDown('slow');
+	$("#action-panel").html("<h3>Tracks related to '<%= j @query %>'</h3><%= j render partial: 'tracks/track_list_with_avatar', locals: {tracks: @tag_track_results} %>").slideDown('slow');
 <% end %>

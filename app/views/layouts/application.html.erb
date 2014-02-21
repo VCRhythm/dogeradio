@@ -21,7 +21,7 @@
 						<span class="icon-bar"></span>
 						<% if user_signed_in? %><span class="icon-bar"></span><% end %>
 					</button>
-					<%= link_to "DogeRadio", root_url, remote: true, class: "remote-link navbar-brand" %>
+					<%= link_to root_url, remote: true, class: "remote-link navbar-brand"  do %><%= image_tag 'dogeradioshibe.png', style: 'vertical-align:top; position:relative; top:-15px;' %>ogeRadio<% end %>
 				</div>
 				<div class="navbar-collapse collapse" style="height:auto;">
 					<ul class="nav navbar-nav navbar-left">
