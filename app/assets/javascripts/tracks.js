@@ -108,7 +108,7 @@ $(document).ready(function(){
 	  $(this).append("<p class='alert-danger alert' style='display:inline-block; line-height:0.1; margin-bottom:0;'>Uh-oh, something didn't work right.</p>");
 		$(this).children('.alert').delay(3000).fadeOut('slow');
 	});
-	
+
 	$('.sortable').sortable({
 		dropOnEmpty: false,
 		cursor: 'crosshair',

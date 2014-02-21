@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :payout, :pay]
-	before_action :this_user, only: [:update_balance, :pay, :payout, :autopay]
+	before_action :this_user, only: [:update_balance, :pay, :payout, :autopay, :following, :favorite_tracks]
 
 	def soundcloud_auth
 		$soundcloud_id = Rails.configuration.apis[:soundcloud_id]
@@ -86,6 +86,16 @@ class UsersController < ApplicationController
 		end
 	end
 
+	def following
+		@followed_users = @this_user.followed_users
+		render 'following.js.erb'
+	end
+
+	def favorite_tracks
+		@favorite_tracks = @this_user.favorite_tracks
+		render 'favorite_tracks.js.erb'
+	end
+
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
@@ -118,4 +128,4 @@ class UsersController < ApplicationController
 			@this_user = current_user
 		end
 
-end
+	end

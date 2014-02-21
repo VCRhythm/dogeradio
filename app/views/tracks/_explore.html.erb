@@ -15,12 +15,12 @@
 	</div>
 	<div class="col-md-3">
 		<% if signed_in? %>
-		<div class="content-block">
-			<ul class="list-group" style="color:black">
-				<li class="list-group-item wow-tracks-link">Wow Tracks</li>
-				<li class="list-group-item favorite-users-link">Favorite Users</li>
-			</ul>
-		</div>
+			<div class="content-block">
+				<ul class="list-group" style="color:black">
+					<%= link_to following_path(current_user), remote:true do %><li class="list-group-item">Wow Tracks</li><% end %>
+					<%= link_to favorite_tracks_path(current_user), remote:true do %><li class="list-group-item">Favorite Users</li><% end %>
+				</ul>
+			</div>
 		<% end %>
 		<div class="content-block">
 			<h3>Tags</h3>
@@ -28,15 +28,3 @@
 		</div>
 	</div>
 </div>
-
-<% if signed_in? %>
-	<script>
-	$(document).ready(function(){
-		$(document).on('click', '.favorite-users-link', function(){
-			$("#action-panel").html("<h2>List of Favorite Users</h2><% if @favorite_users.exists? %><%= render partial: 'users/user_list', locals:{users: @favorite_users[0..10]}%><% else %><p>You have no favorites!</p><% end %>").slideDown();
-		}).on('click', '.wow-tracks-link', function(){
-			$("#action-panel").html("<h2>List of Wow Tracks</h2><% if @favorite_tracks.exists? %><%= render partial: 'tracks/track_list', locals:{tracks: @favorite_tracks[0..10]}%><% else %><p>You have no wowed tracks!</p><% end %>").slideDown();
-		});
-	});
-	</script>
-<% end %>

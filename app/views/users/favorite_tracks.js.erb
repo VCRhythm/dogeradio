@@ -1,0 +1,1 @@
+$("#action-panel").html("<h2>Wow'd Tracks</h2><% if @favorite_tracks.exists? %><%=j render partial: 'tracks/track_list', locals:{tracks: @favorite_tracks}%><% else %><p>You have no wowed tracks!</p><% end %>").slideDown();
