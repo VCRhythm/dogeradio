@@ -4,7 +4,7 @@
 		<h2 style="display:inline-block"><%= @user.display_name %></h2>
 		<% if current_user != user %>
 			<%= link_to pay_path(user, user:{method:"event-tip"}), method: :post, remote: true do %>
-				<%= image_tag 'dogecoin-icon.png', alt: 'Tip', style:"height:75px; float:right;" %>
+				<%= image_tag 'dogecoin75px.png', alt: 'Tip', style:"height:75px; float:right;" %>
 			<% end %>
 		<% end %>
 		<% if @user.address && @user.publish_address %>

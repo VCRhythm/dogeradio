@@ -26,7 +26,7 @@ class Track < ActiveRecord::Base
 												dependent: :destroy
 	has_many :fond_users, through: :favoriteds, source: :user
 
-	scope :most_played, -> { joins(:plays) }
+	scope :most_played, -> { joins(:plays).where.not(user_id: 0)}
 
 	def album
 		playlists.where(category:"album")

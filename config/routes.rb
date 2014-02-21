@@ -37,6 +37,7 @@ Dogeradio::Application.routes.draw do
 
 	get ':username', to:'users#show', as: :user
 	scope ':username' do
+		post 'autopay' => 'users#autopay'
 		post 'pay' => 'users#pay'
 		post 'update_balance' => 'users#update_balance'
 		get 'following' => 'users#following'

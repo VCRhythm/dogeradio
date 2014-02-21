@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :payout, :pay]
-	before_action :this_user, only: [:update_balance, :pay, :payout, :following, :favorite_tracks]
+  before_action :set_user, only: [:autopay, :show, :payout, :pay]
+	before_action :this_user, only: [:autopay, :update_balance, :pay, :payout, :following, :favorite_tracks]
 
 	def soundcloud_auth
 		$soundcloud_id = Rails.configuration.apis[:soundcloud_id]
@@ -44,6 +44,19 @@ class UsersController < ApplicationController
 			@this_user.balance -= @amount
 			@this_user.save
 		end
+	end
+
+	def autopay
+		if signed_in?
+			if @this_user.autopay
+				if pay_user @user, @this_user.default_tip_amount, user_params[:method], user_params[:track_id]
+					render 'pay' and return
+				else
+					render 'nopay' and return
+				end
+			end
+		end
+		render nothing: true
 	end
 
 	def pay

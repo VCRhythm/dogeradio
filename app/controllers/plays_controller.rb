@@ -7,13 +7,15 @@ class PlaysController < ApplicationController
 
 	def create
 		@play.save
-	  format.json { head :no_content }
+		render nothing: true
 	end
 
   def update
-		@play.count += 1	
-  	@play.update(play_params)
-    format.json { head :no_content }
+		if signed_in?
+			@play.count += 1	
+			@play.save
+		end
+		render nothing: true
 	end
 
   def destroy
@@ -27,12 +29,13 @@ class PlaysController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_play
-			attributes = {user_id: current_user.id, track_id: params[:track_id]}
+			if signed_in?
+				user_id = current_user.id
+			else
+				user_id = 0
+			end
+			attributes = {user_id: user_id, track_id: params[:track_id]}
 			@play = Play.first_or_initialize(attributes)
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def play_params
-      params.require(:play).permit(:track_id, :user_id, :count)
-    end
 end
