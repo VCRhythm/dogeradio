@@ -1,3 +1,3 @@
 <% users.each do |user| %>
-	<p><%= link_to user.display_name, user, remote: true, class: "remote-link" %></p>
+	<%= link_to user, remote: true, class: "remote-link" do %><%= image_tag user.avatar(:thumb), data:{toggle:"tooltip", placement:"bottom"} %><% end %>
 <% end %>
