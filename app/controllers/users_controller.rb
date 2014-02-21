@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :payout, :pay]
-	before_action :this_user, only: [:update_balance, :pay, :payout, :autopay, :following, :favorite_tracks]
+	before_action :this_user, only: [:update_balance, :pay, :payout, :following, :favorite_tracks]
 
 	def soundcloud_auth
 		$soundcloud_id = Rails.configuration.apis[:soundcloud_id]
@@ -46,22 +46,13 @@ class UsersController < ApplicationController
 		end
 	end
 
-	def autopay
-	end
-
 	def pay
-		@method = params[:category]
-		if params[:track_id]
-			@track_id = params[:track_id]
-		else
-			@track_id = 0
+		if signed_in? 
+			if pay_user(@user, @this_user.default_tip_amount, user_params[:method], user_params[:track_id])
+				render 'pay' and return
+			end
 		end
-
-		if signed_in? && pay_user(@user, @this_user.default_tip_amount, @method, @track_id)
-			render 'pay'
-		else
-			render 'nopay'
-		end
+		render 'nopay'
 	end
 
 	def index
@@ -99,7 +90,7 @@ class UsersController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.permit(:username, :track_id, :code, :amount, :category)
+      params.require(:user).permit(:username, :track_id, :code, :amount, :category)
     end
 
 		def pay_user(user, amount, method, track_id)

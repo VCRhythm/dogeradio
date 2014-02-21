@@ -23,16 +23,20 @@ class RegistrationsController < Devise::RegistrationsController
 
 	def sign_up(resource_name, resource)
 		resource.playlists.create(name:"primary")
-		require 'doge_api'
-		$my_api_key = Rails.configuration.aws[:doge_api_key]
-		doge_api = DogeApi::DogeApi.new($my_api_key)
-		resource.account = doge_api.get_new_address address_label: resource.username
-		resource.account = resource.account.gsub(/\"/,"")
+		resource.account = get_doge_api_address
 		resource.save
 		sign_in(resource_name, resource)
 	end
 	
 	private
+
+	def get_doge_api_address
+		require 'doge_api'
+		$my_api_key = Rails.configuration.aws[:doge_api_key]
+		doge_api = DogeApi::DogeApi.new($my_api_key)
+		account = doge_api.get_new_address address_label: resource.username
+		return account.gsub(/\"/,"")
+	end
 
 	def needs_password?(user, params)
 		user.email != params[:user][:email] || params[:user][:password].present?

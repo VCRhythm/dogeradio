@@ -1,3 +1,3 @@
 $('#balance').css("color", "red").delay(3000).queue(function(next){$(this).css("color", "black"); next(); });
-$('#modalHolder').html("<%=j render partial: 'shared/invoice', locals:{track_id: @track_id, user_to_pay_id: @user.id, method: @method} %>");
+$('#modalHolder').html("<%=j render partial: 'shared/invoice', locals:{track_id: @track_id, payee_id: @user.id, method: @method} %>");
 $("#invoiceModal").modal('show');

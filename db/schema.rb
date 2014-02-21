@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140220135326) do
+ActiveRecord::Schema.define(version: 20140221030619) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
@@ -153,6 +153,8 @@ ActiveRecord::Schema.define(version: 20140220135326) do
     t.string   "method"
     t.integer  "track_id"
     t.boolean  "pending",    default: true
+    t.string   "email"
+    t.string   "account"
   end
 
   add_index "transactions", ["track_id"], name: "index_transactions_on_track_id"

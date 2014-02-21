@@ -1,18 +1,25 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show]
 
-	def hold_charge
-		@user_id = params[:user_id]
-		if params[:track_id]
-			@track_id = params[:track_id]
-		else
-			@track_id = 0
+	def guest_charge
+		@transaction = Transaction.new(transaction_params)
+		@transaction.payer_id = 0
+		@transaction.pending = true
+		@transaction.account = get_doge_api_address(@transaction.email)
+		if @transaction.save
+			render 'guest_pay'
 		end
+	end
 
+	def hold_charge
 		if signed_in?
+			@transaction = Transaction.new(transaction_params)
 			@this_user = current_user
-			@amount = @this_user.default_tip_amount
-			Transaction.create(payer_id:@this_user.id, payee_id:@user_id, value:@amount, method: params[:method], track_id:@track_id, pending: true)
+			@transaction.value = @this_user.default_tip_amount
+			@transaction.email = @this_user.email
+			@transaction.payer_id = @this_user.id
+			@transaction.pending = true
+			@transaction.save
 			render 'users/pay'
 		end
 	end
@@ -34,6 +41,14 @@ class TransactionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def transaction_params
-      params.require(:transaction).permit(:payee_id, :track_id, :payer_id, :amount, :method)
+      params.require(:transaction).permit(:commit, :payee_id, :track_id, :payer_id, :value, :method, :email)
     end
+
+		def get_doge_api_address(label)
+			require 'doge_api'
+			$my_api_key = Rails.configuration.aws[:doge_api_key]
+			doge_api = DogeApi::DogeApi.new($my_api_key)
+			account = doge_api.get_new_address address_label: label
+			return account.gsub(/\"/,"")
+		end
 end

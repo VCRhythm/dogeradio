@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
 	after_validation :geocode, :reverse_geocode,
 		if: lambda{ |obj| obj.address_changed? }
 
-	searchkick text_start: [:username, :address, :city, :state, :zipcode, :country], index_name: 'users_index'
+	searchkick text_start: [:username, :display_name, :city_state, :city, :state, :zipcode, :country], index_name: 'users_index'
 	validates_format_of :username, with: /\A[A-Za-z0-9.&]*\Z/, message: "can only be alphanumeric."
 	validates_uniqueness_of :username
 	validates_presence_of :username
@@ -204,6 +204,10 @@ class User < ActiveRecord::Base
 
 	def full_address
 		"#{street}, #{city}, #{state} #{zipcode}, #{country}"
+	end
+
+	def city_state
+		"#{city}, #{state}"
 	end
 
 	def init

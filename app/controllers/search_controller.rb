@@ -2,7 +2,7 @@ class SearchController < ApplicationController
 	before_action :set_query
 
 	def autocomplete
-		results = Track.search @query, index_name: ['tags_index', 'tracks_index', 'users_index'], fields: [:name, :username, :description, :state, :city, :country, :zipcode, :display_name], facets: [:state, :city, :country, :zipcode], highlight: true, limit:10
+		results = Track.search @query, index_name: ['tags_index', 'tracks_index', 'users_index'], fields: [:name, :username, :description, :state, :city, :country, :zipcode, :display_name, :city_state], facets: [:state, :city, :country, :zipcode, :city_state], highlight: true, limit:10
 		result_names = Array.new()
 		results.with_details.each do |result, details|
 			case result.class.name
@@ -13,6 +13,8 @@ class SearchController < ApplicationController
 				when "User"
 					if result.publish_address
 						case details[:highlight].first[0]
+							when :city_state
+								results_names << result.city_state
 							when :state
 								result_names << result.state	
 							when :city
@@ -65,7 +67,7 @@ class SearchController < ApplicationController
 		end
 
 		def search_users
-			User.search(@query, fields: [:username, :display_name], boost: 'followers_count').results + User.search(@query, fields: [:city, :state, :zipcode, :country], boost: 'followers_count', where: {publish_address: true}).results
+			User.search(@query, fields: [:username, :display_name], boost: 'followers_count').results + User.search(@query, fields: [:city_state, :city, :state, :zipcode, :country], boost: 'followers_count', where: {publish_address: true}).results
 		end
 
 		def search_tracks

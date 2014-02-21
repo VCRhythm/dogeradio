@@ -7,6 +7,8 @@ Dogeradio::Application.routes.draw do
 	get 'soundcloud_callback', to: 'users#soundcloud_callback'
 	get 'explore', to: 'tracks#explore'
 
+	post 'guest_charge', to: 'transactions#guest_charge'
+
 	post 'search', to: 'search#search'
 	get 'autocomplete', to: 'search#autocomplete'
 
