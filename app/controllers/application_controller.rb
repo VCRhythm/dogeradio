@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
 			@playlist = @user.queue
 			@playlist ||= @user.playlists.create(name:"queue", category:"queue")
 		else
-			@playlist = Playlist.guest_playlist
+			@playlist = Playlist.create(user_id:0, name: "guest_playlist")
 			@playlist.tracks = Track.order(created_at: :desc).limit(20)
 		end
 

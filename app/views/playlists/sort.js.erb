@@ -1,4 +1,3 @@
-$(document).off('click', '.clickable');
 playlist_counter = 0;
 prevPlayPosition = $('#player-heading').attr('data-position');
 $('.playlist-item').each(function(i, value){
@@ -9,11 +8,5 @@ $('.playlist-item').each(function(i, value){
 	}
 	$(this).removeAttr("id").attr('id', 'playlist_'+playlist_counter).attr("data-playlist_number", playlist_counter);
 	track_id = $(this).attr("data-track_id");
-	$(this).children('.delete-div').children('.delete-link').attr('href', "/playlists/<%= @playlist.id %>/ranks?track_id="+track_id+"&position="+playlist_counter);
-});
-
-$(document).on('click', '.clickable', function(){
-	position = $(this).parent().attr('data-playlist_number');
-	updatePlayer(position);
-	$('body').animate({scrollTop: $("#player").offset().top-70}, 500);
+	$(this).children('.delete-div').children('.delete-link').attr('href', "/playlists/<%= @playlist.id %>/ranks?rank[track_id]="+track_id+"&rank[position]="+playlist_counter);
 });
