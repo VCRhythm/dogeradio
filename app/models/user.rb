@@ -58,13 +58,14 @@ class User < ActiveRecord::Base
 	after_validation :geocode,
 		if: ->(obj){ obj.address.present? and obj.address_changed? }
 
-	searchkick text_start: [:username, :display_name, :city_state, :city, :state, :zipcode, :country], index_name: 'users_index'
+	searchkick text_start: [:username, :display_name, :address], index_name: 'users_index'
 	validates_format_of :username, with: /\A[A-Za-z0-9.&]*\Z/, message: "can only be alphanumeric."
 	validates_uniqueness_of :username, case_sensitive: false
 	validates :username, :email, :display_name, presence: true
 	
 	validates :default_tip_amount, :wow_tip_amount, :transaction_fee, :prev_received, numericality: {greater_than_or_equal_to: 0}
 	validates :donation_percent, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 1}
+
 	class CodeValidator < ActiveModel::EachValidator
 		def validate_each(record, attribute, value)
 			record.errors.add attribute, "is not valid." unless BetaCode.where(value: value).exists?
@@ -82,6 +83,10 @@ class User < ActiveRecord::Base
 				record.errors[attribute] << (options[:message] || "is an invalid URL")
 			end
 		end
+	end
+
+	def should_index?
+		is_artist?
 	end
 
 	validates :website, website: true, allow_blank: true
@@ -198,14 +203,6 @@ class User < ActiveRecord::Base
 
 	def to_param
 		username
-	end
-
-	def full_address
-		"#{street}, #{city}, #{state} #{zipcode}, #{country}"
-	end
-
-	def city_state
-		"#{city}, #{state}"
 	end
 
 	def init

@@ -11,23 +11,31 @@ class SearchController < ApplicationController
 				when "Track"
 					result_names << result.name
 				when "User"
-					if result.publish_address
-						case details[:highlight].first[0]
-							when :city_state
+					case details[:highlight].first[0]
+						when :city_state
+							if result.publish_address 
 								results_names << result.city_state
-							when :state
+							end
+						when :state
+							if result.publish_address 
 								result_names << result.state	
-							when :city
+							end
+						when :city
+							if result.publish_address 
 								result_names << result.city
-							when :country
+							end
+						when :country
+							if result.publish_address 
 								result_names << result.country
-							when :zipcode
+							end
+						when :zipcode
+							if result.publish_address 
 								result_names << result.zipcode
-							when :display_name
-								result_names << result.display_name
-							when :username
-								result_names << result.username
-						end
+							end
+						when :display_name
+							result_names << result.display_name
+						when :username
+							result_names << result.username
 					end
 			end
 		end
@@ -67,7 +75,7 @@ class SearchController < ApplicationController
 		end
 
 		def search_users
-			User.search(@query, fields: [:username, :display_name], boost: 'followers_count').results + User.search(@query, fields: [:city_state, :city, :state, :zipcode, :country], boost: 'followers_count', where: {publish_address: true}).results
+			User.search(@query, fields: [:username, :display_name], boost: 'followers_count').results + User.search(@query, where:{publish_address: true}, fields: [:city_state, :city, :state, :zipcode, :country], boost: 'followers_count').results
 		end
 
 		def search_tracks
