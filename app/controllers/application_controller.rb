@@ -4,7 +4,30 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 	before_filter :configure_permitted_parameters, if: :devise_controller?
 	before_action :set_transactions
-	before_action :set_queue, unless: :has_queue?
+	before_action :set_queue
+
+	# if user is logged in, return current_user, else return guest_user
+	def current_or_guest_user
+		if current_user
+			if session[:guest_user_id]
+				logging_in
+				guest_user.destroy
+				session[:guest_user_id] = nil
+			end
+			current_user
+		else
+			guest_user
+		end
+	end
+
+	# fine guest_user object associated with the current sessions, creating one as needed
+	def guest_user
+		# Cache the value  the first time it's gotten.
+		@cached_guest_user ||= User.find(session[:guest_user_id] ||= create_guest_user.id)
+	rescue ActiveRecord::RecordNotFound #if sessions[:guest_user_id] invalid
+		session[:guest_user_id] = nil
+		guest_user
+	end
 
 	protected
 
@@ -15,6 +38,18 @@ class ApplicationController < ActionController::Base
 	end
 
 	private
+
+	def logging_in
+	end
+
+	def create_guest_user
+		u = User.create(username: "guest", email: "guest_#{Time.now.to_i}#{rand(99)}@dogeradio.com")
+		u.save!(validate: false)
+		@playlist = u.playlists.create(name: "queue", category: "queue")
+		@playlist.tracks = Track.order(created_at: :desc).limit(20)
+		session[:guest_user_id] = u.id
+		u
+	end
 
 	def location
 		if params[:location].blank?
@@ -34,22 +69,13 @@ class ApplicationController < ActionController::Base
 		@transactions = Transaction.ten_recent
 	end
 
-	def has_queue?
-		@playlist
-	end
-
 	def set_queue
-		if signed_in?
-			@user = current_user
-			@playlist = @user.queue
-			@playlist ||= @user.playlists.create(name:"queue", category:"queue")
-		else
-			@playlist = Playlist.create(user_id:0, name: "guest_playlist")
-			@playlist.tracks = Track.order(created_at: :desc).limit(20)
-		end
-
+		@user = current_or_guest_user
+		@playlist = @user.queue
+		@playlist ||= @user.playlists.create(name:"queue", category:"queue")
 		#Tell the player to play track 1
 		@player_position = 1 #needed for next functionality
 		@track = @playlist.tracks[0]
 	end
+
 end
