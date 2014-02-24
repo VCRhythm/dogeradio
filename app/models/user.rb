@@ -56,13 +56,7 @@ class User < ActiveRecord::Base
 
 	geocoded_by :address, latitude: :latitude, longitude: :longitude
 	reverse_geocoded_by :latitude, :longitude do |obj, results|
-		if geo = results.first
-			obj.street = geo.street_address
-			obj.city = geo.city
-			obj.state = geo.state
-			obj.zipcode = geo.postal_code
-			obj.country = geo.country_code
-		end
+		obj.street = results.first.address
 	end
 	after_validation :geocode, :reverse_geocode,
 		if: ->(obj){ obj.address.present? and obj.address_changed? }
