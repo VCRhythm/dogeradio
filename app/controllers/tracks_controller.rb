@@ -82,7 +82,7 @@ class TracksController < ApplicationController
     end
 
 		def find_local_users
-			User.artists.near([location.latitude, location.longitude], 50)
+			User.artists.near([location.latitude, location.longitude], 100)
 		end
 
 end
