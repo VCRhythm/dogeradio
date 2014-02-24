@@ -1,7 +1,7 @@
 desc "This task is called by the Heroku scheduler add-on"
 task :reindex_models => :environment do
 	puts "Reindexing..."
-	run rake searchkick:reindex:all
+	rake searchkick:reindex:all
 	puts "done."
 end
 task :delete_guest_playlists => :environment do
