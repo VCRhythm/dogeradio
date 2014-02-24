@@ -1,6 +1,10 @@
 class TracksController < ApplicationController
   before_action :set_track, only: [:show, :edit, :update, :destroy]
 
+	def update_location
+		@local_users = find_local_users	
+	end
+
 	def explore
 		@top_most_played_tracks = Track.most_played
 		@tags = Tag.unique_tags
@@ -24,8 +28,9 @@ class TracksController < ApplicationController
 		@top_most_played_tracks = @most_played_tracks[0..10]
 		
 		#Local Users
-		@local_address = location.address
-		@local_users = User.near([location.latitude, location.longitude], 50)
+		if !@location
+			@local_users = find_local_users
+		end
 
 #		@new_tracks = Music.order(created_at: :desc).where(processed: true).limit(5)
 #		@active_users = Array.new
@@ -77,5 +82,9 @@ class TracksController < ApplicationController
     def track_params
       params.require(:track).permit(:name, :user_id, :url, :source)
     end
+
+		def find_local_users
+			User.artists.near([location.longitude, location.latitude], 50)
+		end
 
 end

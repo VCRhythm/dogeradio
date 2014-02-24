@@ -1,4 +1,7 @@
-<div class="content-block">
-	<h3>Users nearby</h3>
+<h3>Artists nearby</h3>
+<% if @location && users.exists? %>
 	<%= render partial: 'users/user_list', locals: {users: users } %>
-</div>
+<% else %>
+	<p>We did not find any nearby artists. Search again?</p>
+	<%= render partial: 'shared/enter_location' %>
+<% end %>

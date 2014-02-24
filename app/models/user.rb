@@ -69,9 +69,8 @@ class User < ActiveRecord::Base
 
 	searchkick text_start: [:username, :display_name, :city_state, :city, :state, :zipcode, :country], index_name: 'users_index'
 	validates_format_of :username, with: /\A[A-Za-z0-9.&]*\Z/, message: "can only be alphanumeric."
-	validates_uniqueness_of :username
-	validates_presence_of :username
-	validates_presence_of :email
+	validates_uniqueness_of :username, case_sensitive: false
+	validates :username, :email, :display_name, presence: true
 	
 	validates :default_tip_amount, :wow_tip_amount, :transaction_fee, :prev_received, numericality: {greater_than_or_equal_to: 0}
 	validates :donation_percent, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 1}
@@ -139,6 +138,8 @@ class User < ActiveRecord::Base
 
 	validates_attachment_content_type :avatar, content_type: /\Aimage/
 
+	scope :artists, -> {joins(:tracks).uniq}
+
 	include CI_Find
 	include CI_Find_First
 
@@ -191,12 +192,9 @@ class User < ActiveRecord::Base
 	end
 
 	def self.random_artist
-		count = User.count
-		begin  		
-			offset = rand(count)
-			user = self.offset(offset).first
-		end while !user.is_artist?
-		return user
+		count = User.artists.count
+		offset = rand(count)
+		offset(offset).first
 	end
 
 	def pending_tips

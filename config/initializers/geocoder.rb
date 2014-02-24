@@ -1,7 +1,7 @@
 Geocoder.configure(
-	lookup: :google,
+	lookup: :bing,
 	timeout: 3,
 	units: :mi,
-	api_key: "AIzaSyB6D1t00b8EoivB4tziCVHstPu3j_iXfac",
+	api_key: "Ak4AiDQC7oBHmBDxXQHFueBB-yWcC8MEmTtU0Ja_pDj1GyQnblljD7pBJu1sdawe",
  	cache: Rails.cache	
 )
