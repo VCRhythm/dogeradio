@@ -187,7 +187,7 @@ class User < ActiveRecord::Base
 	end
 
 	def is_artist?
-		tracks.exists?	
+		tracks.exists? && avatar.exists?
 	end
 
 	def self.random_artist
