@@ -101,12 +101,6 @@ $(document).ready(function(){
 		position = $(this).parent().attr('data-playlist_number');
 		updatePlayer(position);
 		$('body').animate({scrollTop: $("#player").offset().top-110}, 500);
-	}).on('ajax:success', '.rename-form', function(e){
-		$(this).append("<p class='alert alert-success' style='display:inline-block; line-height:0.1; margin-bottom:0;'>Track renamed!</p>");
-		$(this).children('.alert').delay(3000).fadeOut('slow');
-	}).on('ajax:error', '.rename-form', function(e) {
-	  $(this).append("<p class='alert-danger alert' style='display:inline-block; line-height:0.1; margin-bottom:0;'>Uh-oh, something didn't work right.</p>");
-		$(this).children('.alert').delay(3000).fadeOut('slow');
 	});
 
 	$('.sortable').sortable({

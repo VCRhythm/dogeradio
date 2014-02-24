@@ -1,4 +1,6 @@
-<%= form_for track, remote: true, html: {id: "rename_"+track.id.to_s, class: "form-inline rename-form"} do |f| %>
-	<%= f.text_field :name, placeholder: placeholder, class: "form-control", style: "min-width:50%;" %>
-	<%= f.submit "Rename", class: "btn btn-default" %>
+<%= form_for track, remote: true, id: "rename_"+track.id.to_s, class: "form-inline rename-form", role:"form" do |f| %>
+	<div class="form-group">
+		<%= f.text_field :name, placeholder: placeholder, class: "form-control" %>
+	</div>
+	<%= f.submit "Rename", class: "btn btn-block btn-default" %>
 <% end %>

@@ -56,6 +56,9 @@ class TracksController < ApplicationController
 	def show
 	end
 
+	def edit
+	end
+		
   def update
 		respond_to do |format|
 			if @track.update(track_params)
@@ -84,7 +87,9 @@ class TracksController < ApplicationController
     end
 
 		def find_local_users
-			User.artists.near([location.latitude, location.longitude], 100)
+			if location
+				User.artists.near([location.latitude, location.longitude], 100)
+			end
 		end
 
 end

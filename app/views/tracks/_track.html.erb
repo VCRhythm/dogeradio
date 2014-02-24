@@ -12,8 +12,15 @@
 			</span>
 		</div>
 	</div>
-	<div style="height:30px; color: #777777">
+	<div style="height:10px; color: #777777">
 		<small><%= pluralize(track.plays.by_users.sum(:count) || 0, 'play') %>. <%= pluralize(track.favoriteds.count, 'wow')%>.</small>
-		<% if track.user == current_user %><%= link_to track, method: :delete, data: {confirm: "Are you sure?" }, class: "pull-right", remote: true do %><span class="glyphicon glyphicon-trash"></span><% end %><% end %>
+		<% if track.user == current_user %>
+			<%= link_to track, method: :delete, data: {confirm: "Are you sure?" }, class: "pull-right", remote: true do %>
+				<span class="glyphicon glyphicon-trash"></span>
+			<% end %>
+			<%= link_to edit_track_path(track), class: "pull-right", remote: true, style: "margin-right:20px;" do %>
+				<span class="glyphicon glyphicon-pencil"></span>
+			<% end %>
+		<% end %>
 	</div>
 </li>

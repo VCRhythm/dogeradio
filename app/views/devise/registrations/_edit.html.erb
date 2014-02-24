@@ -2,12 +2,12 @@
 	<div class="content-block" id="action-panel" style="display:none;">
 	</div>
 	<div class="content-block">
-	<h2>Edit <%= resource_name.to_s.humanize %></h2>
+	<h2>Edit Profile Settings</h2>
 
 	<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :method => :put, remote: true ) do |f| %>
 		<%= devise_error_messages! %>
 
-		<div><%= f.label :username %>: <%= current_user.username %></div>
+		<div><%= f.label :username %>: <%= link_to current_user.username, current_user, remote:true, class:"remote-link" %></div>
 
 		<div class="form-group"><%= f.label :display_name %><br />
 		<%= f.text_field :display_name, class: "form-control" %></div>
