@@ -24,8 +24,8 @@ class TracksController < ApplicationController
 		@top_most_played_tracks = @most_played_tracks[0..10]
 		
 		#Local Users
-		@local_address = @user.address
-		@local_users = User.near(@local_address, 50)
+		@local_address = location.address
+		@local_users = User.near([location.latitude, location.longitude], 50)
 
 #		@new_tracks = Music.order(created_at: :desc).where(processed: true).limit(5)
 #		@active_users = Array.new
