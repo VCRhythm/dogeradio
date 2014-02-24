@@ -1,30 +1,3 @@
-GIT
-  remote: git://github.com/thomas-mcdonald/bootstrap-sass.git
-  revision: d4e6501feca7efe9452f292aac34497d1533aa7a
-  specs:
-    bootstrap-sass (3.1.1.0)
-      sass (~> 3.2)
-
-GIT
-  remote: git://github.com/thoughtbot/paperclip.git
-  revision: ed0bc8de5b8545541483bf3eeb6ad89451a908af
-  specs:
-    paperclip (4.1.1)
-      activemodel (>= 3.0.0)
-      activesupport (>= 3.0.0)
-      cocaine (~> 0.5.3)
-      mime-types
-
-GIT
-  remote: git://github.com/waynehoover/s3_direct_upload.git
-  revision: a069078f4b1c85ebbeec844614d0f352b1a85430
-  specs:
-    s3_direct_upload (0.1.6)
-      coffee-rails (>= 3.1)
-      jquery-fileupload-rails (~> 0.4.1)
-      rails (>= 3.1)
-      sass-rails (>= 3.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -67,6 +40,8 @@ GEM
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
     bcrypt-ruby (3.0.1)
+    bootstrap-sass (3.1.0.0)
+      sass (~> 3.2)
     builder (3.1.4)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -135,6 +110,11 @@ GEM
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     orm_adapter (0.5.0)
+    paperclip (4.1.1)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.3)
+      mime-types
     pg (0.17.1)
     polyglot (0.3.4)
     rack (1.5.2)
@@ -165,6 +145,11 @@ GEM
       mime-types (>= 1.16)
     rmagick (2.13.2)
     route_downcaser (0.2.1)
+    s3_direct_upload (0.1.6)
+      coffee-rails (>= 3.2.1)
+      jquery-fileupload-rails (~> 0.4.1)
+      rails (>= 3.2)
+      sass-rails (>= 3.2.5)
     sass (3.2.14)
     sass-rails (4.0.1)
       railties (>= 4.0.0, < 5.0)
@@ -229,7 +214,7 @@ DEPENDENCIES
   annotate
   aws-sdk
   bcrypt-ruby (~> 3.0.0)
-  bootstrap-sass!
+  bootstrap-sass
   coffee-rails (~> 4.0.0)
   delayed_job_active_record
   devise
@@ -241,14 +226,14 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   jquery-ui-rails
-  paperclip!
+  paperclip
   pg
   rails (= 4.0.0)
   rails_12factor
   rake (= 10.1.1)
   rmagick
   route_downcaser
-  s3_direct_upload!
+  s3_direct_upload
   sass-rails (~> 4.0.0)
   sdoc
   searchkick

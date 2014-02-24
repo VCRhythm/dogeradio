@@ -12,8 +12,8 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'devise'
 gem 'rake', '10.1.1'
 gem 'aws-sdk'
-gem 'paperclip', git: "git://github.com/thoughtbot/paperclip.git"
-gem 's3_direct_upload', git: "git://github.com/waynehoover/s3_direct_upload.git"
+gem 'paperclip'
+gem 's3_direct_upload'
 gem 'jplayer-rails'
 gem 'rmagick'
 gem 'doge_api'
@@ -38,7 +38,7 @@ group :assets do
   gem 'uglifier', '>= 1.3.0'
 end
 
-gem 'bootstrap-sass', git: 'git://github.com/thomas-mcdonald/bootstrap-sass.git'
+gem 'bootstrap-sass'
 
 group :test do
 end

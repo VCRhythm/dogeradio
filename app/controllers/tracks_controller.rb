@@ -28,9 +28,7 @@ class TracksController < ApplicationController
 		@top_most_played_tracks = @most_played_tracks[0..10]
 		
 		#Local Users
-		if !@location
-			@local_users = find_local_users
-		end
+		@local_users = find_local_users
 
 #		@new_tracks = Music.order(created_at: :desc).where(processed: true).limit(5)
 #		@active_users = Array.new
