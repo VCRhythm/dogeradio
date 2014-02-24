@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+	caches_page :show
   before_action :set_user, only: [:autopay, :show, :payout, :pay]
 	before_action :this_user, only: [:autopay, :update_balance, :pay, :payout, :following, :favorite_tracks]
 

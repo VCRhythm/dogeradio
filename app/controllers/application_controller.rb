@@ -26,8 +26,8 @@ class ApplicationController < ActionController::Base
 		else
 			params[:location].each {|l| l = l.to_i } if params[:location].is_a? Array
 			@location ||= Geocoder.search(params[:location]).first
-			@location
 		end
+		return @location
 	end
 
 	def set_transactions	

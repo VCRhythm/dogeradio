@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
 	after_create :init
 
 	geocoded_by :address
-	reverse_geocoded_by :latitude, :longitude do |obj,results|
+	reverse_geocoded_by :latitude, :longitude do |obj, results|
 		if geo = results.first
 			obj.street = geo.street_address
 			obj.city = geo.city

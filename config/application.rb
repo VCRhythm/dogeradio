@@ -20,5 +20,6 @@ module Dogeradio
 		# config.i18n.default_locale = :de
 
 		config.i18n.enforce_available_locales = true
+		config.action_controller.page_cache_directory = "#{Rails.root.to_s}/public/deploy"
 	end
 end
