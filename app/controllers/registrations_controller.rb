@@ -4,7 +4,7 @@ class RegistrationsController < Devise::RegistrationsController
 	end
 
 	def update
-		expire_page controller: :users, action: :show, id: current_user.id
+		expire_page controller: :users, action: :show, username: current_user.username
 		@user = User.find(current_user.id)
 		successfully_updated = if needs_password?(@user, params)
 			@user.update_with_password(devise_parameter_sanitizer.sanitize(:account_update))
