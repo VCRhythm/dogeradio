@@ -13,7 +13,23 @@ class ApplicationController < ActionController::Base
 		devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :username, :email, :password, :remember_me)}
 		devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :avatar, :bio, :payout_account, :email, :password, :password_confirmation, :current_password, :website, :autotip, :default_tip_amount, :donation_percent, :address, :publish_address, :display_name) }
 	end
+	private
 
+	def location
+		if params[:location].blank?
+			if Rails.env.test? || Rails.env.development?
+				@location ||= Geocoder.search("50.78.167.161").first
+			else
+				@location ||= request.location
+			end
+		else
+			params[:location].each {|l| l = l.to_i } if params[:location].is_a? Array
+			@location ||= Geocoder.search(params[:location]).first
+			allowed = [:latitude, :longitude, :address, :city]
+			puts @location.methods
+			@location
+		end
+	end
 
 	def set_transactions	
 		@transactions = Transaction.ten_recent

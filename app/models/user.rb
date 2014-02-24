@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
 		end
 	end
 	after_validation :geocode, :reverse_geocode,
-		if: lambda{ |obj| obj.address_changed? }
+		if: ->(obj){ obj.address.present? and obj.address_changed? }
 
 	searchkick text_start: [:username, :display_name, :city_state, :city, :state, :zipcode, :country], index_name: 'users_index'
 	validates_format_of :username, with: /\A[A-Za-z0-9.&]*\Z/, message: "can only be alphanumeric."

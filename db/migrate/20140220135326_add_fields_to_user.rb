@@ -10,5 +10,7 @@ class AddFieldsToUser < ActiveRecord::Migration
     add_column :users, :latitude, :float
     add_column :users, :longitude, :float
 		add_column :users, :publish_address, :boolean, default: false
+		add_index :users, [:latitude, :longitude]
   end
+
 end

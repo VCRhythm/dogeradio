@@ -1,5 +1,6 @@
 Geocoder.configure(
 	lookup: :google,
 	timeout: 3,
-	units: :mi
+	units: :mi,
+	cache: Rails.cache	
 )
