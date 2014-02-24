@@ -1,7 +1,5 @@
 <h3>Artists nearby</h3>
 <% if @location && users.exists? %>
 	<%= render partial: 'users/user_list', locals: {users: users } %>
-<% else %>
-	<p>We did not find any nearby artists. Search again?</p>
-	<%= render partial: 'shared/enter_location' %>
 <% end %>
+<%= render partial: 'shared/enter_location' %>
