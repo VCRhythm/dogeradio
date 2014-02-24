@@ -55,10 +55,7 @@ class User < ActiveRecord::Base
 	after_create :init
 
 	geocoded_by :address, latitude: :latitude, longitude: :longitude
-	reverse_geocoded_by :latitude, :longitude do |obj, results|
-		obj.street = results.first.address
-	end
-	after_validation :geocode, :reverse_geocode,
+	after_validation :geocode,
 		if: ->(obj){ obj.address.present? and obj.address_changed? }
 
 	searchkick text_start: [:username, :display_name, :city_state, :city, :state, :zipcode, :country], index_name: 'users_index'
