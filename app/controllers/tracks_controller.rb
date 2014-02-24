@@ -1,7 +1,6 @@
 class TracksController < ApplicationController
   before_action :set_track, only: [:show, :edit, :update, :destroy]
 
-
 	def explore
 		@top_most_played_tracks = Track.most_played
 		@tags = Tag.unique_tags
@@ -24,6 +23,10 @@ class TracksController < ApplicationController
 		end	
 		@top_most_played_tracks = @most_played_tracks[0..10]
 		
+		#Local Users
+		@local_address = request.location.address
+		@local_users = User.near(@local_address, 10).limit(10)
+
 #		@new_tracks = Music.order(created_at: :desc).where(processed: true).limit(5)
 #		@active_users = Array.new
 
@@ -38,9 +41,7 @@ class TracksController < ApplicationController
 		
 		#Random Featured Artist
 		@featured_user = User.random_artist
-		@featured_user_tracks = @featured_user.tracks
-
-			end
+	end
 
   def create
     @track = current_user.tracks.new(track_params)

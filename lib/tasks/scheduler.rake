@@ -7,7 +7,9 @@ task :reindex_models => :environment do
 	puts "done."
 end
 task :delete_guest_playlists => :environment do
-	puts "Deleting old guest playlists..."
-	Playlist.guest_playlists.where("updated_at < ?", 1.week.ago).delete_all
-	puts "done."
+	if Time.now.sunday?
+		puts "Deleting old guest playlists..."
+		Playlist.guest_playlists.where("updated_at < ?", 1.week.ago).delete_all
+		puts "done."
+	end
 end

@@ -5,7 +5,8 @@
 				<%=image_tag track.user.avatar.url(:tinythumb), class: "media-object" %>
 			</span>
 			<div class="media-body">
-				<strong><%= track.name %></strong> by <%=track.user.display_name %>
+				<p><strong><%= track.name %></strong></p>
+				<p><%=track.user.display_name %></p>
 			</div>
 	<% end %>
 <% end %>

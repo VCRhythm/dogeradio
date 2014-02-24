@@ -1,28 +1,8 @@
 <div class="row">
 	<div class="col-md-7">
 		<%= render 'shared/action_panel' %>
-		<div class="content-block">
-			<h3>Featured Artist</h3>
-			<div class="media">
-				<%= link_to @featured_user, class: "pull-left" do %>
-					<% if @featured_user.avatar.exists? %>
-						<%= image_tag @featured_user.avatar.url(:thumb), class: "media-object" %>
-					<% end %>
-				<% end %>
-				<div class="media-body" style="min-height:100px;">
-					<h4 class="media-heading"><strong><%= link_to @featured_user.display_name, @featured_user, remote: true, class: "remote-link" %></strong></h4>
-					<p><%= html_escape(@featured_user.bio).gsub(/\n/, '<br />').html_safe %></p>
-				</div>
-				<div class="list-group">
-					<% @featured_user_tracks[0..5].each do |track| %>
-						<%=link_to playlist_ranks_path(@playlist, track_id: track.id), method: :post, remote: true, class: "list-group-item" do %>
-							<span class="badge" style="background-color:white"><span class="glyphicon glyphicon-plus" style="color:green"></span></span>
-							<%= track.name %>
-						<% end %>
-					<% end %>
-				</div>
-			</div>
-		</div>
+		<%= render partial: 'users/featured_user', locals: { user:@featured_user } %>
+		<%= render partial: 'users/local_users', locals: {users: @local_users } if @local_users.length > 0%>
 	</div>
 	<div class="col-md-5">
 		<div class="content-block">
