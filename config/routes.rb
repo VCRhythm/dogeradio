@@ -2,6 +2,7 @@ Dogeradio::Application.routes.draw do
 
 	root 'tracks#index'
 
+
 	post 'update_location', to: 'tracks#update_location'
 	get 'recent_tips', to: 'transactions#recent'
 	get 'soundcloud', to: 'users#soundcloud_auth'

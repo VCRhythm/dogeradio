@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140221030619) do
+ActiveRecord::Schema.define(version: 20140226154543) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
@@ -35,6 +35,16 @@ ActiveRecord::Schema.define(version: 20140221030619) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
+
+  create_table "events", force: true do |t|
+    t.integer  "user_id"
+    t.boolean  "featured"
+    t.string   "name"
+    t.integer  "venue_id"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "favorites", force: true do |t|
     t.integer  "track_id"
@@ -206,6 +216,18 @@ ActiveRecord::Schema.define(version: 20140221030619) do
   add_index "users", ["latitude", "longitude"], name: "index_users_on_latitude_and_longitude"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["username"], name: "index_users_on_username", unique: true
+
+  create_table "venues", force: true do |t|
+    t.string   "name"
+    t.string   "street"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.string   "zipcode"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "votes", force: true do |t|
     t.integer  "user_id"

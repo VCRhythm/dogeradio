@@ -1,17 +1,12 @@
 <div class="row">
 	<div class="col-md-7">
 		<%= render 'shared/action_panel' %>
+		<%= render partial: 'users/featured_user', locals: { user:@featured_user } %>
 		<div class="content-block local-users">
 			<%= render partial: 'users/local_users', locals: {users: @local_users } %>
 		</div>
-		<%= render partial: 'users/featured_user', locals: { user:@featured_user } %>
 	</div>
 	<div class="col-md-5">
-		<div class="content-block">
-			<h3>Top Tracks</h3>
-			<div class="list-group">
-				<%= render partial: 'tracks/track_list_with_avatar', locals: {tracks: @top_most_played_tracks} %>
-			</div>
-		</div>
+		<%= render 'shared/local_events' %>
 	</div>
 </div>

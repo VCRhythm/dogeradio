@@ -6,7 +6,7 @@ class TracksController < ApplicationController
 	def update_location
 		@local_users = find_local_users	
 	end
-
+	
 	def explore
 		@top_most_played_tracks = Track.most_played
 		@tags = Tag.unique_tags
@@ -18,16 +18,6 @@ class TracksController < ApplicationController
 	end
 
 	def index
-		tracks_played_sums = Hash.new
-		@most_played_tracks = Array.new
-		Track.all.each do |track|
-			tracks_played_sums[track.id] = track.plays.sum(:count)
-		end
-		tracks_played_sums = tracks_played_sums.sort_by {|k,v| v}.reverse
-		tracks_played_sums.each do |track|
-			@most_played_tracks << Track.find(track[0])
-		end	
-		@top_most_played_tracks = @most_played_tracks[0..10]
 		
 		#Local Users
 		@local_users = find_local_users
@@ -45,7 +35,7 @@ class TracksController < ApplicationController
 #		end
 		
 		#Random Featured Artist
-		@featured_user = User.random_artist
+		@featured_user = User.artists.random_user
 	end
 
   def create

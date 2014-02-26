@@ -9,14 +9,14 @@
 		</div>
 	</div>
 	<div class="col-md-3">
-		<% if signed_in? %>
+				<% if signed_in? %>
 			<div class="content-block">
 				<ul class="list-group" style="color:black">
 					<%= link_to favorite_tracks_path(current_user), remote:true do %><li class="list-group-item">Wow Tracks</li><% end %>
 					<%= link_to following_path(current_user), remote:true do %><li class="list-group-item">Favorite Users</li><% end %>
 				</ul>
 			</div>
-		<% end %>
+				<% end %>
 		<div class="content-block">
 			<h3>Tags</h3>
 			<%= render @tags %>

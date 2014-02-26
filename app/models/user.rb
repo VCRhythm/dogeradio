@@ -66,6 +66,7 @@ class User < ActiveRecord::Base
 	validates :default_tip_amount, :wow_tip_amount, :transaction_fee, :prev_received, numericality: {greater_than_or_equal_to: 0}
 	validates :donation_percent, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 1}
 
+	has_many :events
 	class CodeValidator < ActiveModel::EachValidator
 		def validate_each(record, attribute, value)
 			record.errors.add attribute, "is not valid." unless BetaCode.where(value: value).exists?
@@ -187,8 +188,8 @@ class User < ActiveRecord::Base
 		tracks.exists? && avatar.exists?
 	end
 
-	def self.random_artist
-		count = User.artists.count
+	def self.random_user
+		count = self.count
 		offset = rand(count)
 		offset(offset).first
 	end

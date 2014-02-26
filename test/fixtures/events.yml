@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  belongs_to: 
+  featured: false
+  name: MyString
+  belongs_to: 
+  description: MyString
+
+two:
+  belongs_to: 
+  featured: false
+  name: MyString
+  belongs_to: 
+  description: MyString

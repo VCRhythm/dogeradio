@@ -2,7 +2,7 @@ class SearchController < ApplicationController
 	before_action :set_query
 
 	def autocomplete
-		results = Track.search @query, index_name: ['tags_index', 'tracks_index', 'users_index'], fields: [:name, :username, :description, :state, :city, :country, :zipcode, :display_name, :city_state], facets: [:state, :city, :country, :zipcode, :city_state], highlight: true, limit:10
+		results = Track.search @query, index_name: ['tags_index', 'tracks_index', 'users_index'], fields: [:name, :username, :description, :display_name, :address], facets: [:address], highlight: true, limit:10
 		result_names = Array.new()
 		results.with_details.each do |result, details|
 			case result.class.name
@@ -12,25 +12,9 @@ class SearchController < ApplicationController
 					result_names << result.name
 				when "User"
 					case details[:highlight].first[0]
-						when :city_state
+						when :address
 							if result.publish_address 
-								results_names << result.city_state
-							end
-						when :state
-							if result.publish_address 
-								result_names << result.state	
-							end
-						when :city
-							if result.publish_address 
-								result_names << result.city
-							end
-						when :country
-							if result.publish_address 
-								result_names << result.country
-							end
-						when :zipcode
-							if result.publish_address 
-								result_names << result.zipcode
+								results_names << result.address
 							end
 						when :display_name
 							result_names << result.display_name
