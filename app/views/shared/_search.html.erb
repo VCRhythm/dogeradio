@@ -1,9 +1,9 @@
 <%= form_tag search_path, class: 'navbar-form navbar-right', role: "search", remote: true do %> 
 	<div class="form-group" id="search_form">
 		<%= hidden_field :search, :type, value: 'all' %>
-		<%= search_field :search, :query, placeholder: 'Search', id: "search_form", class:"form-control input-sm" %>
+		<%= search_field :search, :query, placeholder: 'Search', id: "search_query", class:"form-control input-sm" %>
+		<%= button_tag id: "search_button", type: "submit", class: "btn btn-primary btn-sm remote-link" do %>
+			<span class="glyphicon glyphicon-search"></span>
+		<% end %>
 	</div>
-	<%= button_tag id: "search_button", type: "submit", class: "btn btn-primary btn-sm remote-link" do %>
-		<span class="glyphicon glyphicon-search"></span>
-	<% end %>
 <% end %>
