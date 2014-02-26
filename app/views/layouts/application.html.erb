@@ -26,7 +26,7 @@
 				<div class="navbar-collapse collapse" style="height:auto;">
 					<ul class="nav navbar-nav navbar-left">
 						<li><%= link_to explore_path, remote: true, class: "remote-link" do %>Find<% end %></li>
-						<% if user_signed_in? %><li><%= link_to new_music_path, remote: true, style:"padding-top:5px;", class: "remote-link" do %>Upload <span class="glyphicon glyphicon-music" style="position:relative; top:3px;"></span><% end %></li><% end %>
+						<% if user_signed_in? %><li><%= link_to upload_path, remote: true, class: "remote-link" do %>Create<% end %></li><% end %>
 					</ul>
 					<ul class="nav navbar-nav navbar-right logged-text" style="margin-top:13px; margin-left:3px;">
 						<% if user_signed_in? %>

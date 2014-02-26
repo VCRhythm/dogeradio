@@ -3,6 +3,10 @@ class TracksController < ApplicationController
 	skip_before_filter :verify_authenticity_token
 	helper_method :current_or_guest_user
 
+	def upload
+		
+	end
+
 	def update_location
 		@local_users = find_local_users	
 	end
@@ -40,7 +44,7 @@ class TracksController < ApplicationController
 
   def create
     @track = current_user.tracks.new(track_params)
-		@track.save
+	@track.save
   end
 
 	def show

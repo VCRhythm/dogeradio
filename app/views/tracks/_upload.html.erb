@@ -1,0 +1,16 @@
+<div class="row">
+	<div class="col-md-7">
+		<%= render 'shared/action_panel' %>
+		<div class="content-block">
+			<p>What would you like to create?</p>
+		</div>
+	</div>
+	<div class="col-md-5">
+		<div class="content-block">
+			<ul class="list-group" style="color:black">
+				<%= link_to new_music_path, remote: true, class:"remote-link" do %><li class="list-group-item">Upload a Track</li><% end %>
+				<%= link_to new_venue_path, class: "remote-link", remote:true do %><li class="list-group-item">New Venue</li><% end %>
+			</ul>
+		</div>
+	</div>
+</div>

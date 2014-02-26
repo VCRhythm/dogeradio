@@ -2,7 +2,7 @@ Dogeradio::Application.routes.draw do
 
 	root 'tracks#index'
 
-
+	get 'upload', to: 'tracks#upload'
 	post 'update_location', to: 'tracks#update_location'
 	get 'recent_tips', to: 'transactions#recent'
 	get 'soundcloud', to: 'users#soundcloud_auth'
@@ -15,6 +15,9 @@ Dogeradio::Application.routes.draw do
 	get 'autocomplete', to: 'search#autocomplete'
 
 	post 'payout', to: 'users#payout'
+
+	resources :venues
+	resources :events
 
 	resources :playlists, only: [:show] do
 		post :sort
