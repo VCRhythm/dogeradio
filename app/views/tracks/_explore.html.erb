@@ -1,7 +1,6 @@
 <div class="row">
 	<div class="col-md-9">
-		<%= render 'shared/action_panel' %>
-		<div class="content-block">
+		<div id="action-panel" class="content-block">
 			<h3>Top Tracks</h3>
 			<div class="list-group">
 				<%= render partial: 'tracks/track_list_with_avatar', locals: {tracks: @top_most_played_tracks} %>
@@ -9,14 +8,22 @@
 		</div>
 	</div>
 	<div class="col-md-3">
+		<div class="content-block">
+			<ul class="list-group"><h3>Local</h3>
+				<%= link_to events_path, remote: true do %><li class="list-group-item">Events</li><% end %>
+				<%= link_to venues_path, remote: true do %><li class="list-group-item">Venues</li><% end %>
+				<%= link_to users_path, remote: true do %><li class="list-group-item">Users</li><% end %>
+			</ul>
+		</div>
+		<div class="content-block">
+			<ul class="list-group"><h3>Tracks</h3>
 				<% if signed_in? %>
-			<div class="content-block">
-				<ul class="list-group" style="color:black">
 					<%= link_to favorite_tracks_path(current_user), remote:true do %><li class="list-group-item">Wow Tracks</li><% end %>
 					<%= link_to following_path(current_user), remote:true do %><li class="list-group-item">Favorite Users</li><% end %>
-				</ul>
-			</div>
 				<% end %>
+				<%= link_to top_tracks_path, remote: true do %><li class="list-group-item">Top Tracks</li>li<% end %>
+			</ul>
+		</div>
 		<div class="content-block">
 			<h3>Tags</h3>
 			<%= render @tags %>

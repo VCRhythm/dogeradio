@@ -12,9 +12,17 @@
 #  description :string(255)
 #  created_at  :datetime
 #  updated_at  :datetime
+#  user_id     :integer
 #
 
 class Venue < ActiveRecord::Base
 	has_many :events
 	belongs_to :user
+
+	geocoded_by :address, latitude: :latitude, longitude: :longitude
+	after_validation :geocode
+
+	def address
+		"#{street}, #{state} #{zipcode}, #{country}"
+	end
 end

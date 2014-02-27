@@ -1,11 +1,28 @@
 class VenuesController < ApplicationController
+	before_action :set_venue, only: [:show, :edit, :update, :destroy]
+
+  	def index
+		@venues = Venue.includes(:events).near([location.latitude, location.longitude], 100)
+  	end
+
 	def new
 		@venue = Venue.new
 	end
+
 	def create
 		@venue = current_user.venues.new(venue_params)
-		@venue.save
-		redirect_to root_path
+		respond_to do |format|
+			if @venue.save
+				format.html { redirect_to @venue, notice: 'Venue was sucessfully created.' }
+				format.json { render action: 'show', status: :created, location: @venue }
+			else
+				format.html { render action: 'new' }
+				format.json { render json: @venue.errors, status: :unprocessable_entity }
+			end
+		end
+	end
+
+	def show
 	end
 
 	private

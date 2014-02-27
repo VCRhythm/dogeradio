@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140226232505) do
+ActiveRecord::Schema.define(version: 20140227221246) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20140226232505) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "when"
   end
 
   create_table "favorites", force: true do |t|
@@ -228,6 +229,8 @@ ActiveRecord::Schema.define(version: 20140226232505) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   add_index "venues", ["user_id"], name: "index_venues_on_user_id"

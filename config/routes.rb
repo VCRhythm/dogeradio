@@ -5,8 +5,6 @@ Dogeradio::Application.routes.draw do
 	get 'upload', to: 'tracks#upload'
 	post 'update_location', to: 'tracks#update_location'
 	get 'recent_tips', to: 'transactions#recent'
-	get 'soundcloud', to: 'users#soundcloud_auth'
-	get 'soundcloud_callback', to: 'users#soundcloud_callback'
 	get 'explore', to: 'tracks#explore'
 
 	post 'guest_charge', to: 'transactions#guest_charge'
@@ -14,10 +12,11 @@ Dogeradio::Application.routes.draw do
 	post 'search', to: 'search#search'
 	get 'autocomplete', to: 'search#autocomplete'
 
-	post 'payout', to: 'users#payout'
+	resources :venues do
+		resources :events
+  end
 
-	resources :venues
-	resources :events
+	resources :events, only: :index
 
 	resources :playlists, only: [:show] do
 		post :sort
@@ -26,6 +25,7 @@ Dogeradio::Application.routes.draw do
 	
 #	post '/tags/:id/search', to: 'tags#search'
 
+  get 'top_tracks', to: "tracks#top_tracks"
 	resources :tracks do
 		resources :plays
 		resources :tags
@@ -40,7 +40,11 @@ Dogeradio::Application.routes.draw do
 	post 'hold_charge', to: "transactions#hold_charge"
 	resources :transactions, only: [:index] 
 
+	get 'soundcloud', to: 'users#soundcloud_auth'
+	get 'soundcloud_callback', to: 'users#soundcloud_callback'
+	post 'payout', to: 'users#payout'
 	get ':username', to:'users#show', as: :user
+	resources :users, only: :index
 	scope ':username' do
 		post 'autopay' => 'users#autopay'
 		post 'pay' => 'users#pay'

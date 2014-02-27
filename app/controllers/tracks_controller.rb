@@ -1,5 +1,5 @@
 class TracksController < ApplicationController
-  before_action :set_track, only: [:show, :edit, :update, :destroy]
+  	before_action :set_track, only: [:show, :edit, :update, :destroy]
 	skip_before_filter :verify_authenticity_token
 	helper_method :current_or_guest_user
 
