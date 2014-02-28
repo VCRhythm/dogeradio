@@ -1,8 +1,10 @@
 <%= form_tag update_location_path, class: 'form-inline', role: "form", remote: true do %> 
-	<div class="form-group">
-		<%= text_field_tag :location, nil, placeholder: 'Search location', class:"form-control input-sm" %>
+	<div class="input-group">
+		<%= text_field_tag :location, nil, placeholder: 'Search location', class:"form-control input-md" %>
+		<span class="input-group-btn">
+			<%= button_tag type: "submit", class: "btn btn-primary btn-md" do %>
+			<span class="glyphicon glyphicon-map-marker"></span>
+			<% end %>
+		</span>
 	</div>
-	<%= button_tag type: "submit", class: "btn btn-primary btn-md" do %>
-		<span class="glyphicon glyphicon-map-marker"></span>
-	<% end %>
 <% end %>

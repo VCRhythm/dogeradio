@@ -1,8 +1,8 @@
 .twitter-typeahead{
-	position:relative;
-  width:79%;
   vertical-align:top;
+  display: block !important;
 }
+
 .twitter-typeahead .tt-query,
 .twitter-typeahead .tt-hint {
   margin: 0;

@@ -4,7 +4,6 @@ class TracksController < ApplicationController
 	helper_method :current_or_guest_user
 
 	def upload
-		
 	end
 
 	def update_location
@@ -25,6 +24,8 @@ class TracksController < ApplicationController
 		
 		#Local Users
 		@local_users = find_local_users
+		@venues = Venue.includes(:events).near([location.latitude, location.longitude], 100)
+		@local_events = @venues.collect {|venue| venue.events}.first
 
 #		@new_tracks = Music.order(created_at: :desc).where(processed: true).limit(5)
 #		@active_users = Array.new

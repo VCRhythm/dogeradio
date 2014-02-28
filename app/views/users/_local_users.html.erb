@@ -1,6 +1,8 @@
 <h3>Local</h3>
+<%= render partial: 'shared/enter_location' %>
 <% if @location && users.exists? %>
-	<%= render 'shared/local_events' %>
+	<h4>Events</h4>
+	<%= render events %>
+	<h4>Users</h4>
 	<%= render partial: 'users/user_list', locals: {users: users } %>
 <% end %>
-<%= render partial: 'shared/enter_location' %>

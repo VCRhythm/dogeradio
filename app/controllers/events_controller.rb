@@ -4,8 +4,6 @@ class EventsController < ApplicationController
 	before_filter :authenticate_user!, only: [:new, :create]
 	
 	def index
-		counter = 0
-		@events = Array.new
 		@venues = Venue.includes(:events).near([location.latitude, location.longitude], 100)
 		@events = @venues.collect {|venue| venue.events}.first
 	end

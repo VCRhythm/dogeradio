@@ -8,11 +8,21 @@
     font-path('glyphicons-halflings-regular.ttf') format('truetype'), 
     font-path('glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
-#search-form{
-	display: inline-block;
+
+#search_form{
+		display:inline-block;
+		width:79%;
 }
+
 #search_button{
-	width: 18%;
+	width:18%;
+}
+
+.navbar-nav.navbar-right:last-child{
+	margin-right:0;
+}
+.navbar-form.navbar-right:last-child{
+	margin-right:-10px;
 }
 
 .datetimepicker {
