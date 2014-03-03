@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20140227221246) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "when"
+    t.datetime "moment"
   end
 
   create_table "favorites", force: true do |t|

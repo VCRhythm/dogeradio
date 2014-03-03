@@ -22,6 +22,11 @@ class Venue < ActiveRecord::Base
 	geocoded_by :address, latitude: :latitude, longitude: :longitude
 	after_validation :geocode
 
+
+	def self.local (latitude, longitude, distance)
+		near([latitude, longitude], distance).joins(:events).where("moment > ?", Time.zone.now)
+	end
+
 	def address
 		"#{street}, #{state} #{zipcode}, #{country}"
 	end

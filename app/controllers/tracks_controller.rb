@@ -24,7 +24,7 @@ class TracksController < ApplicationController
 		
 		#Local Users
 		@local_users = find_local_users
-		@venues = Venue.includes(:events).near([location.latitude, location.longitude], 100)
+		@venues = Venue.local(location.latitude, location.longitude, 100)
 		@local_events = @venues.collect {|venue| venue.events}.first
 
 #		@new_tracks = Music.order(created_at: :desc).where(processed: true).limit(5)
@@ -81,10 +81,8 @@ class TracksController < ApplicationController
       params.require(:track).permit(:name, :user_id, :url, :source)
     end
 
-		def find_local_users
-			if location
-				User.artists.near([location.latitude, location.longitude], 100)
-			end
-		end
+	def find_local_users
+		User.local(location.latitude, location.longitude, 100)
+	end
 
 end

@@ -69,6 +69,10 @@ class UsersController < ApplicationController
 		render 'nopay'
 	end
 
+	def local_users
+		@users = User.local(location.latitude, location.longitude, 100)
+	end
+
 	def index
 		@users = User.all
 	end

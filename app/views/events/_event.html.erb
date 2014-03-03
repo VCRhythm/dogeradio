@@ -1,3 +1,3 @@
 <h3><%= event.name %></h3>
-<p><%= event.when.to_formatted_s(:long_ordinal) if event.when %></p>
+<p><%= event.moment.to_formatted_s(:long_ordinal) if event.moment %></p>
 <p><%= event.description %></p>

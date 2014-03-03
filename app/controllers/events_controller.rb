@@ -4,7 +4,7 @@ class EventsController < ApplicationController
 	before_filter :authenticate_user!, only: [:new, :create]
 	
 	def index
-		@venues = Venue.includes(:events).near([location.latitude, location.longitude], 100)
+		@venues = Venue.local(location.latitude, location.longitude, 100)
 		@events = @venues.collect {|venue| venue.events}.first
 	end
 	
@@ -30,15 +30,17 @@ class EventsController < ApplicationController
 	end
 
 	private
+    
     def set_venue
 		@venue = Venue.find(params[:venue_id])
     end
+    
     def set_event
       @event = Event.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:name, :featured, :description, :when)
+      params.require(:event).permit(:name, :featured, :description, :moment)
     end
 end

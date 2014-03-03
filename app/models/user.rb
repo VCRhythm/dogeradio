@@ -142,6 +142,10 @@ class User < ActiveRecord::Base
 	include CI_Find
 	include CI_Find_First
 
+	def self.local (latitude, longitude, distance)
+		artists.near([latitude, longitude], distance).where(publish_address: true)
+	end
+
 	def followers_count
 		followers.count
 	end

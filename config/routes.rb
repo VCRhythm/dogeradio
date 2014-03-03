@@ -40,12 +40,18 @@ Dogeradio::Application.routes.draw do
 	post 'hold_charge', to: "transactions#hold_charge"
 	resources :transactions, only: [:index] 
 
+  resources :votes, only: [:create, :destroy]
+  resources :favorites, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
+
 	get 'soundcloud', to: 'users#soundcloud_auth'
 	get 'soundcloud_callback', to: 'users#soundcloud_callback'
 	post 'payout', to: 'users#payout'
-	get ':username', to:'users#show', as: :user
-	resources :users, only: :index
-	scope ':username' do
+		
+  get 'local_users', to: 'users#local_users'
+  resources :users, only: :index
+	
+  scope ':username' do
 		post 'autopay' => 'users#autopay'
 		post 'pay' => 'users#pay'
 		post 'update_balance' => 'users#update_balance'
@@ -53,12 +59,9 @@ Dogeradio::Application.routes.draw do
 		get 'followers' => 'users#followers'
 		get 'favorite_tracks'=> 'users#favorite_tracks'
 	end
-		
-	resources :votes, only: [:create, :destroy]
-	resources :favorites, only: [:create, :destroy]
-	resources :relationships, only: [:create, :destroy]
-
-  # The priority is based upon order of creation: first created -> highest priority.
+	
+  get ':username', to:'users#show', as: :user	
+	# The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"

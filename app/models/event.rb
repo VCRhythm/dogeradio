@@ -10,16 +10,18 @@
 #  description :string(255)
 #  created_at  :datetime
 #  updated_at  :datetime
-#  when        :datetime
+#  moment      :datetime
 #
 
 class Event < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :venue
 	has_many :tags
-	default_scope { order(when: :desc)}
+	
+	default_scope { order(moment: :desc)}
 
-	validates :name, :when, :user_id, :venue_id, presence: true
+	scope :upcoming, -> {where("moment > ?", Time.zone.now)}
 
+	validates :name, :moment, :user_id, :venue_id, presence: true
 
 end
