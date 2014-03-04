@@ -8,7 +8,7 @@ class TracksController < ApplicationController
 
 	def update_location
 		@local_users = User.local(100, location)
-	
+	end
 	def top_tracks
 		@top_most_played_tracks = Track.most_played
 	end

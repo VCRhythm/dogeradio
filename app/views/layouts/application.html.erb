@@ -27,7 +27,7 @@
 				</div>
 				<div class="navbar-collapse collapse" style="height:auto;">
 					<ul class="nav navbar-nav navbar-left">
-						<li><%= link_to explore_path, remote: true, class: "remote-link" do %>Find<% end %></li>
+						<li><%= link_to explore_path, remote: true, class: "remote-link" do %>Discover<% end %></li>
 						<% if user_signed_in? %><li><%= link_to upload_path, remote: true, class: "remote-link" do %>Create<% end %></li><% end %>
 					</ul>
 					<ul class="nav navbar-nav navbar-right logged-text" style="margin-top:13px; margin-left:3px;">
@@ -60,7 +60,7 @@
 	</div>
 	<div id="footer" style="background-color:#005d74;">
 		<div class="container">
-			<p class="muted credit">2014 &copy; DogeRadio <%=mail_to "tristan@dogeradio.com", "Contact"%> <span class="pull-right">Donations: DRj3vRoA6atJrVsWqMBB3gznZ8HVu7LX4c</span></p>
+			<p class="muted credit">2014 &copy; <%= link_to "DogeRadio", about_path, remote: true, class: "remote-link" %> <%=mail_to "tristan@dogeradio.com", "Contact"%> <span class="pull-right">Donations: DRj3vRoA6atJrVsWqMBB3gznZ8HVu7LX4c</span></p>
 		</div>
 	</div>
 </body>

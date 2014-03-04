@@ -1,6 +1,9 @@
 <%= render partial: 'shared/favorite_form', locals: {track: track} if signed_in? %>	
 <% if track.user != current_user %>
 	<%= link_to pay_path(track.user, user: {track_id: track.id, method:"tip"}), method: :post, remote: true do %>
-		<%= image_tag 'dogecoin-icon.png', alt: 'Tip', style:"height:23px;" %>
+		<%= image_tag 'dogecoin-icon.png', alt: 'Tip!', style:"height:23px;", id: "pay-user-track-link", data: {toggle:"tooltip", placement:"left", title:"Send thanks!"} %>
 	<% end %>
 <% end %>
+<script>
+	$('#pay-user-track-link').tooltip();
+</script>
