@@ -13,6 +13,9 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  user_id     :integer
+#  lat         :float
+#  lng         :float
+#  gmaps       :boolean
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

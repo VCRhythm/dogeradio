@@ -70,7 +70,7 @@ class UsersController < ApplicationController
 	end
 
 	def local_users
-		@users = User.local(location.latitude, location.longitude, 100)
+		@users = User.local(100, location)
 	end
 
 	def index

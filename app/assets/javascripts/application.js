@@ -15,6 +15,8 @@
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require bootstrap
+//= require underscore
+//= require gmaps/google
 //= require twitter/typeahead
 //= require jquery.turbolinks
 //= require jquery.jplayer

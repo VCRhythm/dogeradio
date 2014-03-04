@@ -40,8 +40,8 @@
 #  state                   :string(255)
 #  zipcode                 :string(255)
 #  country                 :string(255)
-#  latitude                :float
-#  longitude               :float
+#  lat                     :float
+#  lng                     :float
 #  publish_address         :boolean          default(FALSE)
 #
 

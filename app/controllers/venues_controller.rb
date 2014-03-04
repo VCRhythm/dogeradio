@@ -2,8 +2,8 @@ class VenuesController < ApplicationController
 	before_action :set_venue, only: [:show, :edit, :update, :destroy]
 
   	def index
-		@venues = Venue.includes(:events).near([location.latitude, location.longitude], 100)
-  	end
+		@venues = Venue.local(100, location).includes(:events)
+	end
 
 	def new
 		@venue = Venue.new
@@ -23,6 +23,10 @@ class VenuesController < ApplicationController
 	end
 
 	def show
+		@hash = Gmaps4rails.build_markers(@venue) do |venue, marker|
+			marker.lat venue.lat
+			marker.lng venue.lng
+		end
 	end
 
 	private

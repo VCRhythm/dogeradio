@@ -40,8 +40,8 @@
 #  state                   :string(255)
 #  zipcode                 :string(255)
 #  country                 :string(255)
-#  latitude                :float
-#  longitude               :float
+#  lat                     :float
+#  lng                     :float
 #  publish_address         :boolean          default(FALSE)
 #
 
@@ -57,9 +57,11 @@ class User < ActiveRecord::Base
 	has_many :venues
 	has_many :events
 
-	geocoded_by :address, latitude: :latitude, longitude: :longitude
+	geocoded_by :address, latitude: :lat, longitude: :lng
 	after_validation :geocode,
 		if: ->(obj){ obj.address.present? and obj.address_changed? }
+
+	acts_as_mappable
 
 	searchkick text_start: [:username, :display_name, :address], index_name: 'users_index'
 	validates_format_of :username, with: /\A[A-Za-z0-9.&]*\Z/, message: "can only be alphanumeric."
@@ -142,8 +144,8 @@ class User < ActiveRecord::Base
 	include CI_Find
 	include CI_Find_First
 
-	def self.local (latitude, longitude, distance)
-		artists.near([latitude, longitude], distance).where(publish_address: true)
+	def self.local(distance, origin)
+		within(distance, origin: origin).order('distance DESC')
 	end
 
 	def followers_count
@@ -215,5 +217,5 @@ class User < ActiveRecord::Base
 	def init
 		self.display_name = self.username
 	end
-	
+
 end

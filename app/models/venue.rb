@@ -13,21 +13,30 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  user_id     :integer
+#  lat         :float
+#  lng         :float
+#  gmaps       :boolean
 #
 
 class Venue < ActiveRecord::Base
 	has_many :events
 	belongs_to :user
 
-	geocoded_by :address, latitude: :latitude, longitude: :longitude
-	after_validation :geocode
+	geocoded_by :address, latitude: :lat, longitude: :lng
+	after_validation :geocode,
+		if: lambda { |obj| obj.street_changed? || obj.city_changed? || obj.state_changed? || obj.country_changed? || obj.zipcode_changed? }
 
+	acts_as_mappable
 
-	def self.local (latitude, longitude, distance)
-		near([latitude, longitude], distance).joins(:events).where("moment > ?", Time.zone.now)
+	def self.local(distance, origin)
+		within(distance, origin: origin).order('distance DESC')
 	end
 
 	def address
 		"#{street}, #{state} #{zipcode}, #{country}"
+	end
+
+	def gmaps4rails_address
+		address
 	end
 end

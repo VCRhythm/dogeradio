@@ -1,3 +1,15 @@
-<h3><%= venue.name %></h3>
+<h3><%= link_to venue.name, venue %></h3>
 <p><%= venue.description %></p>
 <p><%= venue.address %></p>
+<div style="width:200px;">
+	<div id="map" style="width:200px; height:200px;"></div>
+</div>
+
+<script>
+	handler = Gmaps.build('Google');
+	handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+	  markers = handler.addMarkers(<%=raw @hash.to_json %>);
+	  handler.bounds.extendWith(markers);
+	  handler.fitMapToBounds();
+});
+</script>

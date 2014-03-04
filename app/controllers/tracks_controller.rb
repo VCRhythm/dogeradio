@@ -7,24 +7,26 @@ class TracksController < ApplicationController
 	end
 
 	def update_location
-		@local_users = find_local_users	
-	end
+		@local_users = User.local(100, location)
 	
+	def top_tracks
+		@top_most_played_tracks = Track.most_played
+	end
+
 	def explore
 		@top_most_played_tracks = Track.most_played
 		@tags = Tag.unique_tags
 	end
 
 	def update_player
-    @track = Track.find(params[:track_id])
+    	@track = Track.find(params[:track_id])
 		@player_position = params[:position]
 	end
 
 	def index
-		
 		#Local Users
-		@local_users = find_local_users
-		@venues = Venue.local(location.latitude, location.longitude, 100)
+		@local_users = User.local(100, location)
+		@venues = Venue.local(100, location)
 		@local_events = @venues.collect {|venue| venue.events}.first
 
 #		@new_tracks = Music.order(created_at: :desc).where(processed: true).limit(5)
@@ -80,9 +82,5 @@ class TracksController < ApplicationController
     def track_params
       params.require(:track).permit(:name, :user_id, :url, :source)
     end
-
-	def find_local_users
-		User.local(location.latitude, location.longitude, 100)
-	end
 
 end

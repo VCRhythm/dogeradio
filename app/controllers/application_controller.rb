@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
+  	protect_from_forgery with: :exception
 	before_filter :configure_permitted_parameters, if: :devise_controller?
 	before_action :set_transactions
 	before_action :set_queue
@@ -54,13 +54,13 @@ class ApplicationController < ActionController::Base
 	def location
 		if params[:location].blank?
 			if Rails.env.test? || Rails.env.development?
-				@location ||= Geocoder.search("69.243.26.55").first
+				@location ||= Geokit::Geocoders::MultiGeocoder.geocode("69.243.26.55")
 			else
-				@location ||= request.location
+				@location ||= geocode_ip_address
 			end
 		else
 			params[:location].each {|l| l = l.to_i } if params[:location].is_a? Array
-			@location ||= Geocoder.search(params[:location]).first
+			@location ||= Geokit::Geocoders::MultiGeocoder.geocode(params[:location])
 		end
 		@location
 	end

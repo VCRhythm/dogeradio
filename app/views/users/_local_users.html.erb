@@ -1,4 +1,4 @@
-<h3>Local</h3>
+<h3>Local<small style="float: right;"><%= @location.city %>, <%=@location.state %></small></h3>
 <%= render partial: 'shared/enter_location' %>
 <% if @location && users.exists? %>
 	<h4>Events</h4>

@@ -1,6 +1,8 @@
 <%= render 'shared/action_panel' %>
 <div class="content-block">
 	<%= render @venue %>
-	<%= button_to new_venue_event_path(@venue), remote: true, method: :get, class: "btn btn-primary" do %>Add Event <span class="glyphicon glyphicon-calendar"></span><% end %>
+	<% if signed_in? %>
+		<%= button_to new_venue_event_path(@venue), remote: true, method: :get, class: "btn btn-primary" do %>Add Event <span class="glyphicon glyphicon-calendar"></span><% end %>
+	<% end %>
 	<%= render @venue.events %>
 </div>

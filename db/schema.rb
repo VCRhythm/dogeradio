@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140227221246) do
+ActiveRecord::Schema.define(version: 20140303192039) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
@@ -208,13 +208,14 @@ ActiveRecord::Schema.define(version: 20140227221246) do
     t.string   "state"
     t.string   "zipcode"
     t.string   "country"
-    t.float    "latitude"
-    t.float    "longitude"
+    t.float    "lat"
+    t.float    "lng"
     t.boolean  "publish_address",         default: false
+    t.float    "distance"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["latitude", "longitude"], name: "index_users_on_latitude_and_longitude"
+  add_index "users", ["lat", "lng"], name: "index_users_on_lat_and_lng"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["username"], name: "index_users_on_username", unique: true
 
@@ -229,8 +230,10 @@ ActiveRecord::Schema.define(version: 20140227221246) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.float    "latitude"
-    t.float    "longitude"
+    t.float    "lat"
+    t.float    "lng"
+    t.boolean  "gmaps"
+    t.float    "distance"
   end
 
   add_index "venues", ["user_id"], name: "index_venues_on_user_id"
