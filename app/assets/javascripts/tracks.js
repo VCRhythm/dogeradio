@@ -101,6 +101,9 @@ $(document).ready(function(){
 		position = $(this).parent().attr('data-playlist_number');
 		updatePlayer(position);
 		$('body').animate({scrollTop: $("#player").offset().top-110}, 500);
+	}).on('click', '.list-group-item', function(){
+		$('.list-group-item').removeClass('active');
+		$(this).addClass('active');
 	});
 
 	$('.sortable').sortable({
