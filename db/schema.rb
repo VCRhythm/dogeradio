@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140303192039) do
+ActiveRecord::Schema.define(version: 20140219193957) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
@@ -35,17 +35,6 @@ ActiveRecord::Schema.define(version: 20140303192039) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
-
-  create_table "events", force: true do |t|
-    t.integer  "user_id"
-    t.boolean  "featured"
-    t.string   "name"
-    t.integer  "venue_id"
-    t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "moment"
-  end
 
   create_table "favorites", force: true do |t|
     t.integer  "track_id"
@@ -164,8 +153,6 @@ ActiveRecord::Schema.define(version: 20140303192039) do
     t.string   "method"
     t.integer  "track_id"
     t.boolean  "pending",    default: true
-    t.string   "email"
-    t.string   "account"
   end
 
   add_index "transactions", ["track_id"], name: "index_transactions_on_track_id"
@@ -201,42 +188,11 @@ ActiveRecord::Schema.define(version: 20140303192039) do
     t.float    "transaction_fee",         default: 0.04
     t.string   "website"
     t.boolean  "autotip",                 default: false
-    t.string   "display_name"
-    t.string   "address"
-    t.string   "street"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zipcode"
-    t.string   "country"
-    t.float    "lat"
-    t.float    "lng"
-    t.boolean  "publish_address",         default: false
-    t.float    "distance"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["lat", "lng"], name: "index_users_on_lat_and_lng"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["username"], name: "index_users_on_username", unique: true
-
-  create_table "venues", force: true do |t|
-    t.string   "name"
-    t.string   "street"
-    t.string   "city"
-    t.string   "state"
-    t.string   "country"
-    t.string   "zipcode"
-    t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "user_id"
-    t.float    "lat"
-    t.float    "lng"
-    t.boolean  "gmaps"
-    t.float    "distance"
-  end
-
-  add_index "venues", ["user_id"], name: "index_venues_on_user_id"
 
   create_table "votes", force: true do |t|
     t.integer  "user_id"
