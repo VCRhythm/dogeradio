@@ -1,5 +1,7 @@
-<%= link_to pay_path(event.user, user:{method:"event-tip"}), method: :post, remote: true do %>
-	<%= image_tag 'dogecoin75px.png', alt: 'Tip', style:"height:75px; float:right;", id: "pay-user-link", data: {toggle:"tooltip", placement:"left", title:"Send thanks!"} %>
+<% if event.user != current_user %>
+	<%= link_to pay_path(event.user, user:{method:"event-tip"}), method: :post, remote: true do %>
+		<%= image_tag 'dogecoin75px.png', alt: 'Tip', style:"height:75px; float:right;", id: "pay-user-link", data: {toggle:"tooltip", placement:"left", title:"Send thanks!"} %>
+	<% end %>
 <% end %>
 <h3><%= link_to event.name, event, remote: true, class: "remote-link" %></h3>
 	
