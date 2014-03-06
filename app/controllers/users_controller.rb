@@ -108,7 +108,7 @@ class UsersController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :track_id, :code, :amount, :category)
+      params.require(:user).permit(:username, :track_id, :code, :amount, :category, :method)
     end
 
 		def pay_user(user, amount, method, track_id)

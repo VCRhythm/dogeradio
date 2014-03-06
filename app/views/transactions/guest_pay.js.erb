@@ -1,1 +1,1 @@
-$('.modal-body').html("<%=j render partial: 'shared/account', locals: {value: @transaction.value, account: @transaction.account } %>");
+$('.modal-body').html("<%=j render partial: 'shared/account', locals: {amount: @transaction.value, account: @transaction.account } %>");

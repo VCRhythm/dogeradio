@@ -1,5 +1,5 @@
 <h3><%= link_to venue.name, venue %></h3>
-<p><%= venue.description %></p>
+<p><%= html_escape(venue.description).gsub(/\n/, '<br />').html_safe %></p>
 <p><%= venue.address %></p>
 <div style="width:200px;">
 	<div id="map" style="width:200px; height:200px;"></div>

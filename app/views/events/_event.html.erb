@@ -1,3 +1,7 @@
-<h3><%= event.name %></h3>
+<%= link_to pay_path(event.user, user:{method:"event-tip"}), method: :post, remote: true do %>
+	<%= image_tag 'dogecoin75px.png', alt: 'Tip', style:"height:75px; float:right;", id: "pay-user-link", data: {toggle:"tooltip", placement:"left", title:"Send thanks!"} %>
+<% end %>
+<h3><%= link_to event.name, event %></h3>
+	
 <p><%= event.moment.to_formatted_s(:long_ordinal) if event.moment %></p>
-<p><%= event.description %></p>
+<p><%= html_escape(event.description).gsub(/\n/, '<br />').html_safe %></p>

@@ -17,7 +17,7 @@ Dogeradio::Application.routes.draw do
 		resources :events
   end
 
-	resources :events, only: :index
+	resources :events, only: [:index, :show]
 
 	resources :playlists, only: [:show] do
 		post :sort
