@@ -145,7 +145,7 @@ class User < ActiveRecord::Base
 	include CI_Find_First
 
 	def self.local(distance, origin)
-		within(distance, origin: origin).order('distance DESC')
+		artists.within(distance, origin: origin).order('distance DESC')
 	end
 
 	def followers_count
