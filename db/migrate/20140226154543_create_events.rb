@@ -5,7 +5,7 @@ class CreateEvents < ActiveRecord::Migration
       t.boolean :featured
       t.string :name
       t.belongs_to :venue
-      t.string :description
+      t.text :description
 
       t.timestamps
     end

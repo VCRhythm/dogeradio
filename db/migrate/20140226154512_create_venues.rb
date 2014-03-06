@@ -7,7 +7,7 @@ class CreateVenues < ActiveRecord::Migration
       t.string :state
       t.string :country
       t.string :zipcode
-      t.string :description
+      t.text :description
 
       t.timestamps
     end
