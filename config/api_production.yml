@@ -2,5 +2,5 @@ production:
   doge_api_key: <%= ENV["DOGE_API_KEY"] %>
   soundcloud_id: <%= ENV["SOUNDCLOUD_ID"] %>
   soundcloud_secret: <%= ENV["SOUNDCLOUD_SECRET"] %>
-  google_api: <%= ENV["GOOGLE_API_KEY"] %>
-  bing_api: <%= ENV["BING_API_KEY"] %>
+  google_api: <%= ENV["GOOGLE_API"] %>
+  bing_api: <%= ENV["BING_API"] %>
