@@ -1,4 +1,4 @@
-<h3><%= link_to venue.name, venue %></h3>
+<h3><%= link_to venue.name, venue, class: "remote-link", remote: true %></h3>
 <p><%= html_escape(venue.description).gsub(/\n/, '<br />').html_safe %></p>
 <p><%= venue.address %></p>
 <div style="width:200px;">
@@ -11,5 +11,6 @@
 	  markers = handler.addMarkers(<%=raw @hash.to_json %>);
 	  handler.bounds.extendWith(markers);
 	  handler.fitMapToBounds();
-});
+	});
+
 </script>
