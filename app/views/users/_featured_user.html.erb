@@ -2,7 +2,9 @@
 	<h3>Featured Artist</h3>
 	<div class="media">
 		<%= link_to user, class: "pull-left" do %>
-			<%= image_tag user.avatar.url(:thumb), class: "media-object" %>
+			<% if user.avatar %>
+				<%= image_tag user.avatar.url(:thumb), class: "media-object" %>
+			<% end %>
 		<% end %>
 		<div class="media-body" style="min-height:100px;">
 			<h4 class="media-heading"><strong><%= link_to user.display_name, user, remote: true, class: "remote-link" %></strong></h4>
