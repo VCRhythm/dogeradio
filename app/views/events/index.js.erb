@@ -1,4 +1,4 @@
-<% if @events.exists? %>
+<% if @events %>
 	$("#action-panel").html("<h3>Local Events</h3><%=j render @events %>").slideDown();
 <% else %>
 	$("#action-panel").html("<h3>Local Events</h3><p>There are no local events.</p>").slideDown();
