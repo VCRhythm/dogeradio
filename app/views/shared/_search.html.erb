@@ -1,4 +1,4 @@
-<%= form_tag search_path, class: 'navbar-form navbar-right', role: "search", remote: true do %> 
+<%= form_tag search_path, class: 'navbar-form navbar-right navbar-input-group', role: "search", remote: true do %> 
 	<div class="form-group" id="search_form">
 		<%= hidden_field :search, :type, value: 'all' %>
 		<%= search_field :search, :query, placeholder: 'Search', id: "search_query", class:"form-control input-sm" %>

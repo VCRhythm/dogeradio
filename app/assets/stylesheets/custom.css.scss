@@ -9,7 +9,29 @@
     font-path('glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
-#search_form{
+.navbar-input-group{
+	@media (min-width: $screen-sm) {
+		font-size:0px;
+		#search_query {
+			border-top-right-radius: 0px;
+			border-bottom-right-radius: 0px;
+		}
+		.btn {
+			border-top-left-radius:0px;
+			border-bottom-left-radius:0px;
+			border-left:0px;
+		}
+	}
+	@media (max-width: $screen-xs-max) {
+		margin-top:0px;
+		margin-bottom: 0px;
+		.twitter-typeahead{
+			width:100%;
+		}
+		.btn {
+			width:100%;
+		}
+	}
 }
 
 
