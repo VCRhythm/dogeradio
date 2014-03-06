@@ -4,6 +4,7 @@
 	<% end %>
 <% end %>
 <h3><%= link_to event.name, event, remote: true, class: "remote-link" %></h3>
+<p><small><%= link_to event.venue.name, event.venue, remote: true, class: "remote-link" %></small></p>
 	
 <p><%= event.moment.to_formatted_s(:long_ordinal) if event.moment %></p>
 <p><%= html_escape(event.description).gsub(/\n/, '<br />').html_safe %></p>

@@ -1,6 +1,6 @@
 <div class="action-panel content-block">
 	<% if @venues.exists? %>
-		<h3>Local Venues</h3><%= render @venues %>
+		<h3>Local Venues</h3><%= render @venues #Add template with no map %>
 	<% else %>
 		<h3>Local Venues</h3><p>There are no local venues.</p>
 	<% end %>
