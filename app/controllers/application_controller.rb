@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 	before_filter :configure_permitted_parameters, if: :devise_controller?
 	before_action :set_transactions
 	before_action :set_queue
+	geocode_ip_address
 
 	# if user is logged in, return current_user, else return guest_user
 	def current_or_guest_user
@@ -56,7 +57,7 @@ class ApplicationController < ActionController::Base
 			if Rails.env.test? || Rails.env.development?
 				@location ||= Geokit::Geocoders::MultiGeocoder.geocode("69.243.26.55")
 			else
-				@location ||= geocode_ip_address
+				@location ||= session[:geo_location]
 			end
 		else
 			params[:location].each {|l| l = l.to_i } if params[:location].is_a? Array
