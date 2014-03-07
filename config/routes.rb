@@ -13,6 +13,7 @@ Dogeradio::Application.routes.draw do
 	post 'search', to: 'search#search'
 	get 'autocomplete', to: 'search#autocomplete'
 
+  get 'local_venues', to: 'venues#local_venues'
 	resources :venues do
 		resources :events
   end

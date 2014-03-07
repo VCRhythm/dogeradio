@@ -2,13 +2,17 @@ class VenuesController < ApplicationController
 	before_action :set_venue, only: [:show, :edit, :update, :destroy]
 
   	def index
-		@venues = Venue.local(100, location).includes(:events)
+		@venues = Venue.all
 	end
 
 	def new
 		@venue = Venue.new
 	end
-
+	
+	def local_venues
+		@venues = Venue.local(100, location).includes(:events)
+	end
+	
 	def create
 		@venue = current_user.venues.new(venue_params)
 		respond_to do |format|
@@ -27,6 +31,8 @@ class VenuesController < ApplicationController
 			marker.lat venue.lat
 			marker.lng venue.lng
 		end
+		@upcoming_events = @venue.events.upcoming
+		@archived_events = @venue.events.archived
 	end
 
 	private

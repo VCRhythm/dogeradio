@@ -18,10 +18,8 @@ class Event < ActiveRecord::Base
 	belongs_to :venue
 	has_many :tags
 	
-	default_scope { order(moment: :desc)}
-
-	scope :upcoming, -> {where("moment > ?", Time.zone.now)}
-
+	scope :upcoming, -> {where("moment >= ?", Time.zone.now)}
+	scope :archived, -> {where("moment < ?", Time.zone.now)}
 	validates :name, :moment, :user_id, :venue_id, presence: true
 
 end

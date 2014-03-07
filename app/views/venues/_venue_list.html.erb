@@ -1,0 +1,7 @@
+<% if venues.length > 0 %>
+	<% venues.each do |venue| %>
+		<%= link_to venue.name, venue, remote: true, class: "remote-link"%>
+	<% end %>
+<% else %>
+	<p>No venues found.</p>
+<% end %>

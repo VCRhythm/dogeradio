@@ -1,11 +1,8 @@
-<%= render 'shared/action_panel' %>
-<div class="content-block">
-	<%= render @venue %>
-	<% if signed_in? %>
-		<%= button_to new_venue_event_path(@venue), remote: true, method: :get, class: "btn btn-primary" do %>Add Event <span class="glyphicon glyphicon-calendar"></span><% end %>
-	<% end %>
-	<%if @venue.events %>
-		<h4>Upcoming Events</h4>
-		<%= render @venue.events %>
-	<% end %>
-</div>
+<%= render partial: "venue_with_map", locals: {venue: @venue} %>
+<% if signed_in? %>
+	<%= button_to new_venue_event_path(@venue), remote: true, method: :get, class: "btn btn-primary" do %>Add Event <span class="glyphicon glyphicon-calendar"></span><% end %>
+<% end %>
+<%if @upcoming_events.length > 0 %>
+	<h4>Upcoming Events</h4>
+	<%= render @upcoming_events %>
+<% end %>

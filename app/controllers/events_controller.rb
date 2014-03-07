@@ -4,7 +4,7 @@ class EventsController < ApplicationController
 	before_filter :authenticate_user!, only: [:new, :create]
 	
 	def index
-		@venues = Venue.local(100, location)
+		@venues = Venue.local(100, location).with_upcoming_events
 		@events = @venues.collect {|venue| venue.events}.first
 	end
 	

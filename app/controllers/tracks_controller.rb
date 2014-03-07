@@ -26,7 +26,7 @@ class TracksController < ApplicationController
 	def index
 		#Local Users
 		@local_users = User.local(100, location)
-		@venues = Venue.local(100, location)
+		@venues = Venue.local(100, location).with_upcoming_events
 		@local_events = @venues.collect {|venue| venue.events}.first
 
 #		@new_tracks = Music.order(created_at: :desc).where(processed: true).limit(5)

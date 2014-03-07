@@ -28,6 +28,8 @@ class Venue < ActiveRecord::Base
 
 	acts_as_mappable
 
+	scope :with_upcoming_events, -> {joins(:events).merge(Event.upcoming)}
+
 	def self.local(distance, origin)
 		within(distance, origin: origin).order('distance DESC')
 	end
