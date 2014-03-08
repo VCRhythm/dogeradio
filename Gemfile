@@ -27,14 +27,16 @@ gem 'geokit-rails'
 gem 'geocoder'
 gem 'route_downcaser'
 gem 'actionpack-page_caching'
+gem 'momentjs-rails', '~> 2.5.0'
+gem 'bootstrap3-datetimepicker-rails'
 
 # Use sqlite3 as the database for Active Record
 group :development, :test do
-        gem 'sqlite3'
+    gem 'sqlite3'
 end
 
 group :assets do
-	gem 'sass-rails', '~> 4.0.0'
+  gem 'sass-rails', '~> 4.0.0'
   gem 'annotate'
   gem 'coffee-rails', '~> 4.0.0'
   gem 'uglifier', '>= 1.3.0'

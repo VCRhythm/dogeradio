@@ -43,6 +43,7 @@
 #  lat                     :float
 #  lng                     :float
 #  publish_address         :boolean          default(FALSE)
+#  distance                :float
 #
 
 class User < ActiveRecord::Base

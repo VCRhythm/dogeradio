@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140303192039) do
+ActiveRecord::Schema.define(version: 20140307195641) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
@@ -234,6 +234,10 @@ ActiveRecord::Schema.define(version: 20140303192039) do
     t.float    "lng"
     t.boolean  "gmaps"
     t.float    "distance"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "venues", ["user_id"], name: "index_venues_on_user_id"

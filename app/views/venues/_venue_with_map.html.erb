@@ -4,12 +4,12 @@
 <div>
 	<div id="map" style="width:100%; height:200px;"></div>
 </div>
-
 <script>
 	handler = Gmaps.build('Google');
 	handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
 	  markers = handler.addMarkers(<%=raw @hash.to_json %>);
 	  handler.bounds.extendWith(markers);
 	  handler.fitMapToBounds();
+	  handler.getMap().setZoom(18);
 	});
 </script>

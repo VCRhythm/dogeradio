@@ -8,6 +8,23 @@ class EventsController < ApplicationController
 		@events = @venues.collect {|venue| venue.events}.first
 	end
 	
+
+	def edit
+	end
+	
+	def update
+    	respond_to do |format|
+      		if @event.update(event_params)
+        		format.html { redirect_to @event, notice: 'Event was successfully updated.' }
+        		format.json { render action: 'show', status: :updated, location: @event }
+      		else
+        		format.html { render action: 'edit' }
+        		format.json { render json: @event.errors, status: :unprocessable_entity }
+      		end
+    	end
+  	end
+
+
 	def new
 		@event = Event.new
 	end

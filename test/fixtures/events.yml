@@ -7,7 +7,7 @@
 #  featured    :boolean
 #  name        :string(255)
 #  venue_id    :integer
-#  description :string(255)
+#  description :text
 #  created_at  :datetime
 #  updated_at  :datetime
 #  moment      :datetime

@@ -10,5 +10,7 @@
  *
  *= require_self
  *= require s3_direct_upload_progress_bars
-  *= require_tree .
+ *= require bootstrap
+ *= require bootstrap-datetimepicker
+ *= require_tree .
  */

@@ -15,6 +15,8 @@
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require bootstrap
+//= require moment
+//= require bootstrap-datetimepicker
 //= require underscore
 //= require gmaps/google
 //= require twitter/typeahead

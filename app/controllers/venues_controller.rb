@@ -9,6 +9,21 @@ class VenuesController < ApplicationController
 		@venue = Venue.new
 	end
 	
+	def edit
+	end
+	
+	def update
+    	respond_to do |format|
+      		if @venue.update(venue_params)
+        		format.html { redirect_to @venue, notice: 'Venue was successfully updated.' }
+        		format.json { render action: 'show', status: :updated, location: @venue }
+      		else
+        		format.html { render action: 'edit' }
+        		format.json { render json: @venue.errors, status: :unprocessable_entity }
+      		end
+    	end
+  	end
+
 	def local_venues
 		@venues = Venue.local(100, location).includes(:events)
 	end
@@ -42,6 +57,6 @@ class VenuesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def venue_params
-      params.require(:venue).permit(:name, :description, :street, :city, :state, :country, :zipcode)
+      params.require(:venue).permit(:avatar, :name, :description, :street, :city, :state, :country, :zipcode)
     end
 end

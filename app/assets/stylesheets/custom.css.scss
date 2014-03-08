@@ -9,6 +9,16 @@
     font-path('glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
+#map {
+	img {
+		max-width: none;
+	}
+	label {
+		width: auto;
+		display:inline;
+	}
+}
+
 .navbar-input-group{
 	@media (min-width: $screen-sm) {
 		font-size:0px;
@@ -42,7 +52,7 @@
 	margin-right:-10px;
 }
 
-.datetimepicker {
+.bootstrap-datetimepicker-widget{
 	color:black;
 }
 
