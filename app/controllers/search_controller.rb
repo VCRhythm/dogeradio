@@ -6,8 +6,22 @@ class SearchController < ApplicationController
 		render json: results
 	end
 	def tags
+		results = Tag.search @query, fields: [:description]
+		render json: results
 	end
 	def users
+		results = User.search @query, fields: [:username, :display_name, :address], facets: [:address], highlight: true
+		results.with_details.each do |result, details|
+			case details[:highlight].first[0]
+				when :address
+					if !result.publish_address
+						results.display_name = results.address
+					end
+				when :username
+					results.display_name = results.username
+			end
+		end
+		render json: results
 	end
 
 	def autocomplete
