@@ -45,6 +45,7 @@ GEM
     bootstrap3-datetimepicker-rails (2.1.30)
       momentjs-rails (~> 2.5.0)
     builder (3.1.4)
+    chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.3)
@@ -227,6 +228,7 @@ DEPENDENCIES
   bcrypt-ruby (~> 3.0.0)
   bootstrap-sass
   bootstrap3-datetimepicker-rails
+  chronic
   coffee-rails (~> 4.0.0)
   delayed_job_active_record
   devise

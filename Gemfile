@@ -29,6 +29,7 @@ gem 'route_downcaser'
 gem 'actionpack-page_caching'
 gem 'momentjs-rails', '~> 2.5.0'
 gem 'bootstrap3-datetimepicker-rails'
+gem 'chronic'
 
 # Use sqlite3 as the database for Active Record
 group :development, :test do
