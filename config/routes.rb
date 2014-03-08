@@ -16,7 +16,8 @@ Dogeradio::Application.routes.draw do
   get 'search_users', to: 'search#users'
 
   get 'local_venues', to: 'venues#local_venues'
-	resources :venues do
+	
+  resources :venues do
 		resources :events
   end
 

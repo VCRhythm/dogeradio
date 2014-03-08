@@ -10,7 +10,7 @@
 		<div class="col-sm-10">
 			<div class="input-group date" id="datetimepicker">
 				<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-				<%= f.text_field :moment, class: "form-control datetimepicker" %>
+				<%= f.text_field :moment, value: @event.moment.strftime("%m/%d/%Y %I:%M %p"), class: "form-control datetimepicker" %>
 			</div>
 		</div>
 	</div>

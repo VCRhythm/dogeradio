@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 	before_action :set_event, only: [:show, :edit, :update, :destroy]
-	before_action :set_venue, only: [:new, :create]
+	before_action :set_venue, only: [:new, :create, :edit]
 	before_filter :authenticate_user!, only: [:new, :create]
 	
 	def index
@@ -10,6 +10,7 @@ class EventsController < ApplicationController
 	
 
 	def edit
+		
 	end
 	
 	def update
