@@ -1,6 +1,15 @@
 class SearchController < ApplicationController
 	before_action :set_query
 
+	def tracks
+		results = Track.search @query, fields: [:name]
+		render json: results
+	end
+	def tags
+	end
+	def users
+	end
+
 	def autocomplete
 		results = Track.search @query, index_name: ['tags_index', 'tracks_index', 'users_index'], fields: [:name, :username, :description, :display_name, :address], facets: [:address], highlight: true, limit:10
 		result_names = Array.new()

@@ -11,7 +11,7 @@ Dogeradio::Application.routes.draw do
 	post 'guest_charge', to: 'transactions#guest_charge'
 
 	post 'search', to: 'search#search'
-	get 'autocomplete', to: 'search#autocomplete'
+	get 'search_tracks', to: 'search#tracks'
 
   get 'local_venues', to: 'venues#local_venues'
 	resources :venues do
