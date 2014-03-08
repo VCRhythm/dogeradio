@@ -2,8 +2,8 @@
 	<div class="form-group" id="search_form">
 		<%= hidden_field :search, :type, value: 'all' %>
 		<%= search_field :search, :query, placeholder: 'Search', id: "search_query", class:"form-control input-sm" %>
+		</div>
 		<%= button_tag id: "search_button", type: "submit", class: "btn btn-primary btn-sm remote-link" do %>
 			<span class="glyphicon glyphicon-search"></span>
 		<% end %>
-	</div>
 <% end %>
