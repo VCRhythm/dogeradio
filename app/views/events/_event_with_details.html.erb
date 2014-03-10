@@ -7,3 +7,4 @@
 <p><small><%= link_to event.venue.name, event.venue, remote: true, class: "remote-link" %></small></p>
 	
 <p><%= event.moment.to_date.to_s(:long_ordinal)+" at "+event.moment.strftime("%I:%M %p") if event.moment %></p>
+<p><%= html_escape(event.description).gsub(/\n/, '<br />').html_safe %></p>
