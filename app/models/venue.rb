@@ -50,6 +50,10 @@ class Venue < ActiveRecord::Base
 
 	scope :with_upcoming_events, -> {joins(:events).merge(Event.upcoming)}
 
+	def picture_from_url(url)
+		self.avatar = URI.parse(url)
+	end
+
 	def self.local(distance, origin)
 		within(distance, origin: origin).order('distance DESC')
 	end

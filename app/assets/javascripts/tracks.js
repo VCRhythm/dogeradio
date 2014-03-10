@@ -104,6 +104,14 @@ $(document).ready(function(){
 	}).on('click', '.list-group-item', function(){
 		$('.list-group-item').removeClass('active');
 		$(this).addClass('active');
+	}).on('click', '.yelp-response', function(){
+		$('#venue_name').val($(this).attr("data-name"));
+		$('#venue_street').val($(this).attr("data-street"));
+		$('#venue_city').val($(this).attr("data-city"));
+		$('#venue_state').val($(this).attr("data-state"));
+		$('#venue_zipcode').val($(this).attr("data-zipcode"));
+		$('#venue_country').val($(this).attr("data-country"));
+		$('#yelp_image').val($(this).attr('data-image-url'));
 	});
 
 	$('.sortable').sortable({

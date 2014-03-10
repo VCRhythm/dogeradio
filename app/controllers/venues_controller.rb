@@ -1,11 +1,17 @@
 class VenuesController < ApplicationController
 	before_action :set_venue, only: [:show, :edit, :update, :destroy]
+	include Yelp::V2::Search::Request
 
   	def index
 		@venues = Venue.all
 	end
 
 	def new
+		client = Yelp::Client.new
+		request = Location.new(
+			term: "concerts",
+			city: location.city)
+		@yelp_response = client.search(request)["businesses"]
 		@venue = Venue.new
 	end
 	
@@ -27,9 +33,12 @@ class VenuesController < ApplicationController
 	def local_venues
 		@venues = Venue.local(100, location).includes(:events)
 	end
-	
+
 	def create
 		@venue = current_user.venues.new(venue_params)
+		if params[:yelp_image]
+			@venue.picture_from_url(params[:yelp_image])
+		end
 		respond_to do |format|
 			if @venue.save
 				format.html { redirect_to @venue, notice: 'Venue was sucessfully created.' }
