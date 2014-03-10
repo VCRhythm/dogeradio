@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
 	before_action :set_event, only: [:show, :edit, :update, :destroy]
 	before_action :set_venue, only: [:new, :create, :edit]
+	before_action :parse_moment, only: [:update, :create]
 	before_filter :authenticate_user!, only: [:new, :create]
 	
 	def index
@@ -14,7 +15,6 @@ class EventsController < ApplicationController
 	end
 	
 	def update
-    	params[:event][:moment] = Chronic.parse(params[:event][:moment])
     	respond_to do |format|
       		if @event.update(event_params)
         		format.html { redirect_to @event, notice: 'Event was successfully updated.' }
@@ -50,6 +50,10 @@ class EventsController < ApplicationController
 
 	private
     
+	def parse_moment
+    	params[:event][:moment] = Chronic.parse(params[:event][:moment])
+    end
+
     def set_venue
 		@venue = Venue.find(params[:venue_id])
     end
