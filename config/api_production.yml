@@ -4,7 +4,7 @@ production:
   soundcloud_secret: <%= ENV["SOUNDCLOUD_SECRET"] %>
   google_api: <%= ENV["GOOGLE_API"] %>
   bing_api: <%= ENV["BING_API"] %>
-  yelp_consumer_key: <%= ENV["YELP_KEY"] %>
+  yelp_consumer_key: <%= ENV["YELP_CONSUMER_KEY"] %>
   yelp_consumer_secret: <%= ENV["YELP_CONSUMER_SECRET"] %>
   yelp_token: <%= ENV["YELP_TOKEN"] %>
   yelp_token_secret: <%= ENV["YELP_TOKEN_SECRET"] %>
