@@ -1,1 +1,5 @@
+$("#main").html("<div class='col-md-8'><%=j render 'shared/action_panel' %></div><div id='main-sidebar' class='col-md-4'></div>");
 $("#action-panel").html("<%=j render 'events/new' %>").slideDown();
+<% if @jambase_events %>
+	$("#main-sidebar").html("<%=j render 'events/jambase_events' %>");
+<% end %>

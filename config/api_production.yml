@@ -8,3 +8,4 @@ production:
   yelp_consumer_secret: <%= ENV["YELP_CONSUMER_SECRET"] %>
   yelp_token: <%= ENV["YELP_TOKEN"] %>
   yelp_token_secret: <%= ENV["YELP_TOKEN_SECRET"] %>
+  jambase_key: <%= ENV["JAMBASE_KEY"] %>

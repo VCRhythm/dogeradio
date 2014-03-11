@@ -1,0 +1,15 @@
+<div class="content-block">
+	<ul>
+	<% @jambase_events.each do |event| %>
+		<li class="jambase-event" data-artists="<%= event['Artists'].map{|artist| artist['Name']}.join(', ') %>" data-moment="<%= DateTime.parse(event['Date']).strftime("%m/%d/%Y %I:%M %p") %>">
+			<%= DateTime.parse(event["Date"]).to_s(:long_ordinal)+": " %>
+			<% event["Artists"].each_with_index do |artist, index| %>
+				<%= artist["Name"]%>
+				<% if index != event["Artists"].length - 1 %>
+					& 
+				<% end %>
+			<% end %>
+		</li>
+	<% end %>
+	</ul>
+</div>

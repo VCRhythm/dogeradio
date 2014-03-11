@@ -1,5 +1,5 @@
 class VenuesController < ApplicationController
-	before_action :set_venue, only: [:show, :edit, :update, :destroy]
+	before_action :set_venue, only: [:show, :edit, :update, :destroy, :sync_jambase_ids]
 	include Yelp::V2::Search::Request
 
   	def index
@@ -39,6 +39,7 @@ class VenuesController < ApplicationController
 		if params[:yelp_image]
 			@venue.picture_from_url(params[:yelp_image])
 		end
+		@venue.jambase_id = @venue.sync_jambase_id
 		respond_to do |format|
 			if @venue.save
 				format.html { redirect_to @venue, notice: 'Venue was sucessfully created.' }

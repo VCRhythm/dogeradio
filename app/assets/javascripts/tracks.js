@@ -112,6 +112,9 @@ $(document).ready(function(){
 		$('#venue_zipcode').val($(this).attr("data-zipcode"));
 		$('#venue_country').val($(this).attr("data-country"));
 		$('#yelp_image').val($(this).attr('data-image-url'));
+	}).on('click', '.jambase-event', function(){
+		$('#event_name').val($(this).attr('data-artists'));
+		$('#event_moment').val($(this).attr('data-moment'));
 	});
 
 	$('.sortable').sortable({

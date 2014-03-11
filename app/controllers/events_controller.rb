@@ -1,14 +1,18 @@
 class EventsController < ApplicationController
 	before_action :set_event, only: [:show, :edit, :update, :destroy]
-	before_action :set_venue, only: [:new, :create, :edit]
+	before_action :set_venue, only: [:new, :create, :edit, :venue_events]
 	before_action :parse_moment, only: [:update, :create]
 	before_filter :authenticate_user!, only: [:new, :create]
 	
+	def venue_events
+		@events = @venue.events
+		render action: 'index'
+	end
+
 	def index
 		@venues = Venue.local(100, location).with_upcoming_events
 		@events = @venues.collect {|venue| venue.events}.first
 	end
-	
 
 	def edit
 		
@@ -29,6 +33,9 @@ class EventsController < ApplicationController
 
 	def new
 		@event = Event.new
+		if @venue.jambase_id
+			@jambase_events = @venue.jambase_events
+		end
 	end
 
 	def create

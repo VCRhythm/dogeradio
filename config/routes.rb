@@ -10,6 +10,7 @@ Dogeradio::Application.routes.draw do
 
 	post 'guest_charge', to: 'transactions#guest_charge'
 
+  post 'sync_jambase_ids', to: 'venues#sync_jambase_ids'
 	post 'search', to: 'search#search'
 	get 'search_tracks', to: 'search#tracks'
   get 'search_tags', to: 'search#tags'
@@ -18,7 +19,8 @@ Dogeradio::Application.routes.draw do
   get 'local_venues', to: 'venues#local_venues'
 	
   resources :venues do
-		resources :events
+		get :events, to: "events#venue_events"
+    resources :events, except: [:index, :show]
   end
 
 	resources :events, only: [:index, :show]

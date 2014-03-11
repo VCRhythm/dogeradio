@@ -50,6 +50,30 @@ class Venue < ActiveRecord::Base
 
 	scope :with_upcoming_events, -> {joins(:events).merge(Event.upcoming)}
 
+	def jambase_events
+		id = self.jambase_id.to_s
+		uri = URI.parse("http://api.jambase.com/events?venueId="+id+"&api_key="+Rails.configuration.apis[:jambase_key])
+		http = Net::HTTP.new(uri.host, uri.port)
+		req = Net::HTTP::Get.new(uri.request_uri)
+		resp = http.request(req)
+		events = JSON.parse resp.body
+		return events["Events"]
+	end
+
+	def sync_jambase_id
+		name = URI.escape(self.name)
+		uri = URI.parse("http://api.jambase.com/venues?name="+name+"&api_key="+Rails.configuration.apis[:jambase_key])
+		http = Net::HTTP.new(uri.host, uri.port)
+		req = Net::HTTP::Get.new(uri.request_uri)
+		resp = http.request(req)
+		request = JSON.parse resp.body
+		if request["Venues"].length > 0
+			return request["Venues"].first["Id"].to_i
+		else
+			return nil
+		end
+	end
+
 	def picture_from_url(url)
 		self.avatar = URI.parse(url)
 	end
