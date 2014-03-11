@@ -5,7 +5,12 @@ class ApplicationController < ActionController::Base
 	before_filter :configure_permitted_parameters, if: :devise_controller?
 	before_action :set_transactions
 	before_action :set_queue
+	around_filter :user_time_zone, if: :current_user
 	geocode_ip_address
+
+	def user_time_zone(&block)
+		Time.use_zone(current_user.time_zone, &block)
+	end
 
 	# if user is logged in, return current_user, else return guest_user
 	def current_or_guest_user
@@ -35,7 +40,7 @@ class ApplicationController < ActionController::Base
 	def configure_permitted_parameters
 		devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :password, :code, :password_confirmation, :remember_me) }
 		devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :username, :email, :password, :remember_me)}
-		devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :avatar, :bio, :payout_account, :email, :password, :password_confirmation, :current_password, :website, :autotip, :default_tip_amount, :donation_percent, :address, :publish_address, :display_name) }
+		devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:time_zone, :username, :avatar, :bio, :payout_account, :email, :password, :password_confirmation, :current_password, :website, :autotip, :default_tip_amount, :donation_percent, :address, :publish_address, :display_name) }
 	end
 
 	private

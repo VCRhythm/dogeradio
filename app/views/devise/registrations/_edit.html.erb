@@ -31,6 +31,9 @@
 		<div class="form-group"><%= f.label :location %><br />
 		<%= f.text_field :address, class: "form-control" %><label class="checkbox-inline"><%=f.check_box :publish_address %> Publish your location?</label></div>
 
+		<div class="form-group"><%= f.label :time_zone %><br />
+		<%= f.collection_select :time_zone, ActiveSupport::TimeZone.all, :name, :to_s, {}, class: "form-control" %></div>
+
 		<div class="form-group"><%= f.label :default_tip_amount %><br />
 		<%= f.text_field :default_tip_amount, class: "form-control" %><label class="checkbox-inline"><%= f.check_box :autotip %> Automatically tip artist after playing a song?</label></div>
 

@@ -21,5 +21,6 @@ module Dogeradio
 
 		config.i18n.enforce_available_locales = true
 		config.action_controller.page_cache_directory = "#{Rails.root.to_s}/public/deploy"
+		config.time_zone = "Eastern Time (US & Canada)"
 	end
 end

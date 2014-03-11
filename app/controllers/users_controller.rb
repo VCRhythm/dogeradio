@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 	caches_page :show
-  before_action :set_user, only: [:autopay, :show, :payout, :pay]
+  	before_action :set_user, only: [:autopay, :show, :payout, :pay]
 	before_action :this_user, only: [:autopay, :update_balance, :pay, :payout, :following, :favorite_tracks]
 
 	def soundcloud_auth
@@ -108,33 +108,33 @@ class UsersController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :track_id, :code, :amount, :category, :method)
+      params.require(:user).permit(:time_zone, :username, :track_id, :code, :amount, :category, :method)
     end
 
-		def pay_user(user, amount, method, track_id)
-			fee = @this_user.transaction_fee
-			donation = @this_user.donation_percent * amount
-			if (@this_user.balance > amount + fee + donation) && (@this_user != user)
-				@this_user.balance -= (amount + fee + donation)
-				user.balance += amount
-				@this_user.save
-				user.save
-				Transaction.create(payer_id: @this_user.id, payee_id: user.id, value: amount, method: method, track_id: track_id, pending: false)
-				Transaction.create(payer_id: @this_user.id, payee_id: 0, value: fee, method: "fee", pending:false)
-				Transaction.create(payer_id: @this_user.id, payee_id:0, value: donation, method: "donation", pending: false)
-				true
-			else
-				false
-			end
+	def pay_user(user, amount, method, track_id)
+		fee = @this_user.transaction_fee
+		donation = @this_user.donation_percent * amount
+		if (@this_user.balance > amount + fee + donation) && (@this_user != user)
+			@this_user.balance -= (amount + fee + donation)
+			user.balance += amount
+			@this_user.save
+			user.save
+			Transaction.create(payer_id: @this_user.id, payee_id: user.id, value: amount, method: method, track_id: track_id, pending: false)
+			Transaction.create(payer_id: @this_user.id, payee_id: 0, value: fee, method: "fee", pending:false)
+			Transaction.create(payer_id: @this_user.id, payee_id:0, value: donation, method: "donation", pending: false)
+			true
+		else
+			false
 		end
+	end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.where('lower(username) = ?', params[:username].downcase).first
     end
 
-		def this_user
-			@this_user = current_user
-		end
-
+	def this_user
+		@this_user = current_user
 	end
+
+end
