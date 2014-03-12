@@ -56,8 +56,8 @@ class VenuesController < ApplicationController
 			marker.lat venue.lat
 			marker.lng venue.lng
 		end
-		@upcoming_events = @venue.events.upcoming
-		@archived_events = @venue.events.archived
+		@upcoming_events = @venue.events.upcoming.order(moment: :asc)
+		@archived_events = @venue.events.archived.order(moment: :desc)
 	end
 
 	private
