@@ -19,8 +19,8 @@ class Event < ActiveRecord::Base
 	belongs_to :venue
 	has_many :tags
 	
-	scope :upcoming, -> {where("moment >= ?", Time.zone.now)}
-	scope :archived, -> {where("moment < ?", Time.zone.now)}
+	scope :upcoming, -> {where("moment >= ?", Time.zone.now).order(moment: :asc)}
+	scope :archived, -> {where("moment < ?", Time.zone.now).order(moment: :desc)}
 	validates :name, :moment, :user_id, :venue_id, presence: true
 
 	def creator?(user)

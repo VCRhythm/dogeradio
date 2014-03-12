@@ -11,7 +11,7 @@ class EventsController < ApplicationController
 
 	def index
 		@venues = Venue.local(100, location).with_upcoming_events
-		@events = @venues.collect {|venue| venue.events}.first
+		@events = @venues.collect {|venue| venue.events.upcoming}.first
 	end
 
 	def new_user
