@@ -115,6 +115,9 @@ $(document).ready(function(){
 	}).on('click', '.jambase-event', function(){
 		$('#event_name').val($(this).attr('data-artists'));
 		$('#event_moment').val($(this).attr('data-moment'));
+	}).on('click', '#tabs a', function(e){
+		e.preventDefault();
+		$(this).tab('show');
 	});
 
 	$('.sortable').sortable({

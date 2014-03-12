@@ -1,0 +1,9 @@
+<% count=0 %>
+<h3><%= Date.today %></h3>
+<% events.each do |event| %>
+	<% event.users.each do |user| %>
+		<%= link_to user, remote: true, class: "remote-link" do %><%= image_tag user.avatar(:thumb), class: "user-image", data:{toggle:"tooltip", placement:"bottom", title: user.display_name} %><% end %>
+	<% end %>
+	<span style="height:100px; width:100px;">@</span>
+	<%= link_to event.venue, remote: true, class: "remote-link" do %><%= image_tag event.venue.avatar(:thumb), class: "venue-image", data:{toggle:"tooltip", placement:"bottom", title: event.venue.name} %><% end %>
+<% end %>

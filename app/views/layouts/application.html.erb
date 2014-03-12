@@ -21,14 +21,17 @@
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
-						<% if user_signed_in? %><span class="icon-bar"></span><% end %>
+						<% if user_signed_in? %><span class="icon-bar"></span><span class="icon-bar"></span><% end %>
 					</button>
 					<%= link_to root_url, remote: true, class: "remote-link navbar-brand"  do %><%= image_tag 'dogeradioshibe.png', style: 'vertical-align:top; position:relative; top:-15px;' %>ogeRadio<% end %>
 				</div>
 				<div class="navbar-collapse collapse" style="height:auto;">
 					<ul class="nav navbar-nav navbar-left">
-						<li><%= link_to explore_path, remote: true, class: "remote-link" do %>Discover<% end %></li>
-						<% if user_signed_in? %><li><%= link_to upload_path, remote: true, class: "remote-link" do %>Create<% end %></li><% end %>
+						<li><%= link_to discover_path, remote: true, class: "remote-link" do %>Discover<% end %></li>
+						<% if user_signed_in? %>
+							<li><%= link_to wow_path, remote: true, class: "remote-link" do %>Wow'd<% end %></li>
+							<li><%= link_to upload_path, remote: true, class: "remote-link" do %>Create<% end %></li>
+						<% end %>
 					</ul>
 					<ul class="nav navbar-nav navbar-right logged-text" style="margin-top:13px; margin-left:3px;">
 						<% if user_signed_in? %>

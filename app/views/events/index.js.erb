@@ -1,5 +1,5 @@
 <% if @events %>
-	$("#action-panel").html("<h3>Local Events</h3><%=j render @events %>").slideDown();
+	$("#events").html("<h3>Local Events</h3><%=j render @events %>");
 <% else %>
-	$("#action-panel").html("<h3>Local Events</h3><p>There are no local events.</p>").slideDown();
+	$("#events").html("<h3>Local Events</h3><p>There are no local events.</p>");
 <% end %>

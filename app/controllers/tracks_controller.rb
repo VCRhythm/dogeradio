@@ -3,9 +3,6 @@ class TracksController < ApplicationController
 	skip_before_filter :verify_authenticity_token
 	helper_method :current_or_guest_user
 
-	def upload
-	end
-
 	def update_location
 		@local_users = User.local(100, location)
 		@venues = Venue.local(100, location).with_upcoming_events
@@ -14,11 +11,6 @@ class TracksController < ApplicationController
 
 	def top_tracks
 		@top_most_played_tracks = Track.most_played
-	end
-
-	def explore
-		@top_most_played_tracks = Track.most_played
-		@tags = Tag.unique_tags
 	end
 
 	def update_player

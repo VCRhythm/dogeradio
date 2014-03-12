@@ -2,8 +2,10 @@ Dogeradio::Application.routes.draw do
 
 	root 'tracks#index'
 
+  get 'discover', to: 'static_pages#discover'
+  get 'wow', to: 'static_pages#wow'
   get 'about', to: 'static_pages#about'
-	get 'upload', to: 'tracks#upload'
+	get 'upload', to: 'static_pages#upload'
 	post 'update_location', to: 'tracks#update_location'
 	get 'recent_tips', to: 'transactions#recent'
 	get 'explore', to: 'tracks#explore'
