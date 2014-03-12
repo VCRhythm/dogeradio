@@ -1,9 +1,5 @@
-<% if event.user != current_user %>
-	<%= link_to pay_path(event.user, user:{method:"event-tip"}), method: :post, remote: true do %>
-		<%= image_tag 'dogecoin75px.png', alt: 'Tip', style:"height:75px; float:right;", id: "pay-user-link", data: {toggle:"tooltip", placement:"left", title:"Send thanks!"} %>
-	<% end %>
-<% end %>
-<h3><%= link_to event.name, event, remote: true, class: "remote-link" %></h3>
+<h3><%= event.name %></h3>
+<%= render partial: 'users/user_list', locals: {users: event.users} %>
 <p><small><%= link_to event.venue.name, event.venue, remote: true, class: "remote-link" %></small></p>
 	
 <p><%= event.moment.to_date.to_s(:long_ordinal)+" at "+event.moment.strftime("%I:%M %p") if event.moment %></p>

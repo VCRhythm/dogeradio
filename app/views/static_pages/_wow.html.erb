@@ -5,9 +5,9 @@
 			<h3>Wow!</h3>
 			<ul class="nav nav-tabs" id="tabs">
 				<li class="tab-item"><%= link_to following_path(current_user), data: {toggle: "tab", target: "#users"}, remote: true do %>Users<% end %></li>
-				<li class="tab-item"><%= link_to '#', data: {toggle: "tab", target: "#tags"}, remote: true do %>Tags<% end %></li>
+				<li class="tab-item"><%= link_to 'javascript:void(0);', data: {toggle: "tab", target: "#tags"}, remote: true do %>Tags<% end %></li>
 				<li class="tab-item"><%= link_to favorite_tracks_path(current_user), data: {toggle: "tab", target: "#tracks"}, remote: true do %>Tracks<% end %></li>
-				<li class="tab-item"><%= link_to '#', data: {toggle: "tab", target: "#venues"}, remote: true do %>Venues<% end %></li>
+				<li class="tab-item"><%= link_to 'javascript:void(0);', data: {toggle: "tab", target: "#venues"}, remote: true do %>Venues<% end %></li>
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane" id="users"></div>

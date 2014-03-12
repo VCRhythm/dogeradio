@@ -21,6 +21,7 @@
 #  avatar_content_type :string(255)
 #  avatar_file_size    :integer
 #  avatar_updated_at   :datetime
+#  jambase_id          :integer
 #
 
 class Venue < ActiveRecord::Base

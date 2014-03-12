@@ -25,7 +25,10 @@ Dogeradio::Application.routes.draw do
     resources :events, except: [:index, :show]
   end
 
-	resources :events, only: [:index, :show]
+	resources :events, only: [:index, :show] do
+    resources :user, only: [:new], to: 'events#new_user'
+    resources :user, only: [:create], to: 'events#add_user', as: 'add_user'
+  end
 
 	resources :playlists, only: [:show] do
 		post :sort

@@ -14,6 +14,24 @@ class EventsController < ApplicationController
 		@events = @venues.collect {|venue| venue.events}.first
 	end
 
+	def new_user
+		@event = Event.find(params[:event_id])
+		@users = User.where.not(display_name: nil).order("display_name ASC")
+	end
+
+	def add_user
+		@event = Event.find(params[:event_id])
+		if @event.creator?(current_user)
+			params[:event][:users].each do |user_id|
+				user = User.find(user_id)
+				if !@event.has_user?(user)
+					@event.users << user
+				end
+			end
+		end
+		render action: 'show', status: :updated, location: @event
+	end
+
 	def edit
 		
 	end
@@ -39,7 +57,7 @@ class EventsController < ApplicationController
 	end
 
 	def create
-		@event = current_user.events.new(event_params)
+		@event = current_user.created_events.new(event_params)
 		@event.venue_id = @venue.id
 		respond_to do |format|
 			if @event.save
@@ -71,6 +89,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:name, :featured, :description, :moment)
+      params.require(:event).permit(:name, :featured, :description, :moment, :users)
     end
 end

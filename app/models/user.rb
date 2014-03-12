@@ -44,6 +44,7 @@
 #  lng                     :float
 #  publish_address         :boolean          default(FALSE)
 #  distance                :float
+#  time_zone               :string(255)      default("UTC")
 #
 
 class User < ActiveRecord::Base
@@ -56,7 +57,8 @@ class User < ActiveRecord::Base
 	after_create :init
 
 	has_many :venues
-	has_many :events
+	has_and_belongs_to_many :events, join_table: "users_events"
+	has_and_belongs_to_many :created_events, class_name: "Event", join_table: "creators_events", foreign_key: :user_id
 
 	geocoded_by :address, latitude: :lat, longitude: :lng
 	after_validation :geocode,

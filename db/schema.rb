@@ -11,13 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140311050448) do
+ActiveRecord::Schema.define(version: 20140312195124) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
+  end
+
+  create_table "creators_events", force: true do |t|
+    t.integer "user_id"
+    t.integer "event_id"
   end
 
   create_table "delayed_jobs", force: true do |t|
@@ -37,7 +42,6 @@ ActiveRecord::Schema.define(version: 20140311050448) do
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "events", force: true do |t|
-    t.integer  "user_id"
     t.boolean  "featured"
     t.string   "name"
     t.integer  "venue_id"
@@ -219,6 +223,11 @@ ActiveRecord::Schema.define(version: 20140311050448) do
   add_index "users", ["lat", "lng"], name: "index_users_on_lat_and_lng"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["username"], name: "index_users_on_username", unique: true
+
+  create_table "users_events", force: true do |t|
+    t.integer "user_id"
+    t.integer "event_id"
+  end
 
   create_table "venues", force: true do |t|
     t.string   "name"

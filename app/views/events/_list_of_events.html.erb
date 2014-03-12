@@ -1,9 +1,18 @@
-<% count=0 %>
-<h3><%= Date.today %></h3>
+<% count = 0 %>
+<% date = 0 %>
+<ul class="list-group">
 <% events.each do |event| %>
-	<% event.users.each do |user| %>
-		<%= link_to user, remote: true, class: "remote-link" do %><%= image_tag user.avatar(:thumb), class: "user-image", data:{toggle:"tooltip", placement:"bottom", title: user.display_name} %><% end %>
+	<% if date != event.moment %>
+		<% date = event.moment %>
+		<h4><%= date.strftime("%m/%d/%Y") %></h4>
 	<% end %>
-	<span style="height:100px; width:100px;">@</span>
-	<%= link_to event.venue, remote: true, class: "remote-link" do %><%= image_tag event.venue.avatar(:thumb), class: "venue-image", data:{toggle:"tooltip", placement:"bottom", title: event.venue.name} %><% end %>
+	<li class="list-group-item">
+	<% event.users.each do |user| %>
+		<%= link_to user, remote: true, class: "remote-link" do %><%= image_tag user.avatar(:tinythumb), class: "user-image", data:{toggle:"tooltip", placement:"bottom", title: user.display_name} %><% end %>
+	<% end %>
+	<div style="height:50px; width:50px; background-color:rgba(0, 84, 104, 0.8); display:inline-block; text-align:center; vertical-align:middle; font-size:45px">@</div>
+	<%= link_to event.venue, remote: true, class: "remote-link" do %><%= image_tag event.venue.avatar(:tinythumb), class: "venue-image", data:{toggle:"tooltip", placement:"bottom", title: event.venue.name} %><% end %>
+	</li>
+<% count += 1 %>
 <% end %>
+</ul>
