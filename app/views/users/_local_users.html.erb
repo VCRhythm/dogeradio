@@ -3,7 +3,7 @@
 <% if @location && users.exists? %>
 	<% if events %>
 		<h4>Events</h4>
-		<%= render events %>
+		<%= render partial: 'events/list_of_events', locals: {events: events} %>
 	<% end %>
 	<% if users %>
 		<h4>Users</h4>

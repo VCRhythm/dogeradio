@@ -2,8 +2,8 @@
 <% date = 0 %>
 <ul class="list-group">
 <% events.each do |event| %>
-	<% if date != event.moment %>
-		<% date = event.moment %>
+	<% if date != event.moment.to_date %>
+		<% date = event.moment.to_date %>
 		<h4><%= date.strftime("%m/%d/%Y") %></h4>
 	<% end %>
 	<li class="list-group-item">
