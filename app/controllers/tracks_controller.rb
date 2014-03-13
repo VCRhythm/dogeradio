@@ -22,6 +22,7 @@ class TracksController < ApplicationController
 		#Local Users
 		@local_users = User.local(100, location)
 		@venues = Venue.local(100, location).with_upcoming_events
+		@local_events = Array.new
 		@local_events = @venues.collect {|venue| venue.events}.first
 		@local_events = @local_events.order(moment: :asc)
 
