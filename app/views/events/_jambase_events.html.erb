@@ -1,4 +1,5 @@
 <div class="content-block">
+	<h3>Event Suggestions from Jambase</h3>
 	<ul>
 	<% @jambase_events.each do |event| %>
 		<li class="jambase-event" data-artists="<%= event['Artists'].map{|artist| artist['Name']}.join(', ') %>" data-moment="<%= DateTime.parse(event['Date']).strftime("%m/%d/%Y %I:%M %p") %>">

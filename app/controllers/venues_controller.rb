@@ -41,7 +41,7 @@ class VenuesController < ApplicationController
 
 	def create
 		@venue = current_user.venues.new(venue_params)
-		if params[:yelp_image]
+		if !params[:yelp_image].blank? && !params[:venue][:avatar]
 			@venue.picture_from_url(params[:yelp_image])
 		end
 		@venue.jambase_id = @venue.sync_jambase_id
