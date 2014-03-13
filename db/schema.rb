@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140312195124) do
+ActiveRecord::Schema.define(version: 20140313164159) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
@@ -217,6 +217,7 @@ ActiveRecord::Schema.define(version: 20140312195124) do
     t.boolean  "publish_address",         default: false
     t.float    "distance"
     t.string   "time_zone",               default: "UTC"
+    t.boolean  "admin",                   default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

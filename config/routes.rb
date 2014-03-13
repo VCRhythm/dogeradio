@@ -37,11 +37,12 @@ Dogeradio::Application.routes.draw do
 	end
 	
 #	post '/tags/:id/search', to: 'tags#search'
+  resources :tags, only: [:destroy]
 
   get 'top_tracks', to: "tracks#top_tracks"
 	resources :tracks do
 		resources :plays
-		resources :tags
+		resources :tags, except: [:destroy]
 		get :fond_users
 		post :update_player
 	end

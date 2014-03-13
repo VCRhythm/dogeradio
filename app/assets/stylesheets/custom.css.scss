@@ -34,7 +34,7 @@
 }
 
 .nav-tabs .tab-item {
-	font-size:25px;
+	font-size:20px;
 }
 
 #map {
@@ -91,6 +91,15 @@
 		text-decoration:none;
 	}
 }
+
+.btn .glyphicon-remove{
+	color:white;
+	&:hover {
+		color: #D4AE57;
+		text-decoration:none;
+	}
+}
+
 .alert-success{
 	background-color:#268b41;
 	color:white;

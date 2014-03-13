@@ -1,0 +1,5 @@
+<div style="display:inline-block;">
+	<%= button_to tag_path(tag), method: :delete, remote: true, class: "btn btn-xs delete tag-"+tag.category do %>
+		<span class="glyphicon glyphicon-remove"></span>
+	<% end %>
+</div>

@@ -136,7 +136,13 @@ h3{
 	}
 }
 
-.vote {
+.btn.delete {
+	position:relative;
+	left: -12px;
+}
+
+.btn.vote {
+	color:white;
 	position:relative;
 	left:-3px;
 }
