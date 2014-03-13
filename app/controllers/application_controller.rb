@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
 		if params[:location].blank?
 			if Rails.env.test? || Rails.env.development?
 				@location ||= Geokit::Geocoders::MultiGeocoder.geocode("69.243.26.55")
-			elsif session[:geo_location].exists?
+			elsif session[:geo_location].length
 				@location ||= session[:geo_location]
 			else
 				@location ||= Geokit::Geocoders::MultiGeocoder.geocode("Pullman, WA, USA")
