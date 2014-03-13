@@ -2,6 +2,7 @@ Dogeradio::Application.routes.draw do
 
 	root 'tracks#index'
 
+  get 'test', to: 'static_pages#test'
   get 'discover', to: 'static_pages#discover'
   get 'wow', to: 'static_pages#wow'
   get 'about', to: 'static_pages#about'
