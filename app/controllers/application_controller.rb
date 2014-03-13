@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
 			elsif session[:geo_location]
 				@location ||= session[:geo_location]
 			else
-				@location = "Pullman, WA, USA"
+				@location ||= Geokit::Geocoders::MultiGeocoder.geocode("Pullman, WA, USA")
 			end
 		else
 			params[:location].each {|l| l = l.to_i } if params[:location].is_a? Array
