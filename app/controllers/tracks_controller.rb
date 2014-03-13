@@ -23,10 +23,8 @@ class TracksController < ApplicationController
 		@local_users = User.local(100, location)
 		@venues = Venue.local(100, location).with_upcoming_events
 		@local_events = @venues.collect {|venue| venue.events}.first
-		if @local_events.length > 0
-			@local_events = @local_events.order(moment: :asc)
-		end
-
+		@local_events = @local_events ? @local_events.order(moment: :asc) : nil
+		
 #		@new_tracks = Music.order(created_at: :desc).where(processed: true).limit(5)
 #		@active_users = Array.new
 
