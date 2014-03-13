@@ -1,1 +1,1 @@
-$("#users").html("<h2>List of Favorite Users</h2><% if @followed_users.exists? %><%= j render partial: 'users/user_list', locals:{users: @followed_users}%><% else %><p>You have no favorites!</p><% end %>");
+$("#users").html("<h4>Wow Users</h4><% if @followed_users.exists? %><%= j render partial: 'users/user_list', locals:{users: @followed_users}%><% else %><p>You have no favorites!</p><% end %>");

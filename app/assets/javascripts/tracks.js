@@ -118,6 +118,9 @@ $(document).ready(function(){
 	}).on('click', '#tabs a', function(e){
 		e.preventDefault();
 		$(this).tab('show');
+	}).on('click', '.nav-link', function(){
+		$('.nav-link').removeClass('active');
+		$(this).addClass('active');
 	});
 
 	$('.sortable').sortable({

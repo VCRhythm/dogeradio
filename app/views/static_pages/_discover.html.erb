@@ -2,7 +2,6 @@
 	<div class="col-md-9">
 		<%= render 'shared/action_panel' %>
 		<div class="content-block">
-			<h3>Discovery!</h3>
 			<ul class="nav nav-tabs" id="tabs">
 				<li class="tab-item"><%= link_to local_users_path, data: {toggle: "tab", target: "#users"}, remote: true do %>Users<% end %></li>
 				<li class="tab-item"><%= link_to top_tracks_path, data: {toggle: "tab", target: "#tracks"}, remote: true do %>Tracks<% end %></li>

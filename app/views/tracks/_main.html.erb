@@ -4,8 +4,8 @@
 		<%= render partial: 'users/featured_user', locals: { user:@featured_user } %>
 	</div>
 	<div class="col-md-5">
-		<div class="content-block local-users">
-			<%= render partial: 'users/local_users', locals: {events: @local_events, users: @local_users } %>
+		<div class="content-block" id="local-events">
+			<%= render partial: 'events/local_events', locals: {events: @local_events } %>
 		</div>
 	</div>
 </div>
