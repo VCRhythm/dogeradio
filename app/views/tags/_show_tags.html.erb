@@ -1,7 +1,7 @@
 <% vote ||= false %>
 <% track.tags.each do |tag| %>
 	<% if vote==false %>
-		<%= render tag %>
+		<%= render partial: 'tags/tag', locals: {tag: tag} %>
 	<% else %>
 		<%= render partial: "tags/tag_vote", locals: {tag: tag} %>
 	<% end %>
