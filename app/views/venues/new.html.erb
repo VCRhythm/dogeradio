@@ -1,14 +1,2 @@
-<div class="col-md-9">
-	<div id="action-panel" class="content-block">
-		<%= render 'venues/new' %>
-	</div>
-</div>
-<div class="col-md-3">
-	<div class="content-block">
-		<ul>
-			<% @yelp_response.each do |response| %>
-				<li><%= link_to response["name"], 'javascript:;', class:'yelp-response', data:{name:response["name"], street: response["location"]["address"].first, city: response["location"]["city"], state: response["location"]["state_code"], zipcode: response["location"]["postal_code"], country: response["location"]["country_code"], image_url: response["image_url"]} %></li>
-			<% end %>
-		</ul>
-	</div>
-</div>
+<button id="load-yelp-suggestions" class="btn btn-primary pull-right">Load Suggestions from Yelp?</button>
+<%= render 'venues/new' %>

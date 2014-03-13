@@ -1,17 +1,22 @@
 class VenuesController < ApplicationController
 	before_action :set_venue, only: [:show, :edit, :update, :destroy, :sync_jambase_ids]
+	before_filter :authenticate_user!, only: [:new, :load_yelp_suggestions, :update, :edit, :create, :destroy]
+
 	include Yelp::V2::Search::Request
 
   	def index
 		@venues = Venue.all
 	end
 
-	def new
+	def load_yelp_suggestions
 		client = Yelp::Client.new
 		request = Location.new(
 			term: "concerts",
 			city: location.city)
 		@yelp_response = client.search(request)["businesses"]
+	end
+
+	def new
 		@venue = Venue.new
 	end
 	

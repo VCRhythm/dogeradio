@@ -1,6 +1,6 @@
 Dogeradio::Application.routes.draw do
 
-	root 'tracks#index'
+	root 'static_pages#main'
 
   get 'test', to: 'static_pages#test'
   get 'discover', to: 'static_pages#discover'
@@ -20,13 +20,14 @@ Dogeradio::Application.routes.draw do
   get 'search_users', to: 'search#users'
 
   get 'local_venues', to: 'venues#local_venues'
-	
-  resources :venues do
-		get :events, to: "events#venue_events"
-    resources :events, except: [:index, :show]
+	get 'load_yelp_suggestions', to: "venues#load_yelp_suggestions"
+  
+  resources :venues do	
+    get :events, to: "events#venue_events"
+    resources :events, except: [:index, :show, :destroy]
   end
 
-	resources :events, only: [:index, :show] do
+	resources :events, only: [:index, :show, :destroy] do
     resources :user, only: [:new], to: 'events#new_user'
     resources :user, only: [:create], to: 'events#add_user', as: 'add_user'
   end

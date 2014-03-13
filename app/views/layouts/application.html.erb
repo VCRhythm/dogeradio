@@ -55,9 +55,20 @@
 			<div class="row row-offcanvas row-offcanvas-left">
 				<%= render partial: "shared/sidebar" %>
 				<div id="main" class="col-xs-12 col-sm-8">
-					<%= yield %>
+					<div class="row">
+						<div class="col-md-7">
+							<%= render 'shared/action_panel' %>
+							<div id="main-body">
+								<%= yield %>
+							</div>
+						</div>
+						<div class="col-md-5" id="main-sidebar">
+							<div class="content-block" id="local-events">
+								<%= render partial: 'events/local_events', locals: {events: @local_events } %>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
 			</div>
 		<div id="push"></div>
 	</div>

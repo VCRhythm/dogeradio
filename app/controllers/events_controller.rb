@@ -2,24 +2,33 @@ class EventsController < ApplicationController
 	before_action :set_event, only: [:show, :edit, :update, :destroy]
 	before_action :set_venue, only: [:new, :create, :edit, :venue_events]
 	before_action :parse_moment, only: [:update, :create]
-	before_filter :authenticate_user!, only: [:new, :create]
-	
-	def venue_events
-		@events = @venue.events
-		render action: 'index'
-	end
+	before_filter :authenticate_user!, except: [:show, :venue_events, :index]
 
 	def index
 		@venues = Venue.local(100, location).with_upcoming_events
 		@events = @venues.collect {|venue| venue.events.upcoming}.first
 	end
 
-	def new_user
+	def show
+	end
+	
+	def venue_events
+		@events = @venue.events
+		render action: 'index'
+	end
+
+	def destroy #authenticated
+		venue_id = @event.venue_id
+		@event.destroy
+		redirect_to venue_path(venue_id)
+	end
+
+	def new_user #authenticated
 		@event = Event.find(params[:event_id])
 		@users = User.where.not(display_name: nil).order("display_name ASC")
 	end
 
-	def add_user
+	def add_user #authenticated
 		@event = Event.find(params[:event_id])
 		if @event.creator?(current_user)
 			params[:event][:users].each do |user_id|
@@ -28,15 +37,17 @@ class EventsController < ApplicationController
 					@event.users << user
 				end
 			end
+			render action: 'show', status: :ok, location: @event
+		else
+			render action: 'show', status: :unauthorized, location: @event
 		end
-		render action: 'show', status: :updated, location: @event
 	end
 
-	def edit
+	def edit #authenticated
 		
 	end
 	
-	def update
+	def update #authenticated
     	respond_to do |format|
       		if @event.update(event_params)
         		format.html { redirect_to @event, notice: 'Event was successfully updated.' }
@@ -48,15 +59,14 @@ class EventsController < ApplicationController
     	end
   	end
 
-
-	def new
+	def new #authenticated
 		@event = Event.new
 		if @venue.jambase_id
 			@jambase_events = @venue.jambase_events
 		end
 	end
 
-	def create
+	def create #authenticated
 		@event = current_user.created_events.new(event_params)
 		@event.venue_id = @venue.id
 		respond_to do |format|
@@ -68,9 +78,6 @@ class EventsController < ApplicationController
 				format.json { render json: @event.errors, status: :unprocessable_entity }
 			end
 		end
-	end
-
-	def show
 	end
 
 	private

@@ -95,7 +95,7 @@ $(document).ready(function(){
 		track_id = $('#player-heading').attr('data-track_id');
 		$.ajax({
 			type: 'get',
-			url: 'tracks/'+track_id+'/tags/new'
+			url: '/tracks/'+track_id+'/tags/new'
 		});
 	}).on('click', '.clickable', function(){
 		position = $(this).parent().attr('data-playlist_number');
@@ -121,6 +121,11 @@ $(document).ready(function(){
 	}).on('click', '.nav-link', function(){
 		$('.nav-link').removeClass('active');
 		$(this).addClass('active');
+	}).on('click', '#load-yelp-suggestions', function(){
+		$.ajax({
+			type: 'get',
+			url: '/load_yelp_suggestions/'
+		});
 	});
 
 	$('.sortable').sortable({
