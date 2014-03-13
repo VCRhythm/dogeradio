@@ -21,7 +21,7 @@ class Event < ActiveRecord::Base
 	
 	scope :upcoming, -> {where("moment >= ?", Time.zone.now)}
 	scope :archived, -> {where("moment < ?", Time.zone.now)}
-	validates :name, :moment, :user_id, :venue_id, presence: true
+	validates :name, :moment, :venue_id, presence: true
 
 	def creator?(user)
 		self.creators.find_by id: user.id
