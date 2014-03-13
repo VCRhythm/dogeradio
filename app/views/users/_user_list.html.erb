@@ -3,7 +3,7 @@
 		<%= link_to user, remote: true, class: "remote-link" do %><%= image_tag user.avatar(:thumb), class: "user-image", data:{toggle:"tooltip", placement:"bottom", title: user.display_name} %><% end %>
 	<% end %>
 <% else %>
-	<p>No artists.</p>
+	<p>No artists are able to accept Dogecoin for this event.</p>
 <% end %>
 
 <script>
