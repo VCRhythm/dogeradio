@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 
 	def user_time_zone(&block)
 		Time.use_zone(current_user.time_zone, &block)
+		Chronic.time_class = Time.zone
 	end
 
 	# if user is logged in, return current_user, else return guest_user
