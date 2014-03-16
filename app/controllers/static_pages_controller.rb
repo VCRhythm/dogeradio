@@ -1,12 +1,14 @@
 class StaticPagesController < ApplicationController
 	#skip_before_filter :verify_authenticity_token
 	helper_method :current_or_guest_user
-	
-	def main
+
+	def events_sidebar
 		@venues = Venue.local(100, location).with_upcoming_events
 		@local_events = @venues.collect {|venue| venue.events}.first
 		@local_events = @local_events ? @local_events.order(moment: :asc) : nil
-		
+	end
+	
+	def main		
 #		@new_tracks = Music.order(created_at: :desc).where(processed: true).limit(5)
 #		@active_users = Array.new
 
@@ -24,9 +26,11 @@ class StaticPagesController < ApplicationController
 
 		#Random Featured Artist
 		@featured_user = User.artists.random_user
+		choose_layout
 	end
 
 	def about
+		choose_layout
 	end
 
 	def test
@@ -34,8 +38,19 @@ class StaticPagesController < ApplicationController
 	def discover
 		#@top_most_played_tracks = Track.most_played
 		#@tags = Tag.unique_tags
+		choose_layout
 	end
 
 	def upload
+		choose_layout
 	end
+
+	private
+	def choose_layout
+		respond_to do |format|
+			format.html
+			format.js { render layout: "events"}
+		end	
+	end
+
 end

@@ -1,0 +1,4 @@
+$("#main-body").html("<%= j(yield) %>");
+if ($("#sidebar_status").val() != 'events'){
+	$.get("events_sidebar");
+}

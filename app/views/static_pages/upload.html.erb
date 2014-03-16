@@ -1,1 +1,10 @@
-<%= render 'upload' %>
+<div class="content-block">
+	<ul class="nav nav-tabs" id="tabs">
+		<li class="tab-item"><%= link_to new_music_path, remote: true, data: {toggle: "tab", target: "#upload-track"}, class:"remote-link" do %>Upload Tracks<% end %></li>
+		<li class="tab-item"><%= link_to new_venue_path, class: "remote-link", data: {toggle: "tab", target: "#new-venue"}, remote:true do %>Add a Venue<% end %></li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane" id="upload-track"></div>
+		<div class="tab-pane" id="new-venue"></div>
+	</div>
+</div>

@@ -2,6 +2,7 @@ Dogeradio::Application.routes.draw do
 
 	root 'static_pages#main'
 
+  get 'events_sidebar', to: 'static_pages#events_sidebar'
   get 'test', to: 'static_pages#test'
   get 'discover', to: 'static_pages#discover'
   get 'wow', to: 'static_pages#wow'
