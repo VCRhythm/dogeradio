@@ -1,6 +1,8 @@
 class TagsController < ApplicationController
   before_action :set_tag, only: [:search, :show, :edit, :update, :destroy]
   before_filter :authenticate_user!, only: [:update, :edit, :create, :destroy, :new]
+  before_filter :layout_container, only: [:new]
+
   # GET /tags
   # GET /tags.json
   def index
@@ -16,7 +18,7 @@ class TagsController < ApplicationController
   def new
 		@tag = Tag.new
 		@track = Track.find(params[:track_id])
-		render 'new.js.erb'
+		choose_layout
   end
 
   # GET /tags/1/edit
@@ -59,5 +61,16 @@ class TagsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def tag_params
       params.require(:tag).permit(:track_id, :category, :description)
+    end
+
+    def layout_container
+      @layout_container = "action-panel"
+    end 
+
+    def choose_layout
+      respond_to do |format|
+        format.html
+        format.js { render layout: "events"}
+      end 
     end
 end

@@ -1,5 +1,0 @@
-<% if @events %>
-	$("#events").html("<%=j render partial: 'list_of_events', locals: {events: @events} %>");
-<% else %>
-	$("#events").html("<p>There are no local events.</p>");
-<% end %>

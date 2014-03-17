@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 	caches_page :show
   	before_action :set_user, only: [:autopay, :show, :payout, :pay]
 	before_action :this_user, only: [:autopay, :update_balance, :pay, :payout, :following, :favorite_tracks]
+	before_filter :layout_container, only: [:show]
 
 	def soundcloud_auth
 		$soundcloud_id = Rails.configuration.apis[:soundcloud_id]
@@ -36,6 +37,7 @@ class UsersController < ApplicationController
 
 	def show
 		@tracks = @user.tracks.order(created_at: :desc)
+		choose_layout
 	end
 
 	def payout
@@ -136,5 +138,16 @@ class UsersController < ApplicationController
 	def this_user
 		@this_user = current_user
 	end
+
+	def layout_container
+      @layout_container = "main-body"
+    end 
+
+    def choose_layout
+      respond_to do |format|
+        format.html
+        format.js { render layout: "events"}
+      end 
+    end
 
 end

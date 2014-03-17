@@ -29,13 +29,13 @@ class PlaysController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_play
-			if signed_in?
-				user_id = current_user.id
-			else
-				user_id = 0
-			end
-			attributes = {user_id: user_id, track_id: params[:track_id]}
-			@play = Play.first_or_initialize(attributes)
+		if signed_in?
+			user_id = current_user.id
+		else
+			user_id = 0
+		end
+		attributes = {user_id: user_id, track_id: params[:track_id]}
+		@play = Play.first_or_initialize(attributes)
     end
 
 end

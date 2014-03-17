@@ -1,7 +1,7 @@
 <div id="action-panel" class="content-block">
 	<% if @venues.exists? %>
-		<h3>Local Venues</h3><%= render @venues %>
+		<%= render @venues %>
 	<% else %>
-		<h3>Local Venues</h3><p>There are no local venues.</p>
+		<p>There are no local venues.</p>
 	<% end %>
 </div>

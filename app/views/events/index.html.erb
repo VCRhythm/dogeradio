@@ -1,7 +1,5 @@
-<div id="action-panel" class="content-block">
-	<% if @events %>
-		<h3>Local Events</h3><%= render @events %>
-	<% else %>
-		<h3>Local Events</h3><p>There are no local events.</p>
+<% if @events %>
+	<%= render partial: 'list_of_events', locals: {events: @events} %>
+<% else %>
+	<p>There are no local events.</p>
 <% end %>
-</div>

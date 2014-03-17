@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
 	#skip_before_filter :verify_authenticity_token
-	helper_method :current_or_guest_user
+	before_filter :layout_container, except: [:events_sidebar]
 
 	def events_sidebar
 		@venues = Venue.local(100, location).with_upcoming_events
@@ -35,6 +35,11 @@ class StaticPagesController < ApplicationController
 
 	def test
 	end
+
+	def wow
+		choose_layout
+	end
+
 	def discover
 		#@top_most_played_tracks = Track.most_played
 		#@tags = Tag.unique_tags
@@ -52,5 +57,8 @@ class StaticPagesController < ApplicationController
 			format.js { render layout: "events"}
 		end	
 	end
+	def layout_container
+		@layout_container = "main-body"
+	end 
 
 end

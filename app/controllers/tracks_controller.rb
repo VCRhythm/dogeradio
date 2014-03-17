@@ -21,10 +21,10 @@ class TracksController < ApplicationController
 		@tracks = Track.order(created_at: :desc)
 	end
 
-  def create
-    @track = current_user.tracks.new(track_params)
-	@track.save
-  end
+	def create
+    	@track = current_user.tracks.new(track_params)
+		@track.save
+  	end
 
 	def show
 	end
@@ -32,7 +32,7 @@ class TracksController < ApplicationController
 	def edit
 	end
 		
-  def update
+  	def update
 		respond_to do |format|
 			if @track.update(track_params)
 				format.html { redirect_to @track, notice: 'Track was successfully updated.' }
@@ -42,13 +42,14 @@ class TracksController < ApplicationController
 				format.json { render json: @track.errors, status: :unprocessable_entity }
 			end
 		end
-  end
+  	end
 
 	def destroy
-    @track.destroy
-  end
+    	@track.destroy
+  	end
 
   private
+    
     # Use callbacks to share common setup or constraints between actions.
     def set_track
       @track = Track.find(params[:id])

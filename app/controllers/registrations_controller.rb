@@ -1,6 +1,8 @@
 class RegistrationsController < Devise::RegistrationsController
+	before_filter :layout_container, only: [:edit]
+
 	def edit
-		render :edit
+		choose_layout
 	end
 
 	def update
@@ -30,7 +32,15 @@ class RegistrationsController < Devise::RegistrationsController
 	end
 	
 	private
-
+	def choose_layout
+		respond_to do |format|
+			format.html
+			format.js { render layout: "events"}
+		end	
+	end
+	def layout_container
+		@layout_container = "main-body"
+	end 
 	def get_doge_api_address
 		require 'doge_api'
 		$my_api_key = Rails.configuration.aws[:doge_api_key]

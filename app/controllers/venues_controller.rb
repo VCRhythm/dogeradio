@@ -6,6 +6,8 @@ class VenuesController < ApplicationController
 
   	def index
 		@venues = Venue.all
+		@layout_container = "main-body"
+		choose_layout
 	end
 
 	def load_yelp_suggestions
@@ -18,9 +20,13 @@ class VenuesController < ApplicationController
 
 	def new
 		@venue = Venue.new
+		@layout_container = "new-venue"
+		choose_layout
 	end
 	
 	def edit
+		@layout_container = "action-panel"
+		choose_layout
 	end
 	
 	def update
@@ -63,6 +69,8 @@ class VenuesController < ApplicationController
 		end
 		@upcoming_events = @venue.events.upcoming.order(moment: :asc)
 		@archived_events = @venue.events.archived.order(moment: :desc)
+		@layout_container = "action-panel"
+		choose_layout
 	end
 
 	private
@@ -73,5 +81,12 @@ class VenuesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def venue_params
       params.require(:venue).permit(:avatar, :name, :description, :street, :city, :state, :country, :zipcode)
+    end
+    
+    def choose_layout
+      respond_to do |format|
+        format.html
+        format.js { render layout: "events"}
+      end 
     end
 end

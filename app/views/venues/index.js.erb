@@ -1,5 +1,0 @@
-<% if @venues.exists? %>
-	$("#action-panel").html("<h3>Local Venues</h3><%= j render @venues %>").slideDown();
-<% else %>
-	$("#action-panel").html("<h3>Local Venues</h3><p>There are no local venues.</p>").slideDown();
-<% end %>

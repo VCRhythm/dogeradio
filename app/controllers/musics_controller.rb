@@ -1,5 +1,6 @@
 class MusicsController < ApplicationController
   before_action :set_music, only: [:show, :edit, :update, :destroy]
+  before_filter :layout_container, only: [:new]
 
 	# POST /musics
   # POST /musics.json
@@ -8,6 +9,10 @@ class MusicsController < ApplicationController
 		@music.name = params[:filename]
 		@music.save
 		@track = @music.associated_track
+  end
+
+  def new
+    choose_layout
   end
 
 	# GET /musics/1
@@ -49,5 +54,16 @@ class MusicsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def music_params
       params.require(:music).permit(:name, :user_id, :upload, :direct_upload_url, :upload_file_name, :processed)
+    end
+
+    def layout_container
+      @layout_container = "upload-track"
+    end 
+
+    def choose_layout
+      respond_to do |format|
+        format.html
+        format.js { render layout: "events"}
+      end 
     end
 end

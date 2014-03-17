@@ -3,13 +3,17 @@ class EventsController < ApplicationController
 	before_action :set_venue, only: [:new, :create, :edit, :venue_events]
 	before_action :parse_moment, only: [:update, :create]
 	before_filter :authenticate_user!, except: [:show, :venue_events, :index]
+	before_filter :layout_container, except: [:index]
 
 	def index
 		@venues = Venue.local(100, location).with_upcoming_events
 		@events = @venues.collect {|venue| venue.events.upcoming}.first
+		@layout_container ="events"
+		choose_layout
 	end
 
 	def show
+		choose_layout
 	end
 	
 	def venue_events
@@ -26,6 +30,7 @@ class EventsController < ApplicationController
 	def new_user #authenticated
 		@event = Event.find(params[:event_id])
 		@users = User.where.not(display_name: nil).order("display_name ASC")
+		choose_layout
 	end
 
 	def add_user #authenticated
@@ -44,7 +49,7 @@ class EventsController < ApplicationController
 	end
 
 	def edit #authenticated
-		
+		choose_layout		
 	end
 	
 	def update #authenticated
@@ -81,7 +86,17 @@ class EventsController < ApplicationController
 	end
 
 	private
-    
+   	def layout_container
+		@layout_container = "action-panel"
+	end 
+
+	def choose_layout
+		respond_to do |format|
+			format.html
+			format.js { render layout: "events"}
+		end	
+	end
+
 	def parse_moment
     	params[:event][:moment] = Chronic.parse(params[:event][:moment])
     end
