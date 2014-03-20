@@ -34,7 +34,11 @@
 }
 
 .nav-tabs .tab-item {
-	font-size:20px;
+	font-size: 20px;
+	a{
+		color: white;
+		padding: 6px 5px 0;
+	}
 }
 
 #map {

@@ -4,7 +4,7 @@
 	</div>
 	<div class="media-body">
 		<div id="player-body">
-			<%= render partial: 'tracks/player_heading', locals: {track:track, position:position} %>
+			<%= render partial: 'tracks/player_heading', locals: {track:track, position:position} if track.user %>
 		</div>
 		<span id="jquery_jplayer_1" class="jp-jplayer"></span>
 		<div class="jp-seek-bar progress" style="margin-bottom:0;">
