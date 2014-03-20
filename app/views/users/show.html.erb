@@ -1,7 +1,7 @@
 <div class="content-block">
 	<h3 style="display:inline-block; border-bottom: 1px solid white"><%= @user.display_name %><% if @user.address && @user.publish_address %><small><%=@user.address %></small><% end %></h3>
-	<% if current_user != user %>
-		<%= link_to pay_path(user, user:{method:"event-tip"}), method: :post, remote: true do %>
+	<% if current_user != @user %>
+		<%= link_to pay_path(@user, user:{method:"event-tip"}), method: :post, remote: true do %>
 			<%= image_tag 'dogecoin75px.png', alt: 'Tip', style:"height:75px; float:right;", id: "pay-user-link", data: {toggle:"tooltip", placement:"left", title:"Send thanks!"} %>
 		<% end %>
 	<% end %>
