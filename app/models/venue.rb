@@ -28,6 +28,8 @@ class Venue < ActiveRecord::Base
 	has_many :events
 	belongs_to :user
 
+	has_many :tags, foreign_key: :object_id, dependent: :destroy
+
 	has_attached_file :avatar, 
 		styles: {
 			tinythumb: '50x50#',

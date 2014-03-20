@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140313164159) do
+ActiveRecord::Schema.define(version: 20140320183718) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
@@ -139,14 +139,15 @@ ActiveRecord::Schema.define(version: 20140313164159) do
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
 
   create_table "tags", force: true do |t|
-    t.integer  "track_id"
+    t.integer  "object_id"
     t.string   "category"
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type"
   end
 
-  add_index "tags", ["track_id"], name: "index_tags_on_track_id"
+  add_index "tags", ["object_id"], name: "index_tags_on_object_id"
 
   create_table "tracks", force: true do |t|
     t.string   "name"

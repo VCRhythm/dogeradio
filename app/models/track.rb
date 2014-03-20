@@ -13,7 +13,7 @@
 
 class Track < ActiveRecord::Base
   belongs_to :user
-	has_many :tags, dependent: :destroy
+	has_many :tags, foreign_key: :object_id, dependent: :destroy
 	
 	searchkick index_name: 'tracks_index', text_start: ['name']
 
