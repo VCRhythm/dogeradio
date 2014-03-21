@@ -1,20 +1,11 @@
-<h3><strong><%= track.name %></strong></h3>
-<h4><%= track.user.username %></h4>
-<%= form_for [track, @tag], html: {class: "form-inline", role: "form"}, remote: true do |f| %>
+<h3><strong><%= @track.name %></strong></h3>
+<h4><%= @track.user.username %></h4>
+<%= form_for [@track, @tag], html: {class: "form-inline", role: "form"}, remote: true do |f| %>
   <div class="form-group">
-    <%= f.select :category, nil, {}, class: "form-control input-sm tag-form", id: "tag-options" %>
+    <%= f.select :category, options_for_select(@tag_categories), {}, class: "form-control input-sm tag-form", id: "tag-options" %>
   </div>
   <div class="form-group">
     <%= f.text_field :description, class: "form-control input-sm", placeholder: "Description" %>
   </div>
   <%= f.submit 'Add Tag', class: "btn btn-primary" %>
 <% end %>
-<script>
-	$.getJSON( "tags/tracks_tags.json", function( data ) {
-		var choices = [];
-		$.each( data, function( key, val ) {
-			choices.push( "<option class='"+value.class+"' value='"+value.category+"'>"+value.category+"</option>" );
-		});
-		$("#tag-options").append(choices.join(""));
-	});
-</script>
