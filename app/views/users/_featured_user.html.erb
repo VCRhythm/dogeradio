@@ -2,7 +2,7 @@
 	<h3 class="underlined-header">Featured Artist</h3>
 	<div class="media">
 		<%= link_to user, class: "pull-left" do %>
-			<% if user.avatar %>
+			<% if user.try(:avatar) %>
 				<%= image_tag user.avatar.url(:thumb), class: "media-object" %>
 			<% end %>
 		<% end %>
