@@ -1,5 +1,10 @@
-<h3 class="underlined-header">Local<small style="float: right; position:relative; top:5px"><% if @location %><%= @location.city %>, <%=@location.state %></small><% end %></h3>
+<h3 class="underlined-header">Local<small style="float: right; position:relative; top:5px"><span id="location_city"></span><span id="location_state"></span></small></h3>
 <%= render partial: 'shared/enter_location' %>
 <% if @location && events%>
 	<%= render partial: 'events/list_of_events', locals: {events: events} %>
 <% end %>
+<script>
+	$(document).ready(function(){
+		$.get("/update_location/");
+	});
+</script>

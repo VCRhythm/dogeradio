@@ -18,7 +18,8 @@ class TagsController < ApplicationController
   def new
 		@tag = Tag.new
 		@track = Track.find(params[:track_id])
-		choose_layout
+    @tag_categories = ActiveSupport::JSON.decode("tags/tracks_categories").map {|choice| [choice["category"], choice["class"]]}
+    choose_layout
   end
 
   # GET /tags/1/edit

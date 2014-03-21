@@ -1,1 +1,20 @@
-$(".local-users").html("<%=j render partial: 'users/local_users', locals: {users: @local_users, events: @local_events, venues: @venues} %>");
+<% if @location.city %>
+	$("#location_city").html("<%=j @location.city %>");
+	<% if (@location.state.length + @location.city.length < 17) && @location.state %>
+		$("#location_state").html(", <%=j @location.state %>");
+	<% else %>
+		$("#location_state").html("");
+	<% end %>
+<% elsif @location.state %>
+	$("#location_city").html("");
+	$("#location_state").html("<%=j @location.state %>");
+<% else %>
+	$("#location_city").html("Where?");
+	$("#location_state").html("");
+<% end %>
+<% if @local_users %>
+	$(".local-users").html("<%=j render partial: 'users/user_list', locals: {users: @local_users} %>");
+<% end %>
+<% if @local_events %>
+	$(".local-users").append("<%=j render partial: 'events/event_list', locals: {events: @local_events} %>");
+<% end %>

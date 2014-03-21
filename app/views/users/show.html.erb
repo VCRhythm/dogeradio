@@ -1,1 +1,29 @@
-<%= render @user %>
+<div class="content-block">
+	<h3 style="display:inline-block; border-bottom: 1px solid white"><%= @user.display_name %><% if @user.address && @user.publish_address %><small><%=@user.address %></small><% end %></h3>
+	<% if current_user != @user %>
+		<%= link_to pay_path(@user, user:{method:"event-tip"}), method: :post, remote: true do %>
+			<%= image_tag 'dogecoin75px.png', alt: 'Tip', style:"height:75px; float:right;", id: "pay-user-link", data: {toggle:"tooltip", placement:"left", title:"Send thanks!"} %>
+		<% end %>
+	<% end %>
+	<%= render partial: 'shared/follow_form', locals: {user: @user} if signed_in? %>
+	<div class="media">
+		<div class="pull-left">
+			<% if @user.try(:avatar) %>
+				<%= image_tag @user.avatar.url(:square), class: "media-object" %>
+			<% end %>
+			<% if @user.soundcloud_access_token %><%= image_tag 'soundcloud-small.png', style: "position:absolute; top:240px; left:40px;" %><% end %>
+		</div>
+		<div class="media-body"><p>
+			<%= html_escape(@user.bio).gsub(/\n/, '<br />').html_safe %></p>
+			<% if @user.website %>
+				<h5><%=link_to @user.website, @user.website %></h5>
+			<% end %>
+		</div>
+	</div>
+	<ul style="padding-left:0">
+		<%= render @tracks %>
+	</ul>
+</div>
+<script>
+	$('#pay-user-link').tooltip();
+</script>

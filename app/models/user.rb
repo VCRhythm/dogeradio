@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-	after_create :init
+	before_validation :init, on: :create
 
 	has_many :venues
 	has_and_belongs_to_many :events, join_table: "users_events"

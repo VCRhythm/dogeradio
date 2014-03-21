@@ -44,9 +44,9 @@ body {
 	background-color:#005d74;
 	border-color: #005d74;
 	&:hover{
-		background-color:#4896A8;	
-		border-color:#4896A8;	
-	}	
+		background-color:#4896A8;
+		border-color:#4896A8;
+	}
 }
 
 #wrap{
@@ -102,10 +102,15 @@ h3{
 }
 .logged-text{
 	color:#777777;
-}	
+}
 #uploads_container{
 	padding:10px;
 }
+.upload
+{
+	width:100%;
+}
+#file.form-control{ height:100%;}
 .progress{
 	height:5px;
 }
