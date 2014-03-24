@@ -1,0 +1,9 @@
+<div class="row">
+	<div class="col-sm-12" id="topbar">
+		<div class="content-block">
+			<%= render partial: 'shared/ticker' %>
+			<div id="player"><%= render partial: "tracks/topplayer", locals: {track: @track, position: @player_position } %></div>
+			<%= render partial: 'shared/playlist', locals: {hidden: true} %>
+		</div>
+	</div>
+</div>

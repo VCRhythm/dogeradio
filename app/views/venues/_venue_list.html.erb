@@ -3,7 +3,7 @@
 		<%= link_to venue, remote: true, class: "remote-link" do %><%= image_tag venue.avatar(:thumb), class: "venue-image", data: {toggle:"tooltip", placement:"bottom", title: venue.name} %><% end %>
 	<% end %>
 <% else %>
-	<p>No venues found.</p>
+	<p>We found no venues near your location that will accept Dogecoin.</p>
 <% end %>
 <script>
 	$('.venue-image').tooltip();
