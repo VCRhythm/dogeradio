@@ -3,7 +3,7 @@
 		<%= render partial: 'tracks/player_image', locals: {track:track} %>
 	</div>
 	<div class="media-body">
-		<div id="player-body">
+		<div id="player-body" class="player-body-sidebar">
 			<%= render partial: 'tracks/player_heading', locals: {track:track, position:position} if track.user %>
 		</div>
 		<span id="jquery_jplayer_1" class="jp-jplayer"></span>

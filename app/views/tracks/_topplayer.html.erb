@@ -1,5 +1,7 @@
 <div style="height:30px; overflow:hidden;">
-	<%= render partial: 'tracks/slim_player_heading', locals: {track:track, position: position} if track.user %>
+	<span id="player-body" class="player-body-top">
+		<%= render partial: 'tracks/player_heading', locals: {track:track, position: position} if track.user %>
+	</span>
 	<span id="jquery_jplayer_1" class="jp-jplayer"></span>
 	<span id="player-buttons" style="height:30px; position:absolute; top:35px; right:60px;">
 		<span id="jp-controls" >
@@ -13,5 +15,4 @@
 	<div class="jp-seek-bar progress" style="margin-bottom:0;">
 		<div class="jp-play-bar progress-bar"></div>
 	</div>
-	
 </div>
