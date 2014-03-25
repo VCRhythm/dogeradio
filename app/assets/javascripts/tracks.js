@@ -131,15 +131,21 @@ $(document).ready(function(){
 			url: '/load_yelp_suggestions/'
 		});
 	}).on('click', '#minimize-sidebar', function(){
-		$('#sidebar').slideUp('fast').remove();
-		$('#main-container').removeClass("row-offcanvas row-offcanvas-left");
+		$('#sidebar').slideUp(function(){
+			$(this).remove();
+			$('#main-container').removeClass("row-offcanvas row-offcanvas-left");
+			$('#main').removeClass("col-sm-8").addClass("col-sm-12");
+		});
 		$.ajax({
 			type: 'get',
 			url: '/topbar'
 		});
 	}).on('click', '#maximize-sidebar', function(){
-		$('#topbar').slideUp('fast').remove();
-		$('#main-container').addClass("row-offcanvas row-offcanvas-left");
+		$('#topbar').slideUp(function(){
+			$(this).remove();
+			$('#main-container').addClass("row-offcanvas row-offcanvas-left");
+			$('#main').removeClass("col-sm-12").addClass("col-sm-8");
+		});
 		$.ajax({
 			type: 'get',
 			url: '/sidebar'
