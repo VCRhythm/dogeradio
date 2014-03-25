@@ -1,7 +1,6 @@
 if(!$("#player-heading").length){
 	$("#player").html("<%= j render partial: 'tracks/player', locals: {track:@track, position: 1} %>");
-	jPlayer = $("#jquery_jplayer_1");
-	loadPlayer($("#player-heading").attr("data-track_id"));
+	restartPlayer();
 }
 $("#playlist").append("<%= j render partial: 'tracks/playlist_item', locals: {track: @track, playlist_counter: 0}%>");
 playlist_counter = 0;

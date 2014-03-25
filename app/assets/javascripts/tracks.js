@@ -1,6 +1,11 @@
 var go = false;
 var jPlayer;
 
+function restartPlayer(){
+	jPlayer = $("#jquery_jplayer_1");
+	loadPlayer($("#player-heading").attr("data-track_id"));
+}
+
 function setNextSong(track_id){
 	if(jPlayer.data("jPlayer").options.loop){
 		$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
@@ -44,14 +49,14 @@ function loadPlayer(track_id){
 		ready: function () {
 			track_url=$("#player-heading").attr("data-track_url");
 			$(this).jPlayer("setMedia", {mp3: track_url} );
-			if (go) $(this).jPlayer("play"); 
+			if (go) $(this).jPlayer("play");
 			go = false;
 		},
 		repeat: function(event){
 			setNextSong(track_id);
 		}
 	});
-}	
+}
 
 function updatePlayer(position){
 	previous_position = $("#player-heading").attr('data-position');
@@ -72,8 +77,7 @@ function updatePlayer(position){
 }
 
 $(document).ready(function(){
-	jPlayer = $("#jquery_jplayer_1");
-	loadPlayer($("#player-heading").attr("data-track_id"));
+	restartPlayer();
 
 	$(document).on('click', '.remote-link', function(){
 		$('.navbar-collapse').removeClass('in');
@@ -126,6 +130,20 @@ $(document).ready(function(){
 			type: 'get',
 			url: '/load_yelp_suggestions/'
 		});
+	}).on('click', '#minimize-sidebar', function(){
+		$('#sidebar').slideUp('fast').remove();
+		$('#main-container').removeClass("row-offcanvas row-offcanvas-left");
+		$.ajax({
+			type: 'get',
+			url: '/topbar'
+		});
+	}).on('click', '#maximize-sidebar', function(){
+		$('#topbar').slideUp('fast').remove();
+		$('#main-container').addClass("row-offcanvas row-offcanvas-left");
+		$.ajax({
+			type: 'get',
+			url: '/sidebar'
+		});
 	});
 
 	$('.sortable').sortable({
@@ -147,7 +165,7 @@ $(document).ready(function(){
 				url: '/playlists/'+playlist_id+'/sort',
 				dataType: 'script',
 				complete: function(request){
-					setNextSong(track_id);	
+					setNextSong(track_id);
 					$(".list-group").addClass("sortable");
 				}
 			});

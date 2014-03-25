@@ -31,7 +31,7 @@ class TracksController < ApplicationController
 
 	def edit
 	end
-		
+
   	def update
 		respond_to do |format|
 			if @track.update(track_params)
@@ -49,7 +49,7 @@ class TracksController < ApplicationController
   	end
 
   private
-    
+
     # Use callbacks to share common setup or constraints between actions.
     def set_track
       @track = Track.find(params[:id])
