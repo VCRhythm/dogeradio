@@ -1,5 +1,24 @@
 ﻿/* You can alter this CSS in order to give Smooth Div Scroll your own look'n'feel */
 
+#scrollingText{
+	height:14px;
+	margin-bottom:10px;
+	padding-right:8px;
+	.scrollWrapper .scrollableArea{
+		p{
+			display: block;
+			float:left;
+			margin: 0;
+			padding: 1px 7px 0 0;
+			font-size: 12px;
+			line-height: 12px;
+			font-weight: normal;
+			color: white;
+			white-space: nowrap;
+		}
+	}
+}
+
 /* Invisible left hotspot */
 div.scrollingHotSpotLeft
 {
@@ -23,7 +42,7 @@ div.scrollingHotSpotLeft
 /* Visible left hotspot */
 div.scrollingHotSpotLeftVisible
 {
-	background-image: url(../images/arrow_left.gif);				
+	background-image: url(../images/arrow_left.gif);
 	background-color: #fff;
 	background-repeat: no-repeat;
 	opacity: 0.35; /* Standard CSS3 opacity setting */

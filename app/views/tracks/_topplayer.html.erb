@@ -1,16 +1,15 @@
-<div style="height:30px; overflow:hidden;">
+<div style="height:25px; overflow:hidden;">
 	<span id="player-body" class="player-body-top">
 		<%= render partial: 'tracks/player_heading', locals: {track:track, position: position} if track.user %>
 	</span>
 	<span id="jquery_jplayer_1" class="jp-jplayer"></span>
-	<span id="player-buttons" style="height:30px; position:absolute; top:35px; right:60px;">
+	<span id="player-buttons" style="height:30px; position:absolute; top:5px; right:80px;">
 		<span id="jp-controls" >
 			<button type="button" class="jp-play btn btn-link btn-lg" style="padding:0"><span class="glyphicon glyphicon-play"></span></button>
 			<button type="button" class="jp-pause btn btn-link btn-lg" style="padding:0"><span class="glyphicon glyphicon-pause"></span></button>
 			<button type="button" class="jp-next btn btn-link btn-lg" style="padding:0"><span class="glyphicon glyphicon-step-forward"></span></button>
 		</span>
 		<%= render partial: 'tracks/player_custom_controls', locals: {track:track} %>
-
 	</span>
 	<div class="jp-seek-bar progress" style="margin-bottom:0;">
 		<div class="jp-play-bar progress-bar"></div>

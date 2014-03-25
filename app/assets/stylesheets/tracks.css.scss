@@ -8,60 +8,32 @@
 	box-sizing: border-box;
 	}
 
-html{	height:100%; }
+#sidebar{
+	display:none;
+}
 
-body {
-	line-height:1;
-	padding-top: 70px;
-	height:100%;
-	background: image_url('moonSurfaceColorized.jpg') no-repeat center fixed;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-color:#333;
-	color:white;
-	.stats {
-		overflow: auto;
-		a {
-			float: left;
-			padding: 0 10px;
-			border-left: 1px solid #eee;
-			color: gray;
-			&:first-child {
-			}
-			&:hover {
-				text-decoration: none;
-				color: #049cdb;
-			}
-		}
-		strong {
-			display: block;
-		}
+#topbar{
+	display:none;
+	.content-block{
+		margin:0;
+		padding-bottom:5px;
+		padding-top: 5px;
 	}
 }
 
-.btn-primary{
-	background-color:#005d74;
-	border-color: #005d74;
-	&:hover{
-		background-color:#4896A8;
-		border-color:#4896A8;
-	}
+.underlined-header{
+	border-bottom: 1px solid white;
 }
 
-#wrap{
-	padding-bottom:50px;
-}
-#footer{
-	position:fixed;
-	bottom:0px;
-	width:100%;
-	font-size:12px;
-	padding-top:10px;
-	min-height:30px;
-	height:auto;
-	background-color:#005d74;
+#map {
+	img {
+		max-width: none;
 	}
+	label {
+		width: auto;
+		display:inline;
+	}
+}
 
 .size-button{
 	position:absolute;
@@ -69,26 +41,6 @@ body {
 	top:5px;
 }
 
-a {
-	color: #D47A6F;
-	&:hover{
-		color: #D4AE57;
-		text-decoration:none;
-	}
-}
-
-.navbar-brand{
-	color: #fbc213;
-}
-h2{
-	margin-top:0;
-	padding-top:10px;
-	}
-
-h3{
-	margin-top:0;
-	padding-top:10px;
-}
 .content-block{
 	margin-bottom:20px;
 	padding:10px 20px;
@@ -96,32 +48,16 @@ h3{
 	@include box_sizing;
 }
 
-.navbar-default {
-	margin-bottom:0;
-	.navbar-brand{
-	font-size:35px;
-	color:#BA9133;
-}
-	li{
-		font-size:30px;
-	}
-}
 .logged-text{
 	color:#777777;
 }
+
 #uploads_container{
 	padding:10px;
 }
-.upload
-{
+
+.upload {
 	width:100%;
-}
-#file.form-control{ height:100%;}
-.progress{
-	height:5px;
-}
-.progress-bar-success{
-	background-color:	#268b41;
 }
 
 #tags{
@@ -162,12 +98,9 @@ h3{
 	left:-3px;
 }
 
-.player-body-sidebar{
-	overflow:hidden;
-	height:68px;
-}
-
-.player-body-top #player-heading{
-		display:inline-block;
-		margin-right:10px;
+.venue-image{
+	margin-left:-4px;
+	&:first-child{
+		margin-left:0;
+	}
 }
