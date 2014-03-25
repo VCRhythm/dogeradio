@@ -2,6 +2,12 @@ var go = false;
 var jPlayer;
 
 function restartPlayer(){
+	$("#scrollingText").smoothDivScroll({
+		autoScrollingMode: "always",
+		autoScrollingDirection: "endlessLoopRight",
+		autoScrollingStep: 1,
+		autoScrollingInterval: 100,
+	});
 	jPlayer = $("#jquery_jplayer_1");
 	loadPlayer($("#player-heading").attr("data-track_id"));
 }
