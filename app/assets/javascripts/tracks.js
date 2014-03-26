@@ -1,15 +1,18 @@
 var go = false;
 var jPlayer;
 
-function restartPlayer(){
+function refreshPlayer(){
+	jPlayer = $("#jquery_jplayer_1");
+	loadPlayer($("#player-heading").attr("data-track_id"));
+}
+
+function refreshTicker(){
 	$("#scrollingText").smoothDivScroll({
 		autoScrollingMode: "always",
 		autoScrollingDirection: "endlessLoopRight",
 		autoScrollingStep: 1,
 		autoScrollingInterval: 100,
 	});
-	jPlayer = $("#jquery_jplayer_1");
-	loadPlayer($("#player-heading").attr("data-track_id"));
 }
 
 function setNextSong(track_id){
@@ -83,7 +86,8 @@ function updatePlayer(position){
 }
 
 $(document).ready(function(){
-	restartPlayer();
+	refreshPlayer();
+	refreshTicker();
 	$(".alert").delay(3000).slideUp();
 
 	$(document).on('click', '.remote-link', function(){

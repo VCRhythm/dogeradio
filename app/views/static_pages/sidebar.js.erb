@@ -1,2 +1,4 @@
-$("<%=j render partial: 'shared/sidebar' %>").prependTo($("#main-container")).hide().slideDown();
-restartPlayer();
+$("<%=j render partial: 'shared/sidebar' %>").prependTo($("#main-container")).hide().slideDown(function(){
+	refreshTicker();
+});
+refreshPlayer();
