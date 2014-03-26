@@ -6,7 +6,7 @@
 		<% end %>
 	<% end %>
 	<%= render partial: 'shared/follow_form', locals: {user: @user} if signed_in? %>
-	<div class="media">
+	<div class="media user-profile">
 		<div class="pull-left">
 			<% if @user.try(:avatar) %>
 				<%= image_tag @user.avatar.url(:square), class: "media-object" %>

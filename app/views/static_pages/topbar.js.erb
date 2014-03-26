@@ -1,2 +1,2 @@
-$("#main-container").prepend("<%=j render partial: 'shared/topbar' %>");
+$("<%=j render partial: 'shared/topbar' %>").prependTo($("#body-container")).hide().slideDown();
 restartPlayer();

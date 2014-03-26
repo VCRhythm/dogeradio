@@ -1,12 +1,28 @@
 // Place all the styles related to the playlists controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#topbar{
+	#player {
+		overflow: hidden;
+		height: 29px;
+		.jp-seek-bar {
+			margin-top: 4px;
+		}
+	}
+	.content-block{
+		margin:0 0 9px;
+		padding-bottom:1px;
+		padding-top: 5px;
+	}
+}
+
 .playlist-item{
 	color: #777777;
 	&:hover {
 		color:#333333;
-		text-decoration:none;
-		background-color:whitesmoke;
+		text-decoration: none;
+		background-color: whitesmoke;
 	}
 }
 
@@ -36,4 +52,8 @@ li.playlist-item.active{
 		display:inline-block;
 		margin-right:10px;
 	}
+}
+
+#jp-controls .btn.btn-link {
+	color: white;
 }

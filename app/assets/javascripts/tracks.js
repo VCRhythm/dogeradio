@@ -84,6 +84,7 @@ function updatePlayer(position){
 
 $(document).ready(function(){
 	restartPlayer();
+	$(".alert").delay(3000).slideUp();
 
 	$(document).on('click', '.remote-link', function(){
 		$('.navbar-collapse').removeClass('in');
@@ -156,6 +157,8 @@ $(document).ready(function(){
 			type: 'get',
 			url: '/sidebar'
 		});
+	}).on('click', "#update_balance_link", function(){
+		$("#update_balance").html("<p class='alert alert-info'>Account balance updating...</p>");
 	});
 
 	$('.sortable').sortable({

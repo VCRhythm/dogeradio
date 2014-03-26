@@ -15,11 +15,9 @@
 				<button type="button" class="jp-play btn btn-link btn-lg" style="padding:0"><span class="glyphicon glyphicon-play"></span></button>
 				<button type="button" class="jp-pause btn btn-link btn-lg" style="padding:0"><span class="glyphicon glyphicon-pause"></span></button>
 				<button type="button" class="jp-next btn btn-link btn-lg" style="padding:0"><span class="glyphicon glyphicon-step-forward"></span></button>
+				<%= render partial: 'tracks/player_custom_controls', locals: {track:track} %>
 			</span>
 		</div>
-	</div>
-	<div style="margin:0; padding-top:3px" class="pull-right" id="player-custom-controls">
-		<%= render partial: 'tracks/player_custom_controls', locals: {track:track} %>
 	</div>
 </div>
 <div id="tags">

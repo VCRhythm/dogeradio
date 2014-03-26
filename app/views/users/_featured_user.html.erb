@@ -1,12 +1,12 @@
 <div class="content-block">
 	<h3 class="underlined-header">Featured Artist</h3>
-	<div class="media">
+	<div class="media featured-media">
 		<%= link_to user, class: "pull-left" do %>
 			<% if user.try(:avatar) %>
 				<%= image_tag user.avatar.url(:thumb), class: "media-object" %>
 			<% end %>
 		<% end %>
-		<div class="media-body" style="min-height:100px;">
+		<div class="media-body featured-media-body" style="min-height:100px;">
 			<h4 class="media-heading"><strong><%= link_to user.display_name, user, remote: true, class: "remote-link" %></strong></h4>
 			<p><%= html_escape(user.bio).gsub(/\n/, '<br />').html_safe %></p>
 		</div>
