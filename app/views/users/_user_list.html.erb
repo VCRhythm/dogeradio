@@ -1,6 +1,8 @@
 <% if users.length > 0 %>
 	<% users.each do |user| %>
-		<%= link_to user, remote: true, class: "remote-link" do %><%= image_tag user.avatar(:thumb), class: "user-image", data:{toggle:"tooltip", placement:"bottom", title: user.display_name} %><% end %>
+		<%= link_to user, remote: true, class: "remote-link tab-image" do %>
+			<%= image_tag user.avatar(:thumb), class: "user-image", data:{toggle:"tooltip", placement:"bottom", title: user.display_name} %>
+		<% end %>
 	<% end %>
 <% else %>
 	<p>No artists near your location are able to accept Dogecoin for this event.</p>

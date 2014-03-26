@@ -23,9 +23,10 @@ Dogeradio::Application.routes.draw do
   get 'search_users', to: 'search#users'
 
   get 'local_venues', to: 'venues#local_venues'
-	get 'load_yelp_suggestions', to: "venues#load_yelp_suggestions"
-  
-  resources :venues do	
+	post 'add_yelp_venues', to: 'venues#add_yelp_venues'
+  get 'load_yelp_suggestions', to: "venues#load_yelp_suggestions"
+
+  resources :venues do
     get :events, to: "events#venue_events"
     resources :events, except: [:index, :show, :destroy]
   end
@@ -39,7 +40,7 @@ Dogeradio::Application.routes.draw do
 		post :sort
 		resource :ranks
 	end
-	
+
 #	post '/tags/:id/search', to: 'tags#search'
   resources :tags, only: [:destroy]
 
@@ -54,9 +55,9 @@ Dogeradio::Application.routes.draw do
   resources :musics, only: [:create, :new]
 
   devise_for :users, controllers: {registrations: "registrations"}
-	
+
 	post 'hold_charge', to: "transactions#hold_charge"
-	resources :transactions, only: [:index] 
+	resources :transactions, only: [:index]
 
   resources :votes, only: [:create, :destroy]
   resources :favorites, only: [:create, :destroy]
@@ -65,10 +66,10 @@ Dogeradio::Application.routes.draw do
 	get 'soundcloud', to: 'users#soundcloud_auth'
 	get 'soundcloud_callback', to: 'users#soundcloud_callback'
 	post 'payout', to: 'users#payout'
-		
+
   get 'local_users', to: 'users#local_users'
   resources :users, only: :index
-	
+
   scope ':username' do
 		post 'autopay' => 'users#autopay'
 		post 'pay' => 'users#pay'
@@ -77,8 +78,8 @@ Dogeradio::Application.routes.draw do
 		get 'followers' => 'users#followers'
 		get 'favorite_tracks'=> 'users#favorite_tracks'
 	end
-	
-  get ':username', to:'users#show', as: :user	
+
+  get ':username', to:'users#show', as: :user
 	# The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

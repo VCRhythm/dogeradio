@@ -1,8 +1,11 @@
 <div class="content-block">
 	<h3>Top-Rated Nearby Concert Venues</h3>
-	<ul>
-		<% @yelp_response.each do |response| %>
-			<li><%= link_to response["name"], 'javascript:;', class:'yelp-response', data:{name:response["name"], street: response["location"]["address"].first, city: response["location"]["city"], state: response["location"]["state_code"], zipcode: response["location"]["postal_code"], country: response["location"]["country_code"], image_url: response["image_url"]} %></li>
-		<% end %>
-	</ul>
+	<% @yelp_response.each do |response| %>
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" class="yelp-response-check" data-name = "<%=response['name']%>" data-street = "<%= response['location']['address'].first %>" data-city= "<%= response['location']['city'] %>" data-state = "<%= response['location']['state_code'] %>" data-zipcode= "<%= response['location']['postal_code'] %>" data-country = "<%=response['location']['country_code'] %>" data-image_url= "<%= response['image_url'] %>"> <%= link_to response["name"], 'javascript:;', class:'yelp-response', data:{name:response["name"], street: response["location"]["address"].first, city: response["location"]["city"], state: response["location"]["state_code"], zipcode: response["location"]["postal_code"], country: response["location"]["country_code"], image_url: response["image_url"]} %>
+			</label>
+		</div>
+	<% end %>
+	<button type="button" id="add-yelp-venues" class="btn btn-primary">Add Checked Venues</button>
 </div>

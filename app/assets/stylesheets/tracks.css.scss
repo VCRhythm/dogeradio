@@ -17,17 +17,6 @@
 	padding-right:5px !important;
 }
 
-#main.col-sm-12{
-	.col-md-7{
-	}
-}
-
-#sidebar { // Left sidebar
-}
-
-#main-sidebar{ // Right sidebar
-}
-
 .underlined-header{
 	border-bottom: 1px solid white;
 }
@@ -107,11 +96,12 @@
 	left:-3px;
 }
 
-.venue-image{
+.tab-image{
 	margin-left:-4px;
-	&:first-child{
-		margin-left:0;
-	}
+}
+
+.tab-image:nth-of-type(1){
+	margin-left:0;
 }
 
 .user-profile{

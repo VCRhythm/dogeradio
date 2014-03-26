@@ -159,6 +159,26 @@ $(document).ready(function(){
 		});
 	}).on('click', "#update_balance_link", function(){
 		$("#update_balance").html("<p class='alert alert-info'>Account balance updating...</p>");
+	}).on('click', '#add-yelp-venues', function(){
+		$(".yelp-response-check").each(function(){
+			if(this.checked){
+				$.ajax({
+					type: 'post',
+					data: {
+						venue:{
+							name: this.getAttribute("data-name"),
+							street: this.getAttribute("data-street"),
+							city: this.getAttribute("data-city"),
+							state: this.getAttribute("data-state"),
+							zipcode: this.getAttribute("data-zipcode"),
+							country: this.getAttribute("data-country")
+						},
+						yelp_image: this.getAttribute('data-image-url')
+					},
+					url: "/venues"
+				});
+			}
+		});
 	});
 
 	$('.sortable').sortable({

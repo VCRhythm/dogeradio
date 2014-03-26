@@ -13,7 +13,7 @@ html{ height:100%; }
 
 body {
 	line-height:1;
-	padding-top: 50px;
+	padding-top: 60px;
 	height:100%;
 	background: image_url('moonSurfaceColorized.jpg') no-repeat center fixed;
 	-webkit-background-size: cover;
@@ -62,6 +62,11 @@ a {
 		color: #D4AE57;
 		text-decoration:none;
 	}
+}
+
+.navbar-fixed-top{
+	overflow:hidden;
+	height:50px;
 }
 
 .navbar-default {
