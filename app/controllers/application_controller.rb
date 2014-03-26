@@ -60,21 +60,22 @@ class ApplicationController < ActionController::Base
 
 	def location
 		if params[:location].blank?
-			if Rails.env.test? || Rails.env.development?
-				@location ||= Geokit::Geocoders::MultiGeocoder.geocode("69.243.26.55")
-			elsif !session[:geo_location].blank?
+			if !session[:geo_location].blank?
 				@location ||= session[:geo_location]
+			elsif Rails.env.test? || Rails.env.development?
+				@location ||= Geokit::Geocoders::MultiGeocoder.geocode("69.243.26.55")
 			else
 				@location ||= Geokit::Geocoders::MultiGeocoder.geocode("Pullman, WA, USA")
 			end
 		else
 			params[:location].each {|l| l = l.to_i } if params[:location].is_a? Array
 			@location ||= Geokit::Geocoders::MultiGeocoder.geocode(params[:location])
+			session[:geo_location] = @location
 		end
 		@location
 	end
 
-	def set_transactions	
+	def set_transactions
 		@transactions = Transaction.ten_recent
 	end
 
