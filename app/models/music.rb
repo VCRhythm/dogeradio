@@ -29,17 +29,17 @@ class Music < ActiveRecord::Base
 	validates_attachment_content_type :upload, content_type: ['audio/mpeg', 'audio/x-mpeg', 'audio/mp3', 'audio/x-mp3', 'audio/mpeg3', 'audio/x-mpeg3', 'audio/mpg', 'audio/x-mpg', 'audio/x-mpegaudio']
 	#validates_attachment_file_name :upload, matches: [/mp3\Z/, /mpeg\Z/, /ogg\Z/]
 	#do_not_validate_attachment_file_type :upload
-	
+
 	validates :direct_upload_url, presence: true, format: { with: DIRECT_UPLOAD_URL_FORMAT }
-						    
+
   before_create :set_upload_attributes
   after_create :queue_processing
-										  
+
   # Store an unescaped version of the escaped URL that Amazon returns from direct upload.
 	def direct_upload_url=(escaped_url)
 		write_attribute(:direct_upload_url, (CGI.unescape(escaped_url) rescue nil))
   end
-																		  
+
   # Final upload processing step
   def self.transfer_and_cleanup(id)
 	  music = Music.find(id)
@@ -47,10 +47,10 @@ class Music < ActiveRecord::Base
 		clean_direct_upload_url = direct_upload_url_data[:filename].gsub(/[^0-9A-Za-z.\-]/, '_')
 
 	  s3 = AWS::S3.new
-																					    
+
     paperclip_file_path = "musics/uploads/#{id}/original/#{clean_direct_upload_url}"
     s3.buckets[Rails.configuration.aws[:bucket]].objects[paperclip_file_path].copy_from(direct_upload_url_data[:path])
-		
+
 	  music.processed = true
     music.save
 
@@ -66,7 +66,7 @@ class Music < ActiveRecord::Base
 	end
 
 	protected
-  
+
 	# Set attachment attributes from the direct upload
   # @note Retry logic handles S3 "eventual consistency" lag.
   def set_upload_attributes
@@ -88,7 +88,7 @@ class Music < ActiveRecord::Base
 	    false
 	  end
 	end
-			
+
 	# Queue file processing
   def queue_processing
 	  Music.transfer_and_cleanup(id)

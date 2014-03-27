@@ -13,6 +13,7 @@
 class Tag < ActiveRecord::Base
   	belongs_to :track
   	belongs_to :venue
+  	belongs_to :user
 	validates :track_id, presence: true
 	validates :category, :description, presence: true
 
@@ -21,7 +22,7 @@ class Tag < ActiveRecord::Base
 
 	include CI_Find
 	include CI_Find_First
-	
+
 	scope :track_tags, -> { where }
 	scope :unique_track_tags, -> {select(:category, :description).uniq}
 	scope :by_votes, -> { joins(:votes) }

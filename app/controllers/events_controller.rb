@@ -15,7 +15,7 @@ class EventsController < ApplicationController
 	def show
 		choose_layout
 	end
-	
+
 	def venue_events
 		@events = @venue.events
 		render action: 'index'
@@ -49,9 +49,9 @@ class EventsController < ApplicationController
 	end
 
 	def edit #authenticated
-		choose_layout		
+		choose_layout
 	end
-	
+
 	def update #authenticated
     	respond_to do |format|
       		if @event.update(event_params)
@@ -88,13 +88,13 @@ class EventsController < ApplicationController
 	private
    	def layout_container
 		@layout_container = "action-panel"
-	end 
+	end
 
 	def choose_layout
 		respond_to do |format|
 			format.html
 			format.js { render layout: "events"}
-		end	
+		end
 	end
 
 	def parse_moment
@@ -104,7 +104,7 @@ class EventsController < ApplicationController
     def set_venue
 		@venue = Venue.find(params[:venue_id])
     end
-    
+
     def set_event
       @event = Event.find(params[:id])
     end
