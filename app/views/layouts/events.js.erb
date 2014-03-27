@@ -1,4 +1,4 @@
-$("#<%=@layout_container%>").html("<%= j(yield) %>").slideDown();
+$("#<%=@layout_container%>").slideUp().html("<%= j(yield) %>").slideDown();
 if ($("#sidebar_status").val() != 'events'){
 	$.get("/events_sidebar");
 }
