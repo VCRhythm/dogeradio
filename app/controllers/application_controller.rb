@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
-	# fine guest_user object associated with the current sessions, creating one as needed
+	# find guest_user object associated with the current sessions, creating one as needed
 	def guest_user
 		# Cache the value  the first time it's gotten.
 		@cached_guest_user ||= User.find(session[:guest_user_id] ||= create_guest_user.id)
@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def create_guest_user
-		u = User.create(username: "guest"+SecureRandom.base64, email: "guest_#{Time.now.to_i}#{rand(99)}@dogeradio.com")
+		u = User.create(username: "guest"+SecureRandom.base64, email: "guest_#{Time.now.to_i}#{rand(99)}@dogeradio.com", guest: true, display_name: "Guest")
 		u.save!(validate: false)
 		@playlist = u.playlists.create(name: "queue", category: "queue")
 		@playlist.tracks = Track.order(created_at: :desc).limit(20)

@@ -3,7 +3,6 @@
 # Table name: events
 #
 #  id          :integer          not null, primary key
-#  user_id     :integer
 #  featured    :boolean
 #  name        :string(255)
 #  venue_id    :integer
@@ -14,7 +13,9 @@
 #
 
 class Event < ActiveRecord::Base
-	has_and_belongs_to_many :creators, class_name: "User", join_table: "creators_events", association_foreign_key: :user_id
+
+	has_and_belongs_to_many :creators, join_table: "creators_events", class_name: "User", autosave: true
+
 	has_and_belongs_to_many :users, join_table: "users_events"
 	belongs_to :venue
 	has_many :tags, foreign_key: :object_id, dependent: :destroy

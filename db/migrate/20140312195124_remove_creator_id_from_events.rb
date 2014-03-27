@@ -1,5 +1,5 @@
 class RemoveCreatorIdFromEvents < ActiveRecord::Migration
-  def change
+  def up
 		remove_column :events, :creator_id
   end
 end

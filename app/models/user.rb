@@ -45,6 +45,8 @@
 #  publish_address         :boolean          default(FALSE)
 #  distance                :float
 #  time_zone               :string(255)      default("UTC")
+#  admin                   :boolean          default(FALSE)
+#  guest                   :boolean
 #
 
 class User < ActiveRecord::Base
@@ -59,8 +61,7 @@ class User < ActiveRecord::Base
 	has_many :tags, foreign_key: :object_id, dependent: :destroy
 	has_many :venues
 	has_and_belongs_to_many :events, join_table: "users_events"
-	has_and_belongs_to_many :created_events, class_name: "Event", join_table: "creators_events", foreign_key: :user_id
-
+	has_and_belongs_to_many :created_events, join_table: "creators_events", class_name: "Event", autosave:true
 	geocoded_by :address, latitude: :lat, longitude: :lng
 	after_validation :geocode,
 		if: ->(obj){ obj.address.present? and obj.address_changed? }
@@ -68,7 +69,7 @@ class User < ActiveRecord::Base
 	acts_as_mappable
 
 	searchkick text_start: [:username, :display_name, :address], index_name: 'users_index'
-	validates_format_of :username, with: /\A[A-Za-z0-9.&]*\Z/, message: "can only be alphanumeric."
+	validates_format_of :username, with: /\A[A-Za-z0-9.&]*\Z/, message: "can only be alphanumeric.", unless: :guest
 	validates_uniqueness_of :username, case_sensitive: false
 	validates :username, :email, :display_name, presence: true
 
@@ -144,6 +145,7 @@ class User < ActiveRecord::Base
 	validates_attachment_content_type :avatar, content_type: /\Aimage/
 
 	scope :artists, -> {joins(:tracks).uniq}
+	scope :no_guests, -> { where(guest: false) }
 
 	include CI_Find
 	include CI_Find_First

@@ -3,11 +3,12 @@
 # Table name: tags
 #
 #  id          :integer          not null, primary key
-#  track_id    :integer
+#  object_id   :integer
 #  category    :string(255)
 #  description :string(255)
 #  created_at  :datetime
 #  updated_at  :datetime
+#  type        :string(255)
 #
 
 class Tag < ActiveRecord::Base

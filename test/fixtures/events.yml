@@ -3,7 +3,6 @@
 # Table name: events
 #
 #  id          :integer          not null, primary key
-#  user_id     :integer
 #  featured    :boolean
 #  name        :string(255)
 #  venue_id    :integer

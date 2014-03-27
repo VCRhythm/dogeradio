@@ -29,7 +29,7 @@ class EventsController < ApplicationController
 
 	def new_user #authenticated
 		@event = Event.find(params[:event_id])
-		@users = User.where.not(display_name: nil).order("display_name ASC")
+		@users = User.no_guests.order("display_name ASC")
 		choose_layout
 	end
 
@@ -42,10 +42,8 @@ class EventsController < ApplicationController
 					@event.users << user
 				end
 			end
-			render action: 'show', status: :ok, location: @event
-		else
-			render action: 'show', status: :unauthorized, location: @event
 		end
+		choose_layout
 	end
 
 	def edit #authenticated
@@ -68,12 +66,19 @@ class EventsController < ApplicationController
 		@event = Event.new
 		if @venue.jambase_id
 			@jambase_events = @venue.jambase_events
+			respond_to do |format|
+				format.html
+				format.js { render layout: "jambase_events"}
+			end
+		else
+			choose_layout
 		end
 	end
 
 	def create #authenticated
-		@event = current_user.created_events.new(event_params)
+		@event = Event.new(event_params)
 		@event.venue_id = @venue.id
+		current_user.created_events << @event
 		respond_to do |format|
 			if @event.save
 				format.html { redirect_to @venue, notice: 'Event was sucessfully added.' }
