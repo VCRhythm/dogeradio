@@ -32,11 +32,16 @@
 }
 
 .size-button{
-	background-color: #005D74;
+	background-color: transparent;
+	border: none;
 	color: white;
 	position:absolute;
 	right:5px;
 	top:-1px;
+	&:hover{
+		background-color: #BA9132;
+		color:black;
+	}
 }
 
 .content-block{

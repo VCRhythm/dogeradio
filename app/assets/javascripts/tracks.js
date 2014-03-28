@@ -2,7 +2,6 @@ var go = false;
 var jPlayer;
 
 function refreshPlayer(){
-	jPlayer = $("#jquery_jplayer_1");
 	loadPlayer($("#player-heading").attr("data-track_id"));
 }
 
@@ -24,6 +23,7 @@ function setNextSong(track_id){
 	} else {
 		$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
 		$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerNext", function(){
+			console.log("ended");
 			$.ajax({
 				type: "post",
 				url: "/tracks/"+track_id+"/plays"
@@ -45,10 +45,7 @@ function loadPlayer(track_id){
 		supplied: "mp3",
 		swfPath: "http://www.jplayer.org/latest/js/Jplayer.swf",
 		keyEnabled: true,
-		play: function(){
-			$(this).jPlayer("pauseOthers");
-		},
-		cssSelectorAncestor: "",
+		cssSelectorAncestor:"",
 		cssSelector: {
 			play:".jp-play",
 			pause:".jp-pause",
@@ -57,11 +54,15 @@ function loadPlayer(track_id){
 		},
 		ready: function () {
 			track_url=$("#player-heading").attr("data-track_url");
-			$(this).jPlayer("setMedia", {mp3: track_url} );
+			$(this).jPlayer("setMedia", {
+				mp3: track_url,
+				ogg: track_url
+			});
 			if (go) $(this).jPlayer("play");
 			go = false;
 		},
 		repeat: function(event){
+			console.log(''+track_id);
 			setNextSong(track_id);
 		}
 	});
@@ -86,8 +87,10 @@ function updatePlayer(position){
 }
 
 $(document).ready(function(){
+	jPlayer = $("#jquery_jplayer_1");
 	refreshPlayer();
 	refreshTicker();
+	$.get("/events_sidebar");
 	$(".alert").delay(3000).slideUp();
 
 	$(document).on('click', '.remote-link', function(){

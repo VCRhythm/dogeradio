@@ -1,6 +1,9 @@
 $("#<%= @layout_container %>").slideUp(function(){
 	$(this).html("<%= j(yield) %>").slideDown();
 });
+<% if @layout_container != 'action-panel' %>
+	$("#action-panel").slideUp();
+<% end %>
 if ($("#sidebar_status").val() != 'events'){
 	$.get("/events_sidebar");
 }

@@ -1,7 +1,7 @@
-<h3 class="underlined-header">Local<small style="float: right; position:relative; top:5px"><span id="location_city"></span><span id="location_state"></span></small></h3>
-<%= render partial: 'shared/enter_location' %>
-<% if @location && events%>
+<% if events %>
 	<%= render partial: 'events/event_list', locals: {events: events} %>
+<% else %>
+
 <% end %>
 <script>
 	$(document).ready(function(){

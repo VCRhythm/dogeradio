@@ -8,8 +8,7 @@ class EventsController < ApplicationController
 	def index
 		@venues = Venue.local(100, location).with_upcoming_events
 		@events = @venues.collect {|venue| venue.events.upcoming}.first
-		@layout_container ="events"
-		choose_layout
+		render "local_events.js.erb"
 	end
 
 	def show
@@ -91,6 +90,7 @@ class EventsController < ApplicationController
 	end
 
 	private
+
    	def layout_container
 		@layout_container = "action-panel"
 	end

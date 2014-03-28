@@ -56,4 +56,7 @@ li.playlist-item.active{
 
 #jp-controls .btn.btn-link {
 	color: white;
+	&:hover{
+		color: #BA9132;
+	}
 }

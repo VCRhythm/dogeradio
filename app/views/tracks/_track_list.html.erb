@@ -1,5 +1,5 @@
 <% tracks.each do |track| %>
-		<%= link_to playlist_ranks_path(@playlist, track_id: track.id), method: :post, remote: true, class: "list-group-item" do %>
+	<%= link_to playlist_ranks_path(@playlist, track_id: track.id), method: :post, remote: true, class: "list-group-item" do %>
 			<span class="badge" style="background-color:white"><span class="glyphicon glyphicon-plus" style="color:green"></span></span>
 			<strong><%= track.name %></strong> by <%=track.user.display_name %>
 	<% end %>

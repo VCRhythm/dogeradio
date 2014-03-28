@@ -14,7 +14,7 @@
 class Track < ActiveRecord::Base
   belongs_to :user
 	has_many :tags, foreign_key: :object_id, dependent: :destroy
-	
+
 	searchkick index_name: 'tracks_index', text_start: ['name']
 
 	has_many :transactions
@@ -33,11 +33,11 @@ class Track < ActiveRecord::Base
 	end
 
 	def count_plays
-		Play.where(track_id: :track_id).sum("count")	
+		Play.where(track_id: :track_id).sum("count")
 	end
 
 #	def most_played
 #		Track.joins(:plays).group(:track_id).sum(:count).sort.reverse.limit(10)
 #	end
-	
+
 end

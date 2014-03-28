@@ -6,7 +6,7 @@
 			<% end %>
 		</div>
 		<div class="song-player media-body">
-			<h3 class="media-heading" id= "heading_<%=track.id.to_s%>" ><%= link_to track.name, playlist_ranks_path(@playlist, track_id:track.id), method: "post", remote: true %> <%= render partial: 'shared/favorite_form', locals: {track:track} if signed_in? %></h3><span id="thanks_<%=track.id.to_s%>"></span>
+			<h3 class="media-heading" id= "heading_<%=track.id.to_s%>" style="padding-top:0" ><%= link_to track.name, playlist_ranks_path(@playlist, track_id:track.id), method: "post", remote: true %> <%= render partial: 'shared/favorite_form', locals: {track:track} if signed_in? %></h3><span id="thanks_<%=track.id.to_s%>"></span>
 			<span id="player-tags">
 				<%= render partial: 'tags/show_tags', locals: {track: track, vote:true} %>
 			</span>

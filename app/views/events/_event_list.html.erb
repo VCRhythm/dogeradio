@@ -17,9 +17,14 @@
 	</div>
 	<div style="position: absolute; right:0; border-left: 3px solid white">
 		<div style="height:50px; width:50px; text-align:center; vertical-align:middle; padding-bottom:5px; font-size:45px">@</div>
-		<%= link_to event.venue, remote: true, class: "remote-link" do %><%= image_tag event.venue.avatar(:tinythumb), class: "venue-image", data:{toggle:"tooltip", placement:"bottom", title: event.venue.name} %><% end %>
+		<%= link_to event.venue, remote: true, class: "remote-link venue-link", data:{toggle:"tooltip", placement:"top", title: event.venue.name} do %><%= image_tag event.venue.avatar(:tinythumb), class: "venue-image" %><% end %>
 	</div>
 	</li>
 <% count += 1 %>
 <% end %>
 </ul>
+<script>
+$(function(){
+	$('.venue-link').tooltip();
+});
+</script>

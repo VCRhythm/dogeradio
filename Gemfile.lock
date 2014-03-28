@@ -34,7 +34,7 @@ GEM
       rake (>= 0.8.7)
     arel (4.0.2)
     atomic (1.1.16)
-    aws-sdk (1.37.0)
+    aws-sdk (1.38.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
@@ -48,7 +48,7 @@ GEM
     chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    cocaine (0.5.3)
+    cocaine (0.5.4)
       climate_control (>= 0.0.3, < 1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -69,12 +69,12 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     doge_api (0.0.7)
-    elasticsearch (1.0.1)
-      elasticsearch-api (= 1.0.1)
-      elasticsearch-transport (= 1.0.1)
-    elasticsearch-api (1.0.1)
+    elasticsearch (0.4.11)
+      elasticsearch-api (= 0.4.11)
+      elasticsearch-transport (= 0.4.11)
+    elasticsearch-api (0.4.11)
       multi_json
-    elasticsearch-transport (1.0.1)
+    elasticsearch-transport (0.4.11)
       faraday
       multi_json
     erubis (2.7.0)
@@ -178,9 +178,10 @@ GEM
     sdoc (0.4.0)
       json (~> 1.8)
       rdoc (~> 4.0, < 5.0)
-    searchkick (0.6.0)
+    searchkick (0.6.1)
       activemodel
-      elasticsearch
+      elasticsearch (~> 0.4.11)
+      hashie
       patron
     soundcloud (0.3.2)
       hashie (~> 2.0)

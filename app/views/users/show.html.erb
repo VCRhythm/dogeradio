@@ -25,9 +25,22 @@
 			<% end %>
 		</div>
 	</div>
-	<ul style="padding-left:0">
-		<%= render @tracks %>
+	<ul class="nav nav-tabs" id="tabs">
+		<li class="tab-item active"><a href="#events" data-toggle="tab">Events</a></li>
+		<li class="tab-item"><a href="#tracks" data-toggle: "tab">Tracks</a></li>
 	</ul>
+	<div class="tab-content">
+		<div class="tab-pane active" id="events">
+			<ul style="padding-left:0">
+				<%= render partial: 'events/event_list', locals: {events: @events} %>
+			</ul>
+		</div>
+		<div class="tab-pane" id="tracks">
+			<ul style="padding-left:0">
+				<%= render @tracks %>
+			</ul>
+		</div>
+	</div>
 </div>
 <script>
 	$('#pay-user-link').tooltip();

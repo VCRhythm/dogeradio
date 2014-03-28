@@ -1,9 +1,1 @@
-<% if current_user.try(:admin?) %>
-	<%= button_to event_path(@event), method: :delete, remote: true, class: "btn btn-danger", form_class: "pull-right button_to", data: {confirm: "Are you sure?"} do %>Delete Event <span class="glyphicon glyphicon-remove"></span><% end %>
-<% end %>
-<%= button_to new_event_user_path(@event), method: :get, remote: true, class: "btn btn-primary", form_class: "pull-right button_to" do %>Add Artist <span class="glyphicon glyphicon-user"></span><% end %>
-<h3><%= event.name %></h3>
-<%= render partial: 'users/user_list', locals: {users: event.users} %>
-<p><small><%= link_to event.venue.name, event.venue, remote: true, class: "remote-link" %></small></p>	
-<p><%= event.moment.to_date.to_s(:long_ordinal)+" at "+event.moment.strftime("%I:%M %p") if event.moment %></p>
-<p><%= html_escape(event.description).gsub(/\n/, '<br />').html_safe %></p>
+<h1>Anyone need this partial?</h1>

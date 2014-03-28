@@ -8,4 +8,8 @@ module ApplicationHelper
 		music.user == current_user
 	end
 
+	def my_event?(event)
+		event.creators.exists?(id:current_user.id)
+	end
+
 end

@@ -57,6 +57,7 @@ class UsersController < ApplicationController
 
 	def show
 		@tracks = @user.tracks.order(created_at: :desc)
+		@events = @user.events.upcoming
 		choose_layout
 	end
 
