@@ -1,0 +1,11 @@
+<div id="verify_form" class="verified-image">
+	<% if user.verified %>
+		<%= button_to unverify_path(user), remote: true do %>
+			<%= image_tag "officialprofile.png" %>
+		<% end %>
+	<% else %>
+		<%= button_to verify_path(user), remote: true do %>
+			<%= image_tag "notofficialprofile.png" %>
+		<% end %>
+	<% end %>
+</div>

@@ -1,8 +1,28 @@
 class UsersController < ApplicationController
-	caches_page :show
-  	before_action :set_user, only: [:autopay, :show, :payout, :pay]
+  	before_action :set_user, only: [:verify, :unverify, :autopay, :show, :payout, :pay]
 	before_action :this_user, only: [:autopay, :update_balance, :pay, :payout, :following, :favorite_tracks]
 	before_filter :layout_container, only: [:show]
+	before_filter :authenticate_user!, only: [:soundcloud_auth, :soundcloud_callback, :payout, :update_balance, :verify, :unverify]
+	helper_method :current_or_guest_user
+
+	def verify
+		if current_user.admin
+			@user.verified = true
+			@user.save
+			render 'verify.js.erb'
+		else
+			render nothing: true
+		end
+	end
+	def unverify
+		if current_user.admin
+			@user.verified = false
+			@user.save
+			render 'verify.js.erb'
+		else
+			render nothing: true
+		end
+	end
 
 	def soundcloud_auth
 		$soundcloud_id = Rails.configuration.apis[:soundcloud_id]
@@ -13,7 +33,7 @@ class UsersController < ApplicationController
 			redirect_uri: 'http://www.dogeradio.com/soundcloud_callback',
 			scope: 'non-expiring',
 			display: 'popup'
-		})	
+		})
 		redirect_to client.authorize_url()
 	end
 
@@ -22,7 +42,7 @@ class UsersController < ApplicationController
 			client_id: $soundcloud_id,
 			client_secret: $soundcloud_secret,
 			redirect_uri: 'http://www.dogeradio.com/soundcloud_callback'
-		})	
+		})
 		code = params[:code]
 		access_token = client.exchange_token(code: code)
 		current_user.soundcloud_access_token = access_token.access_token
@@ -63,7 +83,7 @@ class UsersController < ApplicationController
 	end
 
 	def pay
-		if signed_in? 
+		if signed_in?
 			if pay_user(@user, @this_user.default_tip_amount, user_params[:method], user_params[:track_id])
 				render 'pay' and return
 			end
@@ -141,13 +161,13 @@ class UsersController < ApplicationController
 
 	def layout_container
       @layout_container = "main-body"
-    end 
+    end
 
     def choose_layout
       respond_to do |format|
         format.html
         format.js { render layout: "events"}
-      end 
+      end
     end
 
 end

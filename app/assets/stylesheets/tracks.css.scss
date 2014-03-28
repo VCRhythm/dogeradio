@@ -35,13 +35,13 @@
 	background-color: #005D74;
 	color: white;
 	position:absolute;
-	right:20px;
-	top:5px;
+	right:5px;
+	top:-1px;
 }
 
 .content-block{
 	margin-bottom: 10px;
-	padding: 1px 20px;
+	padding: 5px 20px;
 	background-color: rgba(0,84,104,0.9);
 	@include box_sizing;
 }
@@ -109,4 +109,9 @@
 	.featured-media-body{
 		margin-bottom:10px;
 	}
+}
+.verified-image{
+	height: 30px;
+	float: left;
+	position:absolute;
 }

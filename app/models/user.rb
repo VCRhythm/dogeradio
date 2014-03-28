@@ -224,4 +224,6 @@ class User < ActiveRecord::Base
 		self.display_name = self.username
 	end
 
+
+
 end

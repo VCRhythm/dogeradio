@@ -68,9 +68,11 @@ Dogeradio::Application.routes.draw do
 	post 'payout', to: 'users#payout'
 
   get 'local_users', to: 'users#local_users'
-  resources :users, only: :index
+  resources :users, only: [:index]
 
   scope ':username' do
+    post 'verify' => 'users#verify'
+    post 'unverify' => 'users#unverify'
 		post 'autopay' => 'users#autopay'
 		post 'pay' => 'users#pay'
 		post 'update_balance' => 'users#update_balance'
