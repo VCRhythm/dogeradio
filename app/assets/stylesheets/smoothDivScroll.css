@@ -2,8 +2,6 @@
 
 #scrollingText{
 	height:14px;
-	margin-bottom:10px;
-	padding-right:6px;
 	.scrollWrapper .scrollableArea{
 		p{
 			display: block;
@@ -17,6 +15,16 @@
 			white-space: nowrap;
 		}
 	}
+}
+
+#topbar #scrollingText{
+	padding-left:70px;
+	margin: 5px 0;
+}
+
+#sidebar #scrollingText{
+	padding-right:6px;
+	margin-bottom:10px;
 }
 
 /* Invisible left hotspot */
