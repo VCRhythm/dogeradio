@@ -23,7 +23,6 @@ function setNextSong(track_id){
 	} else {
 		$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
 		$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerNext", function(){
-			console.log("ended");
 			$.ajax({
 				type: "post",
 				url: "/tracks/"+track_id+"/plays"
@@ -62,7 +61,6 @@ function loadPlayer(track_id){
 			go = false;
 		},
 		repeat: function(event){
-			console.log(''+track_id);
 			setNextSong(track_id);
 		}
 	});
@@ -186,7 +184,14 @@ $(document).ready(function(){
 				});
 			}
 		});
-	});
+	}).on({
+		mouseenter: function() {
+			$("#venue_" +$(this).attr("data-event-id")).html($(this).attr("data-venue-name")).addClass("description");
+		},
+		mouseleave: function() {
+			$("#venue_" +$(this).attr("data-event-id")).html("@").removeClass("description");
+		}
+	}, ".venue-link");
 
 	$('.sortable').sortable({
 		dropOnEmpty: false,

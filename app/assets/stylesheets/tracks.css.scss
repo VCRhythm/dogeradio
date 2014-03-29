@@ -120,3 +120,15 @@
 	float: left;
 	position:absolute;
 }
+
+.at-sign{
+	height:50px;
+	width:50px;
+	text-align:center;
+	vertical-align:middle;
+	padding-bottom:5px;
+	font-size:45px;
+	&.description{
+		font-size:12px;
+	}
+}

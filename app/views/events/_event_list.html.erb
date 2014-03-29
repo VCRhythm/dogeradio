@@ -7,24 +7,25 @@
 		<h4><%= date.strftime("%m/%d/%Y") %></h4>
 	<% end %>
 	<li class="list-group-item" style="display: inline-flex; padding:0; width:100%; height:104px; overflow:hidden; border: solid 2px white; background: none">
-	<div style="width:100%; height:100px; display: table-cell; padding-right: 50px">
-		<div style="height:<%= event.users.length > 0 ? '50' : '100' %>px; font-size: 20px; padding:5px; vertical-align:middle; overflow:hidden; display:table-cell"><%= link_to event.name, event, remote: true, class: "remote-link" %></div>
-		<div style="height:50px; overflow:hidden">
-			<% event.users.each do |user| %>
-				<%= link_to user, remote: true, class: "remote-link", style: "display:table-cell" do %><%= image_tag user.avatar(:tinythumb), class: "user-image", data:{toggle:"tooltip", placement:"bottom", title: user.display_name} %><% end %>
+		<div style="width:100%; height:100px; display: table-cell; padding-right: 50px">
+			<div style="height:<%= event.users.length > 0 ? '50' : '100' %>px; font-size: 20px; padding:5px; vertical-align:middle; overflow:hidden; display:table-cell">
+				<%= link_to event.name, event, remote: true, class: "remote-link" %>
+			</div>
+			<div style="height:50px; overflow:hidden">
+				<% event.users.each do |user| %>
+					<%= link_to user, remote: true, class: "remote-link", style: "display:table-cell" do %>
+						<%= image_tag user.avatar(:tinythumb), class: "user-image", data:{toggle:"tooltip", placement:"bottom", title: user.display_name} %>
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+		<div style="position: absolute; right:0; border-left: 3px solid white">
+			<div id="venue_<%= event.id %>" class="at-sign">@</div>
+			<%= link_to event.venue, remote: true, class: "remote-link venue-link", data: { event_id: event.id, venue_name: event.venue.name } do %>
+				<%= image_tag event.venue.avatar(:tinythumb), class: "venue-image" %>
 			<% end %>
 		</div>
-	</div>
-	<div style="position: absolute; right:0; border-left: 3px solid white">
-		<div style="height:50px; width:50px; text-align:center; vertical-align:middle; padding-bottom:5px; font-size:45px">@</div>
-		<%= link_to event.venue, remote: true, class: "remote-link venue-link", data:{toggle:"tooltip", placement:"top", title: event.venue.name} do %><%= image_tag event.venue.avatar(:tinythumb), class: "venue-image" %><% end %>
-	</div>
 	</li>
 <% count += 1 %>
 <% end %>
 </ul>
-<script>
-$(function(){
-	$('.venue-link').tooltip();
-});
-</script>
