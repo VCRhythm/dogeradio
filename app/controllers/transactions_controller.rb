@@ -6,7 +6,7 @@ class TransactionsController < ApplicationController
 		@transaction.payer_id = 0
 		@transaction.pending = true
 		@transaction.account = get_doge_api_address(@transaction.email)
-		if @transaction.save
+		if @transaction.account && @transaction.save
 			render 'guest_pay'
 		end
 	end
@@ -46,7 +46,7 @@ class TransactionsController < ApplicationController
 
 		def get_doge_api_address(label)
 			require 'doge_api'
-			$my_api_key = Rails.configuration.aws[:doge_api_key]
+			$my_api_key = Rails.configuration.apis[:doge_api_key]
 			doge_api = DogeApi::DogeApi.new($my_api_key)
 			account = doge_api.get_new_address address_label: label
 			return account.gsub(/\"/,"")
