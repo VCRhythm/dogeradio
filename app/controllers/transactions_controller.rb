@@ -44,11 +44,11 @@ class TransactionsController < ApplicationController
       params.require(:transaction).permit(:commit, :payee_id, :track_id, :payer_id, :value, :method, :email)
     end
 
-		def get_doge_api_address(label)
-			require 'doge_api'
-			$my_api_key = Rails.configuration.apis[:doge_api_key]
-			doge_api = DogeApi::DogeApi.new($my_api_key)
-			account = doge_api.get_new_address address_label: label
-			return account.gsub(/\"/,"")
-		end
+	def get_doge_api_address(label)
+		require 'doge_api'
+		$my_api_key = Rails.configuration.apis[:doge_api_key]
+		doge_api = DogeApi::DogeApi.new($my_api_key, version=2)
+		account = doge_api.get_new_address address_label: label
+		return JSON.parse(account)["data"]["address"]
+	end
 end
