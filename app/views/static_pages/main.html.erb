@@ -1,1 +1,2 @@
+<%= render partial: 'static_pages/welcome' if !signed_in? %>
 <%= render partial: 'users/featured_user', locals: { user:@featured_user } if @featured_user %>
