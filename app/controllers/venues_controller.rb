@@ -45,11 +45,11 @@ class VenuesController < ApplicationController
 		@venues = Venue.local(100, location).includes(:events)
 	end
 
-	def add_yelp_venues
-		params[:venues].each do |venue|
-			place = venue.tr('"','').gsub(/[{}:]/,'').split(', ').map{|h| h1,h2 = h.split('=>'); {h1 => h2}}.reduce(:merge)
-			yelp_image = place["image_url"]
-			@venue = current_user.venues.new(place.except("image_url"))
+	def add_yelp_venues #not used currently
+		venues = JSON.parse(params[:venues])
+		venues.each do |venue|
+			yelp_image = venue["image_url"]
+			@venue = current_user.venues.new(venue.except("image_url"))
 			if !yelp_image == "nil"
 				@venue.picture_from_url(yelp_image)
 			end
