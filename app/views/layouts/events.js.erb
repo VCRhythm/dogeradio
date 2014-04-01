@@ -1,5 +1,15 @@
 $("#<%= @layout_container %>").slideUp(function(){
-	$(this).html("<%= j(yield) %>").slideDown();
+	$(this).html("<%= j(yield) %>").slideDown(function(){
+		<% if @hash %>
+			handler = Gmaps.build('Google');
+			handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+		  		markers = handler.addMarkers(<%= raw @hash.to_json %>);
+		  		handler.bounds.extendWith(markers);
+		  		handler.fitMapToBounds();
+	  	  		handler.getMap().setZoom(18);
+			});
+		<% end %>
+	});
 });
 <% if @layout_container != 'action-panel' %>
 	$("#action-panel").slideUp();
