@@ -25,3 +25,9 @@ en:
     formats:
       default: "%m/%d/%Y %l:%M %p"
       long: "%A, %B %e, %Y %l:%M %p"
+  simple_captcha:
+    placeholder: ""
+    label: "Please enter the text from the image below"
+    message:
+      default: "Sorry, your entry doesn't match the image!"
+      user: "Sorry, that didn't quite match the image"

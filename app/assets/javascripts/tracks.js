@@ -185,7 +185,8 @@ $(document).ready(function(){
 			}
 		});
 	}).on('click', '#tip-button', function(){
-		$('.modal-body').html("<p style='color:green'>Processing...</p>");
+		$('#tip-button').slideUp();
+		$('.tip-alert').html("Processing...").addClass("alert-success").slideDown();
 	}).on({
 		mouseenter: function() {
 			$("#venue_" +$(this).attr("data-event-id")).html($(this).attr("data-venue-name")).addClass("description");

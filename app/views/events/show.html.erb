@@ -1,6 +1,5 @@
 <% if current_user.try(:admin?) || my_event?(@event) %>
 	<%= button_to event_path(@event), method: :delete, remote: true, class: "btn btn-danger", form_class: "pull-right button_to", data: {confirm: "Are you sure?"} do %>Delete Event <span class="glyphicon glyphicon-remove"></span><% end %>
-
 	<%= button_to new_event_user_path(@event), method: :get, remote: true, class: "btn btn-primary", form_class: "pull-right button_to" do %>Add Artist <span class="glyphicon glyphicon-user"></span><% end %>
 <% end %>
 <h3><%= @event.name %></h3>
