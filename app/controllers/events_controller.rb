@@ -4,6 +4,7 @@ class EventsController < ApplicationController
 	before_action :parse_moment, only: [:update, :create]
 	before_filter :authenticate_user!, except: [:show, :venue_events, :index]
 	before_filter :layout_container, except: [:index]
+	helper_method :current_or_guest_user
 
 	def index
 		@venues = Venue.local(100, location).with_upcoming_events
@@ -38,7 +39,7 @@ class EventsController < ApplicationController
 
 	def add_user #authenticated
 		@event = Event.find(params[:event_id])
-		if current_user.try(:admin?) || @event.creator?(current_user)
+		if current_user.try(:admin?) || @event.creator?(current_or_guest_user)
 			params[:event][:users].each do |user_id|
 				user = User.find(user_id)
 				if !@event.has_user?(user)
