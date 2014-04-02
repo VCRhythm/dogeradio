@@ -9,9 +9,7 @@ module ApplicationHelper
 	end
 
 	def my_event?(event)
-		if signed_in?
-			event.creators.exists?(id:current_user_or_guest.id)
-		end
+		event.creator?(current_or_guest_user)
 	end
 
 end

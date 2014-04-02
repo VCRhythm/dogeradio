@@ -25,11 +25,11 @@ class Event < ActiveRecord::Base
 	validates :name, :moment, :venue_id, presence: true
 
 	def creator?(user)
-		self.creators.find_by id: user.id
+		self.creators.exists?(id: user.id)
 	end
 
 	def has_user?(user)
-		self.users.find_by id: user.id
+		self.users.exists?(id: user.id)
 	end
 
 end

@@ -34,7 +34,7 @@ class EventsController < ApplicationController
 
 	def add_user #authenticated
 		@event = Event.find(params[:event_id])
-		if @event.creator?(current_user)
+		if current_user.try(:admin?) || @event.creator?(current_user)
 			params[:event][:users].each do |user_id|
 				user = User.find(user_id)
 				if !@event.has_user?(user)
