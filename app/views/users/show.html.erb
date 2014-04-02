@@ -4,7 +4,7 @@
 			<%= image_tag 'dogecoin75px.png', alt: 'Tip', style:"height:75px;", id: "pay-user-link", data: {toggle:"tooltip", placement:"left", title:"Send thanks!"} %>
 		<% end %>
 	<% end %>
-	<h3 style="display:inline-block; border-bottom: 1px solid white"><%= @user.display_name %><% if @user.address && @user.publish_address %> <small><%=@user.address %></small><% end %></h3>
+	<h3 class="underlined-header"><%= @user.display_name %><% if @user.address && @user.publish_address %> <small><%=@user.address %></small><% end %></h3>
 	<%= render partial: 'shared/follow_form', locals: {user: @user} if signed_in? %>
 	<div class="media user-profile">
 		<div class="pull-left">

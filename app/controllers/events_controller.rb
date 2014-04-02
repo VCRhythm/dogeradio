@@ -12,6 +12,10 @@ class EventsController < ApplicationController
 	end
 
 	def show
+		@hash = Gmaps4rails.build_markers(@event.venue) do |venue, marker|
+			marker.lat venue.lat
+			marker.lng venue.lng
+		end
 		choose_layout
 	end
 
