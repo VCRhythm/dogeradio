@@ -111,7 +111,8 @@ $(document).ready(function(){
 		track_id = $('#player-heading').attr('data-track_id');
 		$.ajax({
 			type: 'get',
-			url: '/tracks/'+track_id+'/tags/new'
+			url: '/tracks/'+track_id+'/tags/new',
+			dataType: 'script'
 		});
 	}).on('click', '.clickable', function(){
 		position = $(this).parent().attr('data-playlist_number');

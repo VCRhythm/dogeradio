@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140401132958) do
+ActiveRecord::Schema.define(version: 20140408144458) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
@@ -155,7 +155,7 @@ ActiveRecord::Schema.define(version: 20140401132958) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "type"
+    t.string   "what"
   end
 
   add_index "tags", ["object_id"], name: "index_tags_on_object_id"

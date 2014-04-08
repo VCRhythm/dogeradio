@@ -36,7 +36,7 @@ class SearchController < ApplicationController
 				when "User"
 					case details[:highlight].first[0]
 						when :address
-							if result.publish_address 
+							if result.publish_address
 								results_names << result.address
 							end
 						when :display_name
@@ -63,7 +63,7 @@ class SearchController < ApplicationController
   private
 		def search_tracks_by_tag
 			matching_tags = Tag.search @query
-			@tag_track_results = Array.new() 
+			@tag_track_results = Array.new()
 			matching_tags.each do |tag|
 				@tag_track_results << tag.track
 			end
@@ -92,9 +92,9 @@ class SearchController < ApplicationController
 		def search_params
 			params.require(:search).permit(:query, :type)
 		end
-	
+
 		def set_query
-			@query = search_params[:query]  
+			@query = search_params[:query]
 			@type = search_params[:type]
 		end
 end

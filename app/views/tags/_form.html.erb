@@ -1,5 +1,3 @@
-<h3><strong><%= @track.name %></strong></h3>
-<h4><%= @track.user.username %></h4>
 <%= form_for [@track, @tag], html: {class: "form-inline", role: "form"}, remote: true do |f| %>
   <div class="form-group">
     <%= f.select :category, options_for_select(@tag_categories), {}, class: "form-control input-sm tag-form", id: "tag-options" %>
