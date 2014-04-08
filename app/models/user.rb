@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
 
 	acts_as_mappable
 
-	searchkick text_start: [:username, :display_name, :address], index_name: 'users_index'
+	searchkick index_name: 'users_index', text_start: ['display_name', 'address']
 	validates_format_of :username, with: /\A[A-Za-z0-9.&]*\Z/, message: "can only be alphanumeric.", unless: :guest
 	validates_uniqueness_of :username, case_sensitive: false
 	validates :username, :email, :display_name, presence: true
@@ -199,7 +199,7 @@ class User < ActiveRecord::Base
 	end
 
 	def is_artist?
-		tracks.exists? && avatar.exists?
+		!guest #define this later
 	end
 
 	def self.random_user
