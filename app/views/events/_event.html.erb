@@ -4,7 +4,7 @@
 <% end %>
 <h3 class="underlined-header"><%= event.name %></h3>
 <%= render partial: 'users/user_list', locals: {users: event.users} %>
-<p><%= html_escape(event.description).gsub(/\n/, '<br />').html_safe %></p>
+<p style="margin-top:5px"><%= html_escape(event.description).gsub(/\n/, '<br />').html_safe %></p>
 <div style="margin-top: 10px">
 	<h4><%= link_to event.venue.name, event.venue, remote: true, class: "remote-link" %> <small><%= event.moment.to_date.to_s(:long_ordinal)+" at "+ event.moment.strftime("%I:%M %p") if event.moment %></small></h4>
 	<p><%= event.venue.address %></p>
