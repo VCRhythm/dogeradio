@@ -1,7 +1,9 @@
 Dogeradio::Application.routes.draw do
 
-	root 'static_pages#main'
+  root 'static_pages#main'
 
+  get 'contact-us', to: 'static_pages#contact'
+  post 'send_contact', to: 'static_pages#send_contact'
   get 'sidebar', to: 'static_pages#sidebar'
   get 'topbar', to: 'static_pages#topbar'
   get 'events_sidebar', to: 'static_pages#events_sidebar'
@@ -9,21 +11,21 @@ Dogeradio::Application.routes.draw do
   get 'discover', to: 'static_pages#discover'
   get 'wow', to: 'static_pages#wow'
   get 'about', to: 'static_pages#about'
-	get 'upload', to: 'static_pages#upload'
-	post 'update_location', to: 'tracks#update_location'
-	get 'recent_tips', to: 'transactions#recent'
-	get 'explore', to: 'tracks#explore'
+  get 'upload', to: 'static_pages#upload'
+  post 'update_location', to: 'tracks#update_location'
+  get 'recent_tips', to: 'transactions#recent'
+  get 'explore', to: 'tracks#explore'
 
-	post 'guest_charge', to: 'transactions#guest_charge'
+  post 'guest_charge', to: 'transactions#guest_charge'
 
   post 'sync_jambase_ids', to: 'venues#sync_jambase_ids'
-	post 'search', to: 'search#search'
-	get 'search_tracks', to: 'search#tracks'
+  post 'search', to: 'search#search'
+  get 'search_tracks', to: 'search#tracks'
   get 'search_tags', to: 'search#tags'
   get 'search_users', to: 'search#users'
 
   get 'local_venues', to: 'venues#local_venues'
-	post 'add_yelp_venues', to: 'venues#add_yelp_venues'
+  post 'add_yelp_venues', to: 'venues#add_yelp_venues'
   get 'load_yelp_suggestions', to: "venues#load_yelp_suggestions"
 
   resources :venues do

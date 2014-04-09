@@ -1,11 +1,22 @@
 class StaticPagesController < ApplicationController
 	#skip_before_filter :verify_authenticity_token
-	before_filter :layout_container, except: [:events_sidebar]
+	before_filter :layout_container, except: [:contact, :events_sidebar]
 
 	def events_sidebar
 		@venues = Venue.local(100, location).with_upcoming_events
 		@local_events = @venues.collect {|venue| venue.events}.first
 		@local_events = @local_events ? @local_events.order(moment: :asc) : nil
+	end
+
+	def contact
+		@layout_container = "action-panel"
+		choose_layout
+	end
+
+	def send_contact
+		@email = params[:user][:email]
+		@message = params[:message]
+		ContactTristan.user_email(@email, @message).deliver
 	end
 
 	def main

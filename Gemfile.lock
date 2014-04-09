@@ -63,6 +63,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
+    contact_us (0.5.1)
+      rails (>= 4.0.0)
     delayed_job (4.0.0)
       activesupport (>= 3.0, < 4.1)
     delayed_job_active_record (4.0.0)
@@ -241,6 +243,7 @@ DEPENDENCIES
   bootstrap3-datetimepicker-rails
   chronic
   coffee-rails (~> 4.0.0)
+  contact_us
   delayed_job_active_record
   devise
   doge_api

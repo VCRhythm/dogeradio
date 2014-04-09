@@ -33,6 +33,7 @@ gem 'chronic'
 gem 'yelpster'
 gem 'will_paginate'
 gem 'simple_captcha', git: 'git://github.com/galetahub/simple-captcha.git'
+gem 'contact_us'
 
 # Use sqlite3 as the database for Active Record
 group :development, :test do
