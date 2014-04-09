@@ -1,5 +1,5 @@
 class TransactionsController < ApplicationController
-  before_action :set_transaction, only: [:show]
+  	before_action :set_transaction, only: [:show]
 
 	def guest_charge
 		if simple_captcha_valid?
