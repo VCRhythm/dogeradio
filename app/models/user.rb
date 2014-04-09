@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
 	validates :default_tip_amount, :wow_tip_amount, :transaction_fee, :prev_received, numericality: {greater_than_or_equal_to: 0}
 	validates :donation_percent, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 1}
 
-	class CodeValidator < ActiveModel::EachValidator
+	class CodeValidator < ActiveModel::EachValidator #not currently being validated
 		def validate_each(record, attribute, value)
 			record.errors.add attribute, "is not valid." unless BetaCode.where(value: value).exists?
 		end
@@ -100,7 +100,7 @@ class User < ActiveRecord::Base
 	end
 
 	validates :website, website: true, allow_blank: true
-	validates :code, code: true
+#	validates :code, code: true
 
 	has_many :uploaded_tracks, class_name: "Music", dependent: :destroy
 	has_many :tracks, -> { order "created_at ASC"}, dependent: :destroy
