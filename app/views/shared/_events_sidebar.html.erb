@@ -4,3 +4,8 @@
 	<%= render partial: 'shared/enter_location' %>
 	<%= render partial: 'events/local_events', locals: {events: @local_events } %>
 </div>
+<script>
+	$(document).ready(function(){
+		$.post("/update_location");
+	});
+</script>

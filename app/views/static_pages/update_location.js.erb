@@ -12,8 +12,3 @@
 	$("#location_city").html("Where?");
 	$("#location_state").html("");
 <% end %>
-<% if @local_events %>
-	$(".local-users").html("<%=j render partial: 'events/event_list', locals: {events: @local_events} %>");
-<% else %>
-	$(".local-users").html("");
-<% end %>
