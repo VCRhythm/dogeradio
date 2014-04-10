@@ -12,9 +12,8 @@ Dogeradio::Application.routes.draw do
   get 'wow', to: 'static_pages#wow'
   get 'about', to: 'static_pages#about'
   get 'upload', to: 'static_pages#upload'
-  post 'update_location', to: 'tracks#update_location'
+  post 'update_location', to: 'static_pages#update_location'
   get 'recent_tips', to: 'transactions#recent'
-  get 'explore', to: 'tracks#explore'
 
   post 'guest_charge', to: 'transactions#guest_charge'
 

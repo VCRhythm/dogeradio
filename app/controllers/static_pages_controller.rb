@@ -1,6 +1,12 @@
 class StaticPagesController < ApplicationController
 	#skip_before_filter :verify_authenticity_token
-	before_filter :layout_container, except: [:contact, :events_sidebar]
+	before_filter :layout_container, except: [:contact, :events_sidebar, :update_location]
+
+	def update_location
+		@local_users = User.local(100, location)
+		@venues = Venue.local(100, location).with_upcoming_events
+		@local_events = @venues.collect {|venue| venue.events}.first
+	end
 
 	def events_sidebar
 		@venues = Venue.local(100, location).with_upcoming_events
