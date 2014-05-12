@@ -31,6 +31,9 @@ gem 'momentjs-rails', '~> 2.5.0'
 gem 'bootstrap3-datetimepicker-rails'
 gem 'chronic'
 gem 'yelpster'
+gem 'will_paginate'
+gem 'simple_captcha', git: 'git://github.com/galetahub/simple-captcha.git'
+gem 'contact_us'
 
 # Use sqlite3 as the database for Active Record
 group :development, :test do

@@ -45,6 +45,8 @@
 #  publish_address         :boolean          default(FALSE)
 #  distance                :float
 #  time_zone               :string(255)      default("UTC")
+#  admin                   :boolean          default(FALSE)
+#  guest                   :boolean
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

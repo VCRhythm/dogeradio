@@ -1,1 +1,2 @@
-$("#tracks").html("<%=j render partial: 'top_tracks' %>");
+$("#tracks").html("<%=j render partial: 'tracks/track_list_with_avatar', locals: {tracks: @top_most_played_tracks} %>");
+

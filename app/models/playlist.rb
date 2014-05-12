@@ -14,5 +14,5 @@ class Playlist < ActiveRecord::Base
 	belongs_to :user
 	has_many :ranks, -> {order("position ASC")}, dependent: :destroy
 	has_many :tracks, through: :ranks
-	scope :guest_playlists, -> {where(user_id:0)}
+	scope :guest_playlists, -> {joins(:user).where(users: {guest: true})}
 end

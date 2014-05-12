@@ -20,7 +20,7 @@ class RanksController < ApplicationController
 		def rank_params
 		  params.require(:rank).permit(:position, :track_id)
 	  end
-		
+
 		def set_playlist
 			@playlist = Playlist.find(params[:playlist_id])
 		end

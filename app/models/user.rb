@@ -45,36 +45,38 @@
 #  publish_address         :boolean          default(FALSE)
 #  distance                :float
 #  time_zone               :string(255)      default("UTC")
+#  admin                   :boolean          default(FALSE)
+#  guest                   :boolean
 #
 
 class User < ActiveRecord::Base
 	include ActiveModel::Validations
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  	devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
 	before_validation :init, on: :create
 
+	has_many :tags, foreign_key: :object_id, dependent: :destroy
 	has_many :venues
 	has_and_belongs_to_many :events, join_table: "users_events"
-	has_and_belongs_to_many :created_events, class_name: "Event", join_table: "creators_events", foreign_key: :user_id
-
+	has_and_belongs_to_many :created_events, join_table: "creators_events", class_name: "Event", autosave:true
 	geocoded_by :address, latitude: :lat, longitude: :lng
 	after_validation :geocode,
 		if: ->(obj){ obj.address.present? and obj.address_changed? }
 
 	acts_as_mappable
 
-	searchkick text_start: [:username, :display_name, :address], index_name: 'users_index'
-	validates_format_of :username, with: /\A[A-Za-z0-9.&]*\Z/, message: "can only be alphanumeric."
+	searchkick index_name: 'users_index', text_start: ['display_name', 'address']
+	validates_format_of :username, with: /\A[A-Za-z0-9.&]*\Z/, message: "can only be alphanumeric.", unless: :guest
 	validates_uniqueness_of :username, case_sensitive: false
 	validates :username, :email, :display_name, presence: true
-	
+
 	validates :default_tip_amount, :wow_tip_amount, :transaction_fee, :prev_received, numericality: {greater_than_or_equal_to: 0}
 	validates :donation_percent, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 1}
 
-	class CodeValidator < ActiveModel::EachValidator
+	class CodeValidator < ActiveModel::EachValidator #not currently being validated
 		def validate_each(record, attribute, value)
 			record.errors.add attribute, "is not valid." unless BetaCode.where(value: value).exists?
 		end
@@ -98,10 +100,10 @@ class User < ActiveRecord::Base
 	end
 
 	validates :website, website: true, allow_blank: true
-	validates :code, code: true 
+#	validates :code, code: true
 
 	has_many :uploaded_tracks, class_name: "Music", dependent: :destroy
-	has_many :tracks, -> { order "created_at ASC"}, dependent: :destroy 
+	has_many :tracks, -> { order "created_at ASC"}, dependent: :destroy
 
 	has_many :payouts
 
@@ -117,7 +119,7 @@ class User < ActiveRecord::Base
 	has_many :reverse_relationships, foreign_key: "followed_id",
 																	 class_name: "Relationship",
 																	 dependent: :destroy
-	has_many :followers, through: :reverse_relationships, source: :follower															
+	has_many :followers, through: :reverse_relationships, source: :follower
 	has_many :favorites, dependent: :destroy
 	has_many :favorite_tracks, through: :favorites, source: :track
 
@@ -127,13 +129,13 @@ class User < ActiveRecord::Base
 													 class_name: "Transaction"
 
 
-	has_attached_file :avatar, 
+	has_attached_file :avatar,
 		styles: {
 			tinythumb: '50x50#',
 			thumb: '100x100#',
 			square: '200x200>',
 			medium: '300x300'
-		}, 
+		},
 		convert_options: {
 			tinythumb: '-quality 75 -strip',
 			thumb: '-quality 75 -strip'
@@ -143,6 +145,7 @@ class User < ActiveRecord::Base
 	validates_attachment_content_type :avatar, content_type: /\Aimage/
 
 	scope :artists, -> {joins(:tracks).uniq}
+	scope :no_guests, -> { where(guest: false) }
 
 	include CI_Find
 	include CI_Find_First
@@ -182,7 +185,7 @@ class User < ActiveRecord::Base
 	def vote_down!(tag)
 		votes.find_by(tag_id: tag.id).destroy
 	end
-	
+
 	def favorite?(track)
 		favorites.find_by(track_id: track.id)
 	end
@@ -196,7 +199,7 @@ class User < ActiveRecord::Base
 	end
 
 	def is_artist?
-		tracks.exists? && avatar.exists?
+		!guest #define this later
 	end
 
 	def self.random_user
@@ -220,5 +223,7 @@ class User < ActiveRecord::Base
 	def init
 		self.display_name = self.username
 	end
+
+
 
 end

@@ -23,12 +23,12 @@ class VenuesController < ApplicationController
 		@layout_container = "new-venue"
 		choose_layout
 	end
-	
+
 	def edit
 		@layout_container = "action-panel"
 		choose_layout
 	end
-	
+
 	def update
     	respond_to do |format|
       		if @venue.update(venue_params)
@@ -43,6 +43,18 @@ class VenuesController < ApplicationController
 
 	def local_venues
 		@venues = Venue.local(100, location).includes(:events)
+	end
+
+	def add_yelp_venues #not used currently
+		venues = JSON.parse(params[:venues])
+		venues.each do |venue|
+			yelp_image = venue["image_url"]
+			@venue = current_user.venues.new(venue.except("image_url"))
+			if !yelp_image == "nil"
+				@venue.picture_from_url(yelp_image)
+			end
+			@venue.save
+		end
 	end
 
 	def create
@@ -82,11 +94,11 @@ class VenuesController < ApplicationController
     def venue_params
       params.require(:venue).permit(:avatar, :name, :description, :street, :city, :state, :country, :zipcode)
     end
-    
+
     def choose_layout
       respond_to do |format|
         format.html
         format.js { render layout: "events"}
-      end 
+      end
     end
 end

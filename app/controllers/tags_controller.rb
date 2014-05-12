@@ -16,9 +16,9 @@ class TagsController < ApplicationController
 
   # GET /tags/new
   def new
-		@tag = Tag.new
+    @tag = Tag.new
 		@track = Track.find(params[:track_id])
-    @tag_categories = ActiveSupport::JSON.decode("tags/tracks_categories").map {|choice| [choice["category"], choice["class"]]}
+    @tag_categories = YAML.load_file("#{Rails.root}/config/track_categories.yml")
     choose_layout
   end
 
@@ -30,7 +30,9 @@ class TagsController < ApplicationController
   # POST /tags.json
   def create
 		@track = Track.find(params[:track_id])
-    @tag = @track.tags.create(tag_params)
+    @tag = @track.tags.build(tag_params)
+    @tag.what="track"
+    @tag.save
   end
 
   # PATCH/PUT /tags/1
@@ -61,17 +63,17 @@ class TagsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tag_params
-      params.require(:tag).permit(:track_id, :category, :description)
+      params.require(:tag).permit(:category, :description)
     end
 
     def layout_container
       @layout_container = "action-panel"
-    end 
+    end
 
     def choose_layout
       respond_to do |format|
         format.html
         format.js { render layout: "events"}
-      end 
+      end
     end
 end

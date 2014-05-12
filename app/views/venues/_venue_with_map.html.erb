@@ -1,15 +1,5 @@
-<h3><%= venue.name %></h3>
-<p><small><%= venue.address %></small></p>
+<h3 class="underlined-header"><%= venue.name %> <small><%= venue.address %></small></h3>
 <p><%= html_escape(venue.description).gsub(/\n/, '<br />').html_safe %></p>
-<div>
+<div style="width:100%">
 	<div id="map" style="width:100%; height:200px;"></div>
 </div>
-<script>
-	handler = Gmaps.build('Google');
-	handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-	  markers = handler.addMarkers(<%=raw @hash.to_json %>);
-	  handler.bounds.extendWith(markers);
-	  handler.fitMapToBounds();
-	  handler.getMap().setZoom(18);
-	});
-</script>

@@ -1,5 +1,6 @@
-<div class="col-xs-12 col-sm-4 sidebar-offcanvas" id="sidebar">
+<div class="col-xs-12 col-sm-4 sidebar-offcanvas slim-padding" id="sidebar">
 	<div class="content-block">
+		<button type="button" id="minimize-sidebar" class="btn btn-default btn-xs size-button"><span class="glyphicon glyphicon-resize-small"></span></button>
 		<%= render partial: 'shared/ticker' %>
 		<div id="player">
 			<% if @track %>
@@ -8,12 +9,6 @@
 				<%= render partial: "tracks/empty_player" %>
 			<% end %>
 		</div>
-		<ul id="playlist" class="list-group sortable" data-playlist_id="<%=@playlist.id %>">
-			<% playlist_counter = 1 %>
-			<% @playlist.tracks.each do |track| %>
-				<%= render partial: 'tracks/playlist_item', locals: {track: track, playlist_counter: playlist_counter} %>
-				<% playlist_counter += 1 %>
-			<% end %>
-		</ul>
+		<%= render partial: "shared/playlist" %>
 	</div>
 </div>

@@ -2,12 +2,6 @@ class TracksController < ApplicationController
   	before_action :set_track, only: [:show, :edit, :update, :destroy]
 	before_filter :authenticate_user!, only: [:update, :edit, :create, :destroy]
 
-	def update_location
-		@local_users = User.local(100, location)
-		@venues = Venue.local(100, location).with_upcoming_events
-		@local_events = @venues.collect {|venue| venue.events}.first
-	end
-
 	def top_tracks
 		@top_most_played_tracks = Track.most_played
 	end
@@ -31,7 +25,7 @@ class TracksController < ApplicationController
 
 	def edit
 	end
-		
+
   	def update
 		respond_to do |format|
 			if @track.update(track_params)
@@ -49,7 +43,7 @@ class TracksController < ApplicationController
   	end
 
   private
-    
+
     # Use callbacks to share common setup or constraints between actions.
     def set_track
       @track = Track.find(params[:id])

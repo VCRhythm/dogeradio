@@ -9,7 +9,7 @@ end
 task :delete_guest_playlists => :environment do
 	if Time.now.sunday?
 		puts "Deleting old guest playlists..."
-		Playlist.guest_playlists.where("updated_at < ?", 1.week.ago).delete_all
+		Playlist.guest_playlists.where("playlists.updated_at < ?", 1.week.ago).destroy_all
 		puts "done."
 	end
 end

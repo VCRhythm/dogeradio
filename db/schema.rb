@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140320183718) do
+ActiveRecord::Schema.define(version: 20140408144458) do
 
   create_table "beta_codes", force: true do |t|
     t.integer  "value"
@@ -20,10 +20,12 @@ ActiveRecord::Schema.define(version: 20140320183718) do
     t.string   "name"
   end
 
-  create_table "creators_events", force: true do |t|
+  create_table "creators_events", id: false, force: true do |t|
     t.integer "user_id"
     t.integer "event_id"
   end
+
+  add_index "creators_events", ["user_id", "event_id"], name: "index_creators_events_on_user_id_and_event_id"
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -138,13 +140,22 @@ ActiveRecord::Schema.define(version: 20140320183718) do
   add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
 
+  create_table "simple_captcha_data", force: true do |t|
+    t.string   "key",        limit: 40
+    t.string   "value",      limit: 6
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "simple_captcha_data", ["key"], name: "idx_key"
+
   create_table "tags", force: true do |t|
     t.integer  "object_id"
     t.string   "category"
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "type"
+    t.string   "what"
   end
 
   add_index "tags", ["object_id"], name: "index_tags_on_object_id"
@@ -219,6 +230,8 @@ ActiveRecord::Schema.define(version: 20140320183718) do
     t.float    "distance"
     t.string   "time_zone",               default: "UTC"
     t.boolean  "admin",                   default: false
+    t.boolean  "guest",                   default: false
+    t.boolean  "verified",                default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

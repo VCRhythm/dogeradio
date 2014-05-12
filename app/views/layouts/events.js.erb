@@ -1,4 +1,19 @@
-$("#<%=@layout_container%>").html("<%= j(yield) %>").slideDown();
+$("#<%= @layout_container %>").slideUp(function(){
+	$(this).html("<%= j(yield) %>").slideDown(function(){
+		<% if @hash %>
+			handler = Gmaps.build('Google');
+			handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+		  		markers = handler.addMarkers(<%= raw @hash.to_json %>);
+		  		handler.bounds.extendWith(markers);
+		  		handler.fitMapToBounds();
+	  	  		handler.getMap().setZoom(18);
+			});
+		<% end %>
+	});
+});
+<% if @layout_container != 'action-panel' %>
+	$("#action-panel").slideUp();
+<% end %>
 if ($("#sidebar_status").val() != 'events'){
-	$.get("events_sidebar");
+	$.get("/events_sidebar");
 }

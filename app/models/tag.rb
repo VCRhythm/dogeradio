@@ -3,17 +3,19 @@
 # Table name: tags
 #
 #  id          :integer          not null, primary key
-#  track_id    :integer
+#  object_id   :integer
 #  category    :string(255)
 #  description :string(255)
 #  created_at  :datetime
 #  updated_at  :datetime
+#  type        :string(255)
 #
 
 class Tag < ActiveRecord::Base
-  	belongs_to :track
-  	belongs_to :venue
-	validates :track_id, presence: true
+  	belongs_to :track, foreign_key: :object_id
+  	belongs_to :venue, foreign_key: :object_id
+  	belongs_to :user, foreign_key: :object_id
+	validates :object_id, presence: true
 	validates :category, :description, presence: true
 
 	searchkick text_start: ['description'], index_name: 'tags_index'
@@ -21,8 +23,8 @@ class Tag < ActiveRecord::Base
 
 	include CI_Find
 	include CI_Find_First
-	
-	scope :track_tags, -> { where }
+
+	scope :track_tags, -> { where(what: "track") }
 	scope :unique_track_tags, -> {select(:category, :description).uniq}
 	scope :by_votes, -> { joins(:votes) }
 

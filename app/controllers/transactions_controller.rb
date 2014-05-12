@@ -1,13 +1,17 @@
 class TransactionsController < ApplicationController
-  before_action :set_transaction, only: [:show]
+  	before_action :set_transaction, only: [:show]
 
 	def guest_charge
-		@transaction = Transaction.new(transaction_params)
-		@transaction.payer_id = 0
-		@transaction.pending = true
-		@transaction.account = get_doge_api_address(@transaction.email)
-		if @transaction.save
-			render 'guest_pay'
+		if simple_captcha_valid?
+			@transaction = Transaction.new(transaction_params)
+			@transaction.payer_id = 0
+			@transaction.pending = true
+			@transaction.account = get_doge_api_address(@transaction.email)
+			if @transaction.account && @transaction.save
+				render 'guest_pay.js.erb'
+			end
+		else
+			render 'captcha_fail.js.erb'
 		end
 	end
 
@@ -44,11 +48,11 @@ class TransactionsController < ApplicationController
       params.require(:transaction).permit(:commit, :payee_id, :track_id, :payer_id, :value, :method, :email)
     end
 
-		def get_doge_api_address(label)
-			require 'doge_api'
-			$my_api_key = Rails.configuration.aws[:doge_api_key]
-			doge_api = DogeApi::DogeApi.new($my_api_key)
-			account = doge_api.get_new_address address_label: label
-			return account.gsub(/\"/,"")
-		end
+	def get_doge_api_address(label)
+		require 'doge_api'
+		$my_api_key = Rails.configuration.apis[:doge_api_key]
+		doge_api = DogeApi::DogeApi.new($my_api_key, version=2)
+		account = doge_api.get_new_address address_label: label
+		return JSON.parse(account)["data"]["address"]
+	end
 end

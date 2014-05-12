@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
+	include SimpleCaptcha::ControllerHelpers
   	protect_from_forgery with: :exception
 	before_filter :configure_permitted_parameters, if: :devise_controller?
 	before_action :set_transactions
@@ -27,7 +28,7 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
-	# fine guest_user object associated with the current sessions, creating one as needed
+	# find guest_user object associated with the current sessions, creating one as needed
 	def guest_user
 		# Cache the value  the first time it's gotten.
 		@cached_guest_user ||= User.find(session[:guest_user_id] ||= create_guest_user.id)
@@ -50,7 +51,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def create_guest_user
-		u = User.create(username: "guest"+SecureRandom.base64, email: "guest_#{Time.now.to_i}#{rand(99)}@dogeradio.com")
+		u = User.create(username: "guest"+SecureRandom.base64, email: "guest_#{Time.now.to_i}#{rand(99)}@dogeradio.com", guest: true, display_name: "Guest")
 		u.save!(validate: false)
 		@playlist = u.playlists.create(name: "queue", category: "queue")
 		@playlist.tracks = Track.order(created_at: :desc).limit(20)
@@ -60,21 +61,22 @@ class ApplicationController < ActionController::Base
 
 	def location
 		if params[:location].blank?
-			if Rails.env.test? || Rails.env.development?
-				@location ||= Geokit::Geocoders::MultiGeocoder.geocode("69.243.26.55")
-			elsif !session[:geo_location].blank?
+			if !session[:geo_location].blank?
 				@location ||= session[:geo_location]
+			elsif Rails.env.test? || Rails.env.development?
+				@location ||= Geokit::Geocoders::MultiGeocoder.geocode("69.243.26.55")
 			else
 				@location ||= Geokit::Geocoders::MultiGeocoder.geocode("Pullman, WA, USA")
 			end
 		else
 			params[:location].each {|l| l = l.to_i } if params[:location].is_a? Array
 			@location ||= Geokit::Geocoders::MultiGeocoder.geocode(params[:location])
+			session[:geo_location] = @location
 		end
 		@location
 	end
 
-	def set_transactions	
+	def set_transactions
 		@transactions = Transaction.ten_recent
 	end
 

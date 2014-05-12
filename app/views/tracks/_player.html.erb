@@ -3,23 +3,21 @@
 		<%= render partial: 'tracks/player_image', locals: {track:track} %>
 	</div>
 	<div class="media-body">
-		<div id="player-body">
+		<div id="player-body" class="player-body-sidebar">
 			<%= render partial: 'tracks/player_heading', locals: {track:track, position:position} if track.user %>
 		</div>
 		<span id="jquery_jplayer_1" class="jp-jplayer"></span>
 		<div class="jp-seek-bar progress" style="margin-bottom:0;">
 			<div class="jp-play-bar progress-bar"></div>
 		</div>
-		<div id="player-buttons" style="height:30px; position:absolute; top:114px;">
+		<div id="player-buttons" style="height:30px; position:absolute; top:105px;">
 			<span id="jp-controls" >
 				<button type="button" class="jp-play btn btn-link btn-lg" style="padding:0"><span class="glyphicon glyphicon-play"></span></button>
 				<button type="button" class="jp-pause btn btn-link btn-lg" style="padding:0"><span class="glyphicon glyphicon-pause"></span></button>
 				<button type="button" class="jp-next btn btn-link btn-lg" style="padding:0"><span class="glyphicon glyphicon-step-forward"></span></button>
+				<%= render partial: 'tracks/player_custom_controls', locals: {track:track} %>
 			</span>
 		</div>
-	</div>
-	<div style="margin:0; padding-top:3px" class="pull-right" id="player-custom-controls">
-		<%= render partial: 'tracks/player_custom_controls', locals: {track:track} %>
 	</div>
 </div>
 <div id="tags">

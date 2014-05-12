@@ -1,16 +1,19 @@
-<%= image_tag 'dogeRadioIcon.jpg', class: "img-responsive", style: "margin: 0 auto 10px; max-height:50px;"%>
 <div class="content-block">
 <h2>Sign in</h2>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div class="form-group"><%= f.label :email %><br />
+  <div class="form-group"><%= f.label :email %>
   <%= f.email_field :email, :autofocus => true, class: "form-control" %></div>
 
-  <div class="form-group"><%= f.label :password %><br />
+  <div class="form-group"><%= f.label :password %>
   <%= f.password_field :password, class: "form-control"  %></div>
 
   <% if devise_mapping.rememberable? -%>
-    <div class="checkbox"><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+    <div class="checkbox">
+      <%= f.label :remember_me do %>
+        <%= f.check_box :remember_me %> Remember me
+      <% end %>
+    </div>
   <% end -%>
 
   <div style="text-align:center;"><%= f.submit "Sign in", class: "btn btn-primary btn-lg btn-block" %></div>
@@ -19,7 +22,4 @@
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
   <%= link_to "Forgot your password?", new_password_path(resource_name), method: :get, style:'font-size:20px;' %>
 <% end -%>
-	<br />
-	<%= mail_to "beta-test@dogeradio.com", "Want a beta key?", style: 'font-size:20px;' %>
-
 </div>

@@ -1,4 +1,9 @@
-$("#<%= layout_container %>").html("<%= j(yield) %>").slideDown();
+$("#<%= @layout_container %>").slideUp(function(){
+	$(this).html("<%= j(yield) %>").slideDown();
+});
+<% if @layout_container != 'action-panel' %>
+	$("#action-panel").slideUp();
+<% end %>
 <% if @jambase_events %>
 	$("#main-sidebar").html("<%=j render 'events/jambase_events' %>");
 <% end %>

@@ -1,0 +1,14 @@
+<% if @location.city %>
+	$("#location_city").html("<%=j @location.city %>");
+	<% if (@location.state.length + @location.city.length < 17) && @location.state %>
+		$("#location_state").html(", <%=j @location.state %>");
+	<% else %>
+		$("#location_state").html("");
+	<% end %>
+<% elsif @location.state %>
+	$("#location_city").html("");
+	$("#location_state").html("<%=j @location.state %>");
+<% else %>
+	$("#location_city").html("Where?");
+	$("#location_state").html("");
+<% end %>

@@ -1,28 +1,46 @@
 <div class="content-block">
-	<h3 style="display:inline-block; border-bottom: 1px solid white"><%= @user.display_name %><% if @user.address && @user.publish_address %><small><%=@user.address %></small><% end %></h3>
 	<% if current_user != @user %>
-		<%= link_to pay_path(@user, user:{method:"event-tip"}), method: :post, remote: true do %>
-			<%= image_tag 'dogecoin75px.png', alt: 'Tip', style:"height:75px; float:right;", id: "pay-user-link", data: {toggle:"tooltip", placement:"left", title:"Send thanks!"} %>
+		<%= link_to pay_path(@user, user:{method:"event-tip"}), method: :post, remote: true, style: "float:right" do %>
+			<%= image_tag 'dogecoin75px.png', alt: 'Tip', style:"height:75px;", id: "pay-user-link", data: {toggle:"tooltip", placement:"left", title:"Send thanks!"} %>
 		<% end %>
 	<% end %>
+	<h3 class="underlined-header"><%= @user.display_name %><% if @user.address && @user.publish_address %> <small><%=@user.address %></small><% end %></h3>
 	<%= render partial: 'shared/follow_form', locals: {user: @user} if signed_in? %>
-	<div class="media">
+	<div class="media user-profile">
 		<div class="pull-left">
+			<% if current_or_guest_user.admin %>
+				<%= render partial: 'users/verify_form', locals: {user: @user} %>
+			<% else %>
+				<%= @user.verified ? image_tag("officialprofile.png", class: "verified-image") : image_tag("notofficialprofile.png", class: "verified-image") %>
+			<% end %>
 			<% if @user.try(:avatar) %>
 				<%= image_tag @user.avatar.url(:square), class: "media-object" %>
 			<% end %>
 			<% if @user.soundcloud_access_token %><%= image_tag 'soundcloud-small.png', style: "position:absolute; top:240px; left:40px;" %><% end %>
 		</div>
-		<div class="media-body"><p>
-			<%= html_escape(@user.bio).gsub(/\n/, '<br />').html_safe %></p>
+		<div class="media-body">
+			<p><%= html_escape(@user.bio).gsub(/\n/, '<br />').html_safe %></p>
 			<% if @user.website %>
 				<h5><%=link_to @user.website, @user.website %></h5>
 			<% end %>
 		</div>
 	</div>
-	<ul style="padding-left:0">
-		<%= render @tracks %>
+	<ul class="nav nav-tabs" id="tabs">
+		<li class="tab-item active"><a href="#events" data-toggle="tab">Events</a></li>
+		<li class="tab-item"><a href="#tracks" data-toggle: "tab">Tracks</a></li>
 	</ul>
+	<div class="tab-content">
+		<div class="tab-pane active" id="events">
+			<ul style="padding-left:0">
+				<%= render partial: 'events/event_list', locals: {events: @events} %>
+			</ul>
+		</div>
+		<div class="tab-pane" id="tracks">
+			<ul style="padding-left:0">
+				<%= render @tracks %>
+			</ul>
+		</div>
+	</div>
 </div>
 <script>
 	$('#pay-user-link').tooltip();

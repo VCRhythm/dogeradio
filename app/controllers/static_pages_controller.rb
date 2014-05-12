@@ -1,14 +1,29 @@
 class StaticPagesController < ApplicationController
 	#skip_before_filter :verify_authenticity_token
-	before_filter :layout_container, except: [:events_sidebar]
+	before_filter :layout_container, except: [:contact, :events_sidebar, :update_location]
+
+	def update_location
+		location
+	end
 
 	def events_sidebar
 		@venues = Venue.local(100, location).with_upcoming_events
 		@local_events = @venues.collect {|venue| venue.events}.first
 		@local_events = @local_events ? @local_events.order(moment: :asc) : nil
 	end
-	
-	def main		
+
+	def contact
+		@layout_container = "action-panel"
+		choose_layout
+	end
+
+	def send_contact
+		@email = params[:user][:email]
+		@message = params[:message]
+		ContactTristan.user_email(@email, @message).deliver
+	end
+
+	def main
 #		@new_tracks = Music.order(created_at: :desc).where(processed: true).limit(5)
 #		@active_users = Array.new
 
@@ -20,7 +35,7 @@ class StaticPagesController < ApplicationController
 #				end
 #			end
 #		end
-		
+
 		#Local Users
 #		@local_users = User.local(100, location)
 
@@ -55,10 +70,10 @@ class StaticPagesController < ApplicationController
 		respond_to do |format|
 			format.html
 			format.js { render layout: "events"}
-		end	
+		end
 	end
 	def layout_container
 		@layout_container = "main-body"
-	end 
+	end
 
 end

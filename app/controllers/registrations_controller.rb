@@ -30,23 +30,23 @@ class RegistrationsController < Devise::RegistrationsController
 		resource.save
 		sign_in(resource_name, resource)
 	end
-	
+
 	private
 	def choose_layout
 		respond_to do |format|
 			format.html
 			format.js { render layout: "events"}
-		end	
+		end
 	end
 	def layout_container
 		@layout_container = "main-body"
-	end 
+	end
 	def get_doge_api_address
 		require 'doge_api'
-		$my_api_key = Rails.configuration.aws[:doge_api_key]
-		doge_api = DogeApi::DogeApi.new($my_api_key)
+		$my_api_key = Rails.configuration.apis[:doge_api_key]
+		doge_api = DogeApi::DogeApi.new($my_api_key, version=2)
 		account = doge_api.get_new_address address_label: resource.username
-		return account.gsub(/\"/,"")
+		return JSON.parse(account)["data"]["address"]
 	end
 
 	def needs_password?(user, params)

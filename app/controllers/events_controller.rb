@@ -4,18 +4,22 @@ class EventsController < ApplicationController
 	before_action :parse_moment, only: [:update, :create]
 	before_filter :authenticate_user!, except: [:show, :venue_events, :index]
 	before_filter :layout_container, except: [:index]
+	helper_method :current_or_guest_user
 
 	def index
 		@venues = Venue.local(100, location).with_upcoming_events
 		@events = @venues.collect {|venue| venue.events.upcoming}.first
-		@layout_container ="events"
-		choose_layout
+		render "local_events.js.erb"
 	end
 
 	def show
+		@hash = Gmaps4rails.build_markers(@event.venue) do |venue, marker|
+			marker.lat venue.lat
+			marker.lng venue.lng
+		end
 		choose_layout
 	end
-	
+
 	def venue_events
 		@events = @venue.events
 		render action: 'index'
@@ -29,29 +33,27 @@ class EventsController < ApplicationController
 
 	def new_user #authenticated
 		@event = Event.find(params[:event_id])
-		@users = User.where.not(display_name: nil).order("display_name ASC")
+		@users = User.no_guests.order("display_name ASC")
 		choose_layout
 	end
 
 	def add_user #authenticated
 		@event = Event.find(params[:event_id])
-		if @event.creator?(current_user)
+		if current_user.try(:admin?) || @event.creator?(current_or_guest_user)
 			params[:event][:users].each do |user_id|
 				user = User.find(user_id)
 				if !@event.has_user?(user)
 					@event.users << user
 				end
 			end
-			render action: 'show', status: :ok, location: @event
-		else
-			render action: 'show', status: :unauthorized, location: @event
 		end
+		choose_layout
 	end
 
 	def edit #authenticated
-		choose_layout		
+		choose_layout
 	end
-	
+
 	def update #authenticated
     	respond_to do |format|
       		if @event.update(event_params)
@@ -68,12 +70,19 @@ class EventsController < ApplicationController
 		@event = Event.new
 		if @venue.jambase_id
 			@jambase_events = @venue.jambase_events
+			respond_to do |format|
+				format.html
+				format.js { render layout: "jambase_events"}
+			end
+		else
+			choose_layout
 		end
 	end
 
 	def create #authenticated
-		@event = current_user.created_events.new(event_params)
+		@event = Event.new(event_params)
 		@event.venue_id = @venue.id
+		current_user.created_events << @event
 		respond_to do |format|
 			if @event.save
 				format.html { redirect_to @venue, notice: 'Event was sucessfully added.' }
@@ -86,15 +95,16 @@ class EventsController < ApplicationController
 	end
 
 	private
+
    	def layout_container
 		@layout_container = "action-panel"
-	end 
+	end
 
 	def choose_layout
 		respond_to do |format|
 			format.html
 			format.js { render layout: "events"}
-		end	
+		end
 	end
 
 	def parse_moment
@@ -104,7 +114,7 @@ class EventsController < ApplicationController
     def set_venue
 		@venue = Venue.find(params[:venue_id])
     end
-    
+
     def set_event
       @event = Event.find(params[:id])
     end

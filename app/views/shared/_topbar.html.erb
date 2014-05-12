@@ -1,0 +1,10 @@
+<div class="row" id="topbar">
+	<div class="col-sm-12" style="padding:0;">
+		<div class="content-block">
+			<button type="button" id="maximize-sidebar" class="btn btn-default btn-xs size-button"><span class="glyphicon glyphicon-resize-full"></span></button>
+			<div id="player"><%= render partial: "tracks/topplayer", locals: {track: @track, position: @player_position } %></div>
+			<%= render partial: 'shared/ticker' %>
+			<%= render partial: 'shared/playlist', locals: { hidden: true } %>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,7 @@
+<ul id="playlist" class="list-group sortable" data-playlist_id="<%=@playlist.id %>" <% if !defined?(hidden).nil? %>style="display:none;"<% end %>>
+	<% playlist_counter = 1 %>
+	<% @playlist.tracks.each do |track| %>
+		<%= render partial: 'tracks/playlist_item', locals: {track: track, playlist_counter: playlist_counter} %>
+		<% playlist_counter += 1 %>
+	<% end %>
+</ul>

@@ -1,6 +1,19 @@
 var go = false;
 var jPlayer;
 
+function refreshPlayer(){
+	loadPlayer($("#player-heading").attr("data-track_id"));
+}
+
+function refreshTicker(){
+	$("#scrollingText").smoothDivScroll({
+		autoScrollingMode: "always",
+		autoScrollingDirection: "endlessLoopRight",
+		autoScrollingStep: 1,
+		autoScrollingInterval: 100,
+	});
+}
+
 function setNextSong(track_id){
 	if(jPlayer.data("jPlayer").options.loop){
 		$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
@@ -31,10 +44,7 @@ function loadPlayer(track_id){
 		supplied: "mp3",
 		swfPath: "http://www.jplayer.org/latest/js/Jplayer.swf",
 		keyEnabled: true,
-		play: function(){
-			$(this).jPlayer("pauseOthers");
-		},
-		cssSelectorAncestor: "",
+		cssSelectorAncestor:"",
 		cssSelector: {
 			play:".jp-play",
 			pause:".jp-pause",
@@ -43,15 +53,18 @@ function loadPlayer(track_id){
 		},
 		ready: function () {
 			track_url=$("#player-heading").attr("data-track_url");
-			$(this).jPlayer("setMedia", {mp3: track_url} );
-			if (go) $(this).jPlayer("play"); 
+			$(this).jPlayer("setMedia", {
+				mp3: track_url,
+				ogg: track_url
+			});
+			if (go) $(this).jPlayer("play");
 			go = false;
 		},
 		repeat: function(event){
 			setNextSong(track_id);
 		}
 	});
-}	
+}
 
 function updatePlayer(position){
 	previous_position = $("#player-heading").attr('data-position');
@@ -73,7 +86,10 @@ function updatePlayer(position){
 
 $(document).ready(function(){
 	jPlayer = $("#jquery_jplayer_1");
-	loadPlayer($("#player-heading").attr("data-track_id"));
+	refreshPlayer();
+	refreshTicker();
+	$.get("/events_sidebar");
+	$(".alert").delay(3000).slideUp();
 
 	$(document).on('click', '.remote-link', function(){
 		$('.navbar-collapse').removeClass('in');
@@ -95,7 +111,8 @@ $(document).ready(function(){
 		track_id = $('#player-heading').attr('data-track_id');
 		$.ajax({
 			type: 'get',
-			url: '/tracks/'+track_id+'/tags/new'
+			url: '/tracks/'+track_id+'/tags/new',
+			dataType: 'script'
 		});
 	}).on('click', '.clickable', function(){
 		position = $(this).parent().attr('data-playlist_number');
@@ -126,7 +143,60 @@ $(document).ready(function(){
 			type: 'get',
 			url: '/load_yelp_suggestions/'
 		});
-	});
+	}).on('click', '#minimize-sidebar', function(){
+		$('#sidebar').slideUp(function(){
+			$(this).remove();
+			$('#main-container').removeClass("row-offcanvas row-offcanvas-left");
+			$('#main').removeClass("col-sm-8").addClass("col-sm-12");
+		});
+		$.ajax({
+			type: 'get',
+			url: '/topbar'
+		});
+	}).on('click', '#maximize-sidebar', function(){
+		$('#topbar').slideUp(function(){
+			$(this).remove();
+			$('#main-container').addClass("row-offcanvas row-offcanvas-left");
+			$('#main').removeClass("col-sm-12").addClass("col-sm-8");
+		});
+		$.ajax({
+			type: 'get',
+			url: '/sidebar'
+		});
+	}).on('click', "#update_balance_link", function(){
+		$("#update_balance").html("<p class='alert alert-info'>Account balance updating...</p>");
+	}).on('click', '#add-yelp-venues', function(){
+		$(".yelp-response-check").each(function(){
+			if(this.checked){
+				$.ajax({
+					type: 'post',
+					data: {
+						venue:{
+							name: this.getAttribute("data-name"),
+							street: this.getAttribute("data-street"),
+							city: this.getAttribute("data-city"),
+							state: this.getAttribute("data-state"),
+							zipcode: this.getAttribute("data-zipcode"),
+							country: this.getAttribute("data-country")
+						},
+						yelp_image: this.getAttribute('data-image-url')
+					},
+					url: "/venues"
+				});
+			}
+		});
+	}).on('click', '#tip-button', function(){
+		$('#tip-button').slideUp();
+		$('.tip-alert').html("Processing...").addClass("alert-success").slideDown();
+	}).on({
+		mouseenter: function() {
+			$("#venue_" +$(this).attr("data-event-id")).html($(this).attr("data-venue-name")).addClass("description");
+		},
+		mouseleave: function() {
+			$("#venue_" +$(this).attr("data-event-id")).html("@").removeClass("description");
+		}
+	}, ".venue-link");
+
 
 	$('.sortable').sortable({
 		dropOnEmpty: false,
@@ -147,7 +217,7 @@ $(document).ready(function(){
 				url: '/playlists/'+playlist_id+'/sort',
 				dataType: 'script',
 				complete: function(request){
-					setNextSong(track_id);	
+					setNextSong(track_id);
 					$(".list-group").addClass("sortable");
 				}
 			});

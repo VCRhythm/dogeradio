@@ -2,52 +2,101 @@
 
 @font-face {
 	font-family: 'Glyphicons Halflings';
-  src: font-path('glyphicons-halflings-regular.eot');
-  src: font-path('glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
-    font-path('glyphicons-halflings-regular.woff') format('woff'), 
-    font-path('glyphicons-halflings-regular.ttf') format('truetype'), 
+	src: font-path('glyphicons-halflings-regular.eot');
+    src: font-path('glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+    font-path('glyphicons-halflings-regular.woff') format('woff'),
+    font-path('glyphicons-halflings-regular.ttf') format('truetype'),
     font-path('glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
-.nav-tabs li.active a, .nav-tabs li.active a:focus {
-	background-color:transparent;
-	border-bottom: 1px solid rgba(0, 84, 104, 1);
+html{ height:100%; }
+
+body {
+	line-height:1;
+	padding-top: 40px;
+	height:100%;
+	background: image_url('moonSurfaceColorized.jpg') no-repeat center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-color:#333;
 	color:white;
-}
-.nav-tabs li.active a:hover {
-	color:#BA9133;
-	background-color:transparent;
-	border-bottom: 1px solid rgba(0, 84, 104, 1);
-}
-
-.underlined-header{
-	border-bottom: 1px solid white;
-}
-
-.nav-tabs li a:hover, .nav-tabs li a:focus {
-	background-color:black;
-	color:white;
-}
-
-.tab-pane{
-	padding-top:20px;
-}
-
-.nav-tabs .tab-item {
-	font-size: 20px;
-	a{
-		color: white;
-		padding: 6px 5px 0;
+	.stats {
+		overflow: auto;
+		a {
+			float: left;
+			padding: 0 10px;
+			border-left: 1px solid #eee;
+			color: gray;
+			&:first-child {
+			}
+			&:hover {
+				text-decoration: none;
+				color: #049cdb;
+			}
+		}
+		strong {
+			display: block;
+		}
 	}
 }
 
-#map {
-	img {
-		max-width: none;
+#wrap{
+	padding-bottom:50px;
+}
+
+#footer{
+	position:fixed;
+	bottom:0px;
+	width:100%;
+	font-size:12px;
+	padding-top:10px;
+	min-height:30px;
+	height:auto;
+	background-color:#005d74;
+}
+
+a {
+	color: #D47A6F;
+	&:hover{
+		color: #D4AE57;
+		text-decoration:none;
 	}
-	label {
-		width: auto;
-		display:inline;
+}
+
+.navbar-fixed-top{
+	height:50px;
+}
+
+.navbar-default {
+	margin-bottom:0;
+	.navbar-brand{
+		font-size:35px;
+		color:#BA9133;
+	}
+	li{
+		font-size:30px;
+	}
+}
+
+.navbar-form.navbar-right.navbar-input-group{
+	padding-left:0;
+}
+
+.navbar-nav {
+	li {
+		a.nav-link.active{
+			background-color:#005d74;
+			color:white;
+			&:hover{
+				background-color:#005d74;
+				color:#BA9133;
+			}
+		}
+		a.nav-link:hover, a.nav-link:focus{
+			color:white;
+			background-color:black;
+		}
 	}
 }
 
@@ -76,12 +125,50 @@
 	}
 }
 
-
 .navbar-nav.navbar-right:last-child{
 	margin-right:0;
 }
+
 .navbar-form.navbar-right:last-child{
 	margin-right:-10px;
+}
+
+.nav-tabs {
+	li.active a, .nav-tabs li.active a:focus {
+		background-color:transparent;
+		border-bottom: 1px solid rgba(0, 84, 104, 1);
+		color:white;
+	}
+	li.active a:hover {
+		color:#BA9133;
+		background-color:transparent;
+		border-bottom: 1px solid rgba(0, 84, 104, 1);
+	}
+	li a:hover, .nav-tabs li a:focus {
+		background-color:black;
+		color:white;
+	}
+	.tab-item {
+		font-size: 20px;
+		a {
+			color: white;
+			padding: 6px 5px 0;
+		}
+	}
+}
+
+.tab-pane{
+	padding-top:10px;
+}
+
+h2{
+	margin-top:0;
+	padding-top:10px;
+	}
+
+h3{
+	margin-top:0;
+	padding-top:10px;
 }
 
 .bootstrap-datetimepicker-widget{
@@ -121,24 +208,30 @@
 	}
 }
 
-.navbar-nav li a.nav-link.active{
-	background-color:#005d74;
-	color:white;
-	&:hover{
-		background-color:#005d74;
-		color:#BA9133;
-	}
-}
-
-.navbar-nav li a.nav-link:hover, .navbar-nav li a.nav-link:focus{
-	color:white;
-	background-color:black;
-}
-
 .modal-content{
 	padding:10px;
 	color:black;
 }
+
 .button_to{
 	display: inline-block;
+}
+
+.btn-primary{
+	background-color:#005d74;
+	border-color: #005d74;
+	&:hover{
+		background-color:#4896A8;
+		border-color:#4896A8;
+	}
+}
+
+#file.form-control{ height:100%;}
+
+.progress{
+	height:5px;
+}
+
+.progress-bar-success{
+	background-color:	#268b41;
 }
