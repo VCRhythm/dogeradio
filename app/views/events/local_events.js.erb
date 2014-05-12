@@ -1,1 +1,5 @@
-$("#events").html("<%= render partial: 'events/event_list', locals: {events: @events} %>");
+<% if @events %>
+	$('#events').html("<%=j render partial: 'events/event_list', locals: {events: @events} %>");
+<% else %>
+	$('#events').html("<p>No events near your location are able to accept Dogecoin.</p>");
+<% end %>

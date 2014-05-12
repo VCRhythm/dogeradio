@@ -2,14 +2,17 @@ class EventsController < ApplicationController
 	before_action :set_event, only: [:show, :edit, :update, :destroy]
 	before_action :set_venue, only: [:new, :create, :edit, :venue_events]
 	before_action :parse_moment, only: [:update, :create]
-	before_filter :authenticate_user!, except: [:show, :venue_events, :index]
-	before_filter :layout_container, except: [:index]
+	before_filter :authenticate_user!, except: [:show, :venue_events, :local_events]
+	before_filter :layout_container, except: [:local_events]
 	helper_method :current_or_guest_user
 
 	def index
+	end
+
+	def local_events
 		@venues = Venue.local(100, location).with_upcoming_events
 		@events = @venues.collect {|venue| venue.events.upcoming}.first
-		render "local_events.js.erb"
+		render layout: false
 	end
 
 	def show

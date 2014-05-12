@@ -1,2 +1,5 @@
-$("#tracks").html("<%=j render partial: 'tracks/track_list_with_avatar', locals: {tracks: @top_most_played_tracks} %>");
-
+<% if @top_most_played_tracks.length > 0 %>
+	$("#tracks").html("<%=j render partial: 'tracks/track_list_with_avatar', locals: {tracks: @top_most_played_tracks} %>");
+<% else %>
+	$('#tracks').html("<p>No tracks have been submitted near your location.</p>");
+<% end %>

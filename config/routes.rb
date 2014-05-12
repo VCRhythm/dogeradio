@@ -24,6 +24,7 @@ Dogeradio::Application.routes.draw do
   get 'search_users', to: 'search#users'
 
   get 'local_venues', to: 'venues#local_venues'
+  get 'local_events', to: 'events#local_events'
   post 'add_yelp_venues', to: 'venues#add_yelp_venues'
   get 'load_yelp_suggestions', to: "venues#load_yelp_suggestions"
 
